@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://autoload/ui.gd" id="1_ui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/confirm_window.tscn" id="2_confirm"]
+
+[node name="Ui" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_ui")
+
+[node name="Toasts" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_top = 150.0
+offset_right = 320.0
+offset_bottom = 400.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Toast1" type="PanelContainer" parent="Toasts"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"Toast"
+
+[node name="Label" type="Label" parent="Toasts/Toast1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Тост"
+horizontal_alignment = 1
+
+[node name="Toast2" type="PanelContainer" parent="Toasts"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"Toast"
+
+[node name="Label" type="Label" parent="Toasts/Toast2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Тост"
+horizontal_alignment = 1
+
+[node name="Toast3" type="PanelContainer" parent="Toasts"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"Toast"
+
+[node name="Label" type="Label" parent="Toasts/Toast3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Тост"
+horizontal_alignment = 1
+
+[node name="ConfirmWindow" parent="." instance=ExtResource("2_confirm")]
+visible = false

@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/window.gd" id="1_win"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_dim.png" id="2_dim"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_ribbon.png" id="3_ribbon"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_close_normal.png" id="4_close"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_close_pressed.png" id="5_close_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_close_disabled.png" id="6_close_d"]
+
+[node name="Window" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_win")
+
+[node name="Dim" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dim")
+expand_mode = 1
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 300.0
+offset_right = 990.0
+offset_bottom = 800.0
+theme_type_variation = &"WindowPanel"
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Ribbon" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 244.0
+offset_right = 800.0
+offset_bottom = 356.0
+mouse_filter = 2
+texture = ExtResource("3_ribbon")
+patch_margin_left = 104
+patch_margin_right = 104
+
+[node name="Title" type="Label" parent="Ribbon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LabelTitle"
+text = "Заголовок"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 940.0
+offset_top = 270.0
+offset_right = 1020.0
+offset_bottom = 350.0
+texture_normal = ExtResource("4_close")
+texture_pressed = ExtResource("5_close_p")
+texture_disabled = ExtResource("6_close_d")

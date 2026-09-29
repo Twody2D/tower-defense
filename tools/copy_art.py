@@ -25,6 +25,12 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "design" / "Защити огород дизайн" / "export"
 DST = ROOT / "tower-defense" / "art"
 
+def frames_in(name: str) -> int:
+    """`fx_poof_5f` -> 5; files without the suffix are one frame."""
+    tail = name.rsplit("_", 1)[-1]
+    return int(tail[:-1]) if tail.endswith("f") and tail[:-1].isdigit() else 1
+
+
 # Static pictures: destination folder -> source files (relative to design export/)
 FILES: dict[str, list[str]] = {
     "hero": [
@@ -67,7 +73,14 @@ FILES: dict[str, list[str]] = {
         "e/env_fence_decor.png",
     ],
     "fx": [],
-    "ui": [
+    # The whole UI kit (G) and screen parts (I); animated ones go to UI_ANIMS.
+    "ui": sorted(
+        f"{d}/{f.name}" for d in ("g", "i") for f in (SRC / d).glob("*.png") if frames_in(f.stem) == 1
+    ) + [
+        "h/ui_boss_hp_frame.png",
+        "h/ui_boss_hp_fill.png",
+        "h/ui_ribbon_boss.png",
+        "h/ui_icon_parcel.png",
         "h/ui_joystick_base.png",
         "h/ui_joystick_stick.png",
         "h/ui_radial_slot.png",
@@ -142,6 +155,13 @@ FX_ANIMS = {
     "fx_confetti_6f": (10, False), "fx_rage_aura_4f": (8, True), "proj_splat_3f": (12, False),
 }
 
+# set "ui": batch G animated icons, stars, tutorial
+UI_ANIMS = {
+    "ui_btn_ad_glint_4f": (8, True), "ui_star_appear_5f": (12, False), "ui_icon_gift_shake_4f": (10, True),
+    "ui_icon_harvest_ripe_3f": (6, True), "ui_tut_hand_tap_4f": (8, True), "ui_tut_hand_swipe_6f": (10, True),
+    "ui_tut_highlight_3f": (6, True), "ui_tut_arrow_3f": (8, True),
+}
+
 # set "projectiles": hero throws (by skin) and the tomato
 PROJ_ANIMS = {
     "b/proj_apple_spin_4f": (12, True), "b/proj_bone_spin_4f": (12, True), "b/proj_acorn_spin_4f": (12, True),
@@ -160,12 +180,6 @@ TILES = [
 ]
 BIOMES = ["farm", "wheat", "lake"]
 COLS = 8
-
-
-def frames_in(name: str) -> int:
-    """`fx_poof_5f` -> 5; files without the suffix are one frame."""
-    tail = name.rsplit("_", 1)[-1]
-    return int(tail[:-1]) if tail.endswith("f") and tail[:-1].isdigit() else 1
 
 
 def anim_name(base: str) -> str:
@@ -221,6 +235,10 @@ def build_frames() -> dict[str, dict]:
     for b, (fps, loop) in FX_ANIMS.items():
         folder = "b" if b in ("fx_rage_aura_4f", "proj_splat_3f") else "f"
         sets["fx"][anim_name(b).removeprefix("fx_")] = entry(copy(f"{folder}/{b}.png", "fx"), frames_in(b), fps, loop)
+    sets["ui"] = {
+        anim_name(b).removeprefix("ui_"): entry(copy(f"g/{b}.png", "ui"), frames_in(b), fps, loop)
+        for b, (fps, loop) in UI_ANIMS.items()
+    }
     return sets
 
 

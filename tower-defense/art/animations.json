@@ -919,6 +919,56 @@
     "fps": 12,
     "loop": false
    }
+  },
+  "ui": {
+   "btn_ad_glint": {
+    "file": "res://art/ui/ui_btn_ad_glint_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "star_appear": {
+    "file": "res://art/ui/ui_star_appear_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "icon_gift_shake": {
+    "file": "res://art/ui/ui_icon_gift_shake_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "icon_harvest_ripe": {
+    "file": "res://art/ui/ui_icon_harvest_ripe_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "tut_hand_tap": {
+    "file": "res://art/ui/ui_tut_hand_tap_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "tut_hand_swipe": {
+    "file": "res://art/ui/ui_tut_hand_swipe_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "tut_highlight": {
+    "file": "res://art/ui/ui_tut_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "tut_arrow": {
+    "file": "res://art/ui/ui_tut_arrow_3f.png",
+    "frames": 3,
+    "fps": 8,
+    "loop": true
+   }
   }
  },
  "atlases": {

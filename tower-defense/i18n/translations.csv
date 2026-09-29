@@ -1,14 +1,117 @@
 keys,ru,en
 GAME_TITLE,Защити огород!,Protect the Garden!
+LOGO_LINE_1,Защити,Protect
+LOGO_LINE_2,огород!,the Garden!
+LOADING,Загрузка… %d%%,Loading… %d%%
+TIP_1,Совет: гусь бьёт ворон,Tip: the goose hits crows
+TIP_2,Совет: поливалка замедляет всех рядом,Tip: the sprinkler slows everyone nearby
+TIP_3,Совет: забор задерживает вредителей,Tip: a fence holds pests back
+TIP_4,Совет: крот проходит под забором,Tip: the mole digs under fences
+TIP_5,Совет: «Вызвать сейчас» даёт монеты,Tip: «Call now» gives coins
 BTN_PLAY,Играть,Play
+BTN_SHOP,Магазин,Shop
+BTN_SETTINGS,Настройки,Settings
+BTN_GIFT,Подарок,Gift
+BTN_HARVEST,Урожай,Harvest
+BTN_HOW_TO,Как играть,How to play
+BTN_FIGHT,В бой,Fight!
+BTN_TAKE,Взять,Take
+BTN_CONTINUE,Продолжить,Continue
+BTN_RESTART,Заново,Restart
+BTN_TO_MAP,На карту,To map
+BTN_NEXT,Дальше,Next
+BTN_REWARD_X2,Награда ×2,Reward ×2
+BTN_SECOND_CHANCE,Второй шанс,Second chance
+BTN_GREAT,Отлично,Great
+BTN_GOT_IT,Понятно,Got it
+BTN_SELECT,Выбрать,Select
+BTN_TRY,Примерить,Try on
+BTN_CLAIM,Забрать,Claim
+BTN_CLAIM_X2,Забрать ×2,Claim ×2
+BTN_CLAIM_X3,Забрать ×3,Claim ×3
+BTN_DISCOUNT,−50%,−50%
+BTN_OPEN_ADS,Открыть %d/%d,Unlock %d/%d
+BTN_MORE_ADS,Ещё %d,%d more
+BTN_YES,Да,Yes
+BTN_NO,Нет,No
+TITLE_LEVEL,Уровень %d,Level %d
+TITLE_PAUSE,Пауза,Paused
+TITLE_SETTINGS,Настройки,Settings
+TITLE_WIN,Победа!,Victory!
+TITLE_LOSE,Поражение,Defeat
+TITLE_NEW_DEFENDER,Новый защитник!,New defender!
+TITLE_NEW_ENEMY,Новый враг!,New pest!
+TITLE_SHOP,Магазин,Shop
+TITLE_GIFT,Ежедневный подарок,Daily gift
+TITLE_HARVEST,Офлайн-урожай,Offline harvest
+TITLE_HOW_TO,Как играть,How to play
+CONFIRM_TITLE,Точно?,Are you sure?
+CONFIRM_TO_MAP,Выйти на карту? Прогресс уровня пропадёт.,Leave to the map? The level progress will be lost.
+CONFIRM_RESTART,Начать уровень заново?,Start the level over?
+LBL_NEW_ENEMIES,Новые враги,New pests
+LBL_BOOSTS,Усиления за рекламу,Boosts for an ad
+BOOST_COINS,+%d монет,+%d coins
+BOOST_DEFENDER,Стартовый защитник,Starting defender
+LBL_REWARD,Награда,Reward
+LBL_MUSIC,Музыка,Music
+LBL_SOUND,Звук,Sound
+LOSE_TEXT,Вредители унесли все морковки,The pests took all the carrots
+SECOND_CHANCE_TEXT,+%d морковок — бой продолжается,+%d carrots — the fight goes on
+TAB_UPGRADES,Прокачка,Upgrades
+TAB_SKINS,Скины,Skins
+STAT_DAMAGE,Урон,Damage
+STAT_ATTACK_SPEED,Скорость атаки,Attack speed
+STAT_RUN_SPEED,Скорость бега,Run speed
+STAT_MAGNET,Магнит,Magnet
+LBL_LEVEL_OF,Ур. %d/%d,Lv. %d/%d
+LBL_MAX,Макс.,Max
+SKIN_RACCOON,Енот-фермер,Farmer Raccoon
+SKIN_CORGI,Корги в кепке,Corgi in a Cap
+SKIN_PIG,Свинка в комбинезоне,Piggy in Overalls
+SKIN_RABBIT,Белый кролик,White Rabbit
+SKIN_CHICKEN,Курочка в косынке,Hen in a Kerchief
+SKIN_SELECTED,Выбран,Selected
+SKIN_OWNED,Куплен,Owned
+SKIN_BY_ADS,Откроется после %d просмотров рекламы,Unlocks after %d ad views
+SKIN_BY_LEVEL,Откроется за прохождение уровня %d,Unlocks for passing level %d
+SKIN_BY_GRAINS,Купи за золотые зёрна,Buy for golden grains
+SKIN_LEVEL_SHORT,Ур. %d,Lv. %d
+LBL_DAY,День %d,Day %d
+LBL_TODAY,Сегодня,Today
+HARVEST_TEXT,"Грядка вырастила зёрна, пока тебя не было",The bed grew grains while you were away
+HARVEST_EMPTY,Пока ничего не выросло — загляни позже,Nothing has grown yet — come back later
 HUD_WAVE,Волна %d/%d,Wave %d/%d
+HUD_WAVE_BANNER,Волна %d!,Wave %d!
 HUD_CALL_NOW,Вызвать сейчас,Call now
 MSG_PAUSED,Пауза,Paused
 MSG_LOST,Морковки унесли!,The carrots are gone!
 MSG_WON,Огород спасён!,The garden is safe!
 MSG_BOSS,Идёт Лис!,The Fox is coming!
+DEF_GOOSE,Гусь-стрелок,Goose Archer
 DEF_FROG,Поливалка,Sprinkler
 DEF_BEAVER,Помидорная пушка,Tomato Cannon
 DEF_HIVE,Улей,Beehive
 DEF_FENCE,Забор,Fence
-DEF_GOOSE,Гусь-стрелок,Goose Archer
+DESC_GOOSE,Стреляет горохом в одного вредителя. Бьёт и ворон.,Shoots peas at one pest. Hits crows too.
+DESC_FROG,Поливает всех рядом: вредители замедляются.,Waters everyone nearby: pests slow down.
+DESC_BEAVER,Бросает помидор — достаётся всей толпе.,Throws a tomato that hits the whole crowd.
+DESC_HIVE,Пчёлы жалят и жалят ещё несколько секунд. Бьют ворон.,Bees sting and keep stinging for a while. Hit crows.
+DESC_FENCE,Встаёт на дорогу и задерживает вредителей. Чини его за монеты.,Blocks the road and holds pests back. Repair it for coins.
+ENEMY_BEETLE,Жук,Beetle
+ENEMY_CATERPILLAR,Гусеница,Caterpillar
+ENEMY_MOLE,Крот,Mole
+ENEMY_CROW,Ворона,Crow
+ENEMY_FOX,Лис,Fox
+HINT_BEETLE,Быстрый и слабый — гусь справится.,Fast and weak — the goose will handle it.
+HINT_CATERPILLAR,Медленная и крепкая — ставь пушку или улей.,Slow and tough — use the cannon or the hive.
+HINT_MOLE,"Ныряет под землю и проходит под забором. Бей, когда вынырнет.",Dives underground and passes under fences. Hit it when it pops up.
+HINT_CROW,"Летит прямо к грядке. Её бьют только гусь, улей и герой.","Flies straight to the bed. Only the goose, the hive and the hero hit it."
+HINT_FOX,Босс: ломает забор за 2 удара и оглушает героя. Собери все силы!,Boss: breaks a fence in 2 hits and stuns the hero. Bring everything!
+TOAST_NO_AD,"Реклама недоступна, попробуйте позже","Ads are not available, try later"
+TOAST_NO_COINS,Не хватает монет,Not enough coins
+TOAST_NO_GRAINS,Не хватает зёрен,Not enough grains
+TOAST_SAVED,Сохранено,Saved
+HOW_TO_MOVE,Веди героя пальцем или клавишами WASD — он сам кидает яблоки во вредителей.,Drag your finger or use WASD — the hero throws apples at pests by himself.
+HOW_TO_COINS,"Собирай монеты, которые роняют вредители.",Pick up the coins pests drop.
+HOW_TO_PLOT,Встань на площадку и выбери защитника — монеты уйдут на постройку. Встань ещё раз — улучшишь.,Stand on a plot and pick a defender — your coins build it. Stand again to upgrade.
+HOW_TO_CARROTS,Не дай унести морковки: чем меньше потерял — тем больше звёзд.,Keep the carrots safe: the fewer you lose — the more stars you get.

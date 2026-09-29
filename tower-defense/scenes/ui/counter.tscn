@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/counter.gd" id="1_counter"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_counter_plate.png" id="2_plate"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="3_grain"]
+
+[node name="Counter" type="Control"]
+custom_minimum_size = Vector2(240, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 64.0
+mouse_filter = 2
+script = ExtResource("1_counter")
+icon = ExtResource("3_grain")
+
+[node name="Plate" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_plate")
+patch_margin_left = 32
+patch_margin_right = 32
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 68.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = ExtResource("3_grain")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 68.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+vertical_alignment = 1

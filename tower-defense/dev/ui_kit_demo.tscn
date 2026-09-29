@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://dev/ui_kit_demo.gd" id="1_demo"]
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="2_win"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="3_ad"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="4_counter"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_damage.png" id="5_dmg"]
+
+[node name="UiKitDemo" type="Node"]
+script = ExtResource("1_demo")
+
+[node name="Bg" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.36, 0.68, 0.29, 1)
+
+[node name="Counter" parent="." instance=ExtResource("4_counter")]
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 280.0
+offset_bottom = 94.0
+value = 1240
+
+[node name="Window" parent="." instance=ExtResource("2_win")]
+
+[node name="Tabs" type="HBoxContainer" parent="Window/Panel/Content" index="0"]
+layout_mode = 2
+
+[node name="Active" type="Button" parent="Window/Panel/Content/Tabs"]
+custom_minimum_size = Vector2(240, 88)
+layout_mode = 2
+theme_type_variation = &"TabActive"
+text = "Прокачка"
+
+[node name="Inactive" type="Button" parent="Window/Panel/Content/Tabs"]
+custom_minimum_size = Vector2(240, 88)
+layout_mode = 2
+theme_type_variation = &"TabInactive"
+text = "Скины"
+
+[node name="Card" type="PanelContainer" parent="Window/Panel/Content" index="1"]
+layout_mode = 2
+theme_type_variation = &"Card"
+
+[node name="Row" type="HBoxContainer" parent="Window/Panel/Content/Card"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Icon" type="TextureRect" parent="Window/Panel/Content/Card/Row"]
+layout_mode = 2
+texture = ExtResource("5_dmg")
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Window/Panel/Content/Card/Row"]
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+text = "Урон"
+
+[node name="Buttons" type="HBoxContainer" parent="Window/Panel/Content" index="2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Orange" type="Button" parent="Window/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+text = "В бой"
+
+[node name="Green" type="Button" parent="Window/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+theme_type_variation = &"ButtonGreen"
+text = "120"
+
+[node name="Blue" type="Button" parent="Window/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+theme_type_variation = &"ButtonBlue"
+text = "Примерить"
+
+[node name="Ad" parent="Window/Panel/Content" index="3" instance=ExtResource("3_ad")]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Награда ×2"
+
+[node name="Gold" type="Label" parent="Window/Panel/Content" index="4"]
+layout_mode = 2
+theme_type_variation = &"LabelGold"
+text = "+25"
+horizontal_alignment = 1

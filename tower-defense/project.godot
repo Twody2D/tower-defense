@@ -29,6 +29,7 @@ Audio="*res://autoload/audio.gd"
 YandexSdk="*res://autoload/yandex_sdk.gd"
 Ads="*res://autoload/ads.gd"
 I18n="*res://autoload/i18n.gd"
+Ui="*res://autoload/ui.tscn"
 
 [debug]
 

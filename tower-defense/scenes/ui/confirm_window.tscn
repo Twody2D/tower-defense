@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_win"]
+[ext_resource type="Script" path="res://scenes/ui/confirm_window.gd" id="2_confirm"]
+
+[node name="ConfirmWindow" instance=ExtResource("1_win")]
+script = ExtResource("2_confirm")
+title_key = "CONFIRM_TITLE"
+portrait_width = 860.0
+landscape_width = 900.0
+
+[node name="Message" type="Label" parent="Panel/Content" index="0"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+text = "Выйти на карту? Прогресс уровня пропадёт."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/Content" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Yes" type="Button" parent="Panel/Content/Buttons"]
+custom_minimum_size = Vector2(300, 112)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonGreen"
+text = "Да"
+
+[node name="No" type="Button" parent="Panel/Content/Buttons"]
+custom_minimum_size = Vector2(300, 112)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonBlue"
+text = "Нет"
