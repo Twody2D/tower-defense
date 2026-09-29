@@ -1,0 +1,191 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/shop_window.gd" id="2_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/stat_card.tscn" id="3_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/skin_card.tscn" id="4_r"]
+[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="5_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="6_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="7_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="8_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="9_r"]
+
+[node name="ShopWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+title_key = "TITLE_SHOP"
+portrait_width = 1000.0
+landscape_width = 1800.0
+stat_card = ExtResource("3_r")
+skin_card = ExtResource("4_r")
+
+[node name="Tabs" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TabUp" type="Button" parent="Panel/Content/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 88)
+layout_mode = 2
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"TabActive"
+text = "TAB_UPGRADES"
+
+[node name="TabSkins" type="Button" parent="Panel/Content/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 88)
+layout_mode = 2
+size_flags_vertical = 8
+focus_mode = 0
+theme_type_variation = &"TabInactive"
+text = "TAB_SKINS"
+
+[node name="Stats" type="BoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 26
+alignment = 1
+metadata/portrait_vertical = true
+
+[node name="Skins" type="BoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+visible = false
+metadata/portrait_vertical = true
+
+[node name="Preview" type="VBoxContainer" parent="Panel/Content/Skins"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="HeroCard" type="PanelContainer" parent="Panel/Content/Skins/Preview"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(460, 460)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"CardHighlight"
+
+[node name="Holder" type="Control" parent="Panel/Content/Skins/Preview/HeroCard"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Shadow" type="Sprite2D" parent="Panel/Content/Skins/Preview/HeroCard/Holder"]
+unique_name_in_owner = true
+position = Vector2(210, 350)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_r")
+
+[node name="Hero" type="AnimatedSprite2D" parent="Panel/Content/Skins/Preview/HeroCard/Holder"]
+unique_name_in_owner = true
+position = Vector2(210, 200)
+scale = Vector2(0.97, 0.97)
+sprite_frames = ExtResource("6_r")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="SkinName" type="Label" parent="Panel/Content/Skins/Preview"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 38
+text = "SKIN_PIG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkinHow" type="Label" parent="Panel/Content/Skins/Preview"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 26
+text = "SKIN_BY_ADS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Content/Skins/Preview"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="SelectSkin" type="Button" parent="Panel/Content/Skins/Preview/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 112)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonGreen"
+text = "BTN_SELECT"
+
+[node name="BuySkin" type="Button" parent="Panel/Content/Skins/Preview/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(220, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+theme_type_variation = &"ButtonGreen"
+
+[node name="Row" type="HBoxContainer" parent="Panel/Content/Skins/Preview/Actions/BuySkin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+offset_bottom = -12.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Content/Skins/Preview/Actions/BuySkin/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(52, 52)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Panel/Content/Skins/Preview/Actions/BuySkin/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "120"
+horizontal_alignment = 1
+vertical_alignment = 1
+size_flags_vertical = 4
+
+[node name="OpenAd" parent="Panel/Content/Skins/Preview/Actions" instance=ExtResource("8_r")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(460, 112)
+layout_mode = 2
+text = "BTN_OPEN_ADS"
+tag = &"skin"
+
+[node name="Try" parent="Panel/Content/Skins/Preview/Actions" instance=ExtResource("8_r")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 112)
+layout_mode = 2
+text = "BTN_TRY"
+tag = &"try"
+theme_override_font_sizes/font_size = 32
+
+[node name="Cards" type="GridContainer" parent="Panel/Content/Skins"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 16
+columns = 5
+
+[node name="Grains" parent="." instance=ExtResource("9_r")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 30.0
+offset_right = 340.0
+offset_bottom = 94.0
+icon = ExtResource("7_r")

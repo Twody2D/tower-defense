@@ -969,6 +969,140 @@
     "fps": 8,
     "loop": true
    }
+  },
+  "hero_raccoon_ui": {
+   "idle": {
+    "file": "res://art/hi/hero_raccoon_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hi/hero_raccoon_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hi/hero_raccoon_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   }
+  },
+  "hero_corgi_ui": {
+   "idle": {
+    "file": "res://art/hi/hero_corgi_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hi/hero_corgi_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_pig_ui": {
+   "idle": {
+    "file": "res://art/hi/hero_pig_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hi/hero_pig_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_rabbit_ui": {
+   "idle": {
+    "file": "res://art/hi/hero_rabbit_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hi/hero_rabbit_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_chicken_ui": {
+   "idle": {
+    "file": "res://art/hi/hero_chicken_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hi/hero_chicken_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "pests_ui": {
+   "beetle": {
+    "file": "res://art/hi/enemy_beetle_walk_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "caterpillar": {
+    "file": "res://art/hi/enemy_caterpillar_walk_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "mole": {
+    "file": "res://art/hi/enemy_mole_walk_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "crow": {
+    "file": "res://art/hi/enemy_crow_fly_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "fox": {
+    "file": "res://art/hi/boss_fox_walk_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   }
+  },
+  "defenders_ui": {
+   "goose": {
+    "file": "res://art/hi/def_goose_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "frog": {
+    "file": "res://art/hi/def_frog_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "beaver": {
+    "file": "res://art/hi/def_beaver_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "hive": {
+    "file": "res://art/hi/def_hive_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
   }
  },
  "atlases": {

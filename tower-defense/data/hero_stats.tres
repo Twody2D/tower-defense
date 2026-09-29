@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_stats")
 speed = 220.0
-damage = 10.0
-attacks_per_second = 1.5
-attack_radius = 180.0
+damage = 5.0
+attacks_per_second = 1.2
+attack_radius = 160.0
 magnet_radius = 120.0
 stun_time = 1.5

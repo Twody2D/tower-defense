@@ -15,8 +15,12 @@ Run: py -3.14 tools/copy_art.py
 """
 
 import json
+import os
+import re
 import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 from PIL import Image
@@ -24,6 +28,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "design" / "Защити огород дизайн" / "export"
 DST = ROOT / "tower-defense" / "art"
+SVG = ROOT / "design" / "Защити огород дизайн" / "assets"
+GODOT = os.environ.get("GODOT", r"C:\PROGRAMS\Godot\Godot_v4.7.2-stable_win64_console.exe")
 
 def frames_in(name: str) -> int:
     """`fx_poof_5f` -> 5; files without the suffix are one frame."""
@@ -318,10 +324,105 @@ def make_shadow() -> None:
     img.save(DST / "ui" / "shadow.png", optimize=True)
 
 
+def make_small_buttons() -> None:
+    """Small buttons of the mockups (80 tall, slice 31 31 36 31): the kit
+    draws them by scaling the 112 picture with CSS; Godot 9-slice cannot, so
+    the pictures are scaled here (ui_btn_<colour>_<state>_sm.png)."""
+    k = 80 / 112
+    for colour in ("orange", "green", "blue", "ad"):
+        for state in ("normal", "pressed", "disabled"):
+            src = Image.open(DST / "ui" / f"ui_btn_{colour}_{state}.png").convert("RGBA")
+            size = (round(src.width * k), round(src.height * k))
+            src.resize(size, Image.Resampling.LANCZOS).save(DST / "ui" / f"ui_btn_{colour}_{state}_sm.png", optimize=True)
+
+
+# --- Big copies for screens ---------------------------------------------------
+# The PNG sheets are drawn for the battle (hero 128, beetle 48); menus and
+# windows show them 3–6 times bigger and they blur. These sheets are rendered
+# again from the design SVGs at a scale (frame ≈ 250–400 px):
+# sets hero_<skin>_ui (idle, sad; the raccoon also joy), pests_ui (<pest>: walk/fly), defenders_ui (<id>: l1 idle).
+HI_HERO = [("idle", 4, 6, True), ("sad", 4, 6, True)]
+HI_HERO_EXTRA = {"raccoon": [("joy", 6, 10, True)]}  # the loading screen
+HI_HERO_SCALE = 3.0
+HI_PESTS = {  # pest: (svg base, frames, fps, scale)
+    "beetle": ("enemy_beetle_walk_4f", 4, 8, 5.0),
+    "caterpillar": ("enemy_caterpillar_walk_4f", 4, 8, 4.0),
+    "mole": ("enemy_mole_walk_4f", 4, 8, 4.0),
+    "crow": ("enemy_crow_fly_4f", 4, 10, 4.0),
+    "fox": ("boss_fox_walk_6f", 6, 10, 1.5),
+}
+HI_DEFENDER_SCALE = 2.0
+
+
+def flat_svg(text: str) -> str:
+    """A design sheet keeps each frame in a nested <svg x=… y=…>; Godot's
+    ThorVG draws only the first. Frames become clipped, shifted groups."""
+    text = re.sub(r"<metadata>.*?</metadata>", "", text, flags=re.S)
+    root_end = text.index(">") + 1
+    head, body = text[:root_end], text[root_end:text.rindex("</svg>")]
+    clips: list[str] = []
+
+    def frame(m: re.Match) -> str:
+        attrs, inner = m.group(1), m.group(2)
+
+        def num(key: str) -> float:
+            found = re.search(r"\b" + key + r'="([-\d.]+)"', attrs)
+            return float(found.group(1)) if found else 0.0
+
+        x, y, w, h = num("x"), num("y"), num("width"), num("height")
+        cid = f"frame{len(clips)}"
+        clips.append(f'<clipPath id="{cid}"><rect x="{x:g}" y="{y:g}" width="{w:g}" height="{h:g}"/></clipPath>')
+        return f'<g clip-path="url(#{cid})"><g transform="translate({x:g} {y:g})">{inner}</g></g>'
+
+    body = re.sub(r"<svg\b([^>]*)>(.*?)</svg>", frame, body, flags=re.S)
+    return head + "<defs>" + "".join(clips) + "</defs>" + body + "</svg>"
+
+
+def make_hi() -> dict[str, dict]:
+    """Renders the big sheets into art/hi/ (through Godot) and returns their sets."""
+    out = DST / "hi"
+    out.mkdir(parents=True, exist_ok=True)
+    jobs: list[dict] = []
+    sets: dict[str, dict] = {}
+    tmp = Path(tempfile.mkdtemp(prefix="hi_svg_"))
+
+    def job(folder: str, base: str, scale: float) -> str:
+        src = tmp / f"{base}.svg"
+        src.write_text(flat_svg((SVG / folder / f"{base}.svg").read_text(encoding="utf-8")), encoding="utf-8")
+        jobs.append({"src": str(src), "scale": scale, "out": str(out / f"{base}.png")})
+        return f"res://art/hi/{base}.png"
+
+    for skin in SKINS:
+        sets[f"hero_{skin}_ui"] = {
+            a: entry(job("b", f"hero_{skin}_{a}_{n}f", HI_HERO_SCALE), n, fps, loop)
+            for a, n, fps, loop in HI_HERO + HI_HERO_EXTRA.get(skin, [])
+        }
+    sets["pests_ui"] = {
+        pest: entry(job("c", base, k), n, fps, True) for pest, (base, n, fps, k) in HI_PESTS.items()
+    }
+    sets["defenders_ui"] = {
+        d: entry(job("d", f"def_{d}_l1_idle_4f", HI_DEFENDER_SCALE), 4, 6, True) for d in DEFENDER_ATTACK
+    }
+    # The logo carrot's leaves stick out above the plate's box (the PNG cuts
+    # them): the plate is rendered with 40 px more on top, 960×480.
+    logo = re.sub(r"<metadata>.*?</metadata>", "", (SVG / "i" / "logo_plate.svg").read_text(encoding="utf-8"), flags=re.S)
+    logo = logo.replace('height="440" viewBox="0 0 960 440"', 'height="480" viewBox="0 -40 960 480"', 1)
+    (tmp / "logo_plate.svg").write_text(logo, encoding="utf-8")
+    jobs.append({"src": str(tmp / "logo_plate.svg"), "scale": 1.0, "out": str(DST / "ui" / "logo_plate.png")})
+    listing = tmp / "jobs.json"
+    listing.write_text(json.dumps(jobs), encoding="utf-8")
+    subprocess.run([GODOT, "--headless", "--path", str(ROOT / "tower-defense"), "-s", "res://tools/render_svg_cli.gd",
+                    "--", str(listing)], check=True, capture_output=True)
+    shutil.rmtree(tmp, ignore_errors=True)
+    return sets
+
+
 def main() -> int:
     n = copy_files()
     make_shadow()
+    make_small_buttons()
     frames = build_frames()
+    frames.update(make_hi())
     atlases = build_atlases()
     pack_tiles()
     manifest = {"frames": frames, "atlases": atlases}

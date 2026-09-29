@@ -197,6 +197,7 @@ func select_skin(id: StringName) -> bool:
 	if not owns_skin(id):
 		return false
 	skin = id
+	trial_skin = &""
 	progress_changed.emit()
 	return true
 

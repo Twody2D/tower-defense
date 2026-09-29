@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
 [ext_resource type="Script" path="res://scenes/ui/windows/intro_window.gd" id="2_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/def_frog.tres" id="3_r"]
-[ext_resource type="Script" path="res://scenes/ui/sheet_sprite.gd" id="4_r"]
-[ext_resource type="Resource" path="res://art/enemies/atlas_mole.tres" id="5_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/defenders_ui.tres" id="3_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/pests_ui.tres" id="4_r"]
 
 [node name="IntroWindow" instance=ExtResource("1_r")]
 script = ExtResource("2_r")
@@ -29,21 +28,22 @@ theme_type_variation = &"CardHighlight"
 layout_mode = 2
 custom_minimum_size = Vector2(360, 360)
 size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="Defender" type="AnimatedSprite2D" parent="Panel/Content/Columns/Card/Holder"]
 unique_name_in_owner = true
 position = Vector2(180, 150)
-scale = Vector2(2.2, 2.2)
+scale = Vector2(1.1, 1.1)
 sprite_frames = ExtResource("3_r")
-animation = &"l1_idle"
+animation = &"frog"
 
-[node name="Pest" type="Sprite2D" parent="Panel/Content/Columns/Card/Holder"]
+[node name="Pest" type="AnimatedSprite2D" parent="Panel/Content/Columns/Card/Holder"]
 unique_name_in_owner = true
 visible = false
 position = Vector2(180, 180)
-script = ExtResource("4_r")
-atlas = ExtResource("5_r")
+sprite_frames = ExtResource("4_r")
+animation = &"mole"
 
 [node name="Right" type="VBoxContainer" parent="Panel/Content/Columns"]
 layout_mode = 2

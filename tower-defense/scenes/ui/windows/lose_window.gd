@@ -30,7 +30,7 @@ func _ready() -> void:
 	UiFx.press_spring(_to_map)
 	var skin: SkinData = Game.battle_skin()
 	if skin != null:
-		_hero.sprite_frames = skin.frames
+		_hero.sprite_frames = skin.ui_frames
 	_hero.play(&"sad")
 
 

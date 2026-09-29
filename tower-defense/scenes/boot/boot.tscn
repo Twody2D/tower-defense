@@ -17,7 +17,7 @@
 [ext_resource type="Resource" path="res://art/enemies/atlas_caterpillar.tres" id="15_r"]
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="16_r"]
 [ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="17_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon.tres" id="18_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="18_r"]
 [ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="19_r"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="20_r"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="21_r"]
@@ -657,7 +657,7 @@ scale = Vector2(1.016, 0.975)
 texture = ExtResource("11_r")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero"]
-scale = Vector2(2.031, 2.031)
+scale = Vector2(0.677, 0.677)
 sprite_frames = ExtResource("18_r")
 animation = &"joy"
 autoplay = "joy"

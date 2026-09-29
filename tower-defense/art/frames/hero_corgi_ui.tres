@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://art/hi/hero_corgi_idle_4f.png" id="1_jx72n"]
+[ext_resource type="Texture2D" path="res://art/hi/hero_corgi_sad_4f.png" id="2_o75of"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx72n"]
+atlas = ExtResource("1_jx72n")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o75of"]
+atlas = ExtResource("1_jx72n")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l20sl"]
+atlas = ExtResource("1_jx72n")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0oow"]
+atlas = ExtResource("1_jx72n")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp0wv"]
+atlas = ExtResource("2_o75of")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et23e"]
+atlas = ExtResource("2_o75of")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekqio"]
+atlas = ExtResource("2_o75of")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b5mi"]
+atlas = ExtResource("2_o75of")
+region = Rect2(1152, 0, 384, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx72n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o75of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l20sl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0oow")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kp0wv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et23e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekqio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b5mi")
+}],
+"loop": 1,
+"name": &"sad",
+"speed": 6.0
+}]

@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://art/hi/hero_pig_idle_4f.png" id="1_ifmt5"]
+[ext_resource type="Texture2D" path="res://art/hi/hero_pig_sad_4f.png" id="2_u16s5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifmt5"]
+atlas = ExtResource("1_ifmt5")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u16s5"]
+atlas = ExtResource("1_ifmt5")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfrvr"]
+atlas = ExtResource("1_ifmt5")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heac4"]
+atlas = ExtResource("1_ifmt5")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qae02"]
+atlas = ExtResource("2_u16s5")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r20r7"]
+atlas = ExtResource("2_u16s5")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbb6h"]
+atlas = ExtResource("2_u16s5")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo2ri"]
+atlas = ExtResource("2_u16s5")
+region = Rect2(1152, 0, 384, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifmt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u16s5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfrvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heac4")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qae02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r20r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbb6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo2ri")
+}],
+"loop": 1,
+"name": &"sad",
+"speed": 6.0
+}]

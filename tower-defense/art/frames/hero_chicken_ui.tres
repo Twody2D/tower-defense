@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://art/hi/hero_chicken_idle_4f.png" id="1_pxrjq"]
+[ext_resource type="Texture2D" path="res://art/hi/hero_chicken_sad_4f.png" id="2_s25ri"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxrjq"]
+atlas = ExtResource("1_pxrjq")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s25ri"]
+atlas = ExtResource("1_pxrjq")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7lrg"]
+atlas = ExtResource("1_pxrjq")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgw25"]
+atlas = ExtResource("1_pxrjq")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbmaw"]
+atlas = ExtResource("2_s25ri")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pvvd"]
+atlas = ExtResource("2_s25ri")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk17l"]
+atlas = ExtResource("2_s25ri")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0atkx"]
+atlas = ExtResource("2_s25ri")
+region = Rect2(1152, 0, 384, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxrjq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s25ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7lrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgw25")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbmaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pvvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk17l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0atkx")
+}],
+"loop": 1,
+"name": &"sad",
+"speed": 6.0
+}]

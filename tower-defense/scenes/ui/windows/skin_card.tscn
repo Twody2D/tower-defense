@@ -1,0 +1,154 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/windows/skin_card.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_check.png" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_price_tag.png" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="4_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="5_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="6_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="7_r"]
+
+[node name="SkinCard" type="PanelContainer"]
+script = ExtResource("1_r")
+custom_minimum_size = Vector2(210, 420)
+theme_type_variation = &"CardTight"
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+mouse_filter = 2
+
+[node name="Portrait" type="TextureRect" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(170, 170)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Status" type="HBoxContainer" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+mouse_filter = 2
+
+[node name="StatusIcon" type="TextureRect" parent="Box/Status"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(44, 44)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StatusText" type="Label" parent="Box/Status"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 28
+text = "SKIN_SELECTED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Price" type="NinePatchRect" parent="Box/Status"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_r")
+patch_margin_left = 22
+patch_margin_right = 22
+
+[node name="Icon" type="TextureRect" parent="Box/Status/Price"]
+layout_mode = 0
+offset_left = -14.0
+offset_top = -4.0
+offset_right = 36.0
+offset_bottom = 46.0
+mouse_filter = 2
+texture = ExtResource("4_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Box/Status/Price"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "500"
+horizontal_alignment = 1
+vertical_alignment = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+offset_left = 40.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="Bar" type="NinePatchRect" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_r")
+patch_margin_left = 24
+patch_margin_right = 24
+
+[node name="Fill" type="NinePatchRect" parent="Box/Bar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("6_r")
+patch_margin_left = 16
+patch_margin_right = 16
+
+[node name="Views" type="Label" parent="Box/Bar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "3/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+offset_bottom = -4.0
+
+[node name="Space" type="Control" parent="Box"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Select" type="Button" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonGreenSmall"
+text = "BTN_SELECT"
+
+[node name="More" parent="Box" instance=ExtResource("7_r")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Ещё 2"
+tag = &"skin"
+small = true

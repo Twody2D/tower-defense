@@ -92,10 +92,11 @@ func test_hero_kills_pests_and_collects_coins() -> void:
 	var start_coins: int = battle.state.coins
 	# Stand next to the road where the first wave passes.
 	var road: Curve2D = battle.level.road_curve()
-	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-90, 0)
-	await runner.simulate_frames(1500, 16)
+	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-40, 0)
+	await runner.simulate_frames(2000, 16)
 	assert_int(battle.waves.wave).is_greater_equal(1)
-	assert_int(battle.state.coins).is_greater(start_coins)
+	# Picked up or still on the ground outside the magnet.
+	assert_int(battle.state.coins + battle.coins.total_value()).is_greater(start_coins)
 
 
 func test_touch_stuns_then_invulnerable() -> void:

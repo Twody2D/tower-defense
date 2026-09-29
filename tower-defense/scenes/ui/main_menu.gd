@@ -27,7 +27,7 @@ func _ready() -> void:
 	Game.progress_changed.connect(_refresh)
 	var skin: SkinData = Game.META.skin(Game.skin)
 	if skin != null:
-		_hero.sprite_frames = skin.frames
+		_hero.sprite_frames = skin.ui_frames
 		_hero.play(&"idle")
 	_refresh()
 

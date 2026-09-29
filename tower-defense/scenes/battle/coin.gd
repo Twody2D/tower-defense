@@ -7,7 +7,7 @@ extends Sprite2D
 @export var big_sheet: Texture2D
 @export var spin_fps: float = 10.0
 ## Pop on drop: a hop this high, this long (design F coin_pop, done in code).
-@export var pop_height: float = 36.0
+@export var pop_height: float = 30.0
 @export var pop_time: float = 0.35
 
 var age: float = 0.0

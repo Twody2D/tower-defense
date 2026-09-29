@@ -10,8 +10,8 @@
 [sub_resource type="Resource" id="WaveGroup_1_1"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 8
-interval = 1.2
+count = 12
+interval = 1.0
 road = 0
 delay = 0.0
 
@@ -22,8 +22,8 @@ groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_1_1")])
 [sub_resource type="Resource" id="WaveGroup_2_1"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 12
-interval = 1.0
+count = 18
+interval = 0.8
 road = 0
 delay = 0.0
 
@@ -34,8 +34,8 @@ groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_2_1")])
 [sub_resource type="Resource" id="WaveGroup_3_1"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 16
-interval = 0.8
+count = 24
+interval = 0.65
 road = 0
 delay = 0.0
 
@@ -46,16 +46,16 @@ groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_3_1")])
 [sub_resource type="Resource" id="WaveGroup_4_1"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 14
-interval = 0.7
+count = 20
+interval = 0.55
 road = 0
 delay = 0.0
 
 [sub_resource type="Resource" id="WaveGroup_4_2"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 10
-interval = 0.5
+count = 16
+interval = 0.4
 road = 0
 delay = 6.0
 
@@ -66,16 +66,16 @@ groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_4_1"), SubResourc
 [sub_resource type="Resource" id="WaveGroup_5_1"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 20
-interval = 0.6
+count = 30
+interval = 0.5
 road = 0
 delay = 0.0
 
 [sub_resource type="Resource" id="WaveGroup_5_2"]
 script = ExtResource("3_group")
 enemy = ExtResource("e_beetle")
-count = 16
-interval = 0.4
+count = 24
+interval = 0.35
 road = 0
 delay = 8.0
 

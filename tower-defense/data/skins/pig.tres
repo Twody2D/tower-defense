@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="SkinData" load_steps=7 format=3]
 
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_pig_ui.tres" id="7_ui"]
 [ext_resource type="Script" path="res://data/types/skin_data.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://art/frames/hero_pig.tres" id="2_frames"]
 [ext_resource type="Texture2D" path="res://art/hero/ui_portrait_pig.png" id="3_portrait"]
@@ -12,6 +13,7 @@ script = ExtResource("1_script")
 id = &"pig"
 name_key = "SKIN_PIG"
 frames = ExtResource("2_frames")
+ui_frames = ExtResource("7_ui")
 portrait = ExtResource("3_portrait")
 portrait_locked = ExtResource("4_locked")
 avatar = ExtResource("5_avatar")

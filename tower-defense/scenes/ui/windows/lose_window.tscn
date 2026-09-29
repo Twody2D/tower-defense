@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
 [ext_resource type="Script" path="res://scenes/ui/windows/lose_window.gd" id="2_r"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_ribbon_blue.png" id="3_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon.tres" id="4_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="4_r"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="5_r"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_carrot.png" id="6_r"]
 
@@ -25,12 +25,13 @@ metadata/portrait_vertical = true
 layout_mode = 2
 custom_minimum_size = Vector2(300, 300)
 size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="Hero" type="AnimatedSprite2D" parent="Panel/Content/Columns/HeroBox"]
 unique_name_in_owner = true
 position = Vector2(150, 150)
-scale = Vector2(2.34, 2.34)
+scale = Vector2(0.78, 0.78)
 sprite_frames = ExtResource("4_r")
 animation = &"sad"
 autoplay = "sad"

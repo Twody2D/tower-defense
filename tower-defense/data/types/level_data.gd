@@ -10,8 +10,8 @@ extends Resource
 @export var carrots: int = 20
 ## Defenders the player may build on this level (the rest show a lock).
 @export var defenders: Array[DefenderData] = []
-## Pest HP grows by this share per campaign level (0.08 = +8%).
-@export var hp_growth_per_level: float = 0.08
+## Pest HP grows by this share per campaign level (0.12 = +12%).
+@export var hp_growth_per_level: float = 0.12
 @export var waves: Array[WaveData] = []
 ## Break before each wave, s (CODE_PROMPT: 20). "Call now" skips it for +1 coin per second left.
 @export var wave_pause: float = 20.0

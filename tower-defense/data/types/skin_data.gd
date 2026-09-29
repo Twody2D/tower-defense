@@ -8,6 +8,8 @@ extends Resource
 @export var name_key: String = "SKIN_RACCOON"
 ## Animations (art/frames/hero_<id>.tres).
 @export var frames: SpriteFrames
+## Big idle / sad for menus and windows (art/frames/hero_<id>_ui.tres, frame 384).
+@export var ui_frames: SpriteFrames
 ## Shop portrait 256 and its dark placeholder, map avatar 96 (design B).
 @export var portrait: Texture2D
 @export var portrait_locked: Texture2D

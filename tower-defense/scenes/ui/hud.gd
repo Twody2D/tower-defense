@@ -6,6 +6,10 @@ extends CanvasLayer
 signal pause_pressed
 signal call_pressed
 
+## Wave line lift in landscape: the top centre is free there, so the wave
+## line sits level with the counters instead of under them, px.
+@export var landscape_lift: float = 84.0
+
 @onready var joystick: Joystick = $Joystick
 @onready var radial_menu: RadialMenu = $RadialMenu
 @onready var _coins: Label = %CoinsLabel
@@ -20,6 +24,7 @@ signal call_pressed
 @onready var _debug: Label = %DebugLabel
 @onready var _pause: TextureButton = %PauseButton
 @onready var _message: Label = %MessageLabel
+@onready var _top_center: Control = $TopCenter
 
 var _max_carrots: int = 20
 var _carrots_shown: int = -1
@@ -34,6 +39,13 @@ func _ready() -> void:
 	_call_text.text = tr("HUD_CALL_NOW")
 	_message.visible = false
 	_timer_row.visible = false
+	get_viewport().size_changed.connect(_layout)
+	_layout()
+
+
+func _layout() -> void:
+	var s: Vector2 = get_viewport().get_visible_rect().size
+	_top_center.position.y = -landscape_lift if s.x > s.y else 0.0
 
 
 ## Esc / P: the HUD runs while the game is paused, so the key also resumes.

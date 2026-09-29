@@ -29,6 +29,10 @@ extends Resource
 ## Coins at the start of the battle for an ad.
 @export var boost_coins: int = 30
 
+@export_group("Ad limits")
+## Shop: −50% on a hero upgrade, times a day.
+@export var discount_ads_per_day: int = 3
+
 @export_group("Offline harvest")
 @export var harvest_per_hour: float = 5.0
 @export var harvest_max_hours: float = 8.0

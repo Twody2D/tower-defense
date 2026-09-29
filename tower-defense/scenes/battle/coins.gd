@@ -21,6 +21,9 @@ signal collected(value: int)
 @export var fly_accel: float = 1400.0
 ## Pick-up distance, px.
 @export var pickup_distance: float = 22.0
+## A dropped coin lies this long before the magnet takes it (the pop and the
+## coin on the ground stay visible even right next to the hero), s.
+@export var magnet_delay: float = 0.5
 ## Coins fly to the hero from the chest height, px.
 @export var hero_offset: Vector2 = Vector2(0, -40)
 
@@ -65,7 +68,7 @@ func step(delta: float, hero_pos: Vector2, magnet: float) -> void:
 	while i < count:
 		var c: Coin = _pool[i]
 		c.age += delta
-		if c.fly == 0.0 and c.global_position.distance_squared_to(hero_pos) <= r2:
+		if c.fly == 0.0 and c.age >= magnet_delay and c.global_position.distance_squared_to(hero_pos) <= r2:
 			c.fly = fly_speed
 		if c.fly > 0.0:
 			c.fly += fly_accel * delta

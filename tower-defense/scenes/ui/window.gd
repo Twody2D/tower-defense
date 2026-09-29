@@ -24,6 +24,7 @@ signal closed
 @onready var _ribbon: NinePatchRect = $Ribbon
 @onready var _title: Label = $Ribbon/Title
 @onready var _close: TextureButton = $Close
+@onready var _dim: Control = $Dim
 
 
 func _ready() -> void:
@@ -51,10 +52,19 @@ func is_portrait() -> bool:
 	return s.y > s.x
 
 
+## Shows the window: the panel, its ribbon and close button pop together
+## from the panel centre, the dim fades in.
 func open() -> void:
 	visible = true
 	_layout()
-	UiFx.pop(panel, 0.7, 0.25)
+	var centre: Vector2 = panel.position + panel.size * 0.5
+	for c: Control in [panel, _ribbon, _close]:
+		c.pivot_offset = centre - c.position
+		c.scale = Vector2(0.7, 0.7)
+		var tw: Tween = c.create_tween()
+		tw.tween_property(c, ^"scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_dim.modulate.a = 0.0
+	_dim.create_tween().tween_property(_dim, ^"modulate:a", 1.0, 0.15)
 
 
 func close() -> void:

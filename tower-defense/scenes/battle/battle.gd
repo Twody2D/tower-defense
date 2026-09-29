@@ -20,6 +20,10 @@ signal finished(won: bool, stars: int)
 @export var shake_boss: float = 18.0
 ## Pause between the end of the fight and the result window, s.
 @export var result_delay: float = 1.2
+## Start of the fight: the camera flies to where each road starts, waits and
+## comes back to the hero (fly and hold times, s).
+@export var spawn_fly_time: float = 0.8
+@export var spawn_hold_time: float = 1.0
 ## Level start boosts (bought with an ad): coins, starting defender and its level.
 @export var boost_defender: DefenderData
 @export var boost_defender_level: int = 2
@@ -33,11 +37,15 @@ var carrots_lost: int = 0
 var won: bool = false
 ## Grains paid for the win (the result screen shows it).
 var reward: int = 0
+## Campaign level being played: the one picked on the map (Game.current_level);
+## sandboxes without a level pattern use their LevelData number.
+var level_number: int = 1
 
 var _over: bool = false
 var _chance_used: bool = false
 ## Newcomers waiting for their window (DefenderData / EnemyData).
 var _intros: Array[Resource] = []
+var _spawns_shown: bool = false
 
 @onready var _level_holder: Node2D = $World/LevelHolder
 @onready var enemies: EnemyManager = $World/Enemies
@@ -62,6 +70,7 @@ func _ready() -> void:
 	level = level_scene.instantiate() as Level
 	_level_holder.add_child(level)
 	var data: LevelData = level.data
+	level_number = Game.current_level if level_path_pattern != "" else data.number
 	state = BattleState.new(data.start_coins, data.carrots)
 
 	var curves: Array[Curve2D] = []
@@ -131,6 +140,8 @@ func _ready() -> void:
 		if Game.first_meet(d.id):
 			_intros.append(d)
 	_next_intro()
+	if _intros.is_empty() and not get_tree().paused:
+		_show_spawns()
 
 
 func _wire_windows() -> void:
@@ -173,6 +184,7 @@ func _on_intro_closed() -> void:
 	Save.save()
 	if _intros.is_empty():
 		_resume()
+		_show_spawns()
 	else:
 		_next_intro()
 
@@ -181,6 +193,28 @@ func _on_first_of_type(data: EnemyData) -> void:
 	if Game.first_meet(data.id):
 		_intros.append(data)
 		_next_intro()
+
+
+## Camera tour of the road starts (once, at the start of the fight). The
+## camera leaves the hero for the tour and comes back to where he is now.
+func _show_spawns() -> void:
+	if _spawns_shown or _over:
+		return
+	_spawns_shown = true
+	var tw: Tween = create_tween()
+	tw.tween_callback(func() -> void:
+		camera.top_level = true
+		camera.global_position = hero.global_position + Vector2(0, -40))
+	for road: Path2D in level.roads():
+		var start: Vector2 = road.to_global(road.curve.get_point_position(0))
+		tw.tween_property(camera, ^"global_position", start, spawn_fly_time) 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_interval(spawn_hold_time)
+	tw.tween_method(func(k: float) -> void:
+		camera.global_position = camera.global_position.lerp(hero.global_position + Vector2(0, -40), k),
+		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tw.tween_callback(func() -> void:
+		camera.top_level = false
+		camera.position = Vector2(0, -40))
 
 
 func _process(_delta: float) -> void:
@@ -316,7 +350,7 @@ func _restart() -> void:
 ## Back to the farm map (fullscreen ad point: level → map).
 func _to_map() -> void:
 	get_tree().paused = false
-	Ads.on_level_exit(level.data.number)
+	Ads.on_level_exit(level_number)
 	get_tree().change_scene_to_file(menu_scene)
 
 
@@ -332,7 +366,7 @@ func _on_second_chance() -> void:
 func _on_won() -> void:
 	won = true
 	var s: int = stars()
-	reward = Game.finish_level(level.data.number, s)
+	reward = Game.finish_level(level_number, s)
 	Save.save()
 	fx.play(&"confetti", hero.global_position + Vector2(0, -120), 2.0, true)
 	if await _finish(s):

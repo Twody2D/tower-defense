@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://art/hi/hero_rabbit_idle_4f.png" id="1_8dokk"]
+[ext_resource type="Texture2D" path="res://art/hi/hero_rabbit_sad_4f.png" id="2_cbuix"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dokk"]
+atlas = ExtResource("1_8dokk")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbuix"]
+atlas = ExtResource("1_8dokk")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6he5"]
+atlas = ExtResource("1_8dokk")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phhcf"]
+atlas = ExtResource("1_8dokk")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2hiu"]
+atlas = ExtResource("2_cbuix")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drb8b"]
+atlas = ExtResource("2_cbuix")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei7yv"]
+atlas = ExtResource("2_cbuix")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h3iv"]
+atlas = ExtResource("2_cbuix")
+region = Rect2(1152, 0, 384, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dokk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbuix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6he5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phhcf")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2hiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drb8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei7yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h3iv")
+}],
+"loop": 1,
+"name": &"sad",
+"speed": 6.0
+}]

@@ -52,11 +52,14 @@ def empty() -> str:
 
 
 def button(type_name: str, prefix: str, slice_: tuple[int, int, int, int], content: tuple[int, int, int, int],
-           font_color: str = WHITE, outline: int = 12, size: int = 44, states: bool = True) -> None:
-    """`states`: the kit has _normal/_pressed/_disabled pictures (tabs have one)."""
-    name = (lambda st: f"{prefix}_{st}") if states else (lambda st: prefix)
+           font_color: str = WHITE, outline: int = 12, size: int = 44, states: bool = True, sm: bool = False) -> None:
+    """`states`: the kit has _normal/_pressed/_disabled pictures (tabs have one).
+    `sm`: the small copies (…_sm.png)."""
+    suffix = "_sm" if sm else ""
+    name = (lambda st: f"{prefix}_{st}{suffix}") if states else (lambda st: prefix)
     n = box(name("normal"), slice_, content)
-    p = box(name("pressed"), slice_, (content[0] + 6, content[1], content[2] - 6, content[3]) if states else content)
+    shift = 4 if sm else 6
+    p = box(name("pressed"), slice_, (content[0] + shift, content[1], content[2] - shift, content[3]) if states else content)
     d = box(name("disabled"), slice_, content)
     f = empty()
     for state, sid in (("normal", n), ("hover", n), ("pressed", p), ("hover_pressed", p), ("disabled", d), ("focus", f)):
@@ -82,6 +85,14 @@ variation("ButtonBlue", "Button")
 button("ButtonBlue", "ui_btn_blue", BTN, (18, 44, 30, 44))
 variation("ButtonAd", "Button")
 button("ButtonAd", "ui_btn_ad", (44, 44, 52, 84), (18, 40, 30, 96))
+# Small buttons (80 tall, the pictures scaled by copy_art.py: slice 31 31 36 31, ad 59 left).
+BTN_SM = (31, 31, 36, 31)
+for name, prefix in (("ButtonSmall", "ui_btn_orange"), ("ButtonGreenSmall", "ui_btn_green"),
+                     ("ButtonBlueSmall", "ui_btn_blue")):
+    variation(name, "Button")
+    button(name, prefix, BTN_SM, (12, 20, 22, 20), WHITE, 9, 28, sm=True)
+variation("ButtonAdSmall", "Button")
+button("ButtonAdSmall", "ui_btn_ad", (31, 31, 36, 59), (12, 12, 22, 54), WHITE, 9, 28, sm=True)
 # Tabs 192×88, slice 32 32 8 32.
 variation("TabActive", "Button")
 button("TabActive", "ui_tab_active", (32, 32, 8, 32), (16, 32, 8, 32), INK, 0, 38, False)
@@ -96,6 +107,11 @@ props.append('Card/base_type = &"PanelContainer"')
 props.append(f'Card/styles/panel = SubResource("{box("ui_card", (32, 32, 40, 32), (20, 20, 28, 20))}")')
 props.append('CardHighlight/base_type = &"PanelContainer"')
 props.append(f'CardHighlight/styles/panel = SubResource("{box("ui_card_highlight", (32, 32, 40, 32), (20, 20, 28, 20))}")')
+# Narrow cards (shop skins, 170 wide in portrait): less side padding.
+props.append('CardTight/base_type = &"PanelContainer"')
+props.append(f'CardTight/styles/panel = SubResource("{box("ui_card", (32, 32, 40, 32), (16, 10, 24, 10))}")')
+props.append('CardHighlightTight/base_type = &"PanelContainer"')
+props.append(f'CardHighlightTight/styles/panel = SubResource("{box("ui_card_highlight", (32, 32, 40, 32), (16, 10, 24, 10))}")')
 props.append('Toast/base_type = &"PanelContainer"')
 props.append(f'Toast/styles/panel = SubResource("{box("ui_toast", (0, 40, 0, 40), (16, 48, 20, 48))}")')
 

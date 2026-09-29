@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" path="res://art/fx/fx_coin5_spin_6f.png" id="3_big"]
 
 [node name="Coin" type="Sprite2D"]
+scale = Vector2(1.6, 1.6)
 texture = ExtResource("2_small")
 hframes = 6
 offset = Vector2(0, -12)
