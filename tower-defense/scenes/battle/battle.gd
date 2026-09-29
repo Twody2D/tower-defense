@@ -13,6 +13,9 @@ signal finished(won: bool, stars: int)
 @export var visible_short_side: float = 1080.0
 ## All defenders in radial menu order; the level opens some of them.
 @export var defender_catalog: Array[DefenderData] = []
+## Camera shake when carrots are taken / the boss hits the hero, px.
+@export var shake_carrot: float = 10.0
+@export var shake_boss: float = 18.0
 ## Pause on the result message before going back to the menu, s.
 @export var result_delay: float = 3.0
 @export_file("*.tscn") var menu_scene: String = "res://scenes/ui/main_menu.tscn"
@@ -49,6 +52,7 @@ func _ready() -> void:
 	enemies.defeated.connect(_on_enemy_defeated)
 	enemies.reached_base.connect(_on_enemy_reached_base)
 	enemies.hero_struck.connect(hero.stun)
+	enemies.hero_struck.connect(shake.bind(shake_boss, 0.35))
 	enemies.boss_spawned.connect(_on_boss_spawned)
 	enemies.fx = fx
 	projectiles.enemies = enemies
@@ -138,7 +142,19 @@ func _on_enemy_defeated(pos: Vector2, data: EnemyData) -> void:
 	coins.drop(pos, data.coins)
 
 
+## Camera shake: a few random offsets, then back to rest.
+func shake(strength: float, time: float) -> void:
+	var tw: Tween = camera.create_tween()
+	var steps: int = 6
+	for k: int in steps:
+		var fade: float = 1.0 - float(k) / steps
+		var o: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * strength * fade
+		tw.tween_property(camera, ^"offset", o, time / (steps + 1))
+	tw.tween_property(camera, ^"offset", Vector2.ZERO, time / (steps + 1))
+
+
 func _on_enemy_reached_base(data: EnemyData) -> void:
+	shake(shake_carrot * minf(data.carrots, 3), 0.25)
 	var before: int = state.carrots
 	state.take_carrots(data.carrots)
 	carrots_lost += before - state.carrots

@@ -17,6 +17,8 @@ extends CharacterBody2D
 @export var projectile_texture: Texture2D
 ## Effect where an apple lands (fx.tres).
 @export var hit_fx: StringName = &"proj_splat"
+## Tint of the stun flash.
+@export var hit_tint: Color = Color(1.0, 0.45, 0.45)
 ## Dust puff from the feet while running, every this many seconds.
 @export var dust_every: float = 0.3
 @export var projectile_frames: int = 4
@@ -97,6 +99,9 @@ func stun() -> void:
 	_stars.visible = true
 	_stars.play(&"stars_head")
 	_sprite.play(&"hit")
+	# Red flash that fades (tween, not frames).
+	_sprite.self_modulate = hit_tint
+	_sprite.create_tween().tween_property(_sprite, ^"self_modulate", Color.WHITE, 0.35)
 
 
 ## A coin went from the hero into a plot (the plot calls this).

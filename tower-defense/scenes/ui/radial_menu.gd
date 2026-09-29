@@ -38,6 +38,7 @@ func open(for_plot: BuildPlot, catalog: Array[DefenderData], allowed: Array[Defe
 			slot.show_defender(catalog[i], catalog[i] in allowed)
 	_follow_plot()
 	visible = true
+	UiFx.pop(_anchor, 0.4, 0.2)
 
 
 func close() -> void:

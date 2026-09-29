@@ -22,11 +22,15 @@ signal call_pressed
 @onready var _message: Label = %MessageLabel
 
 var _max_carrots: int = 20
+var _carrots_shown: int = -1
+var _wave_shown: int = -1
 
 
 func _ready() -> void:
 	_pause.pressed.connect(pause_pressed.emit)
 	_call.pressed.connect(call_pressed.emit)
+	UiFx.press_spring(_pause)
+	UiFx.press_spring(_call)
 	_call_text.text = tr("HUD_CALL_NOW")
 	_message.visible = false
 	_timer_row.visible = false
@@ -53,12 +57,18 @@ func set_coins(n: int) -> void:
 
 func set_carrots(n: int) -> void:
 	_carrots.text = "%d/%d" % [n, _max_carrots]
+	if _carrots_shown >= 0 and n < _carrots_shown:
+		UiFx.bump(_carrots, 1.4, 0.3)
+	_carrots_shown = n
 
 
 ## "Wave 3/7" and the bar over all waves.
 func set_wave(n: int, total: int) -> void:
 	_wave.text = tr("HUD_WAVE") % [maxi(n, 1), total]
 	_wave_bar.value = float(n) / float(maxi(total, 1))
+	if _wave_shown >= 1 and n > _wave_shown:
+		UiFx.bump(_wave, 1.3, 0.35)
+	_wave_shown = n
 
 
 ## Break before the next wave: countdown and the "call now" bonus; hidden
@@ -78,5 +88,8 @@ func set_debug(text: String) -> void:
 
 
 func show_message(text: String) -> void:
+	var was: String = _message.text if _message.visible else ""
 	_message.text = text
 	_message.visible = text != ""
+	if _message.visible and text != was:
+		UiFx.pop(_message)
