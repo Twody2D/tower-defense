@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MetaData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/types/meta_data.gd" id="1_script"]
+[ext_resource type="Resource" path="res://data/skins/raccoon.tres" id="2_raccoon"]
+[ext_resource type="Resource" path="res://data/skins/corgi.tres" id="3_corgi"]
+[ext_resource type="Resource" path="res://data/skins/pig.tres" id="4_pig"]
+[ext_resource type="Resource" path="res://data/skins/rabbit.tres" id="5_rabbit"]
+[ext_resource type="Resource" path="res://data/skins/chicken.tres" id="6_chicken"]
+[ext_resource type="Script" path="res://data/types/skin_data.gd" id="7_skin"]
+
+[resource]
+script = ExtResource("1_script")
+skins = Array[ExtResource("7_skin")]([ExtResource("2_raccoon"), ExtResource("3_corgi"), ExtResource("4_pig"), ExtResource("5_rabbit"), ExtResource("6_chicken")])

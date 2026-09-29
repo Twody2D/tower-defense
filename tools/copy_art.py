@@ -27,7 +27,11 @@ DST = ROOT / "tower-defense" / "art"
 
 # Static pictures: destination folder -> source files (relative to design export/)
 FILES: dict[str, list[str]] = {
-    "hero": [],
+    "hero": [
+        f"b/ui_{kind}_{skin}{suffix}.png"
+        for skin in ("raccoon", "corgi", "pig", "rabbit", "chicken")
+        for kind, suffix in (("portrait", ""), ("portrait", "_locked"), ("avatar", ""))
+    ],
     "enemies": [
         "c/enemy_crow_shadow_1f.png",
         "c/item_carrot_hold.png",

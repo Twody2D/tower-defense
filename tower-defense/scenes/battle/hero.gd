@@ -104,6 +104,16 @@ func stun() -> void:
 	_sprite.create_tween().tween_property(_sprite, ^"self_modulate", Color.WHITE, 0.35)
 
 
+## Skin look and its projectile (before or after _ready).
+func set_skin(frames: SpriteFrames, projectile: Texture2D) -> void:
+	skin = frames
+	projectile_texture = projectile
+	_shot.texture = projectile
+	if is_node_ready():
+		_sprite.sprite_frames = frames
+		_sprite.play(&"idle")
+
+
 ## A coin went from the hero into a plot (the plot calls this).
 func mark_building() -> void:
 	_build_left = 0.15

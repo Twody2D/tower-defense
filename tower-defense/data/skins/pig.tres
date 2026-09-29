@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkinData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/types/skin_data.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_pig.tres" id="2_frames"]
+[ext_resource type="Texture2D" path="res://art/hero/ui_portrait_pig.png" id="3_portrait"]
+[ext_resource type="Texture2D" path="res://art/hero/ui_portrait_pig_locked.png" id="4_locked"]
+[ext_resource type="Texture2D" path="res://art/hero/ui_avatar_pig.png" id="5_avatar"]
+[ext_resource type="Texture2D" path="res://art/hero/proj_acorn_spin_4f.png" id="6_proj"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"pig"
+name_key = "SKIN_PIG"
+frames = ExtResource("2_frames")
+portrait = ExtResource("3_portrait")
+portrait_locked = ExtResource("4_locked")
+avatar = ExtResource("5_avatar")
+projectile = ExtResource("6_proj")
+price_grains = 800

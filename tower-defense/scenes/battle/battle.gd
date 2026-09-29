@@ -24,6 +24,8 @@ var level: Level
 var state: BattleState
 var carrots_lost: int = 0
 var won: bool = false
+## Grains paid for the win (the result screen shows it).
+var reward: int = 0
 
 var _over: bool = false
 
@@ -58,7 +60,10 @@ func _ready() -> void:
 	projectiles.enemies = enemies
 	projectiles.fx = fx
 
-	hero.stats = hero_stats
+	hero.stats = Game.hero_stats(hero_stats)
+	var skin: SkinData = Game.battle_skin()
+	if skin != null:
+		hero.set_skin(skin.frames, skin.projectile)
 	hero.enemies = enemies
 	hero.projectiles = projectiles
 	hero.fx = fx
@@ -66,7 +71,7 @@ func _ready() -> void:
 	hero.position = level.hero_start()
 
 	coins.hero = hero
-	coins.magnet_radius = hero_stats.magnet_radius
+	coins.magnet_radius = hero.stats.magnet_radius
 	coins.collected.connect(state.add_coins)
 
 	for plot: BuildPlot in level.plots():
@@ -220,10 +225,8 @@ func _toggle_pause() -> void:
 func _on_won() -> void:
 	won = true
 	var s: int = stars()
-	var index: int = level.data.number - 1
-	if index >= 0 and index < Game.level_stars.size():
-		Game.level_stars[index] = maxi(Game.level_stars[index], s)
-		Save.save()
+	reward = Game.finish_level(level.data.number, s)
+	Save.save()
 	fx.play(&"confetti", hero.global_position + Vector2(0, -120), 2.0, true)
 	_finish(tr("MSG_WON") + "  " + "★".repeat(s), s)
 
@@ -237,6 +240,8 @@ func _finish(message: String, s: int) -> void:
 	if _over:
 		return
 	_over = true
+	# A tried-on skin lasts one level.
+	Game.trial_skin = &""
 	YandexSdk.gameplay_stop()
 	_release_input()
 	hero.finish(won)
