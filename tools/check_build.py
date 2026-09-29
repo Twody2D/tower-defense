@@ -17,7 +17,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-GAME = ROOT / "game"
+GAME = ROOT / "tower-defense"
 WEB = ROOT / "build" / "web"
 ZIP = ROOT / "build" / "game.zip"
 MB = 1024 * 1024

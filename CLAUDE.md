@@ -13,8 +13,9 @@ Hybrid-casual «герой + tower defense» на ферме для Яндекс
 | `docs/size_log.md` | Размер ZIP после каждого этапа |
 | `TODO.md` | Задачи текущего этапа, решения, открытые вопросы — обновлять после каждого шага |
 
-Решения Twody (важнее CODE_PROMPT):
-- код в файлы пишет Claude сам;
+Решения Twody (уже внесены в CODE_PROMPT):
+- код, сцены и `.tres` в файлы пишет Claude сам; всё видимое — сценами из узлов со спрайтами, чтобы было видно в редакторе, без `_draw()` (кроме орды в MultiMesh);
+- Docker, VPS, WSL не используем; телефон — по локальной сети или черновик Яндекса;
 - вес графики пока не урезаем — только если ZIP не влезет в 10 МБ;
 - `design/` хранится в git;
 - переключателя языка нет: язык только из SDK (скилл `yandex-games`, п. 2.14);
@@ -30,10 +31,10 @@ Hybrid-casual «герой + tower defense» на ферме для Яндекс
 ## Структура
 
 ```
-game/            проект Godot (res://)
+tower-defense/   проект Godot (res://)
   autoload/      Game, Save, Audio, YandexSdk, Ads, I18n
   platform/      бэкенды SDK: platform_base / _yandex / _mock
-  data/ scenes/ art/ audio/ fonts/ shaders/ localization/
+  data/ scenes/ art/ audio/ fonts/ shaders/ i18n/
   tests/         gdUnit4
   web/shell.html страница экспорта с мостом window.YG
 tools/           check_build.py, browser_check.py, build_template.ps1
@@ -47,11 +48,11 @@ build/           экспорт (в .gitignore)
 - Макеты дизайна нарисованы под 1080 по короткой стороне: размеры UI из макетов × 2/3. Камера показывает 1080 px мира по короткой стороне (мир в макете 1:1).
 - Compatibility, база 720×720, stretch `canvas_items` + `expand` (ландшафт → 1280×720, портрет → 720×1280). UI на якорях.
 - Враги — данные в `EnemyManager`, рисуются `MultiMeshInstance2D`. В бою без `instantiate()`/`queue_free()` — пулы.
-- Баланс — только в `.tres` в `game/data/`. Тексты — `tr("KEY")`, `localization/translations.csv`.
+- Баланс — только в `.tres` в `tower-defense/data/`. Тексты — `tr("KEY")`, `i18n/translations.csv`.
 - SDK — только через `YandexSdk`, реклама — через `Ads`.
 - Новый тип узла — проверить, что он не вырезан в `custom.build` (иначе «Cannot get class» в браузере).
 
-## Команды (Git Bash, из `game/`)
+## Команды (Git Bash, из `tower-defense/`)
 
 ```bash
 G="/c/PROGRAMS/Godot/Godot_v4.7.2-stable_win64_console.exe"
