@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="G UI-кит" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ G · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">UI-кит</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1250px;text-wrap:pretty">Из этих деталей собираются HUD и все экраны. В спрайтах нет текста — надписи на макетах набраны шрифтом, как будет в игре. Панели и кнопки на странице растянуты настоящей 9-slice нарезкой, с отступами из таблицы внизу.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 700px;gap:28px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:22px;padding:26px 30px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Шрифт — Nunito</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">SIL OFL 1.1 · Google Fonts · кириллица и латиница · вес 900 (Black)</div></div>
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:900px;text-wrap:pretty">Круглые окончания, крупные открытые буквы, ровные цифры одной ширины — числа в HUD не прыгают. Для заголовков и цифр — 900, для текста в карточках — 800.</div>
+<div style="font:900 64px/1.1 Nunito;color:#2B2B3A">Защити огород! Protect the Garden!</div>
+<div style="font:800 28px/1.3 Nunito;color:#4A4858">АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ · abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+<div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:18px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="font:900 56px/1 Nunito;color:#FFFFFF;text-shadow:3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 6px 0 #2B2B3A">1 250 · 3/7</div>
+<div style="font:700 12px/1.4 'JetBrains Mono',monospace;color:#fff">HUD · белые · обводка 12% кегля #2B2B3A · тень вниз 10%</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:18px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="font:900 56px/1 Nunito;color:#FFC933;text-shadow:3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 6px 0 #B06A12">+5</div>
+<div style="font:700 12px/1.4 'JetBrains Mono',monospace;color:#fff">всплывающие монеты · #FFC933 · тень #B06A12</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:18px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A">
+<div style="font:900 56px/1 Nunito;color:#FFFFFF;text-shadow:4px 0 0 #2B2B3A,-4px 0 0 #2B2B3A,0 4px 0 #2B2B3A,0 -4px 0 #2B2B3A,3px 3px 0 #2B2B3A,-3px 3px 0 #2B2B3A,3px -3px 0 #2B2B3A,-3px -3px 0 #2B2B3A,0 8px 0 #2B2B3A">Победа!</div>
+<div style="font:700 12px/1.4 'JetBrains Mono',monospace;color:#4A4858">заголовок окна · 64–96 px · на ленте или над панелью</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Сборка из кита</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">окно «Настройки» поверх ui_dim</div></div>
+<div style="position:relative;width:700px;height:600px;border-radius:20px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A;background-image:url('assets/e/tile_farm_grass_1.svg');background-size:64px 64px">
+<div style="position:absolute;inset:0;background-image:url('assets/g/ui_dim.svg');background-size:16px 16px"></div>
+<div style="position:absolute;left:70px;top:76px;width:560px;height:430px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:56px;border-image-source:url('assets/g/ui_panel_main.svg');border-image-slice:56 fill;border-image-repeat:stretch"></div>
+<div style="position:absolute;left:150px;top:32px;width:400px;height:112px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 104px;border-image-source:url('assets/g/ui_ribbon.svg');border-image-slice:0 104 fill;border-image-repeat:stretch"></div>
+<div style="position:absolute;left:150px;top:32px;width:400px;height:80px;display:flex;align-items:center;justify-content:center;font:900 44px/1 Nunito;color:#FFFFFF;text-shadow:3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 5px 0 #2B2B3A">Настройки</div>
+<div style="position:absolute;left:580px;top:56px;width:80px;height:80px;background-image:url('assets/g/ui_btn_close_normal.svg');background-size:100% 100%"></div>
+<div style="position:absolute;left:124px;top:176px;width:452px;display:flex;flex-direction:column;gap:30px">
+<div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background-image:url('assets/g/ui_icon_music.svg');background-size:100% 100%"></div><div style="font:900 30px Nunito;color:#2B2B3A">Музыка</div></div><div style="position:relative;width:128px;height:64px;background-image:url('assets/g/ui_toggle_track_on.svg');background-size:100% 100%"><div style="position:absolute;left:68px;top:4px;width:56px;height:56px;background-image:url('assets/g/ui_toggle_knob.svg');background-size:100% 100%"></div></div></div>
+<div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;background-image:url('assets/g/ui_icon_sound.svg');background-size:100% 100%"></div><div style="font:900 30px Nunito;color:#2B2B3A">Звук</div></div><div style="position:relative;width:128px;height:64px;background-image:url('assets/g/ui_toggle_track_off.svg');background-size:100% 100%"><div style="position:absolute;left:4px;top:4px;width:56px;height:56px;background-image:url('assets/g/ui_toggle_knob.svg');background-size:100% 100%"></div></div></div>
+<div style="display:flex;align-items:center;justify-content:space-between"><div style="font:900 30px Nunito;color:#2B2B3A">Громкость</div><div style="position:relative;width:250px;height:56px"><div style="position:absolute;left:0;top:8px;width:250px;height:40px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 20px;border-image-source:url('assets/g/ui_slider_track.svg');border-image-slice:0 20 fill"></div><div style="position:absolute;left:0;top:8px;width:170px;height:40px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 20px;border-image-source:url('assets/g/ui_slider_fill.svg');border-image-slice:0 20 fill"></div><div style="position:absolute;left:142px;top:0;width:56px;height:56px;background-image:url('assets/g/ui_slider_knob.svg');background-size:100% 100%"></div></div></div>
+</div>
+<div style="position:absolute;left:230px;top:448px;width:240px;height:112px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:44px 44px 52px 44px;border-image-source:url('assets/g/ui_btn_orange_normal.svg');border-image-slice:44 44 52 44 fill"></div>
+<div style="position:absolute;left:230px;top:448px;width:240px;height:100px;display:flex;align-items:center;justify-content:center;font:900 38px Nunito;color:#fff;text-shadow:3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 5px 0 #2B2B3A">Готово</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Панели 9-slice</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">слева исходник 1:1, справа растянуто</div></div>
+<div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ panels }}" as="pn" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;gap:18px;align-items:flex-end">
+<div style="width:{{ pn.sw }};height:{{ pn.sh }};background-image:{{ pn.src }};background-size:100% 100%;box-shadow:0 0 0 1px rgba(43,43,58,.15)"></div>
+<div style="width:{{ pn.dw }};height:{{ pn.dh }};box-sizing:border-box;border-style:solid;border-color:transparent;border-width:{{ pn.bw }};border-image-source:{{ pn.src }};border-image-slice:{{ pn.sl }};border-image-repeat:stretch"></div>
+</div>
+<div style="font:900 19px/1.1 Nunito;color:#2B2B3A">{{ pn.name }}</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ pn.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Кнопки — 3 состояния</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">обычная · нажата (лицо ниже на 8 px) · неактивна · масштаб при нажатии — в коде</div></div>
+<sc-for list="{{ btns }}" as="b" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:300px repeat(3,320px);gap:22px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:4px"><div style="font:900 20px/1.15 Nunito;color:#2B2B3A">{{ b.name }}</div><div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ b.file }}</div></div>
+<sc-for list="{{ b.cells }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="position:relative;width:{{ c.w }};height:112px">
+<div style="position:absolute;inset:0;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:{{ c.bw }};border-image-source:{{ c.src }};border-image-slice:{{ c.sl }};border-image-repeat:stretch"></div>
+<sc-if value="{{ c.glint }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background-image:{{ c.g.sheet }};background-size:{{ c.g.size }};background-position:{{ c.g.pos }};background-repeat:no-repeat"></div></sc-if>
+<div style="position:absolute;left:{{ c.pl }};right:0;top:{{ c.ty }};height:100px;display:flex;align-items:center;justify-content:center;font:900 38px Nunito;color:{{ c.tc }};text-shadow:3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 5px 0 #2B2B3A">{{ c.label }}</div>
+</div>
+<div style="font:700 11px 'JetBrains Mono',monospace;color:#6B6878">{{ c.sn }}</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-for list="{{ fixed }}" as="b" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:300px repeat(3,320px);gap:22px;align-items:center">
+<div style="display:flex;flex-direction:column;gap:4px"><div style="font:900 20px/1.15 Nunito;color:#2B2B3A">{{ b.name }}</div><div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ b.file }}</div></div>
+<sc-for list="{{ b.cells }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="position:relative;width:{{ c.w }};height:{{ c.w }};background-image:{{ c.src }};background-size:100% 100%">
+<sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:20px;top:{{ c.iy }};width:56px;height:56px;background-image:url('assets/g/ui_icon_pause.svg');background-size:100% 100%;filter:{{ c.flt }}"></div></sc-if>
+</div>
+<div style="font:700 11px 'JetBrains Mono',monospace;color:#6B6878">{{ c.sn }}</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">Элементы</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Переключатель</div>
+<div style="display:flex;gap:16px;align-items:center">
+<div style="position:relative;width:128px;height:64px;background-image:url('assets/g/ui_toggle_track_on.svg');background-size:100% 100%"><div style="position:absolute;left:{{ knobX }};top:4px;width:56px;height:56px;background-image:url('assets/g/ui_toggle_knob.svg');background-size:100% 100%"></div></div>
+<div style="position:relative;width:128px;height:64px;background-image:url('assets/g/ui_toggle_track_off.svg');background-size:100% 100%"><div style="position:absolute;left:4px;top:4px;width:56px;height:56px;background-image:url('assets/g/ui_toggle_knob.svg');background-size:100% 100%"></div></div>
+</div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">ui_toggle_track_on / off 128×64 · ui_toggle_knob 56 · бегунок едет в коде: x 4 → 68</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Ползунок громкости</div>
+<div style="position:relative;width:320px;height:56px"><div style="position:absolute;left:0;top:8px;width:320px;height:40px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 20px;border-image-source:url('assets/g/ui_slider_track.svg');border-image-slice:0 20 fill"></div><div style="position:absolute;left:0;top:8px;width:200px;height:40px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 20px;border-image-source:url('assets/g/ui_slider_fill.svg');border-image-slice:0 20 fill"></div><div style="position:absolute;left:172px;top:0;width:56px;height:56px;background-image:url('assets/g/ui_slider_knob.svg');background-size:100% 100%"></div></div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">ui_slider_track / fill 256×40 · 3-slice 0 20 0 20 · knob 56</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Вкладки</div>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;gap:6px;padding-left:12px;align-items:flex-end">
+<div style="position:relative;width:180px;height:80px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:32px 32px 8px 32px;border-image-source:url('assets/g/ui_tab_active.svg');border-image-slice:32 32 8 32 fill"><div style="position:absolute;left:-32px;right:-32px;top:-26px;bottom:-8px;display:flex;align-items:center;justify-content:center;font:900 24px Nunito;color:#2B2B3A">Прокачка</div></div>
+<div style="position:relative;width:150px;height:80px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:32px 32px 8px 32px;border-image-source:url('assets/g/ui_tab_inactive.svg');border-image-slice:32 32 8 32 fill"><div style="position:absolute;left:-32px;right:-32px;top:-18px;bottom:-8px;display:flex;align-items:center;justify-content:center;font:900 22px Nunito;color:#6B5A44">Скины</div></div>
+</div>
+<div style="height:24px;margin-top:-2px;border-radius:0 0 14px 14px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A"></div>
+</div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">ui_tab_active / inactive 192×88 · 9-slice 32 32 8 32 · низ заходит под панель</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Прогресс-бар</div>
+<sc-for list="{{ bars }}" as="pb" hint-placeholder-count="2">
+<div style="position:relative;width:340px;height:48px"><div style="position:absolute;inset:0;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 24px;border-image-source:url('assets/g/ui_progress_frame.svg');border-image-slice:0 24 fill"></div><div style="position:absolute;left:8px;top:8px;width:{{ pb.w }};height:32px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 16px;border-image-source:url('assets/g/ui_progress_fill.svg');border-image-slice:0 16 fill"></div></div>
+</sc-for>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">frame 256×48 · 0 24 0 24 · fill 240×32 · 0 16 0 16 · ширина заливки в коде, мин. 32 px</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,0 -2px 0 #2B2B3A">Счётчик и точка-уведомление</div>
+<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+<div style="position:relative;width:200px;height:64px;margin-left:10px"><div style="position:absolute;inset:0;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 32px;border-image-source:url('assets/g/ui_counter_plate.svg');border-image-slice:0 32 fill"></div><div style="position:absolute;left:-12px;top:0;width:64px;height:64px;background-image:url('assets/g/ui_icon_coin.svg');background-size:100% 100%"></div><div style="position:absolute;left:58px;right:14px;top:0;bottom:4px;display:flex;align-items:center;font:900 32px Nunito;color:#fff;text-shadow:2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,0 4px 0 #2B2B3A">1 250</div></div>
+<div style="position:relative;width:96px;height:96px;background-image:url('assets/g/ui_btn_round_normal.svg');background-size:100% 100%"><div style="position:absolute;left:20px;top:16px;width:56px;height:56px;background-image:url('assets/g/ui_icon_gift.svg');background-size:100% 100%"></div><div style="position:absolute;right:0;top:0;width:32px;height:32px;background-image:url('assets/g/ui_badge_dot.svg');background-size:100% 100%"></div></div>
+</div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#fff">ui_counter_plate 192×64 · 0 32 0 32 · иконка 64 заходит на левый край · ui_badge_dot 32</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Замок и галочка</div>
+<div style="display:flex;gap:18px"><div style="width:96px;height:96px;border-radius:16px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:url('assets/g/ui_lock.svg');background-size:64px 64px;background-position:center;background-repeat:no-repeat"></div><div style="width:96px;height:96px;border-radius:16px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:url('assets/g/ui_check.svg');background-size:64px 64px;background-position:center;background-repeat:no-repeat"></div></div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">ui_lock · ui_check · 64×64</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">Тост</div>
+<div style="position:relative;width:400px;height:80px"><div style="position:absolute;inset:0;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:0 40px;border-image-source:url('assets/g/ui_toast.svg');border-image-slice:0 40 fill"></div><div style="position:absolute;left:16px;top:8px;width:64px;height:64px;background-image:url('assets/g/ui_icon_coin.svg');background-size:100% 100%"></div><div style="position:absolute;left:88px;right:24px;top:0;bottom:0;display:flex;align-items:center;font:900 26px Nunito;color:#fff">Не хватает монет</div></div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">ui_toast 384×80 · 0 40 0 40 · иконка слева по желанию</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:20px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,0 -2px 0 #2B2B3A">Облачко-реплика</div>
+<div style="position:relative;width:380px;height:170px"><div style="position:absolute;left:0;top:0;width:380px;height:136px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:36px;border-image-source:url('assets/g/ui_bubble.svg');border-image-slice:36 fill"></div><div style="position:absolute;left:52px;top:131px;width:48px;height:40px;background-image:url('assets/g/ui_bubble_tail.svg');background-size:100% 100%"></div><div style="position:absolute;left:24px;right:24px;top:0;height:128px;display:flex;align-items:center;justify-content:center;text-align:center;font:900 28px/1.2 Nunito;color:#2B2B3A;text-wrap:pretty">Встань на площадку, чтобы построить!</div></div>
+<div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#fff">ui_bubble 256×144 · 36 · хвостик 48×40 отдельно, ставится на нижний край −5 px</div>
+</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:20px">
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 24px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">Звёзды</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">пустая и полная · 32 / 64 / 128</div></div>
+<div style="display:flex;gap:28px;align-items:flex-end">
+<div style="display:flex;gap:6px;align-items:flex-end"><div style="width:32px;height:32px;background-image:url('assets/g/ui_star_full_32.svg')"></div><div style="width:32px;height:32px;background-image:url('assets/g/ui_star_empty_32.svg')"></div></div>
+<div style="display:flex;gap:8px;align-items:flex-end"><div style="width:64px;height:64px;background-image:url('assets/g/ui_star_full_64.svg')"></div><div style="width:64px;height:64px;background-image:url('assets/g/ui_star_empty_64.svg')"></div></div>
+<div style="display:flex;gap:10px;align-items:flex-end"><div style="width:128px;height:128px;background-image:url('assets/g/ui_star_full_128.svg')"></div><div style="width:128px;height:128px;background-image:url('assets/g/ui_star_empty_128.svg')"></div></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:22px 24px;border-radius:24px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A">
+<div style="display:flex;align-items:baseline;gap:12px"><div style="font:900 24px/1 Nunito;color:#2B2B3A">Появление звезды</div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">ui_star_appear_5f · 128 · 12 FPS · once</div></div>
+<div style="position:relative;height:150px">
+<sc-for list="{{ stars }}" as="st" hint-placeholder-count="3">
+<div style="position:absolute;left:{{ st.x }};top:{{ st.y }};width:128px;height:128px;background-image:url('assets/g/ui_star_empty_128.svg');background-size:100% 100%"></div>
+<sc-if value="{{ st.on }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ st.x }};top:{{ st.y }};width:128px;height:128px;background-image:url('assets/g/ui_star_appear_5f.svg');background-size:500% 100%;background-position:{{ st.pos }}"></div></sc-if>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Иконки 64×64</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">показаны ×1.5 · ui_icon_*</div></div>
+<div style="display:grid;grid-template-columns:repeat(4,auto);gap:18px;justify-content:start">
+<sc-for list="{{ icons }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 20px Nunito;color:#2B2B3A">{{ g.name }}</div>
+<div style="display:grid;grid-template-columns:repeat(4,104px);gap:10px 8px">
+<sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+<div style="width:104px;height:104px;border-radius:16px;background-color:#FFF4DC;box-shadow:0 0 0 2px #2B2B3A;background-image:{{ it.src }};background-size:96px 96px;background-position:center;background-repeat:no-repeat"></div>
+<div style="font:800 13px/1.15 Nunito;color:#2B2B3A;text-align:center">{{ it.ru }}</div>
+<div style="font:700 9.5px/1.2 'JetBrains Mono',monospace;color:#6B6878;text-align:center">{{ it.id }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:18px;flex-wrap:wrap">
+<div style="display:flex;gap:16px;align-items:center;padding:18px 22px;border-radius:20px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:relative;width:128px;height:128px"><div style="position:absolute;inset:0;background-image:url('assets/g/ui_bonus_timer_track.svg');background-size:100% 100%"></div><div style="position:absolute;inset:0;background-image:url('assets/g/ui_bonus_timer_fill.svg');background-size:100% 100%;-webkit-mask-image:{{ timerMask }};mask-image:{{ timerMask }}"></div><div style="position:absolute;left:24px;top:24px;width:80px;height:80px;background-image:url('assets/g/ui_icon_bonus_rage.svg');background-size:100% 100%"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px;max-width:260px"><div style="font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,0 -2px 0 #2B2B3A">Таймер активного бонуса</div><div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#fff">ui_bonus_timer_track + fill · 64 · заполнение в коде по часовой от 12 ч</div></div>
+</div>
+<sc-for list="{{ animIcons }}" as="a" hint-placeholder-count="2">
+<div style="display:flex;gap:16px;align-items:center;padding:18px 22px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="position:relative;width:128px;height:128px;border-radius:18px;background:#FFF4DC;box-shadow:0 0 0 2px #2B2B3A"><div style="position:absolute;inset:0;background-image:{{ a.sheet }};background-size:{{ a.size }};background-position:{{ a.pos }};background-repeat:no-repeat"></div><div style="position:absolute;right:6px;top:6px;font:700 11px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:2px 5px;border-radius:6px">{{ a.fr }}</div></div>
+<div style="display:flex;flex-direction:column;gap:6px;max-width:240px"><div style="font:900 20px Nunito;color:#2B2B3A">{{ a.name }}</div><div style="font:700 11px/1.4 'JetBrains Mono',monospace;color:#6B6878">{{ a.spec }}</div></div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Обучение</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">затемнение вокруг подсветки — маской в коде</div></div>
+<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ tut }}" as="a" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="position:relative;width:{{ a.bw }};height:{{ a.bh }};border-radius:16px;overflow:hidden;background-image:url('assets/e/tile_farm_grass_1.svg');background-size:64px 64px;box-shadow:0 0 0 3px #2B2B3A"><div style="position:absolute;left:8px;top:8px;width:{{ a.dw }};height:{{ a.dh }};background-image:{{ a.sheet }};background-size:{{ a.size }};background-position:{{ a.pos }};background-repeat:no-repeat"></div><div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ a.fr }}</div></div>
+<div style="font:900 17px/1.15 Nunito;color:#2B2B3A">{{ a.name }}</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ a.spec }}</div>
+</div>
+</sc-for>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="position:relative;width:560px;height:420px;border-radius:16px;overflow:hidden;background-image:url('assets/e/tile_farm_grass_1.svg');background-size:64px 64px;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:216px;top:232px;width:128px;height:96px;background-image:url('assets/e/pad_normal.svg');background-size:100% 100%"></div>
+<div style="position:absolute;left:152px;top:152px;width:256px;height:256px;background-image:{{ hl.sheet }};background-size:{{ hl.size }};background-position:{{ hl.pos }}"></div>
+<div style="position:absolute;left:248px;top:120px;width:64px;height:96px;background-image:{{ ar.sheet }};background-size:{{ ar.size }};background-position:{{ ar.pos }}"></div>
+<div style="position:absolute;left:24px;top:20px;width:300px;height:104px;box-sizing:border-box;border-style:solid;border-color:transparent;border-width:36px;border-image-source:url('assets/g/ui_bubble.svg');border-image-slice:36 fill"></div>
+<div style="position:absolute;left:230px;top:118px;width:48px;height:40px;background-image:url('assets/g/ui_bubble_tail.svg');background-size:100% 100%;transform:scaleX(-1)"></div>
+<div style="position:absolute;left:40px;top:20px;width:268px;height:96px;display:flex;align-items:center;justify-content:center;text-align:center;font:900 26px/1.15 Nunito;color:#2B2B3A">Встань на площадку!</div>
+<div style="position:absolute;left:392px;top:236px;width:128px;height:128px;background-image:url('assets/b/hero_raccoon_idle_4f.svg');background-size:400% 100%"></div>
+</div>
+<div style="font:900 17px/1.15 Nunito;color:#2B2B3A">Сборка: «Встань на площадку»</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">облачко + подсветка + стрелка поверх площадки</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">Нарезка 9-slice</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">отступы в px исходника · порядок: верх право низ лево · 0 = по этой оси не тянется</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 28px">
+<sc-for list="{{ slices }}" as="r" hint-placeholder-count="12">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:2px solid rgba(43,43,58,.08);font:700 13px 'JetBrains Mono',monospace;color:#2B2B3A"><div>{{ r.f }}</div><div style="color:#E0662A">{{ r.s }}</div></div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">PNG лежат в export/g/. Дальше: «ок — партия H (HUD боя)» или правки по элементу, например «рекламную кнопку сделать бирюзовой», «иконке зерна крупнее зёрна».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? .25 : 1);
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 60) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  sp(file, n, fps, loop, off = 0) {
+    const k = Math.floor((this.state.t + off) * fps / 1000);
+    const f = n === 1 ? 0 : loop ? k % n : Math.min(k % (n + Math.ceil(fps * .9)), n - 1);
+    return { sheet: `url('assets/g/${file}_${n}f.svg')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${f / (n - 1) * 100}% 0%` : '0% 0%', fr: `${f + 1}/${n}`, f };
+  }
+  renderVals() {
+    const G = 'assets/g/', t = this.state.t, SN = ['обычная', 'нажата', 'неактивна'], STS = ['normal', 'pressed', 'disabled'];
+    const glint = this.sp('ui_btn_ad_glint', 4, 8, 1);
+    const rect = (id, name, label, w, sl, bw, pl) => ({
+      name, file: `ui_btn_${id}_normal|pressed|disabled · ${id === 'ad' ? '256' : '192'}×112 · 9-slice ${sl}${id === 'ad' ? ' · блик ui_btn_ad_glint_4f · 8 FPS · loop' : ''}`,
+      cells: STS.map((st, i) => ({ sn: SN[i], w, src: `url('${G}ui_btn_${id}_${st}.svg')`, sl: sl + ' fill', bw, label, pl: pl || '0px', ty: i === 1 ? '9px' : '2px', tc: i === 2 ? '#ECEAF0' : '#FFFFFF', glint: id === 'ad' && i === 0, g: glint }))
+    });
+    const btns = [
+      rect('orange', 'Большая оранжевая — главное действие', 'Играть', '300px', '44 44 52 44', '44px 44px 52px 44px'),
+      rect('green', 'Зелёная — подтвердить, купить', 'Купить', '240px', '44 44 52 44', '44px 44px 52px 44px'),
+      rect('blue', 'Синяя — второстепенная', 'Отмена', '240px', '44 44 52 44', '44px 44px 52px 44px'),
+      rect('ad', 'Рекламная — свой цвет и иконка видео', '×2', '256px', '44 44 52 84', '44px 44px 52px 84px', '64px')
+    ];
+    const fx = (id, name, size, spec, icon) => ({ name, file: spec, cells: STS.map((st, i) => ({ sn: SN[i], w: size + 'px', src: `url('${G}ui_btn_${id}_${st}.svg')`, icon: !!icon, iy: i === 1 ? '20px' : '16px', flt: i === 2 ? 'grayscale(1) brightness(1.2)' : 'none' })) });
+    const fixed = [fx('round', 'Круглая иконка-кнопка', 96, 'ui_btn_round_* · 96×96 · иконка 56 по центру лица', 1), fx('close', 'Крестик «закрыть»', 80, 'ui_btn_close_* · 80×80'), fx('back', 'Стрелка «назад»', 96, 'ui_btn_back_* · 96×96')];
+    const panels = [
+      { name: 'Основная панель окна', spec: 'ui_panel_main 192×192 · 9-slice 56 · гвоздики в углах не тянутся', src: `url('${G}ui_panel_main.svg')`, sw: '192px', sh: '192px', dw: '440px', dh: '300px', bw: '56px', sl: '56 fill' },
+      { name: 'Вложенная карточка', spec: 'ui_card 128×128 · 32 32 40 32', src: `url('${G}ui_card.svg')`, sw: '128px', sh: '128px', dw: '240px', dh: '200px', bw: '32px 32px 40px 32px', sl: '32 32 40 32 fill' },
+      { name: 'Лента-заголовок', spec: 'ui_ribbon 384×112 · только по ширине: 0 104 0 104', src: `url('${G}ui_ribbon.svg')`, sw: '384px', sh: '112px', dw: '560px', dh: '112px', bw: '0 104px', sl: '0 104 fill' },
+      { name: 'Затемнение экрана', spec: 'ui_dim 16×16 · #2B2B3A 60% · тянется на весь экран', src: `url('${G}ui_dim.svg')`, sw: '64px', sh: '64px', dw: '200px', dh: '120px', bw: '0', sl: '0 fill' }
+    ];
+    const cyc = t % 3600;
+    const stars = [0, 1, 2].map(i => { const lt = cyc - 300 - i * 450, on = lt >= 0, f = on ? Math.min(4, Math.floor(lt * 12 / 1000)) : 0; return { x: 20 + i * 150 + 'px', y: i === 1 ? '0px' : '18px', on, pos: `${f / 4 * 100}% 0%` }; });
+    const I = (id, ru) => ({ id, ru, src: `url('${G}ui_icon_${id}.svg')` });
+    const icons = [
+      { name: 'Валюты', items: [I('coin', 'Монета'), I('grain', 'Золотое зерно'), I('carrot', 'Морковка'), I('star', 'Звезда')] },
+      { name: 'Действия', items: [I('ad', 'Реклама'), I('pause', 'Пауза'), I('play', 'Играть'), I('restart', 'Заново'), I('home', 'Карта / домой'), I('settings', 'Настройки'), I('music', 'Музыка'), I('sound', 'Звук'), I('language', 'Язык'), I('shop', 'Магазин'), I('gift', 'Подарок'), I('trophy', 'Трофей')] },
+      { name: 'Прокачка', items: [I('damage', 'Урон'), I('attack_speed', 'Скор. атаки'), I('run_speed', 'Скор. бега'), I('magnet', 'Магнит')] },
+      { name: 'Бонусы', items: [I('bonus_gold_rain', 'Золотой дождь'), I('bonus_rage', 'Ярость'), I('bonus_super_magnet', 'Супер-магнит'), I('bonus_upgrade', 'Апгрейд'), I('bonus_tractor', 'Трактор'), I('bonus_sleepy_rain', 'Сонный дождь'), I('bonus_helper', 'Помощник')] }
+    ];
+    const deg = Math.round(360 - (t / 25) % 360);
+    const A = (file, n, fps, loop, name, spec, w, h, sc) => ({ ...this.sp(file, n, fps, loop), name, spec: `${file}_${n}f · ${spec} · ${n} кадр. · ${fps} FPS · ${loop ? 'loop' : 'once'}`, dw: w * sc + 'px', dh: h * sc + 'px', bw: w * sc + 16 + 'px', bh: h * sc + 16 + 'px' });
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })), toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      btns, fixed, panels, stars, icons,
+      knobX: (Math.floor(t / 1500) % 2 ? 4 : 68) + 'px',
+      bars: [{ w: '120px' }, { w: '260px' }],
+      timerMask: `conic-gradient(#000 ${deg}deg, transparent 0)`,
+      animIcons: [
+        { ...this.sp('ui_icon_gift_shake', 4, 10, 1), name: 'Подарок трясётся', spec: 'ui_icon_gift_shake_4f · 64 · 10 FPS · loop · есть награда' },
+        { ...this.sp('ui_icon_harvest_ripe', 3, 6, 1), name: 'Урожай созрел', spec: 'ui_icon_harvest_ripe_3f · 64 · 6 FPS · loop' }
+      ],
+      tut: [
+        A('ui_tut_hand_tap', 4, 8, 1, 'Палец — тап', '128', 128, 128, 1.5),
+        A('ui_tut_hand_swipe', 6, 10, 1, 'Палец — свайп', '256×128', 256, 128, 1.25),
+        A('ui_tut_highlight', 3, 6, 1, 'Круг-подсветка', '256', 256, 256, 1),
+        A('ui_tut_arrow', 3, 8, 1, 'Стрелка-указатель', '64×96', 64, 96, 2)
+      ],
+      hl: this.sp('ui_tut_highlight', 3, 6, 1), ar: this.sp('ui_tut_arrow', 3, 8, 1),
+      slices: [
+        { f: 'ui_panel_main 192×192', s: '56 56 56 56' }, { f: 'ui_card 128×128', s: '32 32 40 32' }, { f: 'ui_ribbon 384×112', s: '0 104 0 104' },
+        { f: 'ui_btn_orange|green|blue_* 192×112', s: '44 44 52 44' }, { f: 'ui_btn_ad_* 256×112', s: '44 44 52 84' }, { f: 'ui_tab_* 192×88', s: '32 32 8 32' },
+        { f: 'ui_progress_frame 256×48', s: '0 24 0 24' }, { f: 'ui_progress_fill 240×32', s: '0 16 0 16' }, { f: 'ui_slider_track|fill 256×40', s: '0 20 0 20' },
+        { f: 'ui_counter_plate 192×64', s: '0 32 0 32' }, { f: 'ui_toast 384×80', s: '0 40 0 40' }, { f: 'ui_bubble 256×144', s: '36 36 36 36' },
+        { f: 'ui_dim 16×16', s: 'растягивается целиком' }, { f: 'круглые, закрыть, назад', s: 'не тянутся' }, { f: 'иконки, звёзды, замок', s: 'не тянутся' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

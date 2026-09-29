@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="E Окружение" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ E · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Окружение — 3 биома</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1250px;text-wrap:pretty">Сцены ниже собраны только из тайлов 64×64 и объектов этой партии — так будут выглядеть уровни. Анимированный декор: либо отдельный лист, либо накладка 1:1 поверх статичного объекта (флажок амбара, лопасти мельницы, рябь, пчёлы) — так меньше вес.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:896px 896px;gap:32px 36px">
+<sc-for list="{{ scenes }}" as="s" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 32px/1 Nunito;color:#2B2B3A">{{ s.name }}</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">{{ s.note }}</div></div>
+<div style="position:relative;width:896px;height:512px;border-radius:20px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A;background:#4CAF50">
+<sc-for list="{{ s.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};background-image:{{ l.sheet }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:no-repeat;background-color:{{ l.bgc }};border-radius:{{ l.br }}"></div></sc-for>
+</div>
+</div>
+</sc-for>
+<div style="display:flex;flex-direction:column;gap:14px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 30px/1 Nunito;color:#2B2B3A">Как читать имена тайлов</div>
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;text-wrap:pretty">Каждое направление нарисовано отдельно, а не поворотом в коде, чтобы свет всегда падал сверху слева. Тёмная кромка есть только у верхнего края песка.</div>
+<div style="display:flex;flex-direction:column;gap:8px;font:700 14px/1.45 'JetBrains Mono',monospace;color:#2B2B3A">
+<div>road_*_trbl — буквами указано, куда выходит дорога: t верх · r право · b низ · l лево</div>
+<div>sand_edge_b — песок снизу, трава сверху</div>
+<div>sand_outer_br — выпуклый угол, песок в правом нижнем углу</div>
+<div>sand_inner_tl — вогнутый угол, трава в левом верхнем углу</div>
+<div>sand_fill — сплошной песок · grass_1…3 — варианты травы</div>
+<div>стыки: дорога 40 px по центру (12…52), край площадки песка — 24 px от края тайла</div>
+</div>
+<div style="display:flex;gap:18px;margin-top:6px">
+<sc-for list="{{ palettes }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;gap:4px"><sc-for list="{{ p.c }}" as="c" hint-placeholder-count="3"><div style="width:44px;height:44px;border-radius:10px;background:{{ c }};box-shadow:0 0 0 2px #2B2B3A"></div></sc-for></div>
+<div style="font:800 15px Nunito;color:#2B2B3A">{{ p.name }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Тайлы 64×64</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">по 30 на биом: 3 травы · 14 дорог · 12 краёв песка · заливка</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+<sc-for list="{{ cats }}" as="b" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:20px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 22px/1 Nunito;color:#2B2B3A">{{ b.name }}</div>
+<div style="display:grid;grid-template-columns:repeat(6,76px);gap:10px 8px">
+<sc-for list="{{ b.tiles }}" as="t" hint-placeholder-count="30">
+<div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+<div style="width:64px;height:64px;background-image:{{ t.src }};background-size:100% 100%;box-shadow:0 0 0 1px rgba(43,43,58,.35)"></div>
+<div style="font:700 9.5px/1.2 'JetBrains Mono',monospace;color:#4A4858;text-align:center">{{ t.name }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">{{ g.name }}</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">{{ g.note }}</div></div>
+<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ g.cards }}" as="c" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:6px;width:{{ c.bw }}">
+<div style="position:relative;width:{{ c.bw }};height:{{ c.bh }};border-radius:16px;overflow:hidden;background:{{ c.bg }};box-shadow:0 0 0 3px #2B2B3A">
+<sc-for list="{{ c.layers }}" as="l" hint-placeholder-count="1"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};background-image:{{ l.sheet }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:no-repeat;background-color:{{ l.bgc }};border-radius:{{ l.br }};-webkit-mask-image:{{ l.mask }};mask-image:{{ l.mask }}"></div></sc-for>
+<sc-if value="{{ c.anim }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.fr }}</div></sc-if>
+</div>
+<div style="font:900 17px/1.15 Nunito;color:#2B2B3A">{{ c.name }}</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">PNG лежат в export/e/, координаты 20 лунок базы — ниже в карточке «База-грядка». Дальше: «ок — партия F (эффекты)» или правки по объекту.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? .25 : 1);
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 80) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  sp(file, n, fps, loop, off = 0) {
+    const src = file.includes('/') ? file : `assets/e/${file}.svg`;
+    const k = Math.floor((this.state.t + off) * fps / 1000);
+    const f = n === 1 ? 0 : loop ? k % n : Math.min(k % (n + Math.ceil(fps * .8)), n - 1);
+    return { sheet: `url('${src}')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${f / (n - 1) * 100}% 0%` : '0% 0%', fr: `${f + 1}/${n}`, mask: 'none' };
+  }
+  lay(file, n, fps, loop, x, y, w, h, off = 0, sc = 1, pad = 0) {
+    return { ...this.sp(file, n, fps, loop, off), l: pad + x * sc + 'px', t: pad + y * sc + 'px', w: w * sc + 'px', h: h * sc + 'px', bgc: 'transparent', br: '0' };
+  }
+  shd(cx, cy, w, sc = 1, pad = 0) {
+    const h = Math.max(6, w * .22);
+    return { sheet: 'none', size: 'auto', pos: '0 0', mask: 'none', fr: '', l: pad + (cx - w / 2) * sc + 'px', t: pad + (cy - h / 2) * sc + 'px', w: w * sc + 'px', h: h * sc + 'px', bgc: 'rgba(43,43,58,.22)', br: '50%' };
+  }
+  tiles(bio, spec) {
+    this.tc = this.tc || {};
+    if (this.tc[bio]) return this.tc[bio];
+    const road = new Set(spec.road.map(([c, r]) => c + ',' + r)), ex = {};
+    spec.exits.forEach(([c, r, d]) => ex[c + ',' + r] = d);
+    const [c0, r0, c1, r1] = spec.yard || [-9, -9, -9, -9], out = [];
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 14; c++) {
+      const k = c + ',' + r;
+      let name;
+      if (road.has(k)) {
+        const o = [['t', c, r - 1], ['r', c + 1, r], ['b', c, r + 1], ['l', c - 1, r]].filter(([d, x, y]) => road.has(x + ',' + y) || ex[k] === d).map(a => a[0]).join('');
+        const type = o.length === 1 ? 'end' : o.length === 3 ? 't' : (o === 'rl' || o === 'tb') ? 'straight' : 'corner';
+        name = `road_${type}_${o}`;
+      } else if (c >= c0 && c <= c1 && r >= r0 && r <= r1) {
+        const T = r === r0, B = r === r1, Lf = c === c0, R = c === c1;
+        name = T && Lf ? 'sand_outer_br' : T && R ? 'sand_outer_bl' : B && Lf ? 'sand_outer_tr' : B && R ? 'sand_outer_tl' : T ? 'sand_edge_b' : B ? 'sand_edge_t' : Lf ? 'sand_edge_r' : R ? 'sand_edge_l' : 'sand_fill';
+      } else name = 'grass_' + [1, 1, 2, 1, 3, 1, 2][(c * 7 + r * 13) % 7];
+      out.push({ sheet: `url('assets/e/tile_${bio}_${name}.svg')`, size: '100% 100%', pos: '0 0', mask: 'none', l: c * 64 + 'px', t: r * 64 + 'px', w: '64px', h: '64px', bgc: 'transparent', br: '0' });
+    }
+    return this.tc[bio] = out;
+  }
+  renderVals() {
+    const L = (...a) => this.lay(...a), Sh = (...a) => this.shd(...a);
+    const O = (file, n, fps, loop, x, y, w, h, shw, by, off = 0) => [...(shw ? [Sh(x + w / 2, y + by, shw)] : []), L(file, n, fps, loop, x, y, w, h, off)];
+    const SLOTS = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 5; i++) SLOTS.push([50 + i * 39, 80 + j * 36]);
+    const bedL = (bx, by, sc = 1, pad = 0) => [L('base_bed', 1, 1, 1, bx, by, 256, 256, 0, sc, pad), ...SLOTS.map(([x, y], i) => [3, 11, 17].includes(i) ? L('base_hole', 1, 1, 1, bx + x - 16, by + y - 26, 32, 32, 0, sc, pad) : L(i === 7 ? 'base_carrot_pull_4f' : 'base_carrot_idle_2f', i === 7 ? 4 : 2, i === 7 ? 12 : 3, i !== 7, bx + x - 16, by + y - 26, 32, 32, i * 170, sc, pad))];
+    const farm = [...this.tiles('farm', { road: [[0, 5], [1, 5], [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [7, 4], [7, 3], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2], [12, 2], [13, 2], [10, 3], [10, 4]], exits: [[0, 5, 'l'], [13, 2, 'r']], yard: [0, 0, 4, 3] }),
+      L('spawn_burrow_exit_3f', 3, 6, 1, -18, 300, 96, 96), L('pad_normal', 1, 1, 1, 176, 400, 128, 96), L('pad_normal', 1, 1, 1, 322, 400, 128, 96),
+      ...O('env_farm_haystack', 1, 1, 1, 792, 22, 96, 96, 80, 86), ...O('env_farm_scarecrow_sway_4f', 4, 4, 1, 720, -12, 96, 128, 34, 122), ...O('env_farm_wheelbarrow', 1, 1, 1, 590, 26, 96, 96, 60, 86),
+      L('env_farm_bed', 1, 1, 1, 330, 18, 128, 96), ...O('env_rocks', 1, 1, 1, 530, 70, 64, 64, 40, 56), L('env_farm_bed', 1, 1, 1, 330, 124, 128, 96),
+      Sh(128, 226, 170), L('env_farm_barn', 1, 1, 1, 0, -4, 256, 256), L('env_farm_barn_flag_4f', 4, 8, 1, 0, -4, 256, 256),
+      ...O('env_bush', 1, 1, 1, 800, 180, 96, 96, 60, 82), L('env_fence_decor', 1, 1, 1, 340, 252, 96, 64),
+      Sh(388, 453, 92), L('assets/d/def_goose_l1_idle_4f.svg', 4, 6, 1, 308, 300, 160, 160),
+      ...O('env_tree_pine_sway_3f', 3, 3, 1, 776, 356, 128, 128, 56, 122, 400), ...bedL(544, 256),
+      ...O('env_tree_apple_sway_3f', 3, 3, 1, 8, 352, 160, 160, 60, 146), ...O('env_stump', 1, 1, 1, 470, 440, 64, 64, 36, 58)];
+    const wheat = [...this.tiles('wheat', { road: [[0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [5, 5], [5, 4], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [10, 4], [10, 5], [10, 6], [11, 6], [12, 6], [13, 6]], exits: [[0, 6, 'l'], [13, 6, 'r']], yard: [0, 0, 4, 3] }),
+      L('spawn_burrow_exit_3f', 3, 6, 1, 832, 362, 96, 96, 300), L('pad_normal', 1, 1, 1, 392, 352, 128, 96), L('pad_locked', 1, 1, 1, 514, 392, 128, 96),
+      ...[[700, 40], [744, 52], [788, 40], [832, 52]].flatMap(([x, y], i) => O('env_sunflower_sway_3f', 3, 4, 1, x, y, 64, 96, 18, 92, i * 200)),
+      ...O('env_wheat_cart', 1, 1, 1, 560, 56, 128, 128, 100, 119),
+      ...O('env_wheat_sheaf', 1, 1, 1, 196, 108, 96, 96, 40, 88), ...O('env_wheat_sheaf', 1, 1, 1, 236, 138, 96, 96, 40, 88),
+      Sh(134, 230, 130), L('env_wheat_mill', 1, 1, 1, 6, -6, 256, 256), L('env_wheat_mill_blades_4f', 4, 8, 1, 6, -6, 256, 256),
+      ...[[392, 262], [448, 276], [504, 262], [560, 276], [10, 286], [64, 300], [118, 284], [172, 300], [226, 288]].map(([x, y], i) => L('env_wheat_ears_sway_3f', 3, 4, 1, x, y, 64, 64, i * 130)),
+      ...O('env_tree_pine_sway_3f', 3, 3, 1, 730, 250, 128, 128, 56, 122, 300),
+      ...O('env_rocks', 1, 1, 1, 300, 440, 64, 64, 40, 56), ...O('env_stump', 1, 1, 1, 160, 452, 64, 64, 36, 58)];
+    const lake = [...this.tiles('lake', { road: [[0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [5, 3], [5, 4], [5, 5], [6, 5], [7, 5], [8, 5], [9, 5], [10, 5], [11, 5], [12, 5], [13, 5]], exits: [[0, 2, 'l'], [13, 5, 'r']] }),
+      L('env_lake_lake', 1, 1, 1, 440, 8, 384, 256), L('env_lake_ripple_4f', 4, 4, 1, 440, 8, 384, 256), L('env_lake_boat', 1, 1, 1, 610, 78, 128, 64), L('env_lake_pier', 1, 1, 1, 560, 186, 128, 96),
+      ...[[748, 34], [448, 116], [770, 150]].map(([x, y], i) => L('env_lake_reeds_sway_3f', 3, 4, 1, x, y, 64, 96, i * 250)),
+      L('spawn_burrow_exit_3f', 3, 6, 1, -18, 108, 96, 96, 150),
+      ...O('env_bush', 1, 1, 1, 40, 20, 96, 96, 60, 82), ...O('env_bush', 1, 1, 1, 170, 34, 96, 96, 60, 82), ...O('env_tree_pine_sway_3f', 3, 3, 1, 330, -20, 128, 128, 56, 122),
+      ...O('env_lake_skep', 1, 1, 1, 60, 300, 96, 96, 60, 94), L('env_lake_skep_bees_4f', 4, 10, 1, 60, 300, 96, 96),
+      L('pad_normal', 1, 1, 1, 520, 400, 128, 96), L('pad_max', 1, 1, 1, 744, 400, 128, 96),
+      ...O('env_lake_skep', 1, 1, 1, 170, 330, 96, 96, 60, 94), L('env_lake_skep_bees_4f', 4, 10, 1, 170, 330, 96, 96, 300),
+      Sh(808, 463, 92), L('assets/d/def_frog_l3_idle_4f.svg', 4, 6, 1, 728, 310, 160, 160),
+      ...O('env_rocks', 1, 1, 1, 660, 440, 64, 64, 40, 56), L('env_fence_decor', 1, 1, 1, 20, 440, 96, 64),
+      ...O('env_tree_apple_sway_3f', 3, 3, 1, 200, 330, 160, 160, 60, 146, 500), ...O('env_stump', 1, 1, 1, 400, 440, 64, 64, 36, 58)];
+    const scenes = [
+      { name: 'Огород', note: 'уровни 1–5 · двор с амбаром, база-грядка, нора врагов', layers: farm },
+      { name: 'Пшеничное поле', note: 'уровни 6–9 · двор с мельницей, закрытая площадка', layers: wheat },
+      { name: 'Пасека у озера', note: 'уровни 10–12 · озеро, ульи, площадка MAX', layers: lake }
+    ];
+    const TN = ['grass_1', 'grass_2', 'grass_3', 'road_straight_rl', 'road_straight_tb', 'road_corner_bl', 'road_corner_tl', 'road_corner_tr', 'road_corner_rb', 'road_t_rbl', 'road_t_tbl', 'road_t_trl', 'road_t_trb', 'road_end_l', 'road_end_t', 'road_end_r', 'road_end_b', 'sand_fill', 'sand_edge_b', 'sand_edge_l', 'sand_edge_t', 'sand_edge_r', 'sand_outer_br', 'sand_outer_bl', 'sand_outer_tl', 'sand_outer_tr', 'sand_inner_tl', 'sand_inner_tr', 'sand_inner_br', 'sand_inner_bl'];
+    const BN = { farm: 'Огород', wheat: 'Пшеничное поле', lake: 'Пасека у озера' };
+    const cats = Object.keys(BN).map(b => ({ name: BN[b], tiles: TN.map(n => ({ name: n, src: `url('assets/e/tile_${b}_${n}.svg')` })) }));
+    const BG = { farm: '#4CAF50', wheat: '#8DBF4A', lake: '#45A872', pad: '#4CAF50' };
+    const card = (name, spec, w, h, sc, bg, items, anim) => {
+      const pad = 8, layers = items.map(it => it[0] === 'sh' ? this.shd(it[1], it[2], it[3], sc, pad) : this.lay(it[0], it[1], it[2], it[3], it[4] || 0, it[5] || 0, it[6] || w, it[7] || h, it[8] || 0, sc, pad));
+      const main = layers.find(l => l.fr && l.fr.indexOf('/1') < 0) || layers[layers.length - 1];
+      return { name, spec, bw: w * sc + 16 + 'px', bh: h * sc + 16 + 'px', bg: BG[bg] || bg, layers, anim: !!anim, fr: main.fr };
+    };
+    const ringDeg = (this.state.t / 20) % 400;
+    const ring = card('Кольцо прогресса', 'pad_progress_track + pad_progress_fill · 128×96 · заполнение в коде по часовой от 12 ч', 128, 96, 2, 'pad', [['pad_normal', 1, 1, 1], ['pad_progress_track', 1, 1, 1], ['pad_progress_fill', 1, 1, 1]]);
+    ring.layers[2].mask = `conic-gradient(from 0deg at 50% 47.9%, #000 ${Math.min(360, ringDeg)}deg, transparent 0)`;
+    const groups = [
+      { name: 'Огород — объекты', note: 'амбар 256 · грядка 128 · пугало · тачка · стог', cards: [
+        card('Амбар + флажок', 'env_farm_barn 256 · накладка env_farm_barn_flag_4f 1:1 · 8 FPS · loop', 256, 256, 1, 'farm', [['sh', 128, 230, 170], ['env_farm_barn', 1, 1, 1], ['env_farm_barn_flag_4f', 4, 8, 1]], 1),
+        card('Пугало качается', 'env_farm_scarecrow_sway_4f · 96×128 · 4 FPS · loop', 96, 128, 2, 'farm', [['sh', 48, 122, 34], ['env_farm_scarecrow_sway_4f', 4, 4, 1]], 1),
+        card('Грядка-декор', 'env_farm_bed · 128×96 · капуста, чтобы не путать с морковками базы', 128, 96, 1.5, 'farm', [['env_farm_bed', 1, 1, 1]]),
+        card('Тачка', 'env_farm_wheelbarrow · 96', 96, 96, 1.5, 'farm', [['sh', 48, 86, 60], ['env_farm_wheelbarrow', 1, 1, 1]]),
+        card('Стог сена', 'env_farm_haystack · 96', 96, 96, 1.5, 'farm', [['sh', 48, 86, 80], ['env_farm_haystack', 1, 1, 1]])] },
+      { name: 'Пшеничное поле — объекты', note: 'мельница 256 · колосья 64 · сноп · телега', cards: [
+        card('Мельница + лопасти', 'env_wheat_mill 256 · накладка env_wheat_mill_blades_4f 1:1 · 8 FPS · loop', 256, 256, 1, 'wheat', [['sh', 128, 234, 130], ['env_wheat_mill', 1, 1, 1], ['env_wheat_mill_blades_4f', 4, 8, 1]], 1),
+        card('Колосья колышутся', 'env_wheat_ears_sway_3f · 64 · 4 FPS · loop', 64, 64, 3, 'wheat', [['env_wheat_ears_sway_3f', 3, 4, 1]], 1),
+        card('Сноп', 'env_wheat_sheaf · 96', 96, 96, 1.5, 'wheat', [['sh', 48, 88, 40], ['env_wheat_sheaf', 1, 1, 1]]),
+        card('Телега', 'env_wheat_cart · 128', 128, 128, 1.5, 'wheat', [['sh', 64, 119, 100], ['env_wheat_cart', 1, 1, 1]])] },
+      { name: 'Пасека у озера — объекты', note: 'озеро 384×256 · камыши · мостик · улей-декор · лодочка', cards: [
+        card('Озеро + рябь', 'env_lake_lake 384×256 · накладка env_lake_ripple_4f 1:1 · 4 FPS · loop', 384, 256, 1, 'lake', [['env_lake_lake', 1, 1, 1], ['env_lake_ripple_4f', 4, 4, 1]], 1),
+        card('Камыши', 'env_lake_reeds_sway_3f · 64×96 · 4 FPS · loop', 64, 96, 2, 'lake', [['env_lake_reeds_sway_3f', 3, 4, 1]], 1),
+        card('Мостик', 'env_lake_pier · 128×96', 128, 96, 1.5, 'lake', [['env_lake_pier', 1, 1, 1]]),
+        card('Улей-декор + пчёлы', 'env_lake_skep 96 · накладка env_lake_skep_bees_4f · 10 FPS · loop · не похож на улей-защитника', 96, 96, 2, 'lake', [['sh', 48, 94, 60], ['env_lake_skep', 1, 1, 1], ['env_lake_skep_bees_4f', 4, 10, 1]], 1),
+        card('Лодочка', 'env_lake_boat · 128×64', 128, 64, 1.5, '#6EC6FF', [['env_lake_boat', 1, 1, 1]])] },
+      { name: 'Общие объекты', note: 'для всех биомов', cards: [
+        card('Яблоня', 'env_tree_apple_sway_3f · 160 · крона 3 FPS · loop', 160, 160, 1, 'farm', [['sh', 80, 146, 60], ['env_tree_apple_sway_3f', 3, 3, 1]], 1),
+        card('Ель', 'env_tree_pine_sway_3f · 128 · крона 3 FPS · loop', 128, 128, 1.25, 'farm', [['sh', 64, 122, 56], ['env_tree_pine_sway_3f', 3, 3, 1]], 1),
+        card('Куст', 'env_bush · 96', 96, 96, 1.5, 'farm', [['sh', 48, 82, 60], ['env_bush', 1, 1, 1]]),
+        card('Камни', 'env_rocks · 64', 64, 64, 2, 'farm', [['sh', 30, 56, 40], ['env_rocks', 1, 1, 1]]),
+        card('Пенёк', 'env_stump · 64', 64, 64, 2, 'farm', [['sh', 32, 58, 36], ['env_stump', 1, 1, 1]]),
+        card('Плетень-декор', 'env_fence_decor · 96×64 · отличается от забора-защиты', 96, 64, 2, 'farm', [['env_fence_decor', 1, 1, 1]]),
+        card('Подсолнух', 'env_sunflower_sway_3f · 64×96 · 4 FPS · loop', 64, 96, 2, 'farm', [['sh', 32, 92, 18], ['env_sunflower_sway_3f', 3, 4, 1]], 1)] },
+      { name: 'База-грядка', note: 'лунки 5×4, центры относительно кадра 256: x 50/89/128/167/206 · y 80/116/152/188; морковку ставить в (x−16, y−26)', cards: [
+        card('Грядка с морковками', 'base_bed 256 · 20 лунок · в демо 3 пустые, 1 выдёргивается', 256, 256, 1, 'farm', [['base_bed', 1, 1, 1]]),
+        card('Морковка idle', 'base_carrot_idle_2f · 32 · 3 FPS · loop', 32, 32, 4, 'farm', [['base_carrot_idle_2f', 2, 3, 1]], 1),
+        card('Выдёргивание', 'base_carrot_pull_4f · 32 · 12 FPS · once · последний кадр = лунка', 32, 32, 4, 'farm', [['base_carrot_pull_4f', 4, 12, 0]], 1),
+        card('Пустая лунка', 'base_hole · 32', 32, 32, 4, 'farm', [['base_hole', 1, 1, 1]])] },
+      { name: 'Спавн и площадки', note: 'нора 96 · площадка 128×96', cards: [
+        card('Нора', 'spawn_burrow_idle_1f · 96', 96, 96, 1.5, 'farm', [['spawn_burrow_idle_1f', 1, 1, 1]]),
+        card('Выход врагов', 'spawn_burrow_exit_3f · 6 FPS · loop', 96, 96, 1.5, 'farm', [['spawn_burrow_exit_3f', 3, 6, 1]], 1),
+        card('Обычная', 'pad_normal', 128, 96, 1.25, 'pad', [['pad_normal', 1, 1, 1]]),
+        card('Закрыта', 'pad_locked', 128, 96, 1.25, 'pad', [['pad_locked', 1, 1, 1]]),
+        card('Макс. уровень', 'pad_max', 128, 96, 1.25, 'pad', [['pad_max', 1, 1, 1]]),
+        card('Подсветка', 'pad_highlight_3f · 6 FPS · loop · герой на площадке', 128, 96, 1.25, 'pad', [['pad_highlight_3f', 3, 6, 1]], 1),
+        card('Открытие замка', 'pad_unlock_4f · 10 FPS · once', 128, 96, 1.25, 'pad', [['pad_unlock_4f', 4, 10, 0]], 1), ring] },
+      { name: 'Прочее', note: 'текст «MAX» и цифры — шрифтом в игре', cards: [
+        card('Звёзды уровня', 'ui_def_stars_1…3 · 48×16', 48, 48, 3, 'farm', [['ui_def_stars_1', 1, 1, 1, 0, 0, 48, 16], ['ui_def_stars_2', 1, 1, 1, 0, 16, 48, 16], ['ui_def_stars_3', 1, 1, 1, 0, 32, 48, 16]]),
+        card('Плашка MAX', 'ui_def_max_plate · 48×16 · без текста', 48, 16, 3, 'farm', [['ui_def_max_plate', 1, 1, 1]]),
+        card('Радиус атаки', 'ui_attack_radius · 256 · полупрозрачный, масштаб в коде', 256, 256, 1, 'farm', [['ui_attack_radius', 1, 1, 1], ['sh', 128, 150, 92], ['assets/d/def_goose_l1_idle_4f.svg', 4, 6, 1, 48, 4, 160, 160]]),
+        card('Стрелка к объекту', 'ui_edge_arrow_3f · 64 · 6 FPS · loop · поворот в коде', 64, 64, 2, 'farm', [['ui_edge_arrow_3f', 3, 6, 1]], 1)] }
+    ];
+    const bedCard = groups[4].cards[0];
+    bedCard.layers = bedL(0, 0, 1, 8);
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть',
+      speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })),
+      toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      scenes, cats, groups,
+      palettes: [{ name: 'Огород', c: ['#4CAF50', '#3E8E41', '#E0B77A'] }, { name: 'Поле', c: ['#8DBF4A', '#79A83E', '#E6C58A'] }, { name: 'Пасека', c: ['#45A872', '#378C5D', '#D9C7A0'] }]
+    };
+  }
+}
+</script>
+</body>
+</html>

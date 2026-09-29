@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="D Защитники и забор" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:44px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ D · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Защитники и забор</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1200px;text-wrap:pretty">4 защитника × 3 уровня: доски → крашеное дерево → камень, флажок и золото. У каждого уровня свои build, idle и attack, плюс апгрейды 1→2 и 2→3. Забор 128×64 в трёх материалах.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:28px">
+<sc-for list="{{ defs }}" as="d" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:12px;padding:22px 24px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:center;gap:16px">
+<div style="width:72px;height:72px;border-radius:16px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ d.portrait }};background-size:72px 72px"></div>
+<div style="display:flex;flex-direction:column;gap:4px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">{{ d.name }}</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">{{ d.spec }}</div></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,auto) 150px 150px;gap:20px;justify-content:start">
+<sc-for list="{{ d.levels }}" as="l" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:900 18px/1 Nunito;color:#2B2B3A">{{ l.name }}</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ l.cells }}" as="c" hint-placeholder-count="3">
+<div style="width:144px;display:flex;flex-direction:column;gap:5px">
+<div style="position:relative;width:144px;height:144px;border-radius:14px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:35px;top:124px;width:74px;height:14px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:8px;top:8px;width:128px;height:128px;background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.label }}</div>
+</div>
+<div style="font:700 11px/1.3 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-for list="{{ d.ups }}" as="c" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:900 18px/1 Nunito;color:#2B2B3A">{{ c.name }}</div>
+<div style="position:relative;width:144px;height:144px;border-radius:14px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:35px;top:124px;width:74px;height:14px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:8px;top:8px;width:128px;height:128px;background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.label }}</div>
+</div>
+<div style="font:700 11px/1.3 'JetBrains Mono',monospace;color:#6B6878">upgrade · 5 кадров · 10 FPS · once</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding:22px 24px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Забор 128×64</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">превью ×2 · damage-состояния переключаются по HP в игре</div></div>
+<sc-for list="{{ fences }}" as="fz" hint-placeholder-count="3">
+<div style="display:flex;gap:14px;align-items:flex-start">
+<div style="flex:none;width:150px;padding-top:8px;font:900 20px/1.2 Nunito;color:#2B2B3A">{{ fz.name }}</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<sc-for list="{{ fz.cells }}" as="c" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:5px">
+<div style="position:relative;width:272px;height:144px;border-radius:14px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:118px;bottom:0;background:#E0B77A;box-shadow:inset 0 4px 0 #C69A5F"></div>
+<div style="position:absolute;left:8px;top:8px;width:256px;height:128px;background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.label }}</div>
+</div>
+<div style="font:900 16px/1 Nunito;color:#2B2B3A">{{ c.name }}</div>
+<div style="font:700 11px/1.3 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Портреты и заглушки</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">128×128 · радиальное меню, «Новый защитник!», карточки</div></div>
+<div style="display:flex;gap:18px;flex-wrap:wrap">
+<sc-for list="{{ defs }}" as="d" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+<div style="display:flex;gap:8px">
+<div style="width:128px;height:128px;border-radius:20px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ d.portrait }};background-size:128px 128px"></div>
+<div style="width:128px;height:128px;border-radius:20px;background-color:#9C99A8;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ d.locked }};background-size:128px 128px"></div>
+</div>
+<div style="font:900 17px/1 Nunito;color:#2B2B3A">{{ d.short }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;width:520px;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">Снаряды</div>
+<div style="display:flex;gap:24px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:96px;height:96px;border-radius:14px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:url('assets/d/proj_pea.svg');background-size:96px 96px"></div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">горошина 16</div></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:96px;height:96px;border-radius:14px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ tomato.sheet }};background-size:{{ tomato.size }};background-position:{{ tomato.pos }}"></div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">помидор 32 · 4f loop</div></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:96px;height:96px;border-radius:14px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:url('assets/d/proj_drop.svg');background-size:96px 96px"></div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">капля 16</div></div>
+</div>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">PNG лежат в export/d/. Дальше: «ок — партия E (окружение)» или правки по ячейке, например «лягушке ярче брызги», «забор 3 — крупнее камни».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = (now) => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? 0.25 : 1);
+      last = now;
+      if (now - (this.lr || 0) > 30) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  sp(file, n, fps, loop) {
+    const k = Math.floor(this.state.t * fps / 1000);
+    const f = n === 1 ? 0 : loop ? k % n : Math.min(k % (n + Math.ceil(fps * 0.8)), n - 1);
+    return { sheet: `url('${file}')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${(f / (n - 1)) * 100}% 0%` : '0% 0%', label: `${f + 1}/${n}` };
+  }
+  renderVals() {
+    const P = 'assets/d/', LV = ['l1', 'l2', 'l3'], LN = ['Ур. 1 · доски', 'Ур. 2 · краска', 'Ур. 3 · камень и золото'];
+    const D = [
+      ['goose', 'Гусь-стрелок на вышке', 'Гусь', 'стреляет горохом · attack: вдох → выстрел → откат', 4, 12, 0],
+      ['frog', 'Поливалка: лягушка', 'Лягушка', 'разбрызгиватель · attack: полив вращается', 4, 10, 1],
+      ['beaver', 'Помидорная пушка: бобёр', 'Бобёр', 'катапульта · attack: заряд → бросок → возврат', 5, 12, 0],
+      ['hive', 'Улей с пчёлами', 'Улей', 'attack: пчёлы вылетают', 4, 10, 0]
+    ];
+    const defs = D.map(([id, name, short, note, an, afps, aloop]) => ({
+      name, short, spec: `кадр 160 · ${note}`,
+      portrait: `url('${P}ui_def_portrait_${id}.svg')`, locked: `url('${P}ui_def_portrait_${id}_locked.svg')`,
+      levels: LV.map((l, i) => ({
+        name: LN[i],
+        cells: [['build', 6, 10, 0], ['idle', 4, 6, 1], ['attack', an, afps, aloop]].map(([a, n, fps, lp]) => ({
+          spec: `${a} · ${n}f · ${fps} FPS · ${lp ? 'loop' : 'once'}`, ...this.sp(`${P}def_${id}_${l}_${a}_${n}f.svg`, n, fps, lp)
+        }))
+      })),
+      ups: ['1to2', '2to3'].map(u => ({ name: u.replace('to', ' → '), ...this.sp(`${P}def_${id}_upgrade_${u}_5f.svg`, 5, 10, 0) }))
+    }));
+    const FN = ['Доски', 'Штакетник', 'Каменная стенка'];
+    const FA = [['idle', 1, 1, 1, ''], ['damage', 3, 1.2, 1, 'по HP: целый · трещины · разбит'], ['build', 5, 10, 0, ''], ['hit', 2, 12, 0, 'тряска'], ['destroy', 6, 12, 0, 'последний кадр пустой'], ['repair', 4, 8, 0, 'доски встают на место']];
+    const fences = LV.map((l, i) => ({
+      name: FN[i],
+      cells: FA.map(([a, n, fps, lp, note]) => ({
+        name: a, spec: a === 'idle' ? '1 кадр' : a === 'damage' ? `3 кадра · ${note}` : `${n}f · ${fps} FPS · once${note ? ' · ' + note : ''}`,
+        ...this.sp(`${P}fence_${l}_${a}_${n}f.svg`, n, fps, lp)
+      }))
+    }));
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть',
+      speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })),
+      toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      defs, fences, tomato: this.sp(`${P}proj_tomato_spin_4f.svg`, 4, 12, 1)
+    };
+  }
+}
+</script>
+</body>
+</html>

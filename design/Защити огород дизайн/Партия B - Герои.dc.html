@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="B Герои" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:44px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ B · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Герой, скины, снаряды</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1180px;text-wrap:pretty">5 героев × 8 анимаций. Позы и тайминги у всех скинов одинаковые. Кадр 128×128, персонаж смотрит вправо, лапы всегда на одной линии (y = 116). Всё проигрывается в реальном FPS; анимации «once» повторяются после короткой паузы.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:grid;grid-template-columns:200px repeat(8,196px);gap:12px">
+<div></div>
+<sc-for list="{{ cols }}" as="c" hint-placeholder-count="8"><div style="display:flex;flex-direction:column;gap:3px;justify-content:flex-end"><div style="font:900 24px/1 Nunito;color:#2B2B3A">{{ c.name }}</div><div style="font:700 12px/1.3 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div><div style="font:600 13px/1.3 Nunito;color:#6B6878">{{ c.desc }}</div></div></sc-for>
+</div>
+<sc-for list="{{ heroes }}" as="h" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:200px repeat(8,196px);gap:12px">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:8px">
+<div style="width:96px;height:96px;background-image:{{ h.avatar }};background-size:96px 96px"></div>
+<div style="font:900 24px/1.1 Nunito;color:#2B2B3A">{{ h.name }}</div>
+<div style="font:600 14px/1.3 Nunito;color:#6B6878">{{ h.desc }}</div>
+</div>
+<sc-for list="{{ h.cells }}" as="c" hint-placeholder-count="8">
+<div style="position:relative;width:196px;height:196px;border-radius:16px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:146px;bottom:0;background:#E0B77A;box-shadow:inset 0 4px 0 #C69A5F"></div>
+<div style="position:absolute;left:50px;top:157px;width:92px;height:18px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:2px;top:-8px;width:192px;height:192px;background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.label }}</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Для UI</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">портрет 256×256 · аватарка 96×96 · заглушка закрытого скина</div></div>
+<div style="display:flex;gap:20px">
+<sc-for list="{{ heroes }}" as="h" hint-placeholder-count="5">
+<div style="width:350px;box-sizing:border-box;padding:12px;border-radius:32px;background:#8D5A3B;box-shadow:0 0 0 4px #2B2B3A,inset 0 -7px 0 #6B412A,inset 0 5px 0 #B07A52">
+<div style="border-radius:22px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -7px 0 #EAD6AE;padding:16px 16px 20px;display:flex;flex-direction:column;gap:14px;align-items:center">
+<div style="width:256px;height:256px;border-radius:18px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ h.portrait }};background-size:256px 256px"></div>
+<div style="display:flex;gap:14px;align-items:center;width:100%">
+<div style="flex:none;width:96px;height:96px;background-image:{{ h.avatar }};background-size:96px 96px"></div>
+<div style="flex:none;width:96px;height:96px;border-radius:14px;background-color:#DCD1BE;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ h.locked }};background-size:96px 96px"></div>
+<div style="display:flex;flex-direction:column;gap:4px;min-width:0"><div style="font:900 20px/1.1 Nunito;color:#2B2B3A">{{ h.name }}</div><div style="font:600 13px/1.3 Nunito;color:#6B6878">аватарка и заглушка</div></div>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Снаряды</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">32×32 · вращение 4 кадра · 12 FPS · loop, «шлёп» 3 кадра · once</div></div>
+<div style="display:flex;gap:18px;flex-wrap:wrap">
+<sc-for list="{{ projs }}" as="p" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center;width:132px">
+<div style="position:relative;width:120px;height:120px;border-radius:16px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A"><div style="position:absolute;left:12px;top:12px;width:96px;height:96px;background-image:{{ p.sheet }};background-size:{{ p.size }};background-position:{{ p.pos }};background-repeat:no-repeat"></div></div>
+<div style="font:900 18px/1 Nunito;color:#2B2B3A">{{ p.name }}</div>
+<div style="font:600 13px/1.2 Nunito;color:#6B6878;text-align:center">{{ p.who }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;width:520px;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Аура «Ярости»</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">160×160 · 4 кадра · 10 FPS · loop · слой под героем</div></div>
+<div style="display:flex;gap:20px;align-items:flex-end">
+<div style="position:relative;width:260px;height:260px;border-radius:20px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:200px;bottom:0;background:#E0B77A;box-shadow:inset 0 4px 0 #C69A5F"></div>
+<div style="position:absolute;left:10px;top:8px;width:240px;height:240px;background-image:{{ aura.sheet }};background-size:{{ aura.size }};background-position:{{ aura.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;left:34px;top:32px;width:192px;height:192px;background-image:{{ auraHero.sheet }};background-size:{{ auraHero.size }};background-position:{{ auraHero.pos }};background-repeat:no-repeat"></div>
+</div>
+<div style="position:relative;width:160px;height:160px;border-radius:14px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A"><div style="position:absolute;inset:0;background-image:{{ aura.sheet }};background-size:{{ aura.size }};background-position:{{ aura.pos }};background-repeat:no-repeat"></div></div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">Кадры спрайт-листов 1:1</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><div onClick="{{ t.pick }}" style="cursor:pointer;height:44px;padding:0 18px;display:flex;align-items:center;border-radius:22px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #E0662A;font:900 18px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A">{{ t.name }}</div></sc-if>
+<sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><div onClick="{{ t.pick }}" style="cursor:pointer;height:44px;padding:0 18px;display:flex;align-items:center;border-radius:22px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #EAD6AE;font:900 18px Nunito;color:#2B2B3A" style-hover="background:#FFFFFF">{{ t.name }}</div></sc-if>
+</sc-for>
+</div>
+<div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">пунктир = линия опоры · ячейки без отступов · PNG в export/b/</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 40px">
+<sc-for list="{{ strips }}" as="s" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;gap:12px;align-items:baseline"><div style="font:900 22px/1 Nunito;color:#2B2B3A">{{ s.name }}</div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">{{ s.file }}</div></div>
+<div style="position:relative;width:{{ s.w }};height:128px;border-radius:8px;overflow:hidden;background-color:#4CAF50;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ s.sheet }};background-size:100% 100%"><div style="position:absolute;left:0;right:0;top:116px;border-top:2px dashed rgba(255,255,255,.8)"></div></div>
+<div style="display:flex;width:{{ s.w }}"><sc-for list="{{ s.labels }}" as="l" hint-placeholder-count="4"><div style="width:128px;flex:none;font:700 12px 'JetBrains Mono',monospace;color:#4A4858">{{ l }}</div></sc-for></div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">Дальше: «ок — партия C (вредители)» или правки по конкретной ячейке, например «throw у Корги: замах шире», «курочке косынку красную».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false, sel: 'raccoon' };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = (now) => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? 0.25 : 1);
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 30) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  fr(n, fps, loop) {
+    const k = Math.floor(this.state.t * fps / 1000);
+    if (loop) return k % n;
+    const c = n + Math.ceil(fps * 0.7);
+    return Math.min(k % c, n - 1);
+  }
+  sp(file, n, fps, loop) {
+    const f = this.fr(n, fps, loop);
+    return { sheet: `url('${file}')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${(f / (n - 1)) * 100}% 0%` : '0% 0%', label: `${f + 1}/${n}` };
+  }
+  renderVals() {
+    const P = 'assets/b/';
+    const A = [['idle', 4, 6, 1, 'дыхание, моргание'], ['run', 6, 12, 1, 'уши и хвост в движении'], ['throw', 4, 12, 0, 'замах → бросок → отдача → возврат'], ['build', 4, 10, 1, 'подбрасывает монетки'], ['hit', 2, 12, 0, 'получил удар'], ['stun', 4, 8, 1, 'звёздочки кружатся'], ['joy', 6, 10, 1, 'прыгает, экран победы'], ['sad', 4, 6, 1, 'грустит, экран поражения']];
+    const H = [['raccoon', 'Енот-фермер', 'соломенная шляпа, комбинезон'], ['corgi', 'Корги', 'в кепке'], ['pig', 'Свинка', 'в комбинезоне'], ['rabbit', 'Кролик', 'морковка в кармане'], ['chicken', 'Курочка', 'в косынке']];
+    const LBL = { run: ['контакт', 'присед', 'полёт', 'контакт', 'присед', 'полёт'], throw: ['замах', 'бросок', 'отдача', 'возврат'], build: ['монетка', 'бросок', 'полёт', 'в площадку'], hit: ['удар', 'отшатнулся'], joy: ['присед', 'толчок', 'пик', 'спуск', 'приземл.', 'возврат'] };
+    const kadr = n => n >= 5 ? 'кадров' : 'кадра';
+    const sel = this.state.sel;
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть',
+      speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })),
+      toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      cols: A.map(([a, n, fps, l, d]) => ({ name: a, spec: `${n} ${kadr(n)} · ${fps} FPS · ${l ? 'loop' : 'once'}`, desc: d })),
+      heroes: H.map(([id, name, desc]) => ({ id, name, desc, avatar: `url('${P}ui_avatar_${id}.svg')`, portrait: `url('${P}ui_portrait_${id}.svg')`, locked: `url('${P}ui_portrait_${id}_locked.svg')`, cells: A.map(([a, n, fps, l]) => this.sp(`${P}hero_${id}_${a}_${n}f.svg`, n, fps, l)) })),
+      projs: [['apple', 'Яблоко', 'Енот'], ['bone', 'Косточка', 'Корги'], ['acorn', 'Жёлудь', 'Свинка'], ['carrot', 'Морковка', 'Кролик'], ['egg', 'Яйцо', 'Курочка']].map(([id, name, who]) => ({ name, who, ...this.sp(`${P}proj_${id}_spin_4f.svg`, 4, 12, 1) })).concat([{ name: '«Шлёп»', who: 'общий, при попадании', ...this.sp(`${P}proj_splat_3f.svg`, 3, 12, 0) }]),
+      aura: this.sp(`${P}fx_rage_aura_4f.svg`, 4, 10, 1),
+      auraHero: this.sp(`${P}hero_raccoon_idle_4f.svg`, 4, 6, 1),
+      tabs: H.map(([id, name]) => ({ name, on: sel === id, off: sel !== id, pick: () => this.setState({ sel: id }) })),
+      strips: A.map(([a, n, fps, l]) => ({ name: a, file: `hero_${sel}_${a}_${n}f.png · ${fps} FPS · ${l ? 'loop' : 'once'}`, sheet: `url('${P}hero_${sel}_${a}_${n}f.svg')`, w: `${n * 128}px`, labels: Array.from({ length: n }, (_, i) => `${i + 1}${LBL[a] ? ' · ' + LBL[a][i] : ''}`) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

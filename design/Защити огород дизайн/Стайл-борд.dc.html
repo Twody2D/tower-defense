@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:700 15px/1.2 Nunito,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:600 13px/1.3 Nunito,sans-serif;color:rgba(0,0,0,.6)}.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:14px/1.5 Nunito,sans-serif;color:rgba(0,0,0,.6)}</style></helmet>
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Тестовая анимация в стиле <a class="dv-oid" href="#1a">1a</a> (амбар исправлен в <a class="dv-oid" href="#1a">1a</a> и <a class="dv-oid" href="#1b">1b</a>)</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Бег Енота 6 кадров · 12 FPS и ходьба жука 4 кадра · 8 FPS — проигрывается в реальном времени</div>
+<div class="dv-card" data-screen-label="2a Тест анимации" style="width:1920px;height:960px;position:relative;background:#F4EEE2">
+
+<div style="position:absolute;left:40px;top:40px;display:flex;align-items:center;gap:14px">
+<div style="font:900 44px/1 Nunito;color:#2B2B3A">Тест движения · 1a</div>
+<div style="display:flex;gap:10px;margin-left:24px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ step }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#6EC6FF;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #44A2E4;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Шаг +1 кадр</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="position:absolute;left:40px;top:124px;width:560px;height:560px;border-radius:28px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 4px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:440px;bottom:0;background:#E0B77A;box-shadow:inset 0 5px 0 #C69A5F"></div>
+<div style="position:absolute;left:180px;top:453px;width:190px;height:34px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ heroSrc }}') center/contain no-repeat;position:absolute;left:56px;top:64px;width:448px;height:448px"></div></sc-if>
+<div style="position:absolute;left:18px;top:16px;font:700 15px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:6px 10px;border-radius:8px">hero_raccoon_run_6f · 12 FPS · loop · кадр {{ heroFrame }}/6</div>
+</div>
+
+<div style="position:absolute;left:640px;top:124px;width:440px;height:560px;border-radius:28px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 4px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:440px;bottom:0;background:#E0B77A;box-shadow:inset 0 5px 0 #C69A5F"></div>
+<div style="position:absolute;left:100px;top:450px;width:240px;height:40px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ bugSrc }}') center/contain no-repeat;position:absolute;left:28px;top:126px;width:384px;height:384px"></div></sc-if>
+<div style="position:absolute;left:18px;top:16px;font:700 15px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:6px 10px;border-radius:8px">beetle_walk_4f · 8 FPS · {{ bugFrame }}/4</div>
+</div>
+
+<div style="position:absolute;left:1120px;top:124px;width:760px;height:560px;border-radius:28px;background:#4CAF50;box-shadow:0 0 0 4px #2B2B3A;overflow:hidden">
+<div style="position:absolute;left:18px;top:16px;font:700 15px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:6px 10px;border-radius:8px">игровой масштаб 1:1 и 1:2</div>
+<div style="position:absolute;left:0;right:0;top:300px;height:90px;background:#E0B77A;box-shadow:inset 0 5px 0 #C69A5F"></div>
+<div style="position:absolute;left:112px;top:352px;width:66px;height:14px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ heroSrc }}') center/contain no-repeat;position:absolute;left:80px;top:244px;width:128px;height:128px"></div></sc-if>
+<div style="position:absolute;left:278px;top:356px;width:34px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ bugSrc }}') center/contain no-repeat;position:absolute;left:272px;top:320px;width:48px;height:48px"></div></sc-if>
+<div style="position:absolute;left:358px;top:357px;width:24px;height:6px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ bugSrc }}') center/contain no-repeat;position:absolute;left:352px;top:332px;width:48px;height:48px"></div></sc-if>
+<div style="position:absolute;left:520px;top:356px;width:33px;height:7px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><div style="background:url('{{ heroSrc }}') center/contain no-repeat;position:absolute;left:504px;top:302px;width:64px;height:64px"></div><div style="background:url('{{ bugSrc }}') center/contain no-repeat;position:absolute;left:600px;top:342px;width:24px;height:24px"></div></sc-if>
+<div style="position:absolute;left:470px;top:410px;font:700 14px 'JetBrains Mono',monospace;color:#fff">×0.5</div>
+<div style="position:absolute;left:120px;top:410px;font:700 14px 'JetBrains Mono',monospace;color:#fff">×1</div>
+</div>
+
+<div style="position:absolute;left:40px;top:720px;width:1840px;display:flex;flex-direction:column;gap:10px">
+<div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">СПРАЙТ-ЛИСТЫ · кадры в одну строку, ячейки без отступов, точка опоры не прыгает · export/1a/*.png</div>
+<div style="display:flex;gap:28px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A;border-radius:6px;overflow:hidden;width:1152px;height:192px;position:relative"><img src="assets/1a/anim/hero_raccoon_run_6f.svg" style="width:1152px;height:192px;display:block"><div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr)"><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div></div></div></div>
+<div style="display:grid;grid-template-columns:repeat(6,1fr);width:1152px;font:700 13px 'JetBrains Mono',monospace;color:#4A4858"><div>1 · контакт</div><div>2 · присед</div><div>3 · полёт</div><div>4 · контакт</div><div>5 · присед</div><div>6 · полёт</div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A;border-radius:6px;overflow:hidden;width:576px;height:144px;position:relative"><img src="assets/1a/anim/enemy_beetle_walk_4f.svg" style="width:576px;height:144px;display:block"><div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr)"><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div style="box-shadow:inset -1px 0 0 rgba(255,255,255,.5)"></div><div></div></div></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);width:576px;font:700 13px 'JetBrains Mono',monospace;color:#4A4858"><div>1 · шаг A</div><div>2 · перенос</div><div>3 · шаг B</div><div>4 · перенос</div></div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<p class="dv-next">Дальше: «движение ок — делай партию B (герой, 8 анимаций, скины)» · «бег резче / мягче» · «лапы у жука крупнее».</p>
+</section>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Партия A — стайл-борд, 2 варианта</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>«Круглыши» — мягкие формы, ровная обводка, блестящие глаза</div>
+<div class="dv-card" data-screen-label="1a Стайл-борд" style="width:1920px;height:1080px;position:relative;background:#F4EEE2">
+
+<div style="position:absolute;left:40px;top:40px;width:1240px;height:880px;border-radius:28px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A">
+<div style="position:absolute;left:0;top:0;width:992px;height:704px;transform:scale(1.25);transform-origin:0 0">
+<img src="assets/1a/board_ground.svg" style="position:absolute;left:0;top:0;width:992px;height:704px">
+<img src="assets/1a/env_pad.svg" style="position:absolute;left:470px;top:440px;width:128px;height:96px">
+<div style="position:absolute;left:470px;top:462px;width:128px;display:flex;justify-content:center;align-items:center;gap:4px"><span style="font:900 30px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 3px 0 #2B2B3A">50</span><img src="assets/1a/fx_coin.svg" style="width:28px;height:28px"></div>
+<div style="position:absolute;left:845px;top:120px;width:110px;height:28px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:938px;top:190px;width:48px;height:12px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:312px;top:195px;width:80px;height:18px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:45px;top:215px;width:190px;height:34px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:717px;top:460px;width:130px;height:24px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:574px;top:540px;width:66px;height:14px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:854px;top:590px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:919px;top:600px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:984px;top:606px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:406px;top:646px;width:52px;height:12px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:40px;top:662px;width:90px;height:18px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<img src="assets/1a/env_tree_apple.svg" style="position:absolute;left:812px;top:-16px;width:160px;height:160px">
+<img src="assets/1a/env_rocks.svg" style="position:absolute;left:930px;top:140px;width:64px;height:64px">
+<img src="assets/1a/env_bush.svg" style="position:absolute;left:300px;top:118px;width:96px;height:96px">
+<img src="assets/1a/env_barn.svg" style="position:absolute;left:0;top:-4px;width:256px;height:256px">
+<img src="assets/1a/env_bed_carrot.svg" style="position:absolute;left:24px;top:232px;width:128px;height:96px">
+<img src="assets/1a/env_bed_carrot.svg" style="position:absolute;left:160px;top:244px;width:128px;height:96px">
+<img src="assets/1a/tower_goose_l1.svg" style="position:absolute;left:722px;top:322px;width:160px;height:160px">
+<img src="assets/1a/hero_raccoon.svg" style="position:absolute;left:536px;top:430px;width:128px;height:128px">
+<img src="assets/1a/fx_coin.svg" style="position:absolute;left:732px;top:512px;width:32px;height:32px">
+<img src="assets/1a/fx_coin.svg" style="position:absolute;left:762px;top:524px;width:32px;height:32px">
+<img src="assets/1a/fx_coin.svg" style="position:absolute;left:744px;top:544px;width:32px;height:32px">
+<img src="assets/1a/proj_pea.svg" style="position:absolute;left:894px;top:462px;width:16px;height:16px">
+<img src="assets/1a/enemy_beetle_1.svg" style="position:absolute;left:846px;top:552px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1a/enemy_beetle_2.svg" style="position:absolute;left:911px;top:562px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1a/enemy_beetle_3.svg" style="position:absolute;left:976px;top:568px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1a/env_rocks.svg" style="position:absolute;left:400px;top:596px;width:64px;height:64px">
+<img src="assets/1a/env_tree_pine.svg" style="position:absolute;left:16px;top:548px;width:128px;height:128px">
+</div>
+<div style="position:absolute;left:20px;bottom:18px;font:700 13px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:6px 10px;border-radius:8px">сцена · масштаб 1.25 от игрового</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:40px;width:560px;display:flex;flex-direction:column;gap:10px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ A · СТАЙЛ-БОРД</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">1a · Круглыши</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;text-wrap:pretty">Надутые формы из кругов, ровная обводка 3,5 px на всех деталях, большие блестящие глаза. Тень — мягкий полумесяц снизу справа, блик — овал сверху слева.</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:214px;width:560px;height:410px;background:#FBF8F1;border-radius:24px;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="position:absolute;left:70px;top:240px;width:132px;height:26px;border-radius:50%;background:rgba(43,43,58,.18)"></div>
+<img src="assets/1a/hero_raccoon.svg" style="position:absolute;left:8px;top:14px;width:256px;height:256px">
+<div style="position:absolute;left:330px;top:238px;width:180px;height:30px;border-radius:50%;background:rgba(43,43,58,.18)"></div>
+<img src="assets/1a/tower_goose_l1.svg" style="position:absolute;left:290px;top:26px;width:240px;height:240px">
+<div style="position:absolute;left:24px;top:274px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">hero_raccoon · 128</div>
+<div style="position:absolute;left:330px;top:274px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">tower_goose_l1 · 160</div>
+<img src="assets/1a/enemy_beetle_1.svg" style="position:absolute;left:14px;top:296px;width:96px;height:96px">
+<img src="assets/1a/enemy_beetle_2.svg" style="position:absolute;left:94px;top:300px;width:96px;height:96px">
+<img src="assets/1a/enemy_beetle_3.svg" style="position:absolute;left:174px;top:296px;width:96px;height:96px">
+<img src="assets/1a/fx_coin.svg" style="position:absolute;left:300px;top:318px;width:64px;height:64px">
+<img src="assets/1a/proj_pea.svg" style="position:absolute;left:386px;top:330px;width:40px;height:40px">
+<img src="assets/1a/env_pad.svg" style="position:absolute;left:440px;top:312px;width:96px;height:72px">
+<div style="position:absolute;left:290px;top:386px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">enemy_beetle 48 ×3 · coin 32 · pea 16 · pad 128×96</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:650px;width:560px;height:270px;box-sizing:border-box;border-radius:40px;background:#8D5A3B;box-shadow:0 0 0 4px #2B2B3A,inset 0 -8px 0 #6B412A,inset 0 5px 0 #B07A52;padding:14px">
+<div style="width:100%;height:100%;box-sizing:border-box;border-radius:28px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -8px 0 #EAD6AE;padding:18px 22px;display:flex;gap:18px;align-items:center">
+<div style="flex:none;width:130px;height:130px;border-radius:50%;background:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="assets/1a/tower_goose_l1.svg" style="width:150px;height:150px;margin-top:22px"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0">
+<div style="font:900 32px/1 Nunito;color:#2B2B3A">Гусь-стрелок</div>
+<div style="display:flex;gap:4px"><img src="assets/1a/ui_star_full.svg" style="width:34px;height:34px"><img src="assets/1a/ui_star_empty.svg" style="width:34px;height:34px"><img src="assets/1a/ui_star_empty.svg" style="width:34px;height:34px"></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;height:68px;border-radius:34px;background:#FF8A3D;box-shadow:0 0 0 4px #2B2B3A,inset 0 -9px 0 #E0662A,inset 0 5px 0 #FFB47E"><span style="font:900 28px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 4px 0 #2B2B3A">Построить</span><img src="assets/1a/fx_coin.svg" style="width:34px;height:34px"><span style="font:900 28px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 4px 0 #2B2B3A">50</span></div>
+</div>
+</div>
+</div>
+
+<div style="position:absolute;left:40px;top:948px;width:1840px;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Трава</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#4CAF50</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#3E8E41;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Трава, тень</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#3E8E41</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E0B77A;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Дорога</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#E0B77A</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#8D5A3B;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Дерево</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#8D5A3B</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#FFC933;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Монета</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FFC933</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#8E44AD;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Вредители</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#8E44AD</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#2B2B3A;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Обводка</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#2B2B3A</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">UI-акцент</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FF8A3D</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#6EC6FF;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Небо, вода</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#6EC6FF</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:16px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 0 0 9px #8D5A3B"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">UI-панель</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FFF4DC</div></div></div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>«Штампики» — геометрия, толстый силуэт + тонкие внутренние линии, cel-тень</div>
+<div class="dv-card" data-screen-label="1b Стайл-борд" style="width:1920px;height:1080px;position:relative;background:#F4EEE2">
+
+<div style="position:absolute;left:40px;top:40px;width:1240px;height:880px;border-radius:16px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A">
+<div style="position:absolute;left:0;top:0;width:992px;height:704px;transform:scale(1.25);transform-origin:0 0">
+<img src="assets/1b/board_ground.svg" style="position:absolute;left:0;top:0;width:992px;height:704px">
+<img src="assets/1b/env_pad.svg" style="position:absolute;left:470px;top:440px;width:128px;height:96px">
+<div style="position:absolute;left:470px;top:462px;width:128px;display:flex;justify-content:center;align-items:center;gap:4px"><span style="font:900 30px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 3px 0 #2B2B3A">50</span><img src="assets/1b/fx_coin.svg" style="width:28px;height:28px"></div>
+<div style="position:absolute;left:845px;top:120px;width:110px;height:28px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:938px;top:190px;width:48px;height:12px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:312px;top:195px;width:80px;height:18px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:45px;top:215px;width:190px;height:34px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:717px;top:460px;width:130px;height:24px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:574px;top:540px;width:66px;height:14px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:854px;top:590px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:919px;top:600px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:984px;top:606px;width:32px;height:8px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:406px;top:646px;width:52px;height:12px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<div style="position:absolute;left:40px;top:662px;width:90px;height:18px;border-radius:50%;background:rgba(43,43,58,.22)"></div>
+<img src="assets/1b/env_tree_apple.svg" style="position:absolute;left:812px;top:-16px;width:160px;height:160px">
+<img src="assets/1b/env_rocks.svg" style="position:absolute;left:930px;top:140px;width:64px;height:64px">
+<img src="assets/1b/env_bush.svg" style="position:absolute;left:300px;top:118px;width:96px;height:96px">
+<img src="assets/1b/env_barn.svg" style="position:absolute;left:0;top:-4px;width:256px;height:256px">
+<img src="assets/1b/env_bed_carrot.svg" style="position:absolute;left:24px;top:232px;width:128px;height:96px">
+<img src="assets/1b/env_bed_carrot.svg" style="position:absolute;left:160px;top:244px;width:128px;height:96px">
+<img src="assets/1b/tower_goose_l1.svg" style="position:absolute;left:722px;top:322px;width:160px;height:160px">
+<img src="assets/1b/hero_raccoon.svg" style="position:absolute;left:536px;top:430px;width:128px;height:128px">
+<img src="assets/1b/fx_coin.svg" style="position:absolute;left:732px;top:512px;width:32px;height:32px">
+<img src="assets/1b/fx_coin.svg" style="position:absolute;left:762px;top:524px;width:32px;height:32px">
+<img src="assets/1b/fx_coin.svg" style="position:absolute;left:744px;top:544px;width:32px;height:32px">
+<img src="assets/1b/proj_pea.svg" style="position:absolute;left:894px;top:462px;width:16px;height:16px">
+<img src="assets/1b/enemy_beetle_1.svg" style="position:absolute;left:846px;top:552px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1b/enemy_beetle_2.svg" style="position:absolute;left:911px;top:562px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1b/enemy_beetle_3.svg" style="position:absolute;left:976px;top:568px;width:48px;height:48px;transform:scaleX(-1)">
+<img src="assets/1b/env_rocks.svg" style="position:absolute;left:400px;top:596px;width:64px;height:64px">
+<img src="assets/1b/env_tree_pine.svg" style="position:absolute;left:16px;top:548px;width:128px;height:128px">
+</div>
+<div style="position:absolute;left:20px;bottom:18px;font:700 13px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:6px 10px;border-radius:6px">сцена · масштаб 1.25 от игрового</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:40px;width:560px;display:flex;flex-direction:column;gap:10px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ A · СТАЙЛ-БОРД</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">1b · Штампики</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;text-wrap:pretty">Геометрия: скруглённые прямоугольники и треугольники. Толстый внешний силуэт 4 px, внутренние линии 2 px. Глаза-бусинки и румянец. Тень — чёткий срез по диагонали, блик — кант сверху слева.</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:214px;width:560px;height:410px;background:#FBF8F1;border-radius:14px;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="position:absolute;left:70px;top:240px;width:132px;height:26px;border-radius:50%;background:rgba(43,43,58,.18)"></div>
+<img src="assets/1b/hero_raccoon.svg" style="position:absolute;left:8px;top:14px;width:256px;height:256px">
+<div style="position:absolute;left:330px;top:238px;width:180px;height:30px;border-radius:50%;background:rgba(43,43,58,.18)"></div>
+<img src="assets/1b/tower_goose_l1.svg" style="position:absolute;left:290px;top:26px;width:240px;height:240px">
+<div style="position:absolute;left:24px;top:274px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">hero_raccoon · 128</div>
+<div style="position:absolute;left:330px;top:274px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">tower_goose_l1 · 160</div>
+<img src="assets/1b/enemy_beetle_1.svg" style="position:absolute;left:14px;top:296px;width:96px;height:96px">
+<img src="assets/1b/enemy_beetle_2.svg" style="position:absolute;left:94px;top:300px;width:96px;height:96px">
+<img src="assets/1b/enemy_beetle_3.svg" style="position:absolute;left:174px;top:296px;width:96px;height:96px">
+<img src="assets/1b/fx_coin.svg" style="position:absolute;left:300px;top:318px;width:64px;height:64px">
+<img src="assets/1b/proj_pea.svg" style="position:absolute;left:386px;top:330px;width:40px;height:40px">
+<img src="assets/1b/env_pad.svg" style="position:absolute;left:440px;top:312px;width:96px;height:72px">
+<div style="position:absolute;left:290px;top:386px;font:700 12px 'JetBrains Mono',monospace;color:#6B6878">enemy_beetle 48 ×3 · coin 32 · pea 16 · pad 128×96</div>
+</div>
+
+<div style="position:absolute;left:1320px;top:666px;width:560px;height:254px;box-sizing:border-box;border-radius:18px;background:#8D5A3B;box-shadow:0 0 0 4px #2B2B3A,inset 0 -8px 0 #6B412A,inset 0 5px 0 #B07A52;padding:12px">
+<div style="width:100%;height:100%;box-sizing:border-box;border-radius:10px;background:#FFF4DC;box-shadow:0 0 0 2px #2B2B3A,inset 0 -8px 0 #EAD6AE;padding:34px 22px 18px;display:flex;gap:18px;align-items:center">
+<div style="flex:none;width:124px;height:124px;border-radius:14px;background:#E9F3DA;box-shadow:0 0 0 2px #2B2B3A;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="assets/1b/tower_goose_l1.svg" style="width:150px;height:150px;margin-top:22px"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="display:flex;gap:4px"><img src="assets/1b/ui_star_full.svg" style="width:36px;height:36px"><img src="assets/1b/ui_star_empty.svg" style="width:36px;height:36px"><img src="assets/1b/ui_star_empty.svg" style="width:36px;height:36px"></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:10px;height:68px;border-radius:14px;background:#FF8A3D;box-shadow:0 0 0 4px #2B2B3A,inset 0 -9px 0 #E0662A,inset 4px 5px 0 -1px #FFB47E"><span style="font:900 28px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 4px 0 #2B2B3A">Построить</span><img src="assets/1b/fx_coin.svg" style="width:34px;height:34px"><span style="font:900 28px/1 Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 4px 0 #2B2B3A">50</span></div>
+</div>
+</div>
+<div style="position:absolute;left:50%;top:-26px;transform:translateX(-50%);height:52px;padding:0 36px;display:flex;align-items:center;border-radius:10px;background:#FF8A3D;box-shadow:0 0 0 4px #2B2B3A,inset 0 -7px 0 #E0662A"><span style="font:900 30px/1 Nunito;color:#fff;white-space:nowrap;text-shadow:0 2px 0 #2B2B3A,0 -2px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A,0 4px 0 #2B2B3A">Гусь-стрелок</span></div>
+</div>
+
+<div style="position:absolute;left:40px;top:948px;width:1840px;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:12px">
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Трава</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#4CAF50</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#3E8E41;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Трава, тень</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#3E8E41</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#E0B77A;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Дорога</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#E0B77A</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#8D5A3B;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Дерево</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#8D5A3B</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#FFC933;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Монета</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FFC933</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#8E44AD;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Вредители</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#8E44AD</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#2B2B3A;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Обводка</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#2B2B3A</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">UI-акцент</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FF8A3D</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#6EC6FF;box-shadow:0 0 0 3px #2B2B3A"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">Небо, вода</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#6EC6FF</div></div></div>
+<div style="display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:56px;border-radius:6px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 0 0 9px #8D5A3B"></div><div><div style="font:800 15px/1.2 Nunito;color:#2B2B3A">UI-панель</div><div style="font:500 13px 'JetBrains Mono';color:#6B6878">#FFF4DC</div></div></div>
+</div>
+</div></div>
+
+</div>
+<p class="dv-next">Дальше: «беру <a class="dv-oid" href="#1a">1a</a>» или «беру <a class="dv-oid" href="#1b">1b</a>» — и я сделаю тестовую анимацию: бег Енота (6 кадров, 12 FPS) и ходьбу жука (4 кадра) с превью в реальном FPS. Можно смешать: «формы из <a class="dv-oid" href="#1a">1a</a>, глаза и cel-тень из <a class="dv-oid" href="#1b">1b</a>».</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { hf: 0, bf: 0, playing: true, slow: false };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = (now) => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? 0.25 : 1);
+      last = now;
+      const hf = Math.floor(this.acc / (1000 / 12)) % 6, bf = Math.floor(this.acc / (1000 / 8)) % 4;
+      if (hf !== this.state.hf || bf !== this.state.bf) this.setState({ hf, bf });
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const { hf, bf, playing, slow } = this.state;
+    return {
+      heroSrc: `assets/1a/anim/hero_raccoon_run_${hf + 1}.svg`,
+      bugSrc: `assets/1a/anim/enemy_beetle_walk_${bf + 1}.svg`,
+      ready: true, heroFrame: hf + 1, bugFrame: bf + 1,
+      playLabel: playing ? 'Пауза' : 'Играть',
+      speedLabel: slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })),
+      toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      step: () => { this.acc = (Math.floor(this.acc / (1000 / 12)) + 1) * (1000 / 12) + 0.01; this.setState({ playing: false, hf: Math.floor(this.acc / (1000 / 12)) % 6, bf: Math.floor(this.acc / (1000 / 8)) % 4 }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

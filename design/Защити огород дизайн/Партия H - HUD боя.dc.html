@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="H HUD боя" style="width:3112px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:32px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ H · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">HUD боя</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1500px;text-wrap:pretty">Макеты 1:1 в портрете и ландшафте, собраны только из ассетов партий B–G и новых деталей HUD. Переключатель ниже показывает 4 момента боя; спрайты играют в реальном FPS.</div>
+</div>
+<div style="display:flex;gap:10px;align-items:center">
+<sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4">
+<sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:56px;padding:0 24px;display:flex;align-items:center;border-radius:28px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 22px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A">{{ tb.name }}</div></sc-if>
+<sc-if value="{{ tb.off }}" hint-placeholder-val="{{ true }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:56px;padding:0 24px;display:flex;align-items:center;border-radius:28px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 22px Nunito;color:#2B2B3A" style-hover="background:#FFFFFF">{{ tb.name }}</div></sc-if>
+</sc-for>
+<div onClick="{{ toggle }}" style="cursor:pointer;height:56px;padding:0 22px;margin-left:12px;display:flex;align-items:center;border-radius:28px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 22px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+</div>
+</div>
+
+<div style="display:flex;gap:56px;align-items:flex-start">
+<sc-for list="{{ boards }}" as="b" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 36px/1 Nunito;color:#2B2B3A">{{ b.name }}</div><div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">{{ b.note }}</div></div>
+<div style="position:relative;width:{{ b.w }};height:{{ b.h }};overflow:hidden;border-radius:28px;box-shadow:0 0 0 6px #2B2B3A;background:#4CAF50">
+<sc-for list="{{ b.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};box-sizing:border-box;background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-style:solid;border-color:transparent;border-width:{{ l.bw }};border-image-source:{{ l.bi }};border-image-slice:{{ l.bs }};border-radius:{{ l.br }};transform:{{ l.tf }};-webkit-mask-image:{{ l.mask }};mask-image:{{ l.mask }};display:flex;align-items:center;justify-content:{{ l.jc }};text-align:center;font:{{ l.fw }} {{ l.fs }}/1.15 Nunito;color:{{ l.tc }};text-shadow:{{ l.ts }};white-space:{{ l.ws }}">{{ l.text }}</div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">Из чего собран HUD</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">новые файлы партии — export/h/ · всё остальное из B–G</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 36px">
+<sc-for list="{{ spec }}" as="r" hint-placeholder-count="14">
+<div style="display:flex;flex-direction:column;gap:3px;padding:10px 0;border-bottom:2px solid rgba(43,43,58,.08)"><div style="font:900 18px/1.2 Nunito;color:#2B2B3A">{{ r.n }}</div><div style="font:700 12px/1.45 'JetBrains Mono',monospace;color:#6B6878">{{ r.d }}</div></div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1400px;text-wrap:pretty">Дальше: «ок — партия I (18 экранов)» или правки по HUD, например «плашки монет крупнее», «кнопку вызова волны перенести вправо».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, st: 'battle' };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += now - last;
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 80) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const t = this.state.t, st = this.state.st, px = v => Math.round(v) + 'px';
+    const L = o => ({ l: '0px', t: '0px', w: '0px', h: '0px', bg: 'none', size: '100% 100%', pos: '0 0', rep: 'no-repeat', bw: '0', bi: 'none', bs: '0', br: '0', bgc: 'transparent', jc: 'center', fs: '0px', fw: '900', tc: '#FFFFFF', ts: 'none', text: '', tf: 'none', mask: 'none', ws: 'nowrap', ...o });
+    const fr = (n, fps, loop, off = 0) => { const k = Math.floor((t + off) * fps / 1000); return loop ? k % n : Math.min(k % (n + Math.ceil(fps * .9)), n - 1); };
+    const img = (src, x, y, w, h, o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), bg: `url('assets/${src}.svg')`, ...o });
+    const spr = (src, n, fps, x, y, w, h, off = 0, o = {}) => { const f = fr(n, fps, true, off); return img(src, x, y, w, h, { size: `${n * 100}% 100%`, pos: `${f / (n - 1) * 100}% 0%`, ...o }); };
+    const frame = (src, n, i, x, y, w, h) => img(src, x, y, w, h, { size: `${n * 100}% 100%`, pos: `${i / (n - 1) * 100}% 0%` });
+    const tile = (src, x, y, w, h) => img(src, x, y, w, h, { size: '64px 64px', rep: 'repeat' });
+    const SZ = { ui_panel_main: [192, 192], ui_card: [128, 128], ui_ribbon: [384, 112], ui_ribbon_boss: [384, 112], ui_counter_plate: [192, 64], ui_progress_frame: [256, 48], ui_progress_fill: [240, 32], ui_price_tag: [128, 44], ui_boss_hp_frame: [512, 64], ui_boss_hp_fill: [496, 44] };
+    const q4 = s => { const a = String(s).trim().split(/\s+/).map(v => parseFloat(v) || 0); return a.length === 1 ? [a[0], a[0], a[0], a[0]] : a.length === 2 ? [a[0], a[1], a[0], a[1]] : a.length === 3 ? [a[0], a[1], a[2], a[1]] : a; };
+    const nine = (src, sl, bw, x, y, w, h) => {
+      const k = src.split('/').pop(), [SW, SH] = SZ[k] || (k.includes('_ad_') ? [256, 112] : [192, 112]), [st, sr, sb, sl2] = q4(sl), [dt, dr, db, dl] = q4(bw), url = `url('assets/${src}.svg')`, out = [];
+      const sc = [[0, sl2], [sl2, SW - sl2 - sr], [SW - sr, sr]], sr_ = [[0, st], [st, SH - st - sb], [SH - sb, sb]];
+      const dc = [[0, dl], [dl, w - dl - dr], [w - dr, dr]], dr_ = [[0, dt], [dt, h - dt - db], [h - db, db]];
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) {
+        const [sx0, sw] = sc[i], [sy0, sh] = sr_[j], [dx0, dw] = dc[i], [dy0, dh] = dr_[j];
+        if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) continue;
+        const kx = dw / sw, ky = dh / sh;
+        out.push(L({ l: (x + dx0) + 'px', t: (y + dy0) + 'px', w: (dw + (i < 2 ? .6 : 0)) + 'px', h: (dh + (j < 2 ? .6 : 0)) + 'px', bg: url, size: `${SW * kx}px ${SH * ky}px`, pos: `${-sx0 * kx}px ${-sy0 * ky}px` }));
+      }
+      return out;
+    };
+    const O3 = '3px 0 0 #2B2B3A,-3px 0 0 #2B2B3A,0 3px 0 #2B2B3A,0 -3px 0 #2B2B3A,2px 2px 0 #2B2B3A,-2px 2px 0 #2B2B3A,2px -2px 0 #2B2B3A,-2px -2px 0 #2B2B3A';
+    const O4 = '4px 0 0 #2B2B3A,-4px 0 0 #2B2B3A,0 4px 0 #2B2B3A,0 -4px 0 #2B2B3A,3px 3px 0 #2B2B3A,-3px 3px 0 #2B2B3A,3px -3px 0 #2B2B3A,-3px -3px 0 #2B2B3A';
+    const TS = { hud: O3 + ',0 5px 0 #2B2B3A', gold: O3 + ',0 5px 0 #B06A12', title: O4 + ',0 8px 0 #2B2B3A', dark: 'none' };
+    const txt = (text, x, y, w, h, fs, kind = 'hud', jc = 'center', o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), text, fs: fs + 'px', ts: TS[kind], tc: kind === 'gold' ? '#FFC933' : kind === 'dark' ? '#2B2B3A' : '#FFFFFF', jc, ...o });
+    const shadow = (cx, cy, w) => L({ l: px(cx - w / 2), t: px(cy - w * .12), w: px(w), h: px(w * .24), bgc: 'rgba(43,43,58,.22)', br: '50%' });
+    const plate = (x, y, w, icon, text) => [nine('g/ui_counter_plate', '0 32 0 32', '0 32px', x, y, w, 64), img(icon, x - 14, y, 64, 64), txt(text, x + 56, y, w - 66, 58, 34, 'hud', 'flex-start')];
+    const pause = (x, y) => [img('g/ui_btn_round_normal', x, y, 96, 96), img('g/ui_icon_pause', x + 20, y + 16, 56, 56)];
+    const wave = (cx, y, w, f) => [txt('Волна 3/7', cx - w / 2, y, w, 44, 38), nine('g/ui_progress_frame', '0 24 0 24', '0 24px', cx - w / 2, y + 50, w, 48), nine('g/ui_progress_fill', '0 16 0 16', '0 16px', cx - w / 2 + 8, y + 58, Math.max(32, (w - 16) * f), 32)];
+    const ring = (x, y, icon, ph, z = 88) => { const f = 1 - ((t / 1000 + ph) % 10) / 10; return [img('g/ui_bonus_timer_track', x, y, z, z), img('g/ui_bonus_timer_fill', x, y, z, z, { mask: `conic-gradient(#000 ${Math.round(f * 360)}deg, transparent 0)` }), img(icon, x + z * .17, y + z * .17, z * .66, z * .66)]; };
+    const timer = (x, y) => [...plate(x, y, 190, 'h/ui_icon_clock', '0:12'), nine('g/ui_btn_green_normal', '44 44 52 44', '44px 44px 52px 44px', x + 214, y - 8, 380, 104), txt('Вызвать сейчас', x + 232, y - 8, 240, 92, 27), img('g/ui_icon_coin', x + 474, y + 18, 40, 40), txt('+15', x + 516, y - 8, 64, 92, 28, 'gold', 'flex-start')];
+    const joy = (x, y) => [img('h/ui_joystick_base', x, y, 256, 256), img('h/ui_joystick_stick', x + 104, y + 38, 128, 128)];
+    const radial = (cx, cy) => { const A = [-160, -120, -60, -20], D = [['goose', 40], ['frog', 50], ['beaver', 70], ['hive', 0]], o = [];
+      A.forEach((a, i) => { const r = a * Math.PI / 180, sx = cx + Math.cos(r) * 170, sy = cy + Math.sin(r) * 170, [id, pr] = D[i], lk = !pr;
+        o.push(img(lk ? 'h/ui_radial_slot_locked' : 'h/ui_radial_slot', sx - 56, sy - 56, 112, 112), img(`d/ui_def_portrait_${id}${lk ? '_locked' : ''}`, sx - 44, sy - 50, 88, 88));
+        if (lk) o.push(img('g/ui_lock', sx + 8, sy + 6, 44, 44));
+        else o.push(nine('h/ui_price_tag', '0 22 0 22', '0 22px', sx - 42, sy + 42, 100, 42), img('g/ui_icon_coin', sx - 58, sy + 39, 48, 48), txt(String(pr), sx - 12, sy + 42, 62, 38, 26)); });
+      return o; };
+    const pad = (x, y, k = 'normal') => img(`e/pad_${k}`, x, y, 128, 96);
+    const def = (x, y, id, lv, s) => [pad(x, y), spr(`d/def_${id}_${lv}_idle_4f`, 4, 6, x - 16, y - 100, 160, 160, x * 3), img(`e/ui_def_stars_${s}`, x + 28, y - 112, 72, 24)];
+    const pricePad = (x, y, p, f) => [pad(x, y), img('e/pad_progress_track', x, y, 128, 96), img('e/pad_progress_fill', x, y, 128, 96, { mask: `conic-gradient(from 0deg at 50% 47.9%, #000 ${Math.round(f * 360)}deg, transparent 0)` }), nine('h/ui_price_tag', '0 22 0 22', '0 22px', x + 22, y - 34, 96, 42), img('g/ui_icon_coin', x + 8, y - 37, 48, 48), txt(String(p), x + 52, y - 34, 60, 38, 26)];
+    const hero = (x, y) => [shadow(x + 64, y + 114, 64), spr('b/hero_raccoon_idle_4f', 4, 6, x, y, 128, 128)];
+    const bug = (k, x, y, off, hp) => { const z = k === 'c' ? 64 : 48, o = [spr(k === 'c' ? 'c/enemy_caterpillar_walk_4f' : 'c/enemy_beetle_walk_4f', 4, 8, x, y, z, z, off)];
+      if (hp) { const hx = x + (z - 48) / 2; o.push(img('c/ui_hp_mini_frame', hx, y - 4, 48, 6), img('c/ui_hp_mini_fill', hx + 1.5, y - 2.5, 45 * hp, 3, { size: '45px 3px' })); } return o; };
+    const coin = (x, y, off, pop) => [spr('f/fx_coin_spin_6f', 6, 12, x, y, 32, 32, off), ...(pop ? [txt('+1', x - 14, y - 48, 60, 40, 32, 'gold')] : [])];
+    const edge = (x, y, rot, icon, bx, by) => [img('g/ui_btn_round_normal', bx, by, 80, 80), img(icon, bx + 14, by + 10, 52, 52), spr('e/ui_edge_arrow_3f', 3, 6, x, y, 64, 64, 0, { tf: `rotate(${rot}deg)` })];
+    const SL = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 5; i++) SL.push([50 + i * 39, 80 + j * 36]);
+    const base = (bx, by) => [img('e/base_bed', bx, by, 256, 256), ...SL.map(([x, y], i) => [3, 12].includes(i) ? img('e/base_hole', bx + x - 16, by + y - 26, 32, 32) : spr('e/base_carrot_idle_2f', 2, 3, bx + x - 16, by + y - 26, 32, 32, i * 170))];
+    const bugs = L0 => L0.flatMap(([k, x, y, o, hp]) => bug(k, x, y, o, hp));
+    const waveBanner = (cx, cy) => [nine('g/ui_ribbon', '0 104 0 104', '0 104px', cx - 290, cy - 56, 580, 112), txt('Волна 4!', cx - 290, cy - 56, 580, 80, 58, 'title')];
+    const bossBanner = (cx, cy) => [img('h/ui_radial_slot', cx - 64, cy - 190, 128, 128), img('c/ui_enemy_portrait_fox', cx - 54, cy - 184, 108, 108), nine('h/ui_ribbon_boss', '0 104 0 104', '0 104px', cx - 330, cy - 56, 660, 112), txt('Идёт Лис!', cx - 330, cy - 56, 660, 80, 58, 'title')];
+    const bossBar = (x, y, w, f) => [nine('h/ui_boss_hp_frame', '0 32 0 32', '0 32px', x + 60, y + 16, w - 60, 64), nine('h/ui_boss_hp_fill', '0 22 0 22', '0 22px', x + 68, y + 26, (w - 76) * f, 44), img('h/ui_radial_slot', x, y, 96, 96), img('c/ui_enemy_portrait_fox', x + 8, y + 4, 80, 80)];
+    const card = (x, y, w, h, icon, name, desc) => [nine('g/ui_card', '32 32 40 32', '32px 32px 40px 32px', x, y, w, h), img(icon, x + w / 2 - 56, y + 26, 112, 112), txt(name, x, y + 148, w, 40, 32, 'dark'), txt(desc, x + 28, y + 192, w - 56, 70, 22, 'dark', 'center', { ws: 'normal', fw: '800', tc: '#4A4858' }), nine('g/ui_btn_ad_normal', '44 44 52 84', '44px 44px 52px 84px', x + w / 2 - 128, y + h - 132, 256, 112), txt('Взять', x + w / 2 - 62, y + h - 132, 180, 100, 36)];
+    const parcel = (W, H, x, y, w, h, cw, ch, vert) => { const cx = x + w / 2, cy0 = y + 250, gap = 24, c1 = cx - cw - gap / 2, c2 = cx + gap / 2;
+      return [img('g/ui_dim', 0, 0, W, H), nine('g/ui_panel_main', '56', '56px', x, y, w, h), nine('g/ui_ribbon', '0 104 0 104', '0 104px', cx - 250, y - 52, 500, 112), txt('Посылка!', cx - 250, y - 52, 500, 80, 50, 'title'),
+        spr('f/fx_parcel_glow_4f', 4, 8, cx - 64, y + 60, 128, 128), txt('Выбери бонус', x, y + 196, w, 40, 30, 'dark'),
+        ...card(c1, cy0, cw, ch, 'g/ui_icon_bonus_gold_rain', 'Золотой дождь', 'Монеты сыплются с неба 10 секунд'), ...card(c2, cy0, cw, ch, 'g/ui_icon_bonus_tractor', 'Трактор', 'Проезжает по дороге и сдувает вредителей'),
+        nine('g/ui_btn_blue_normal', '44 44 52 44', '44px 44px 52px 44px', cx - 160, y + h - 44, 320, 104), txt('Нет, спасибо', cx - 160, y + h - 44, 320, 92, 32)]; };
+    const battle = st === 'battle', boss = st === 'boss';
+    // ландшафт
+    let LS = [tile('e/tile_farm_grass_1', 0, 0, 1920, 1080), tile('e/tile_farm_road_straight_rl', 64, 384, 1280, 64), img('e/tile_farm_road_corner_bl', 1344, 384, 64, 64), tile('e/tile_farm_road_straight_tb', 1344, 448, 64, 384),
+      spr('e/spawn_burrow_exit_3f', 3, 6, 0, 360, 96, 96), ...base(1248, 800), frame('d/fence_l2_damage_3f', 3, 1, 1312, 690, 128, 64),
+      shadow(1700, 306, 70), spr('e/env_tree_apple_sway_3f', 3, 3, 1620, 160, 160, 160), shadow(868, 782, 60), img('e/env_bush', 820, 700, 96, 96), img('e/env_rocks', 560, 760, 64, 64), spr('e/env_sunflower_sway_3f', 3, 4, 1180, 640, 64, 96, 200),
+      pad(180, 200, 'locked'), ...def(330, 560, 'goose', 'l2', 2), ...def(480, 250, 'frog', 'l1', 1), pad(1010, 480), ...pricePad(1440, 560, 60, .45),
+      ...bugs([['b', 150, 376, 0, .9], ['b', 222, 370, 130, 0], ['c', 292, 366, 60, .5], ['b', 372, 378, 210, 0], ['b', 444, 372, 80, .7], ['c', 520, 366, 150, 0], ['b', 604, 378, 30, 0], ['b', 676, 370, 170, .3], ['b', 760, 376, 90, 0]]),
+      ...coin(540, 600, 0, 1), ...coin(590, 628, 300, 0), ...coin(500, 640, 150, 1), ...hero(1010, 416),
+      ...plate(44, 28, 240, 'g/ui_icon_coin', '1 250'), ...plate(316, 28, 200, 'g/ui_icon_carrot', '18/20'), ...ring(28, 110, 'g/ui_icon_bonus_rage', 3), ...ring(128, 110, 'g/ui_icon_bonus_super_magnet', 7),
+      ...wave(960, 16, 440, .43), ...pause(1796, 24), ...(boss ? bossBar(620, 124, 700, .72) : timer(660, 136)), ...edge(1840, 250, 0, 'h/ui_icon_parcel', 1756, 242)];
+    if (st !== 'parcel') LS.push(...joy(96, 752));
+    if (battle) LS.push(...radial(1074, 470));
+    if (st === 'wave') LS.push(...waveBanner(960, 560));
+    if (boss) LS.push(...edge(16, 520, 180, 'c/ui_enemy_portrait_fox', 84, 512), ...bossBanner(960, 600));
+    if (st === 'parcel') LS.push(...parcel(1920, 1080, 460, 200, 1000, 700, 420, 400));
+    // портрет
+    let PS = [tile('e/tile_farm_grass_1', 0, 0, 1080, 1920), tile('e/tile_farm_road_straight_tb', 448, 400, 64, 1072), spr('e/spawn_burrow_exit_3f', 3, 6, 432, 330, 96, 96), ...base(352, 1470), frame('d/fence_l2_damage_3f', 3, 1, 416, 1390, 128, 64),
+      shadow(964, 504, 56), spr('e/env_tree_pine_sway_3f', 3, 3, 900, 380, 128, 128, 300), shadow(120, 1346, 70), spr('e/env_tree_apple_sway_3f', 3, 3, 40, 1200, 160, 160), shadow(868, 1482, 60), img('e/env_bush', 820, 1400, 96, 96), img('e/env_rocks', 700, 1580, 64, 64),
+      pad(660, 470, 'locked'), ...def(220, 560, 'goose', 'l2', 2), ...def(640, 720, 'frog', 'l1', 1), pad(200, 1020), ...pricePad(650, 1150, 60, .45),
+      ...bugs([['b', 456, 440, 0, .9], ['b', 452, 512, 130, 0], ['c', 448, 572, 60, .5], ['b', 456, 660, 210, 0], ['b', 452, 730, 80, .7], ['c', 448, 790, 150, 0], ['b', 456, 880, 30, 0], ['b', 452, 950, 170, .3]]),
+      ...coin(392, 640, 0, 1), ...coin(372, 700, 300, 0), ...coin(404, 740, 150, 1), ...(boss ? [shadow(480, 596, 110), spr('c/boss_fox_walk_6f', 6, 10, 384, 420, 192, 192)] : []), ...hero(200, 956),
+      ...plate(44, 44, 230, 'g/ui_icon_coin', '1 250'), ...plate(300, 44, 190, 'g/ui_icon_carrot', '18/20'), ...pause(952, 36), ...wave(540, 128, 460, .43),
+      ...ring(964, 150, 'g/ui_icon_bonus_rage', 3), ...ring(964, 250, 'g/ui_icon_bonus_super_magnet', 7), ...(boss ? bossBar(160, 234, 760, .72) : timer(240, 246)), ...edge(1008, 900, 0, 'h/ui_icon_parcel', 924, 892)];
+    if (st !== 'parcel') PS.push(...joy(70, 1560));
+    if (battle) PS.push(...radial(264, 1010));
+    if (st === 'wave') PS.push(...waveBanner(540, 820));
+    if (boss) PS.push(...bossBanner(540, 900));
+    if (st === 'parcel') PS.push(...parcel(1080, 1920, 70, 560, 940, 860, 400, 480));
+    const T = [['battle', 'Бой'], ['wave', 'Волна N!'], ['boss', 'Идёт Лис!'], ['parcel', 'Посылка']];
+    const NOTE = { battle: 'герой на площадке — открыто радиальное меню', wave: 'баннер новой волны', boss: 'баннер босса + большая полоска HP вместо таймера', parcel: 'окно выбора бонуса, бой на паузе' };
+    return {
+      tabs: T.map(([id, name]) => ({ name, on: st === id, off: st !== id, pick: () => this.setState({ st: id }) })),
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', toggle: () => this.setState(s => ({ playing: !s.playing })),
+      boards: [{ name: 'Портрет 1080×1920', note: NOTE[st], w: '1080px', h: '1920px', layers: PS.flat(Infinity) }, { name: 'Ландшафт 1920×1080', note: NOTE[st], w: '1920px', h: '1080px', layers: LS.flat(Infinity) }],
+      spec: [
+        { n: 'Монеты и морковки базы', d: 'ui_counter_plate + ui_icon_coin / carrot 64 · отступ от краёв 28–44 px (safe area)' },
+        { n: 'Волна 3/7', d: 'текст HUD 38 px + ui_progress_frame / fill' },
+        { n: 'Таймер и «Вызвать сейчас»', d: 'плашка + h/ui_icon_clock · зелёная кнопка, бонус монет золотым' },
+        { n: 'Активные бонусы', d: 'ui_bonus_timer_track / fill 88 + иконка бонуса · кольцо убывает в коде' },
+        { n: 'Пауза', d: 'ui_btn_round 96 + ui_icon_pause' },
+        { n: 'Плавающий джойстик', d: 'h/ui_joystick_base 256 + stick 128 · появляется под пальцем, стик уходит до 64 px' },
+        { n: 'Радиальное меню', d: 'h/ui_radial_slot 128 (показан 112) + портрет + h/ui_price_tag · закрытые: _locked + ui_lock · дуга R 170 над площадкой' },
+        { n: 'Площадка: цена и кольцо', d: 'pad_progress_track / fill (маска в коде) + h/ui_price_tag над площадкой' },
+        { n: 'Звёзды уровня', d: 'ui_def_stars_1…3 над защитником, 72×24' },
+        { n: 'Мини-HP врага', d: 'ui_hp_mini_frame / fill 48×6 · показывается после первого попадания' },
+        { n: '«+1» от монет', d: 'шрифт, золотой стиль · взлёт 40 px и исчезание — в коде' },
+        { n: 'Стрелки к объектам', d: 'ui_edge_arrow_3f + круглая кнопка 80 с иконкой цели · прилипает к краю, поворот в коде' },
+        { n: 'Баннеры', d: 'ui_ribbon «Волна N!» · h/ui_ribbon_boss «Идёт Лис!» + портрет Лиса' },
+        { n: 'Полоска HP босса', d: 'h/ui_boss_hp_frame 0 32 0 32 · h/ui_boss_hp_fill 0 22 0 22 · портрет в h/ui_radial_slot' },
+        { n: 'Окно «Посылка»', d: 'ui_dim + ui_panel_main + 2× ui_card + рекламная кнопка + синяя «Нет, спасибо»' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

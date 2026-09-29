@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="C Вредители" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:44px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ C · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Вредители</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1200px;text-wrap:pretty">Все в фиолетовой гамме #8E44AD, озорные, смотрят вправо. Defeat у всех одинаковый: звёздочки → голова кружится → «пуф» → пустой кадр. Босс в defeat кружится, роняет мешок и убегает за край. FPS в брифе не заданы — стоят мои значения, их легко поменять.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Орда в игровом масштабе 1:1</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">проверка: толпа читается как одна масса, Енот и морковки выделяются</div></div>
+<div style="position:relative;width:1864px;height:250px;border-radius:24px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 4px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:112px;height:104px;background:#E0B77A;box-shadow:inset 0 5px 0 #C69A5F,inset 0 -4px 0 #C69A5F"></div>
+<sc-for list="{{ horde }}" as="u" hint-placeholder-count="0">
+<div style="position:absolute;left:{{ u.x }};top:{{ u.y }};width:{{ u.w }};height:{{ u.w }}">
+<sc-if value="{{ u.sh }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ u.shl }};top:{{ u.sht }};width:{{ u.shw }};height:{{ u.shh }};border-radius:50%;background:rgba(43,43,58,.22)"></div></sc-if>
+<div style="position:absolute;inset:0;background-image:{{ u.sheet }};background-size:{{ u.size }};background-position:{{ u.pos }};background-repeat:no-repeat"></div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:22px">
+<sc-for list="{{ pests }}" as="p" hint-placeholder-count="5">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="flex:none;width:200px;display:flex;flex-direction:column;gap:8px;padding-top:6px">
+<div style="width:96px;height:96px;border-radius:18px;background-color:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ p.portrait }};background-size:96px 96px"></div>
+<div style="font:900 24px/1.1 Nunito;color:#2B2B3A">{{ p.name }}</div>
+<div style="font:600 14px/1.3 Nunito;color:#6B6878">{{ p.desc }}</div>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="4">
+<div style="width:176px;display:flex;flex-direction:column;gap:6px">
+<div style="position:relative;width:176px;height:176px;border-radius:16px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:0;right:0;top:{{ c.road }};bottom:0;background:#E0B77A;box-shadow:inset 0 4px 0 #C69A5F"></div>
+<sc-if value="{{ c.sh }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:{{ c.shl }};top:{{ c.sht }};width:{{ c.shw }};height:16px;border-radius:50%;background:rgba(43,43,58,.22)"></div></sc-if>
+<sc-if value="{{ c.fly }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:4px;top:4px;width:168px;height:168px;background-image:url('assets/c/enemy_crow_shadow_1f.svg');background-size:100% 100%"></div></sc-if>
+<div style="position:absolute;left:4px;top:4px;width:168px;height:168px;background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.label }}</div>
+</div>
+<div style="font:900 19px/1 Nunito;color:#2B2B3A">{{ c.name }}</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 34px/1 Nunito;color:#2B2B3A">Портреты для окна «Новый враг!»</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">128×128 · ui_enemy_portrait_*</div></div>
+<div style="display:flex;gap:18px;flex-wrap:wrap">
+<sc-for list="{{ pests }}" as="p" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+<div style="width:128px;height:128px;border-radius:20px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ p.portrait }};background-size:128px 128px"></div>
+<div style="font:900 17px/1 Nunito;color:#2B2B3A">{{ p.name }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:none;width:640px;display:flex;flex-direction:column;gap:18px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">HP-полоска и морковка</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">рамка 48×6 и заливка 45×3 · ×4</div>
+<div style="width:192px;height:24px;background-image:url('assets/c/ui_hp_mini_frame.svg');background-size:100% 100%"></div>
+<div style="width:180px;height:12px;margin-left:6px;background-image:url('assets/c/ui_hp_mini_fill.svg');background-size:100% 100%"></div>
+<div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878;margin-top:6px">сборка: 100% · 60% · 25%</div>
+<div style="position:relative;width:192px;height:24px;background-image:url('assets/c/ui_hp_mini_frame.svg');background-size:100% 100%"><div style="position:absolute;left:6px;top:6px;width:180px;height:12px;background-image:url('assets/c/ui_hp_mini_fill.svg');background-size:180px 12px"></div></div>
+<div style="position:relative;width:192px;height:24px;background-image:url('assets/c/ui_hp_mini_frame.svg');background-size:100% 100%"><div style="position:absolute;left:6px;top:6px;width:108px;height:12px;background-image:url('assets/c/ui_hp_mini_fill.svg');background-size:180px 12px"></div></div>
+<div style="position:relative;width:192px;height:24px;background-image:url('assets/c/ui_hp_mini_frame.svg');background-size:100% 100%"><div style="position:absolute;left:6px;top:6px;width:45px;height:12px;background-image:url('assets/c/ui_hp_mini_fill.svg');background-size:180px 12px"></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+<div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">1:1 над жуком</div>
+<div style="position:relative;width:120px;height:100px;border-radius:14px;background:#E0B77A;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:36px;top:18px;width:48px;height:6px;background-image:url('assets/c/ui_hp_mini_frame.svg');background-size:100% 100%"><div style="position:absolute;left:1.5px;top:1.5px;width:27px;height:3px;background-image:url('assets/c/ui_hp_mini_fill.svg');background-size:45px 3px"></div></div>
+<div style="position:absolute;left:36px;top:30px;width:48px;height:48px;background-image:url('assets/c/enemy_beetle_walk_4f.svg');background-size:400% 100%"></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+<div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">морковка 24×24</div>
+<div style="width:96px;height:96px;border-radius:14px;background-color:#E9F3DA;box-shadow:0 0 0 3px #2B2B3A;background-image:url('assets/c/item_carrot_hold.svg');background-size:96px 96px"></div>
+<div style="width:24px;height:24px;background-image:url('assets/c/item_carrot_hold.svg');background-size:24px 24px"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">Кадры спрайт-листов</div>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><div onClick="{{ t.pick }}" style="cursor:pointer;height:44px;padding:0 18px;display:flex;align-items:center;border-radius:22px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #E0662A;font:900 18px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A">{{ t.name }}</div></sc-if>
+<sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><div onClick="{{ t.pick }}" style="cursor:pointer;height:44px;padding:0 18px;display:flex;align-items:center;border-radius:22px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #EAD6AE;font:900 18px Nunito;color:#2B2B3A" style-hover="background:#FFFFFF">{{ t.name }}</div></sc-if>
+</sc-for>
+</div>
+<div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">{{ stripNote }}</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<sc-for list="{{ strips }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;gap:12px;align-items:baseline"><div style="font:900 22px/1 Nunito;color:#2B2B3A">{{ s.name }}</div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">{{ s.file }}</div></div>
+<div style="position:relative;width:{{ s.w }};height:{{ s.h }};border-radius:8px;overflow:hidden;background-color:#4CAF50;box-shadow:0 0 0 3px #2B2B3A;background-image:{{ s.sheet }};background-size:100% 100%"><div style="position:absolute;left:0;right:0;top:{{ s.base }};border-top:2px dashed rgba(255,255,255,.8)"></div></div>
+<div style="display:flex;width:{{ s.w }}"><sc-for list="{{ s.labels }}" as="l" hint-placeholder-count="4"><div style="width:{{ s.fw }};flex:none;font:700 12px/1.3 'JetBrains Mono',monospace;color:#4A4858">{{ l }}</div></sc-for></div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">Дальше: «ок — партия D (защитники и забор)» или правки по ячейке, например «крот: нырок резче», «лису мешок крупнее».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false, sel: 'beetle' };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = (now) => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? 0.25 : 1);
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 30) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  fr(n, fps, loop) {
+    const k = Math.floor(this.state.t * fps / 1000);
+    if (loop) return k % n;
+    const c = n + Math.ceil(fps * 0.7);
+    return Math.min(k % c, n - 1);
+  }
+  sp(file, n, fps, loop) {
+    const f = this.fr(n, fps, loop);
+    return { sheet: `url('${file}')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${(f / (n - 1)) * 100}% 0%` : '0% 0%', label: `${f + 1}/${n}` };
+  }
+  renderVals() {
+    const P = 'assets/c/', sel = this.state.sel, t = this.state.t / 1000;
+    const kadr = n => n === 1 ? 'кадр' : n >= 5 ? 'кадров' : 'кадра';
+    const DEF = ['звёзды', 'кружится', 'кружится', '«пуф»', 'пусто'];
+    const D = {
+      beetle: { name: 'Жук', file: 'enemy_beetle', size: 48, base: 43, sc: 2, shw: 90, desc: 'кадр 48 · основная масса орды', A: [['walk', 4, 8, 1], ['chew', 3, 8, 1, 'грызёт забор'], ['grab', 3, 10, 0, 'хватает морковку'], ['defeat', 5, 10, 0]] },
+      caterpillar: { name: 'Гусеница', file: 'enemy_caterpillar', size: 64, base: 51, sc: 2, shw: 130, desc: 'кадр 64 · ползёт волной', A: [['walk', 4, 8, 1], ['chew', 3, 8, 1, 'грызёт забор'], ['grab', 3, 10, 0, 'хватает морковку'], ['defeat', 5, 10, 0]] },
+      mole: { name: 'Крот', file: 'enemy_mole', size: 56, base: 49, sc: 2, shw: 100, desc: 'кадр 56 · ныряет под забор', A: [['walk', 4, 8, 1], ['dive', 4, 10, 0, 'нырок'], ['underground', 2, 6, 1, 'холмик ползёт'], ['emerge', 4, 10, 0, 'выныривает'], ['chew', 3, 8, 1, 'грызёт забор'], ['grab', 3, 10, 0, 'хватает морковку'], ['defeat', 5, 10, 0]] },
+      crow: { name: 'Ворона', file: 'enemy_crow', size: 56, base: 50, sc: 2, fly: 1, desc: 'кадр 56 · летает над забором', A: [['fly', 4, 10, 1], ['swoop', 3, 12, 0, 'пикирует за морковкой'], ['defeat', 5, 10, 0], ['shadow', 1, 1, 1, 'тень на земле']] },
+      fox: { name: 'Босс-Лис', file: 'boss_fox', size: 192, base: 176, sc: 1, desc: 'кадр 192 · мешок для морковок', A: [['appear', 6, 8, 0, 'выходит и дразнится'], ['walk', 6, 10, 1], ['strike', 5, 12, 0, 'удар лапой'], ['stun', 4, 8, 1, 'оглушён'], ['grab', 4, 8, 0, 'набивает мешок, 5 морковок'], ['defeat', 8, 10, 0, 'роняет мешок, убегает']] }
+    };
+    const LBL = {
+      'beetle.defeat': DEF, 'caterpillar.defeat': DEF, 'mole.defeat': DEF, 'crow.defeat': DEF,
+      'beetle.grab': ['тянется', 'схватил', 'утащил'], 'caterpillar.grab': ['тянется', 'схватила', 'утащила'], 'mole.grab': ['тянется', 'схватил', 'утащил'],
+      'mole.dive': ['присед', 'прыжок', 'в землю', 'холмик'], 'mole.emerge': ['холмик растёт', 'голова', 'прыжок', 'стоит'],
+      'crow.fly': ['крылья вверх', 'середина', 'вниз', 'середина'], 'crow.swoop': ['пике', 'схватила', 'взлёт'],
+      'fox.appear': ['выходит', 'выходит', 'встал', 'дразнится', 'дразнится', 'стоит'], 'fox.strike': ['замах', 'удар', 'попал', 'отдача', 'возврат'],
+      'fox.grab': ['тянется', 'схватил', 'в мешок', 'мешок полон'], 'fox.defeat': ['звёзды', 'кружится', 'кружится', 'уронил мешок', 'бежит', 'бежит', '«пуф»', 'пусто']
+    };
+    const scale = 168 / 1;
+    const pests = Object.entries(D).map(([id, d]) => {
+      const k = 168 / d.size, base = 4 + d.base * k;
+      return {
+        id, name: d.name, desc: d.desc, portrait: `url('${P}ui_enemy_portrait_${id}.svg')`,
+        cells: d.A.map(([a, n, fps, l, note]) => ({
+          name: a, spec: `${n} ${kadr(n)} · ${n > 1 ? fps + ' FPS · ' + (l ? 'loop' : 'once') : 'статичная'}${note ? ' · ' + note : ''}`,
+          road: `${Math.round(base - 14)}px`, sh: !!d.shw, shw: `${d.shw || 0}px`, shl: `${Math.round(88 - (d.shw || 0) / 2)}px`, sht: `${Math.round(base - 8)}px`, fly: !!d.fly && a !== 'shadow',
+          ...this.sp(`${P}${d.file}_${a}_${n}f.svg`, n, fps, l)
+        }))
+      };
+    });
+    const W = 1864, H = [
+      ['beetle', 48, 43, 8, 34, 180], ['beetle', 48, 43, 8, 34, 150], ['caterpillar', 64, 51, 8, 26, 196], ['beetle', 48, 43, 8, 34, 168], ['mole', 56, 49, 8, 30, 140],
+      ['beetle', 48, 43, 8, 34, 186], ['caterpillar', 64, 51, 8, 26, 158], ['beetle', 48, 43, 8, 34, 144], ['beetle', 48, 43, 8, 34, 176], ['mole', 56, 49, 8, 30, 192],
+      ['beetle', 48, 43, 8, 34, 160], ['caterpillar', 64, 51, 8, 26, 178], ['beetle', 48, 43, 8, 34, 138], ['beetle', 48, 43, 8, 34, 196]
+    ];
+    const horde = H.map(([id, s, b, fps, v, y], i) => {
+      const x = ((i * 131 + t * v) % (W + 120)) - 80;
+      return { x: `${Math.round(x)}px`, y: `${y - b}px`, w: `${s}px`, sh: true, shw: `${Math.round(s * .62)}px`, shh: `${Math.round(s * .14)}px`, shl: `${Math.round(s * .19)}px`, sht: `${Math.round(b - s * .08)}px`, ...this.sp(`${P}enemy_${id}_walk_4f.svg`, 4, fps, 1) };
+    });
+    [[900, 40, 36], [1400, 58, 30]].forEach(([x0, y, v], i) => {
+      const x = ((x0 + t * v) % (W + 120)) - 80;
+      horde.push({ x: `${Math.round(x)}px`, y: `${y}px`, w: '56px', sh: false, ...this.sp(`${P}enemy_crow_fly_4f.svg`, 4, 10, 1) });
+    });
+    horde.push({ x: '1500px', y: `${170 - 116}px`, w: '128px', sh: true, shw: '66px', shh: '14px', shl: '30px', sht: '109px', ...this.sp(`assets/b/hero_raccoon_idle_4f.svg`, 4, 6, 1) });
+    const d = D[sel], sc = d.sc, fw = d.size * sc;
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть',
+      speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })),
+      toggleSlow: () => this.setState(s => ({ slow: !s.slow })),
+      pests, horde,
+      tabs: Object.entries(D).map(([id, x]) => ({ name: x.name, on: sel === id, off: sel !== id, pick: () => this.setState({ sel: id }) })),
+      stripNote: `масштаб ×${sc} · пунктир = линия опоры · PNG в export/c/`,
+      strips: d.A.map(([a, n, fps, l]) => ({ name: a, file: `${d.file}_${a}_${n}f.png · ${n > 1 ? fps + ' FPS · ' + (l ? 'loop' : 'once') : 'статичная'}`, sheet: `url('${P}${d.file}_${a}_${n}f.svg')`, w: `${n * fw}px`, h: `${fw}px`, fw: `${fw}px`, base: `${d.base * sc}px`, labels: Array.from({ length: n }, (_, i) => `${i + 1}${LBL[sel + '.' + a] ? ' · ' + LBL[sel + '.' + a][i] : ''}`) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

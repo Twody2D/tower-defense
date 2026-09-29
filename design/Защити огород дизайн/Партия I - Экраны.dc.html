@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="I Экраны" style="width:3112px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:30px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ I · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Экраны и окна</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1600px;text-wrap:pretty">18 экранов, каждый в портрете 1080×1920 и ландшафте 1920×1080, 1:1. Собраны только из ассетов партий B–H и нескольких новых деталей (внизу). Фоны — из тайлов и спрайтов игры, отдельных картинок нет. Весь текст набран шрифтом.</div>
+</div>
+<div onClick="{{ toggle }}" style="cursor:pointer;height:56px;padding:0 24px;display:flex;align-items:center;border-radius:28px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 22px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="18">
+<sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:50px;padding:0 20px;display:flex;align-items:center;gap:8px;white-space:nowrap;flex:none;border-radius:25px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A">{{ tb.name }}</div></sc-if>
+<sc-if value="{{ tb.off }}" hint-placeholder-val="{{ true }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:50px;padding:0 20px;display:flex;align-items:center;white-space:nowrap;flex:none;border-radius:25px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-hover="background:#FFFFFF">{{ tb.name }}</div></sc-if>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+<sc-for list="{{ boards }}" as="b" hint-placeholder-count="2">
+<div data-screen-label="{{ b.label }}" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 32px/1 Nunito;color:#2B2B3A">{{ b.name }}</div><div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">{{ b.note }}</div></div>
+<div style="position:relative;width:{{ b.ow }};height:{{ b.oh }};overflow:hidden;border-radius:24px;box-shadow:0 0 0 5px #2B2B3A;background:#4CAF50">
+<div style="position:absolute;left:0;top:0;width:{{ b.w }};height:{{ b.h }};transform:{{ b.tf }};transform-origin:0 0">
+<sc-for list="{{ b.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};box-sizing:border-box;background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-style:solid;border-color:transparent;border-width:{{ l.bw }};border-image-source:{{ l.bi }};border-image-slice:{{ l.bs }};border-radius:{{ l.br }};transform:{{ l.tf }};opacity:{{ l.op }};-webkit-mask-image:{{ l.mask }};mask-image:{{ l.mask }};display:flex;align-items:center;justify-content:{{ l.jc }};text-align:center;font-family:Nunito;font-weight:{{ l.fw }};font-size:{{ l.fs }};line-height:{{ l.lh }};color:{{ l.tc }};text-shadow:{{ l.ts }};white-space:{{ l.ws }}">{{ l.text }}</div></sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">Новые ассеты партии I</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">export/i/ · текст на логотипе и цифры узлов карты — шрифтом</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end">
+<sc-for list="{{ assets }}" as="a" hint-placeholder-count="11">
+<div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+<div style="width:{{ a.w }};height:{{ a.h }};padding:10px;border-radius:14px;background-color:#4CAF50;box-shadow:0 0 0 2px #2B2B3A;background-image:{{ a.src }};background-size:{{ a.bs }};background-position:center;background-repeat:no-repeat"></div>
+<div style="font:800 14px/1.2 Nunito;color:#2B2B3A;text-align:center;max-width:260px">{{ a.name }}</div>
+<div style="font:700 10px 'JetBrains Mono',monospace;color:#6B6878">{{ a.id }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1400px;text-wrap:pretty">Осталась партия J (стор-ассеты) — по брифу она делается в Claude Code. Правки по экранам пишите с номером, например «08: награду крупнее», «13: превью героя слева».</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, tab: '01' };
+  acc = 0;
+  componentDidMount() {
+    try { const v = localStorage.getItem('zo_I_tab'); if (v) this.setState({ tab: v }); } catch (e) {}
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += now - last;
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 100) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const t = this.state.t, tab = this.state.tab, px = v => Math.round(v) + 'px';
+    const L = o => ({ l: '0px', t: '0px', w: '0px', h: '0px', bg: 'none', size: '100% 100%', pos: '0 0', rep: 'no-repeat', bw: '0', bi: 'none', bs: '0', br: '0', bgc: 'transparent', jc: 'center', fs: '0px', fw: '900', lh: '1.15', tc: '#FFFFFF', ts: 'none', text: '', tf: 'none', mask: 'none', ws: 'nowrap', op: '1', ...o });
+    const fr = (n, fps, off = 0) => Math.floor((t + off) * fps / 1000) % n;
+    const img = (src, x, y, w, h, o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), bg: `url('assets/${src}.svg')`, ...o });
+    const spr = (src, n, fps, x, y, w, h, off = 0, o = {}) => { const f = fr(n, fps, off); return img(src, x, y, w, h, { size: `${n * 100}% 100%`, pos: `${f / (n - 1) * 100}% 0%`, ...o }); };
+    const tile = (src, x, y, w, h) => img(src, x, y, w, h, { size: '64px 64px', rep: 'repeat' });
+    const SZ = { ui_panel_main: [192, 192], ui_card: [128, 128], ui_card_highlight: [128, 128], ui_ribbon: [384, 112], ui_ribbon_boss: [384, 112], ui_ribbon_blue: [384, 112], ui_ribbon_purple: [384, 112], ui_counter_plate: [192, 64], ui_progress_frame: [256, 48], ui_progress_fill: [240, 32], ui_slider_track: [256, 40], ui_slider_fill: [256, 40], ui_tab_active: [192, 88], ui_tab_inactive: [192, 88], ui_toast: [384, 80], ui_bubble: [256, 144], ui_price_tag: [128, 44] };
+    const q4 = s => { const a = String(s).trim().split(/\s+/).map(v => parseFloat(v) || 0); return a.length === 1 ? [a[0], a[0], a[0], a[0]] : a.length === 2 ? [a[0], a[1], a[0], a[1]] : a.length === 3 ? [a[0], a[1], a[2], a[1]] : a; };
+    const nine = (src, sl, bw, x, y, w, h) => {
+      const k = src.split('/').pop(), [SW, SH] = SZ[k] || (k.includes('_ad_') ? [256, 112] : [192, 112]), [st, sr, sb, sl2] = q4(sl), [dt, dr, db, dl] = q4(bw), url = `url('assets/${src}.svg')`, out = [];
+      const sc = [[0, sl2], [sl2, SW - sl2 - sr], [SW - sr, sr]], sr_ = [[0, st], [st, SH - st - sb], [SH - sb, sb]];
+      const dc = [[0, dl], [dl, w - dl - dr], [w - dr, dr]], dr_ = [[0, dt], [dt, h - dt - db], [h - db, db]];
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) {
+        const [sx0, sw] = sc[i], [sy0, sh] = sr_[j], [dx0, dw] = dc[i], [dy0, dh] = dr_[j];
+        if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) continue;
+        const kx = dw / sw, ky = dh / sh;
+        out.push(L({ l: (x + dx0) + 'px', t: (y + dy0) + 'px', w: (dw + (i < 2 ? .6 : 0)) + 'px', h: (dh + (j < 2 ? .6 : 0)) + 'px', bg: url, size: `${SW * kx}px ${SH * ky}px`, pos: `${-sx0 * kx}px ${-sy0 * ky}px` }));
+      }
+      return out;
+    };
+    const ol = (a, d, dc = '#2B2B3A') => { a = Math.max(2, Math.round(a)); const b = Math.max(1, Math.round(a * .7)), c = '#2B2B3A'; return `${a}px 0 0 ${c},-${a}px 0 0 ${c},0 ${a}px 0 ${c},0 -${a}px 0 ${c},${b}px ${b}px 0 ${c},-${b}px ${b}px 0 ${c},${b}px -${b}px 0 ${c},-${b}px -${b}px 0 ${c},0 ${Math.round(d)}px 0 ${dc}`; };
+    const TK = { hud: ['#FFFFFF', ol(3, 5)], gold: ['#FFC933', ol(3, 5, '#B06A12')], title: ['#FFFFFF', ol(4, 8)], dark: ['#2B2B3A', 'none'], soft: ['#5A5668', 'none'], plain: ['#FFFFFF', 'none'] };
+    const txt = (text, x, y, w, h, fs, kind = 'hud', jc = 'center', o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), text, fs: fs + 'px', tc: TK[kind][0], ts: TK[kind][1], fw: kind === 'soft' ? '800' : '900', jc, ...o });
+    const wrap = (text, x, y, w, h, fs, kind = 'soft') => txt(text, x, y, w, h, fs, kind, 'center', { ws: 'normal', lh: '1.25' });
+    const shadow = (cx, cy, w) => L({ l: px(cx - w / 2), t: px(cy - w * .12), w: px(w), h: px(w * .24), bgc: 'rgba(43,43,58,.22)', br: '50%' });
+    const dim = (W, H) => img('g/ui_dim', 0, 0, W, H);
+    const hole = (W, H, cx, cy, r) => L({ w: px(W), h: px(H), bgc: 'rgba(43,43,58,.62)', mask: `radial-gradient(circle at ${Math.round(cx)}px ${Math.round(cy)}px, transparent ${r}px, #000 ${r + 3}px)` });
+    const btn = (k, x, y, w, label, o = {}) => {
+      const ad = k === 'ad', sm = o.sm, hh = sm ? 80 : 112;
+      const R = [nine(`g/ui_btn_${k}_normal`, ad ? '44 44 52 84' : '44 44 52 44', sm ? (ad ? '31px 31px 36px 59px' : '31px 31px 36px 31px') : (ad ? '44px 44px 52px 84px' : '44px 44px 52px 44px'), x, y, w, hh)];
+      if (ad) R.push(spr('g/ui_btn_ad_glint_4f', 4, 8, x, y, w, hh, x * 7));
+      const lx = x + (ad ? (sm ? 48 : 70) : 8), lw = w - (ad ? (sm ? 58 : 82) : 16), fs = o.fs || (sm ? 28 : 38), th = hh - (sm ? 10 : 16);
+      if (o.icon) { const iz = sm ? 40 : 56, tw = fs * label.length * .56, gx = lx + (lw - iz - 8 - tw) / 2; R.push(img(o.icon, gx, y + (th - iz) / 2 + 2, iz, iz), txt(label, gx + iz + 8, y + 2, tw + 16, th, fs, 'hud', 'flex-start')); }
+      else R.push(txt(label, lx, y + 2, lw, th, fs));
+      return R;
+    };
+    const rb = (x, y, icon, z = 96, o = {}) => { const iz = z * .58, ix = x + (z - iz) / 2, iy = y + z * .14, R = [img('g/ui_btn_round_normal', x, y, z, z), o.n ? spr(icon, o.n, o.fps || 8, ix, iy, iz, iz) : img(icon, ix, iy, iz, iz)];
+      if (o.badge) R.push(img('g/ui_badge_dot', x + z - 30, y - 4, 34, 34));
+      if (o.label) R.push(txt(o.label, x - 50, y + z + 4, z + 100, 40, 26));
+      return R; };
+    const tog = (x, y, on) => [img(`g/ui_toggle_track_${on ? 'on' : 'off'}`, x, y, 128, 64), img('g/ui_toggle_knob', x + (on ? 68 : 4), y + 4, 56, 56)];
+    const slider = (x, y, w, f) => [nine('g/ui_slider_track', '0 20 0 20', '0 20px', x, y + 8, w, 40), nine('g/ui_slider_fill', '0 20 0 20', '0 20px', x, y + 8, Math.max(40, w * f), 40), img('g/ui_slider_knob', x + w * f - 28, y, 56, 56)];
+    const plate = (x, y, w, icon, text) => [nine('g/ui_counter_plate', '0 32 0 32', '0 32px', x, y, w, 64), img(icon, x - 14, y, 64, 64), txt(text, x + 56, y, w - 66, 58, 34, 'hud', 'flex-start')];
+    const card = (x, y, w, h, hl) => nine(hl ? 'i/ui_card_highlight' : 'g/ui_card', '32 32 40 32', '32px 32px 40px 32px', x, y, w, h);
+    const bar = (x, y, w, f) => [nine('g/ui_progress_frame', '0 24 0 24', '0 24px', x, y, w, 48), nine('g/ui_progress_fill', '0 16 0 16', '0 16px', x + 8, y + 8, Math.max(32, (w - 16) * f), 32)];
+    const segs = (x, y, n, on) => Array.from({ length: n }, (_, i) => img(`i/ui_seg_${i < on ? 'on' : 'off'}`, x + i * 32, y, 24, 40));
+    const tag = (x, y, w, text, icon) => [nine('h/ui_price_tag', '0 22 0 22', '0 22px', x, y, w, 44), ...(icon ? [img(icon, x - 14, y - 4, 50, 50)] : []), txt(text, x + (icon ? 30 : 6), y, w - (icon ? 38 : 12), 40, 26)];
+    const win = (W, H, w, h, title, o = {}) => { const x = Math.round((W - w) / 2), y = Math.round((H - h) / 2 + (o.dy || 0)), rw = o.rw || Math.min(w - 40, 600), rx = Math.round((W - rw) / 2), R = [nine('g/ui_panel_main', '56', '56px', x, y, w, h)];
+      if (title) R.push(nine(o.rib || 'g/ui_ribbon', '0 104 0 104', '0 104px', rx, y - 58, rw, 112), txt(title, rx + 70, y - 58, rw - 140, 80, o.tfs || 50, 'title'));
+      if (o.close) R.push(img('g/ui_btn_close_normal', x + w - 66, y - 26, 80, 80));
+      return { x, y, w, h, cx: x + w / 2, R }; };
+    const bubble = (x, y, w, h, text, tx) => [nine('g/ui_bubble', '36', '36px', x, y, w, h), img('g/ui_bubble_tail', tx, y + h - 5, 48, 40), wrap(text, x + 28, y + 8, w - 56, h - 30, 32, 'dark')];
+    const logo = (x, y, w, en) => { const k = w / 960; return [img('i/logo_plate', x, y, w, w * 440 / 960), txt(en ? 'Protect the' : 'Защити', x + 60 * k, y + 118 * k, w - 120 * k, 110 * k, (en ? 96 : 112) * k, 'hud', 'center', { ts: ol(6 * k, 12 * k) }), txt(en ? 'Garden!' : 'огород!', x + 60 * k, y + 214 * k, w - 120 * k, 150 * k, 140 * k, 'gold', 'center', { ts: ol(7 * k, 13 * k, '#B06A12') })]; };
+    const hero = (skin, anim, n, fps, x, y, z, off = 0) => [shadow(x + z / 2, y + z * .89, z * .5), spr(`b/hero_${skin}_${anim}_${n}f`, n, fps, x, y, z, z, off)];
+    const bugz = (k, x, y, z, off) => spr(k === 'c' ? 'c/enemy_caterpillar_walk_4f' : 'c/enemy_beetle_walk_4f', 4, 8, x, y, z, z, off);
+    const coin = (x, y, off) => spr('f/fx_coin_spin_6f', 6, 12, x, y, 32, 32, off);
+    const SL = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 5; i++) SL.push([50 + i * 39, 80 + j * 36]);
+    const base = (bx, by) => [img('e/base_bed', bx, by, 256, 256), ...SL.map(([x, y], i) => [3, 12].includes(i) ? img('e/base_hole', bx + x - 16, by + y - 26, 32, 32) : spr('e/base_carrot_idle_2f', 2, 3, bx + x - 16, by + y - 26, 32, 32, i * 170))];
+    const pad = (x, y, k = 'normal') => img(`e/pad_${k}`, x, y, 128, 96);
+    const def = (x, y, id, lv, s) => [pad(x, y), spr(`d/def_${id}_${lv}_idle_4f`, 4, 6, x - 16, y - 100, 160, 160, x * 3), img(`e/ui_def_stars_${s}`, x + 28, y - 112, 72, 24)];
+    const radial = (cx, cy) => { const A = [-160, -120, -60, -20], D = [['goose', 40], ['frog', 50], ['beaver', 70], ['hive', 0]], o = [];
+      A.forEach((a, i) => { const r = a * Math.PI / 180, sx = cx + Math.cos(r) * 170, sy = cy + Math.sin(r) * 170, [id, pr] = D[i], lk = !pr;
+        o.push(img(lk ? 'h/ui_radial_slot_locked' : 'h/ui_radial_slot', sx - 56, sy - 56, 112, 112), img(`d/ui_def_portrait_${id}${lk ? '_locked' : ''}`, sx - 44, sy - 50, 88, 88));
+        if (lk) o.push(img('g/ui_lock', sx + 8, sy + 6, 44, 44)); else o.push(...tag(sx - 36, sy + 42, 96, String(pr), 'g/ui_icon_coin')); });
+      return o; };
+    const field = (W, H, P, hud = true, hp) => {
+      const R = [tile('e/tile_farm_grass_1', 0, 0, W, H)], hr = hp || (P ? [200, 956] : [1010, 416]);
+      if (P) R.push(tile('e/tile_farm_road_straight_tb', 448, 400, 64, 1072), spr('e/spawn_burrow_exit_3f', 3, 6, 432, 330, 96, 96), ...base(352, 1470), shadow(964, 504, 56), spr('e/env_tree_pine_sway_3f', 3, 3, 900, 380, 128, 128, 300), shadow(120, 1346, 70), spr('e/env_tree_apple_sway_3f', 3, 3, 40, 1200, 160, 160), img('e/env_bush', 820, 1400, 96, 96), pad(660, 470, 'locked'), ...def(220, 560, 'goose', 'l2', 2), ...def(640, 720, 'frog', 'l1', 1), pad(200, 1020), ...[['b', 456, 440, 48, 0], ['b', 452, 512, 48, 130], ['c', 448, 572, 64, 60], ['b', 456, 660, 48, 210], ['b', 452, 730, 48, 80], ['c', 448, 790, 64, 150]].map(a => bugz(...a)), coin(392, 640, 0), coin(372, 700, 300), coin(404, 740, 150));
+      else R.push(tile('e/tile_farm_road_straight_rl', 64, 384, 1280, 64), img('e/tile_farm_road_corner_bl', 1344, 384, 64, 64), tile('e/tile_farm_road_straight_tb', 1344, 448, 64, 384), spr('e/spawn_burrow_exit_3f', 3, 6, 0, 360, 96, 96), ...base(1248, 800), shadow(1700, 306, 70), spr('e/env_tree_apple_sway_3f', 3, 3, 1620, 160, 160, 160), img('e/env_bush', 820, 700, 96, 96), pad(180, 200, 'locked'), ...def(330, 560, 'goose', 'l2', 2), ...def(480, 250, 'frog', 'l1', 1), pad(1010, 480), ...[['b', 150, 376, 48, 0], ['b', 222, 370, 48, 130], ['c', 292, 366, 64, 60], ['b', 372, 378, 48, 210], ['b', 444, 372, 48, 80], ['c', 520, 366, 64, 150], ['b', 604, 378, 48, 30]].map(a => bugz(...a)), coin(540, 600, 0), coin(590, 628, 300), coin(500, 640, 150));
+      R.push(...hero('raccoon', 'idle', 4, 6, hr[0], hr[1], 128));
+      if (hud) R.push(...(P ? [...plate(44, 44, 230, 'g/ui_icon_coin', '1 250'), ...plate(300, 44, 190, 'g/ui_icon_carrot', '18/20'), ...rb(952, 36, 'g/ui_icon_pause'), txt('Волна 3/7', 310, 128, 460, 44, 38)] : [...plate(44, 28, 240, 'g/ui_icon_coin', '1 250'), ...plate(316, 28, 200, 'g/ui_icon_carrot', '18/20'), txt('Волна 3/7', 740, 16, 440, 44, 38), ...rb(1796, 24, 'g/ui_icon_pause')]));
+      return R; };
+    const NP = [[300, 5500], [640, 5120], [820, 4740], [520, 4360], [250, 3980], [420, 3620], [800, 3220], [700, 2820], [330, 2420], [560, 1780], [800, 1260], [480, 740]], STARS = [3, 2, 3, 1], CUR = 4;
+    const DEC = [['e/env_farm_barn', 840, 5520, 256, 256], ['e/env_farm_barn_flag_4f', 840, 5520, 256, 256, 4, 8], ['e/env_farm_scarecrow_sway_4f', 120, 5160, 96, 128, 4, 4], ['e/env_farm_haystack', 950, 4260, 96, 96], ['e/env_tree_apple_sway_3f', 160, 4600, 160, 160, 3, 3], ['e/env_farm_wheelbarrow', 80, 4040, 96, 96], ['e/env_bush', 900, 5000, 96, 96], ['e/env_rocks', 420, 4700, 64, 64], ['e/env_sunflower_sway_3f', 960, 4480, 64, 96, 3, 4], ['e/env_farm_bed', 600, 5640, 128, 96],
+      ['e/env_wheat_mill', 170, 3060, 256, 256], ['e/env_wheat_mill_blades_4f', 170, 3060, 256, 256, 4, 8], ['e/env_wheat_sheaf', 600, 3440, 96, 96], ['e/env_wheat_cart', 920, 2240, 128, 128], ['e/env_wheat_ears_sway_3f', 900, 3600, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 960, 3660, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 120, 2240, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 180, 2300, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 520, 2620, 64, 64, 3, 4], ['e/env_sunflower_sway_3f', 980, 2900, 64, 96, 3, 4],
+      ['e/env_lake_lake', 300, 1250, 384, 256], ['e/env_lake_ripple_4f', 300, 1250, 384, 256, 4, 4], ['e/env_lake_boat', 320, 1230, 128, 64], ['e/env_lake_reeds_sway_3f', 110, 1110, 64, 96, 3, 4], ['e/env_lake_reeds_sway_3f', 500, 1370, 64, 96, 3, 4], ['e/env_lake_skep', 880, 620, 96, 96], ['e/env_lake_skep_bees_4f', 880, 620, 96, 96, 4, 10], ['e/env_lake_skep', 970, 720, 96, 96], ['e/env_tree_pine_sway_3f', 160, 420, 128, 128, 3, 3], ['e/env_tree_pine_sway_3f', 900, 1600, 128, 128, 3, 3]];
+    const world = (P, ox, oy) => { const R = [], at = (cx, cy, w, h) => { const [X, Y] = P ? [cx, cy] : [5760 - cy, cx]; return [X - w / 2 + ox, Y - h / 2 + oy]; };
+      [['lake', 0, 1920], ['wheat', 1920, 3840], ['farm', 3840, 5760]].forEach(([b, a, c]) => R.push(P ? tile(`e/tile_${b}_grass_1`, ox, a + oy, 1080, c - a) : tile(`e/tile_${b}_grass_1`, 5760 - c + ox, oy, c - a, 1080)));
+      for (let i = 0; i < 11; i++) { const [a, b] = [NP[i], NP[i + 1]], d = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.floor((d - 150) / 46);
+        for (let j = 0; j <= n; j++) { const q = (75 + j * (d - 150) / Math.max(1, n)) / d, [X, Y] = at(a[0] + (b[0] - a[0]) * q, a[1] + (b[1] - a[1]) * q, 32, 24); R.push(img('i/map_path_dot', X, Y, 32, 24)); } }
+      [1920, 3840].forEach(yb => [60, 300, 780, 1020].forEach((x, i) => { const [X, Y] = at(x, yb, 96, i % 2 ? 64 : 96); R.push(img(i % 2 ? 'e/env_fence_decor' : 'e/env_bush', X, Y, 96, i % 2 ? 64 : 96)); }));
+      DEC.forEach(([src, cx, cy, w, h, n, fps]) => { const [X, Y] = at(cx, cy, w, h); R.push(n ? spr(src, n, fps, X, Y, w, h, cx) : img(src, X, Y, w, h)); });
+      { const [X, Y] = at(600, 5540, 80, 80); R.push(spr('g/ui_icon_harvest_ripe_3f', 3, 6, X, Y, 80, 80), img('g/ui_badge_dot', X + 56, Y - 6, 30, 30)); }
+      NP.forEach(([cx, cy], i) => { const [X, Y] = at(cx, cy, 128, 128), st = i < CUR ? 'done' : i === CUR ? 'current' : 'locked';
+        R.push(img(`i/map_node_${st}`, X, Y, 128, 128));
+        if (st === 'locked') R.push(img('g/ui_lock', X + 40, Y + 30, 48, 48)); else R.push(txt(String(i + 1), X + 14, Y + 30, 100, 60, 48));
+        if (st === 'done') [0, 1, 2].forEach(j => R.push(img(`g/ui_star_${j < STARS[i] ? 'full' : 'empty'}_32`, X + 13 + j * 34, Y - 14 - (j === 1 ? 8 : 0), 34, 34)));
+        if (st === 'current') { const bob = Math.round(Math.sin(t / 220) * 6); R.push(img('h/ui_radial_slot', X + 8, Y - 110 + bob, 112, 112), img('b/ui_avatar_raccoon', X + 20, Y - 100 + bob, 88, 88)); } });
+      return R; };
+    const mapView = (W, H, P) => world(P, P ? 0 : -1000, P ? -2880 : 0);
+    const sLoading = (W, H, P) => { const R = [tile('e/tile_farm_grass_1', 0, 0, W, H)];
+      if (P) R.push(tile('e/tile_farm_road_straight_rl', 0, 1100, 480, 64), spr('e/env_tree_apple_sway_3f', 3, 3, 10, 600, 192, 192), img('e/env_bush', 900, 760, 96, 96), spr('e/env_sunflower_sway_3f', 3, 4, 880, 1340, 64, 96), spr('e/env_sunflower_sway_3f', 3, 4, 940, 1360, 64, 96, 200), img('e/env_rocks', 140, 1360, 64, 64), ...base(480, 960), shadow(90, 1100, 120), spr('c/boss_fox_walk_6f', 6, 10, -30, 880, 230, 230), bugz('b', 200, 1060, 77, 0), bugz('b', 270, 1070, 77, 130), bugz('c', 330, 1046, 100, 60), bugz('b', 410, 1066, 77, 210), ...hero('raccoon', 'joy', 6, 10, 760, 980, 260), coin(800, 1260, 0), coin(860, 1290, 200), coin(920, 1250, 400), ...logo(90, 170, 900, false), txt('Загрузка… 64%', 140, 1570, 800, 56, 40), ...bar(140, 1640, 800, .64), txt('Совет: гусь стреляет дальше всех', 60, 1730, 960, 50, 30));
+      else R.push(tile('e/tile_farm_road_straight_rl', 0, 640, 900, 64), spr('e/env_tree_apple_sway_3f', 3, 3, 30, 30, 192, 192), img('e/env_farm_barn', 1580, 340, 300, 300), spr('e/env_farm_barn_flag_4f', 4, 8, 1580, 340, 300, 300), img('e/env_bush', 1470, 840, 96, 96), spr('e/env_sunflower_sway_3f', 3, 4, 40, 860, 64, 96), spr('e/env_sunflower_sway_3f', 3, 4, 100, 880, 64, 96, 200), img('e/env_farm_haystack', 1780, 760, 115, 115), ...base(900, 520), shadow(170, 668, 120), spr('c/boss_fox_walk_6f', 6, 10, 50, 460, 230, 230), bugz('b', 330, 600, 77, 0), bugz('b', 420, 610, 77, 130), bugz('c', 500, 586, 100, 60), bugz('b', 610, 606, 77, 210), bugz('c', 690, 586, 100, 150), bugz('b', 800, 606, 77, 30), ...hero('raccoon', 'joy', 6, 10, 1170, 540, 260), coin(1210, 830, 0), coin(1280, 860, 200), coin(1350, 820, 400), ...logo(560, 24, 800, false), txt('Загрузка… 64%', 560, 910, 800, 56, 40), ...bar(560, 974, 800, .64));
+      return R; };
+    const sMenu = (W, H, P) => { const R = [tile('e/tile_farm_grass_1', 0, 0, W, H)];
+      const D = P ? [['e/env_tree_apple_sway_3f', 10, 660, 192, 192, 3, 3], ['e/env_bush', 900, 800, 96, 96], ['e/env_rocks', 860, 930, 64, 64], ['e/env_farm_barn', 700, 1440, 320, 320], ['e/env_farm_barn_flag_4f', 700, 1440, 320, 320, 4, 8], ['e/env_farm_bed', 60, 1560, 154, 115], ['e/env_farm_scarecrow_sway_4f', 330, 1480, 115, 154, 4, 4], ['e/env_sunflower_sway_3f', 520, 1740, 64, 96, 3, 4], ['e/env_sunflower_sway_3f', 580, 1760, 64, 96, 3, 4], ['e/env_farm_haystack', 40, 1780, 115, 115]]
+        : [['e/env_farm_barn', 1440, 120, 380, 380], ['e/env_farm_barn_flag_4f', 1440, 120, 380, 380, 4, 8], ['e/env_tree_apple_sway_3f', 1680, 560, 192, 192, 3, 3], ['e/env_farm_bed', 1240, 820, 154, 115], ['e/env_farm_scarecrow_sway_4f', 1470, 720, 115, 154, 4, 4], ['e/env_sunflower_sway_3f', 900, 860, 64, 96, 3, 4], ['e/env_sunflower_sway_3f', 960, 880, 64, 96, 3, 4], ['e/env_farm_haystack', 1760, 900, 115, 115], ['e/env_bush', 40, 900, 96, 96], ['e/env_rocks', 740, 940, 64, 64]];
+      D.forEach(([s, x, y, w, h, n, fps]) => R.push(n ? spr(s, n, fps, x, y, w, h, x) : img(s, x, y, w, h)));
+      if (P) R.push(...hero('raccoon', 'idle', 4, 6, 375, 630, 330), ...logo(90, 140, 900, false), ...btn('orange', 280, 1050, 520, 'Играть', { fs: 52 }), ...rb(232, 1240, 'g/ui_icon_shop', 112, { label: 'Магазин' }), ...rb(484, 1240, 'g/ui_icon_settings', 112, { label: 'Настройки' }), ...rb(736, 1240, 'g/ui_icon_gift_shake_4f', 112, { n: 4, fps: 10, badge: 1, label: 'Подарок' }), ...plate(44, 44, 260, 'g/ui_icon_grain', '1 240'));
+      else R.push(...hero('raccoon', 'idle', 4, 6, 1000, 300, 380), ...logo(80, 50, 760, false), ...btn('orange', 220, 470, 480, 'Играть', { fs: 52 }), ...rb(196, 640, 'g/ui_icon_shop', 112, { label: 'Магазин' }), ...rb(404, 640, 'g/ui_icon_settings', 112, { label: 'Настройки' }), ...rb(612, 640, 'g/ui_icon_gift_shake_4f', 112, { n: 4, fps: 10, badge: 1, label: 'Подарок' }), ...plate(1620, 30, 260, 'g/ui_icon_grain', '1 240'));
+      return R; };
+    const sMap = (W, H, P) => { const R = mapView(W, H, P);
+      if (P) R.push(...plate(44, 44, 260, 'g/ui_icon_grain', '1 240'), ...rb(708, 36, 'g/ui_icon_shop'), ...rb(824, 36, 'g/ui_icon_settings'), ...rb(940, 36, 'g/ui_icon_gift_shake_4f', 96, { n: 4, fps: 10, badge: 1 }), ...rb(916, 1736, 'g/ui_icon_harvest_ripe_3f', 120, { n: 3, fps: 6, badge: 1, label: 'Урожай' }));
+      else R.push(...plate(44, 30, 260, 'g/ui_icon_grain', '1 240'), ...rb(1548, 24, 'g/ui_icon_shop'), ...rb(1664, 24, 'g/ui_icon_settings'), ...rb(1780, 24, 'g/ui_icon_gift_shake_4f', 96, { n: 4, fps: 10, badge: 1 }), ...rb(1756, 876, 'g/ui_icon_harvest_ripe_3f', 120, { n: 3, fps: 6, badge: 1, label: 'Урожай' }));
+      return R; };
+    const sStart = (W, H, P) => { const R = [...mapView(W, H, P), dim(W, H)], w = P ? 940 : 1500, h = P ? 1240 : 860, o = win(W, H, w, h, 'Уровень 5', { close: 1, rw: 520, dy: 40 }), { x, y } = o; R.push(...o.R);
+      const E = [['caterpillar', 'Гусеница'], ['mole', 'Крот']], ecard = (ex, ey, [id, nm]) => [card(ex, ey, 220, 250), img(`c/ui_enemy_portrait_${id}`, ex + 30, ey + 18, 160, 160), txt(nm, ex, ey + 180, 220, 44, 28, 'dark')];
+      const bcard = (bx, by, bw, bh, icon, nm) => [card(bx, by, bw, bh), img(icon, bx + bw / 2 - 64, by + 26, 128, 128), txt(nm, bx + 10, by + 166, bw - 20, 44, 30, 'dark'), ...btn('ad', bx + (bw - 280) / 2, by + bh - 140, 280, 'Взять')];
+      if (P) R.push(txt('Новые враги', x, y + 64, w, 50, 36, 'dark'), ...ecard(o.cx - 240, y + 124, E[0]), ...ecard(o.cx + 20, y + 124, E[1]), txt('Усиления за рекламу', x, y + 400, w, 50, 36, 'dark'), ...bcard(o.cx - 420, y + 460, 400, 380, 'g/ui_icon_coin', '+30 монет'), ...bcard(o.cx + 20, y + 460, 400, 380, 'd/ui_def_portrait_goose', 'Стартовый защитник'), ...btn('orange', o.cx - 260, y + h - 160, 520, 'В бой', { fs: 50 }));
+      else R.push(txt('Новые враги', x + 60, y + 64, 560, 50, 36, 'dark'), ...ecard(x + 90, y + 130, E[0]), ...ecard(x + 350, y + 130, E[1]), txt('Усиления за рекламу', x + 660, y + 64, 780, 50, 36, 'dark'), ...bcard(x + 680, y + 130, 370, 380, 'g/ui_icon_coin', '+30 монет'), ...bcard(x + 1070, y + 130, 370, 380, 'd/ui_def_portrait_goose', 'Стартовый защитник'), ...btn('orange', o.cx - 260, y + h - 160, 520, 'В бой', { fs: 50 }));
+      return R; };
+    const sPause = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], w = P ? 820 : 1100, h = P ? 740 : 620, o = win(W, H, w, h, 'Пауза', { rw: 460 }), { x, y } = o; R.push(...o.R);
+      const bx = P ? o.cx - 300 : x + 80, bw = P ? 600 : 540, b0 = y + 100, tg = (ix, iy, icon, on) => [img(icon, ix, iy, 64, 64), ...tog(ix + 84, iy, on)];
+      R.push(...btn('orange', bx, b0, bw, 'Продолжить', { icon: 'g/ui_icon_play' }), ...btn('blue', bx, b0 + 140, bw, 'Заново', { icon: 'g/ui_icon_restart' }), ...btn('blue', bx, b0 + 280, bw, 'На карту', { icon: 'g/ui_icon_home' }));
+      R.push(...(P ? [...tg(o.cx - 260, y + 560, 'g/ui_icon_music', true), ...tg(o.cx + 48, y + 560, 'g/ui_icon_sound', false)] : [...tg(x + 720, y + 150, 'g/ui_icon_music', true), ...tg(x + 720, y + 310, 'g/ui_icon_sound', false)]));
+      return R; };
+    const sSettings = (W, H, P) => { const R = [...sMenu(W, H, P), dim(W, H)], w = 880, h = 600, o = win(W, H, w, h, 'Настройки', { close: 1, rw: 560 }), { x, y } = o; R.push(...o.R);
+      const row = (ry, icon, label, on) => [img(icon, x + 90, ry, 64, 64), txt(label, x + 176, ry, 360, 60, 36, 'dark', 'flex-start'), ...tog(x + w - 218, ry, on)];
+      R.push(...row(y + 110, 'g/ui_icon_music', 'Музыка', true), ...row(y + 220, 'g/ui_icon_sound', 'Звук', true), txt('Громкость', x + 90, y + 338, 300, 56, 36, 'dark', 'flex-start'), ...slider(x + 400, y + 338, w - 490, .7), ...btn('orange', o.cx - 180, y + h - 72, 360, 'Готово'));
+      return R; };
+    const starAnim = (cx, y, z) => { const cyc = t % 3600; return [0, 1, 2].flatMap(i => { const zz = i === 1 ? z * 1.2 : z, x = cx + (i - 1) * z * 1.15 - zz / 2, yy = y + (i === 1 ? -z * .18 : 0), lt = cyc - 300 - i * 450, on = lt >= 0, f = on ? Math.min(4, Math.floor(lt * 12 / 1000)) : 0;
+      return [img('g/ui_star_empty_128', x, yy, zz, zz), ...(on ? [img('g/ui_star_appear_5f', x, yy, zz, zz, { size: '500% 100%', pos: `${f / 4 * 100}% 0%` })] : [])]; }); };
+    const sWin = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], w = P ? 900 : 1000, h = P ? 940 : 760, o = win(W, H, w, h, 'Победа!', { rw: 520, dy: P ? -120 : 0 }), { x, y } = o; R.push(...o.R, ...starAnim(o.cx, y + 70, 170));
+      R.push(txt('Награда', x, y + 300, w, 44, 32, 'soft'), img('g/ui_icon_grain', o.cx - 150, y + 350, 96, 96), txt('+25', o.cx - 40, y + 350, 220, 96, 72, 'gold', 'flex-start'));
+      R.push(...(P ? [...btn('ad', o.cx - 240, y + 520, 480, 'Награда ×2'), ...btn('orange', o.cx - 240, y + 680, 480, 'Дальше'), ...hero('raccoon', 'joy', 6, 10, o.cx - 150, y + h + 10, 300)] : [...btn('ad', x + 80, y + 520, 400, 'Награда ×2'), ...btn('orange', x + 520, y + 520, 400, 'Дальше'), ...hero('raccoon', 'joy', 6, 10, 90, 560, 340)]));
+      R.push(spr('f/fx_confetti_6f', 6, 10, P ? -40 : 100, P ? 200 : 40, 760, 760, 0), spr('f/fx_confetti_6f', 6, 10, P ? 360 : 1060, P ? 140 : 0, 760, 760, 400));
+      return R; };
+    const sLose = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], w = P ? 900 : 1200, h = P ? 960 : 700, o = win(W, H, w, h, 'Поражение', { rw: 560, rib: 'i/ui_ribbon_blue' }), { x, y } = o; R.push(...o.R);
+      const M = 'Вредители утащили все морковки!';
+      if (P) R.push(...hero('raccoon', 'sad', 4, 6, o.cx - 140, y + 50, 280), wrap(M, x + 80, y + 340, w - 160, 90, 34), ...btn('ad', o.cx - 280, y + 460, 560, 'Второй шанс'), img('g/ui_icon_carrot', o.cx - 130, y + 586, 48, 48), txt('+5 морковок', o.cx - 76, y + 584, 260, 52, 30, 'dark', 'flex-start'), ...btn('orange', o.cx - 380, y + 690, 360, 'Заново'), ...btn('blue', o.cx + 20, y + 690, 360, 'На карту'));
+      else R.push(...hero('raccoon', 'sad', 4, 6, x + 60, y + 110, 320), wrap(M, x + 420, y + 80, 720, 90, 34), ...btn('ad', x + 480, y + 200, 600, 'Второй шанс'), img('g/ui_icon_carrot', x + 650, y + 326, 48, 48), txt('+5 морковок', x + 704, y + 324, 260, 52, 30, 'dark', 'flex-start'), ...btn('orange', x + 440, y + 450, 330, 'Заново'), ...btn('blue', x + 800, y + 450, 330, 'На карту'));
+      return R; };
+    const sNewDef = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], w = P ? 860 : 1200, h = P ? 1060 : 700, o = win(W, H, w, h, 'Новый защитник!', { rw: 720, tfs: 48 }), { x, y } = o; R.push(...o.R);
+      const cx0 = P ? o.cx - 200 : x + 80, cy0 = P ? y + 80 : y + 110, tx = P ? x + 60 : x + 540, tw = P ? w - 120 : 600, ty = P ? y + 510 : y + 150;
+      R.push(card(cx0, cy0, 400, 400, true), shadow(cx0 + 200, cy0 + 340, 150), spr('d/def_frog_l1_idle_4f', 4, 6, cx0 + 24, cy0 + 10, 352, 352), txt('Лягушка-поливалка', tx, ty, tw, 60, 44, 'dark'), wrap('Поливает вредителей из разбрызгивателя и замедляет всех рядом.', tx + 20, ty + 70, tw - 40, 130, 32), ...btn('green', P ? o.cx - 210 : x + 630, P ? y + 800 : y + 450, 420, 'Отлично'));
+      return R; };
+    const sNewEnemy = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], w = P ? 860 : 1200, h = P ? 1080 : 700, o = win(W, H, w, h, 'Новый враг!', { rw: 600, rib: 'i/ui_ribbon_purple' }), { x, y } = o; R.push(...o.R);
+      const cx0 = P ? o.cx - 200 : x + 80, cy0 = P ? y + 80 : y + 110, tx = P ? x + 60 : x + 540, tw = P ? w - 120 : 600, ty = P ? y + 510 : y + 120;
+      R.push(card(cx0, cy0, 400, 400, true), shadow(cx0 + 200, cy0 + 300, 160), spr('c/enemy_mole_walk_4f', 4, 8, cx0 + 50, cy0 + 40, 300, 300), txt('Крот', tx, ty, tw, 60, 48, 'dark'), wrap('Роет ход под забором и выныривает прямо у грядки.', tx + 20, ty + 64, tw - 40, 110, 32), card(tx + 20, ty + 190, tw - 40, 140), img('d/ui_def_portrait_goose', tx + 40, ty + 208, 100, 100), wrap('Бей гусём-стрелком, когда крот вынырнет!', tx + 160, ty + 200, tw - 200, 110, 28, 'dark'), ...btn('green', P ? o.cx - 210 : x + 630, P ? y + 880 : y + 470, 420, 'Понятно'));
+      return R; };
+    const shopFrame = (W, H, P, active) => { const R = [...mapView(W, H, P), dim(W, H)], w = P ? 1000 : 1800, h = P ? 1440 : 900, o = win(W, H, w, h, 'Магазин', { close: 1, rw: 480, dy: P ? 70 : 40 }), { x, y } = o;
+      R.push(...o.R, ...plate(P ? 60 : 80, P ? 90 : 30, 260, 'g/ui_icon_grain', '1 240'));
+      const tb = (tx, tw, label, on) => [nine(`g/ui_tab_${on ? 'active' : 'inactive'}`, '32 32 8 32', '32px 32px 8px 32px', tx, y + 44, tw, 88), txt(label, tx, y + (on ? 50 : 60), tw, 64, on ? 32 : 28, on ? 'dark' : 'soft')];
+      R.push(...tb(x + 60, 300, 'Прокачка', active === 'up'), ...tb(x + 372, 240, 'Скины', active === 'skins'));
+      return { R, x, y, cx: o.cx }; };
+    const STATS = [['damage', 'Урон', 4, 120], ['attack_speed', 'Скорость атаки', 2, 80], ['run_speed', 'Скорость бега', 6, 200], ['magnet', 'Магнит', 1, 60]];
+    const sShopUp = (W, H, P) => { const { R, x, y } = shopFrame(W, H, P, 'up');
+      STATS.forEach(([id, nm, lv, pr], i) => {
+        if (P) { const x0 = x + 60, y0 = y + 150 + i * 290; R.push(card(x0, y0, 880, 270), img('h/ui_radial_slot', x0 + 24, y0 + 40, 150, 150), img(`g/ui_icon_${id}`, x0 + 54, y0 + 62, 90, 90), txt(nm, x0 + 200, y0 + 24, 440, 52, 36, 'dark', 'flex-start'), ...segs(x0 + 200, y0 + 88, 10, lv), txt(`Ур. ${lv}/10`, x0 + 540, y0 + 88, 200, 40, 28, 'soft', 'flex-start'), ...btn('green', x0 + 200, y0 + 142, 300, String(pr), { icon: 'g/ui_icon_grain' }), ...btn('ad', x0 + 530, y0 + 142, 320, '−50%'), ...tag(x0 + 770, y0 + 124, 86, '3/3')); }
+        else { const x0 = x + 60 + i * 426, y0 = y + 150; R.push(card(x0, y0, 400, 640), img('h/ui_radial_slot', x0 + 125, y0 + 30, 150, 150), img(`g/ui_icon_${id}`, x0 + 155, y0 + 52, 90, 90), txt(nm, x0 + 10, y0 + 196, 380, 52, 34, 'dark'), ...segs(x0 + 44, y0 + 262, 10, lv), txt(`Ур. ${lv}/10`, x0, y0 + 312, 400, 40, 28, 'soft'), ...btn('green', x0 + 40, y0 + 370, 320, String(pr), { icon: 'g/ui_icon_grain' }), ...btn('ad', x0 + 40, y0 + 500, 320, '−50%'), ...tag(x0 + 270, y0 + 482, 86, '3/3')); } });
+      return R; };
+    const SK = [['raccoon', 'sel'], ['corgi', 'own'], ['pig', 'ad'], ['rabbit', 'lvl'], ['chicken', 'buy']];
+    const skinCard = (x0, y0, cw, ch, [id, st]) => { const pz = cw - 40, lock = st === 'lvl' || st === 'buy', sy = y0 + pz + 24, bx = x0 + 14, bw = cw - 28, by = y0 + ch - 104, R = [card(x0, y0, cw, ch, st === 'ad'), img(`b/ui_portrait_${id}${lock ? '_locked' : ''}`, x0 + 20, y0 + 16, pz, pz)];
+      if (st === 'sel') R.push(img('g/ui_check', x0 + cw / 2 - 76, sy, 48, 48), txt('Выбран', x0 + cw / 2 - 26, sy, 120, 48, 28, 'dark', 'flex-start'));
+      if (st === 'own') R.push(txt('Куплен', x0, sy, cw, 48, 28, 'soft'), ...btn('green', bx, by, bw, 'Выбрать', { sm: 1 }));
+      if (st === 'ad') R.push(...bar(x0 + 20, sy, cw - 40, .6), txt('3/5', x0, sy, cw, 46, 26), ...btn('ad', bx, by, bw, 'Ещё 2', { sm: 1, fs: 26 }));
+      if (st === 'lvl') R.push(img('g/ui_lock', x0 + cw / 2 - 64, sy, 48, 48), txt('Ур. 12', x0 + cw / 2 - 12, sy, 120, 48, 28, 'dark', 'flex-start'));
+      if (st === 'buy') R.push(...tag(x0 + cw / 2 - 40, sy + 2, 100, '500', 'g/ui_icon_grain'), ...btn('blue', bx, by, bw, 'Примерить', { sm: 1, fs: 24 }));
+      return R; };
+    const sShopSkins = (W, H, P) => { const { R, x, y, cx } = shopFrame(W, H, P, 'skins'), pv = (a, b, s) => [card(a, b, s, s, true), shadow(a + s / 2, b + s * .86, s * .36), spr('b/hero_pig_idle_4f', 4, 6, a + s * .1, b + s * .04, s * .8, s * .8)], N = 'Свинка в комбинезоне', SUB = 'Откроется после 5 просмотров рекламы';
+      if (P) { R.push(...pv(cx - 240, y + 160, 480), txt(N, x, y + 660, 1000, 56, 40, 'dark'), txt(SUB, x, y + 716, 1000, 44, 26, 'soft')); SK.forEach((s, i) => R.push(...skinCard(x + 56 + i * 178, y + 790, 170, 340, s))); R.push(...btn('ad', cx - 230, y + 1180, 460, 'Открыть 3/5')); }
+      else { R.push(...pv(x + 80, y + 160, 460), txt(N, x + 60, y + 636, 500, 56, 36, 'dark'), ...btn('ad', x + 80, y + 704, 460, 'Открыть 3/5')); SK.forEach((s, i) => R.push(...skinCard(x + 600 + i * 226, y + 180, 210, 420, s))); R.push(txt(SUB, x + 600, y + 630, 1114, 44, 26, 'soft')); }
+      return R; };
+    const DAYS = [['g/ui_icon_coin', '50', 'got'], ['g/ui_icon_grain', '10', 'got'], ['g/ui_icon_gift_shake_4f', 'Подарок', 'today'], ['g/ui_icon_coin', '100', 'next'], ['g/ui_icon_grain', '20', 'next'], ['g/ui_icon_coin', '200', 'next'], ['g/ui_icon_gift', 'Сундук', 'next']];
+    const day = (x0, y0, cw, ch, i, [icon, amt, st]) => { const op = st === 'got' ? '.45' : '1', iz = Math.min(cw - 60, 120), num = /^\d+$/.test(amt), R = [card(x0, y0, cw, ch, st === 'today'), txt(st === 'today' ? 'Сегодня' : `День ${i + 1}`, x0, y0 + 14, cw, 44, 28, st === 'today' ? 'dark' : 'soft')];
+      R.push(st === 'today' ? spr(icon, 4, 10, x0 + cw / 2 - iz / 2, y0 + 62, iz, iz) : img(icon, x0 + cw / 2 - iz / 2, y0 + 62, iz, iz, { op }), txt(num ? `+${amt}` : amt, x0, y0 + ch - 96, cw, 50, num ? 38 : 30, 'gold', 'center', { op }));
+      if (st === 'got') R.push(img('g/ui_check', x0 + cw / 2 - 40, y0 + ch / 2 - 50, 80, 80));
+      return R; };
+    const sGift = (W, H, P) => { const R = [...mapView(W, H, P), dim(W, H)], w = P ? 980 : 1760, h = P ? 1260 : 760, o = win(W, H, w, h, 'Ежедневный подарок', { close: 1, rw: 760, tfs: 48 }), { x, y } = o; R.push(...o.R);
+      if (P) { DAYS.slice(0, 6).forEach((d, i) => R.push(...day(x + 61 + (i % 3) * 294, y + 90 + Math.floor(i / 3) * 320, 270, 300, i, d))); R.push(...day(x + 61, y + 730, 858, 300, 6, DAYS[6]), ...btn('green', o.cx - 400, y + 1070, 380, 'Забрать'), ...btn('ad', o.cx + 20, y + 1070, 380, 'Забрать ×2')); }
+      else { DAYS.forEach((d, i) => R.push(...day(x + 62 + i * 236, y + 100, 220, 340, i, d))); R.push(...btn('green', o.cx - 400, y + 530, 380, 'Забрать'), ...btn('ad', o.cx + 20, y + 530, 380, 'Забрать ×2')); }
+      return R; };
+    const sHarvest = (W, H, P) => { const R = [...mapView(W, H, P), dim(W, H)], w = P ? 860 : 1200, h = P ? 980 : 640, o = win(W, H, w, h, 'Урожай созрел!', { close: 1, rw: 640 }), { x, y } = o; R.push(...o.R);
+      const ic = (ix, iy, z) => [card(ix, iy, z, z, true), spr('g/ui_icon_harvest_ripe_3f', 3, 6, ix + z * .1, iy + z * .06, z * .8, z * .8)], M = 'Пока тебя не было, на грядке выросло:';
+      if (P) R.push(...ic(o.cx - 150, y + 80, 300), wrap(M, x + 80, y + 400, w - 160, 90, 32), img('g/ui_icon_grain', o.cx - 150, y + 500, 96, 96), txt('+120', o.cx - 40, y + 500, 240, 96, 72, 'gold', 'flex-start'), txt('Грядка заполнится через 6 ч', x, y + 610, w, 44, 28, 'soft'), ...btn('green', o.cx - 360, y + 700, 340, 'Забрать'), ...btn('ad', o.cx + 20, y + 700, 340, 'Забрать ×3'));
+      else R.push(...ic(x + 90, y + 100, 360), wrap(M, x + 500, y + 80, 620, 90, 32), img('g/ui_icon_grain', x + 620, y + 190, 96, 96), txt('+120', x + 730, y + 190, 240, 96, 72, 'gold', 'flex-start'), txt('Грядка заполнится через 6 ч', x + 500, y + 300, 620, 44, 28, 'soft'), ...btn('green', x + 500, y + 400, 300, 'Забрать'), ...btn('ad', x + 820, y + 400, 300, 'Забрать ×3'));
+      return R; };
+    const sConfirm = (W, H, P) => { const R = [...field(W, H, P), dim(W, H)], o = win(W, H, 820, 520, 'Выйти на карту?', { rw: 640, tfs: 46 }), { x, y } = o;
+      R.push(...o.R, wrap('Прогресс уровня не сохранится.', x + 80, y + 100, 660, 110, 34), ...btn('orange', o.cx - 320, y + 280, 300, 'Да'), ...btn('blue', o.cx + 20, y + 280, 300, 'Нет'));
+      return R; };
+    const toast = (cx, y, w, icon, text) => [nine('g/ui_toast', '0 40 0 40', '0 40px', cx - w / 2, y, w, 80), img(icon, cx - w / 2 + 16, y + 8, 64, 64), txt(text, cx - w / 2 + 92, y, w - 116, 76, 30, 'plain', 'flex-start')];
+    const sToasts = (W, H, P) => { const R = field(W, H, P), y0 = P ? 260 : 150, cx = W / 2;
+      R.push(...toast(cx, y0, 460, 'g/ui_icon_coin', 'Не хватает монет'), ...toast(cx, y0 + 110, 780, 'g/ui_icon_ad', 'Реклама недоступна, попробуйте позже'), ...toast(cx, y0 + 220, 340, 'g/ui_check', 'Сохранено'));
+      return R; };
+    const tut = k => (W, H, P) => { const R = field(W, H, P, true, k === 3 ? (P ? [340, 1160] : [1180, 600]) : undefined);
+      if (k === 1) R.push(hole(W, H, P ? 264 : 1074, P ? 1010 : 470, 120), ...(P ? [img('h/ui_joystick_base', 70, 1560, 256, 256), img('h/ui_joystick_stick', 174, 1624, 128, 128), spr('g/ui_tut_hand_swipe_6f', 6, 10, 60, 1640, 384, 192), ...bubble(80, 740, 640, 150, 'Веди пальцем — Енот побежит', 240)] : [img('h/ui_joystick_base', 96, 752, 256, 256), img('h/ui_joystick_stick', 200, 816, 128, 128), spr('g/ui_tut_hand_swipe_6f', 6, 10, 86, 830, 384, 192), ...bubble(760, 170, 560, 150, 'Веди пальцем — Енот побежит', 1040)]));
+      if (k === 2) { const [cx, cy] = P ? [404, 706] : [560, 630]; R.push(hole(W, H, cx, cy, 110), spr('g/ui_tut_arrow_3f', 3, 8, cx - 32, cy - 196, 64, 96), ...(P ? bubble(80, 300, 700, 150, 'Собирай монеты — на них строят защитников', 360) : bubble(200, 160, 660, 150, 'Собирай монеты — на них строят защитников', 500))); }
+      if (k === 3) { const [cx, cy] = P ? [264, 1068] : [1074, 528]; R.push(hole(W, H, cx, cy, 130), spr('g/ui_tut_highlight_3f', 3, 6, cx - 128, cy - 128, 256, 256), ...tag(cx - 42, cy - 86, 96, '40', 'g/ui_icon_coin'), spr('g/ui_tut_arrow_3f', 3, 8, cx - 32, cy - 250, 64, 96), ...(P ? bubble(80, 560, 640, 150, 'Встань на площадку, чтобы построить', 250) : bubble(760, 110, 600, 150, 'Встань на площадку, чтобы построить', 1040))); }
+      if (k === 4) { const [hx, hy] = P ? [264, 1010] : [1074, 470], sx = hx - 160, sy = hy - 58; R.push(...radial(hx, hy), hole(W, H, sx, sy, 80), spr('g/ui_tut_highlight_3f', 3, 6, sx - 90, sy - 90, 180, 180), spr('g/ui_tut_hand_tap_4f', 4, 8, sx - 58, sy - 22, 160, 160), ...(P ? bubble(80, 640, 640, 150, 'Выбери гуся-стрелка', 130) : bubble(500, 100, 560, 150, 'Выбери гуся-стрелка', 880))); }
+      return R; };
+    const TABS = [['01', 'Загрузка'], ['02', 'Логотип'], ['03', 'Главное меню'], ['04', 'Карта фермы'], ['05', 'Старт уровня'], ['06', 'Пауза'], ['07', 'Настройки'], ['08', 'Победа'], ['09', 'Поражение'], ['10', 'Новый защитник'], ['11', 'Новый враг'], ['12', 'Магазин: прокачка'], ['13', 'Магазин: скины'], ['14', 'Ежедневный подарок'], ['15', 'Офлайн-урожай'], ['16', 'Подтверждение'], ['17', 'Тосты'], ['18', 'Обучение']];
+    const FN = { '01': sLoading, '03': sMenu, '04': sMap, '05': sStart, '06': sPause, '07': sSettings, '08': sWin, '09': sLose, '10': sNewDef, '11': sNewEnemy, '12': sShopUp, '13': sShopSkins, '14': sGift, '15': sHarvest, '16': sConfirm, '17': sToasts };
+    const NOTE = { '01': 'фон собран из спрайтов игры', '03': 'подарок трясётся — есть награда', '04': 'текущий уровень 5 · граница Огород → Поле', '05': 'поверх карты', '06': 'поверх боя', '07': 'без переключателя языка', '08': 'звёзды появляются по очереди, конфетти', '09': 'второй шанс за рекламу', '12': '«−50%» — 3 из 3 просмотров', '13': 'выбран · куплен · за рекламу 3/5 · за уровень 12 · за зёрна', '14': 'забран · сегодня · будущие', '16': 'выход на карту из боя', '17': 'в игре показывается один тост за раз' };
+    const B = (name, note, w, h, sc, layers, label) => ({ name, note, w: px(w), h: px(h), ow: px(w * sc), oh: px(h * sc), tf: `scale(${sc})`, layers: layers.flat(Infinity), label });
+    const nm = (TABS.find(a => a[0] === tab) || TABS[0])[1];
+    let boards;
+    if (tab === '02') { const g = () => tile('e/tile_farm_grass_1', 0, 0, 1200, 640); boards = [B('RU', 'плашка + текст шрифтом', 1200, 640, 1, [g(), ...logo(120, 100, 960, false)], '02 Логотип RU'), B('EN', 'плашка + текст шрифтом', 1200, 640, 1, [g(), ...logo(120, 100, 960, true)], '02 Логотип EN'), B('Плашка без текста', 'i/logo_plate · 960×440', 1200, 640, 1, [g(), img('i/logo_plate', 120, 100, 960, 440)], '02 Плашка')]; }
+    else if (tab === '18') { const FR = [['Двигайся', 1], ['Собирай монеты', 2], ['Встань на площадку', 3], ['Выбери защитника', 4]]; boards = [...FR.map(([n, k]) => B(`Портрет · ${n}`, '×0.5', 1080, 1920, .5, tut(k)(1080, 1920, true), `18 ${n} · портрет`)), ...FR.map(([n, k]) => B(`Ландшафт · ${n}`, '×0.5', 1920, 1080, .5, tut(k)(1920, 1080, false), `18 ${n} · ландшафт`))]; }
+    else { const f = FN[tab] || sLoading; boards = [B('Портрет 1080×1920', NOTE[tab] || '', 1080, 1920, 1, f(1080, 1920, true), `${tab} ${nm} · портрет`), B('Ландшафт 1920×1080', NOTE[tab] || '', 1920, 1080, 1, f(1920, 1080, false), `${tab} ${nm} · ландшафт`)];
+      if (tab === '04') boards.push(B('Вся карта · портрет', '1080×5760 · ×0.25', 1080, 5760, .25, world(true, 0, 0), '04 Вся карта · портрет'), B('Вся карта · ландшафт', '5760×1080 · ×0.25', 5760, 1080, .25, world(false, 0, 0), '04 Вся карта · ландшафт')); }
+    const A = (id, name, w, h) => ({ id, name, src: `url('assets/i/${id}.svg')`, w: px(w), h: px(h), bs: 'contain' });
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', toggle: () => this.setState(s => ({ playing: !s.playing })),
+      tabs: TABS.map(([id, n]) => ({ name: `${id} ${n}`, on: tab === id, off: tab !== id, pick: () => { this.setState({ tab: id }); try { localStorage.setItem('zo_I_tab', id); } catch (e) {} } })),
+      boards,
+      assets: [A('logo_plate', 'Плашка логотипа 960×440', 300, 138), A('map_node_locked', 'Узел: закрыт', 96, 96), A('map_node_open', 'Узел: открыт', 96, 96), A('map_node_current', 'Узел: текущий', 96, 96), A('map_node_done', 'Узел: пройден', 96, 96), A('map_path_dot', 'Точка тропинки 32×24', 64, 48), A('ui_seg_on', 'Деление прокачки 24×40', 48, 80), A('ui_seg_off', 'Деление пустое', 48, 80), A('ui_card_highlight', 'Карточка-подсветка · 9-slice 32 32 40 32', 96, 96), A('ui_ribbon_blue', 'Лента «Поражение» · 0 104 0 104', 192, 56), A('ui_ribbon_purple', 'Лента «Новый враг!»', 192, 56)]
+    };
+  }
+}
+</script>
+</body>
+</html>

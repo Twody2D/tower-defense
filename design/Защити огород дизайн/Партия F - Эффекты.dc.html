@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="F Эффекты" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ F · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Эффекты</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1250px;text-wrap:pretty">Все 22 эффекта из брифа, покадрово. Once-эффекты на превью повторяются с паузой. Полёт монет к герою, мигание и тряска — в коде, их здесь нет.</div>
+</div>
+<div style="display:flex;gap:10px">
+<div onClick="{{ toggle }}" style="cursor:pointer;height:52px;padding:0 24px;display:flex;align-items:center;border-radius:26px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+<div onClick="{{ toggleSlow }}" style="cursor:pointer;height:52px;padding:0 22px;display:flex;align-items:center;border-radius:26px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-active="transform:scale(.95)">Скорость {{ speedLabel }}</div>
+</div>
+</div>
+
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font:900 34px/1 Nunito;color:#2B2B3A">{{ g.name }}</div>
+<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ g.items }}" as="c" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:6px;width:{{ c.bw }}">
+<div style="position:relative;width:{{ c.bw }};height:{{ c.bw }};border-radius:16px;overflow:hidden;background:#4CAF50;box-shadow:0 0 0 3px #2B2B3A">
+<div style="position:absolute;left:8px;top:8px;width:{{ c.dw }};height:{{ c.dw }};background-image:{{ c.sheet }};background-size:{{ c.size }};background-position:{{ c.pos }};background-repeat:no-repeat"></div>
+<div style="position:absolute;right:8px;top:8px;font:700 12px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:3px 6px;border-radius:6px">{{ c.fr }}</div>
+</div>
+<div style="font:900 17px/1.15 Nunito;color:#2B2B3A">{{ c.name }}</div>
+<div style="font:700 11px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ c.spec }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">PNG лежат в export/f/. Дальше: «ок — партия G (UI-кит)» или правки по эффекту.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, slow: false };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += (now - last) * (this.state.slow ? .25 : 1);
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 60) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const t = this.state.t;
+    const it = (file, name, px, n, fps, loop, note) => {
+      const k = Math.floor(t * fps / 1000), f = loop ? k % n : Math.min(k % (n + Math.ceil(fps * .8)), n - 1);
+      const dw = px <= 32 ? px * 4 : px <= 64 ? px * 2.5 : px <= 128 ? px * 1.5 : px;
+      return { name, spec: `${file}_${n}f · ${px}px · ${n} кадров · ${fps} FPS · ${loop ? 'loop' : 'once'}${note ? ' · ' + note : ''}`, sheet: `url('assets/f/${file}_${n}f.svg')`, size: `${n * 100}% 100%`, pos: `${f / (n - 1) * 100}% 0%`, fr: `${f + 1}/${n}`, dw: dw + 'px', bw: Math.max(dw + 16, 176) + 'px' };
+    };
+    const groups = [
+      { name: 'Бой', items: [it('fx_poof', '«Пуф»-облачко', 64, 5, 12, 0), it('fx_stars_head', 'Звёздочки над головой', 48, 4, 8, 1), it('fx_hit', 'Вспышка попадания', 48, 3, 15, 0), it('fx_splash', 'Брызги воды', 64, 4, 12, 0), it('fx_tomato_burst', 'Взрыв помидора', 96, 5, 12, 0), it('fx_bee', 'Пчела', 16, 2, 16, 1), it('fx_dust', 'Пыль из-под ног', 32, 4, 12, 0)] },
+      { name: 'Монеты', items: [it('fx_coin_pop', 'Появление с подскоком', 32, 4, 12, 0), it('fx_coin_spin', 'Вращение', 32, 6, 12, 1), it('fx_coin5_spin', 'Монета ×5', 48, 6, 12, 1), it('fx_coin_trail', 'Монеты в площадку', 32, 3, 10, 1, 'полёт в коде')] },
+      { name: 'Постройка', items: [it('fx_build_flash', 'Вспышка постройки', 128, 5, 12, 0), it('fx_upgrade', 'Искры апгрейда', 128, 5, 10, 0)] },
+      { name: '«Посылка»', items: [it('fx_parcel_fall', 'Падает на парашюте', 96, 4, 6, 1, 'снижение в коде'), it('fx_parcel_land', 'Приземление', 96, 3, 10, 0), it('fx_parcel_glow', 'Свечение', 96, 4, 8, 1), it('fx_parcel_open', 'Открытие', 96, 5, 10, 0)] },
+      { name: 'Бонусы и победа', items: [it('fx_tractor', 'Трактор едет', 160, 4, 10, 1, 'движение в коде'), it('fx_sleepy_cloud', 'Облако «Сонного дождя»', 256, 4, 6, 1), it('fx_gold_rain_coin', '«Золотой дождь»', 32, 4, 12, 1, 'падение в коде'), it('fx_magnet_aura', 'Аура «Супер-магнита»', 256, 4, 8, 1), it('fx_confetti', 'Конфетти победы', 256, 6, 10, 0)] }
+    ];
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', speedLabel: this.state.slow ? '×0.25' : '×1',
+      toggle: () => this.setState(s => ({ playing: !s.playing })), toggleSlow: () => this.setState(s => ({ slow: !s.slow })), groups
+    };
+  }
+}
+</script>
+</body>
+</html>
