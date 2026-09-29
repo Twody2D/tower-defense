@@ -207,6 +207,7 @@ func _finish(message: String, s: int) -> void:
 	_over = true
 	YandexSdk.gameplay_stop()
 	_release_input()
+	hero.finish(won)
 	hud.show_message(message)
 	get_tree().paused = true
 	finished.emit(won, s)

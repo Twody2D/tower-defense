@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/hero.gd" id="1_hero"]
 [ext_resource type="Resource" path="res://data/hero_stats.tres" id="2_stats"]
-[ext_resource type="Texture2D" path="res://art/hero/hero_raccoon_idle_4f.png" id="3_idle"]
-[ext_resource type="Texture2D" path="res://art/hero/hero_raccoon_run_6f.png" id="4_run"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon.tres" id="3_skin"]
+[ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="4_fx"]
 [ext_resource type="Texture2D" path="res://art/hero/proj_apple_spin_4f.png" id="5_apple"]
-[ext_resource type="Texture2D" path="res://art/fx/fx_stars_head_4f.png" id="6_stars"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 22.0
@@ -14,20 +13,20 @@ radius = 22.0
 motion_mode = 1
 script = ExtResource("1_hero")
 stats = ExtResource("2_stats")
-idle_sheet = ExtResource("3_idle")
-run_sheet = ExtResource("4_run")
+skin = ExtResource("3_skin")
 projectile_texture = ExtResource("5_apple")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_idle")
-hframes = 4
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_skin")
+animation = &"idle"
+autoplay = "idle"
 offset = Vector2(0, -56)
 
-[node name="StunStars" type="Sprite2D" parent="."]
+[node name="StunStars" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -130)
 scale = Vector2(2, 2)
-texture = ExtResource("6_stars")
-hframes = 4
+sprite_frames = ExtResource("4_fx")
+animation = &"stars_head"
 
 [node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)

@@ -43,6 +43,7 @@ func _defender(file: String, level: int, at: Vector2) -> Defender:
 	d.position = at
 	add_child(d)
 	d.set_level(level)
+	d.finish_build()
 	return d
 
 

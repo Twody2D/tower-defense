@@ -35,6 +35,7 @@ func _ready() -> void:
 		plot.choose(_battle.defender_catalog[_rng.randi() % _battle.defender_catalog.size()])
 		plot.level = 3
 		plot.defender.set_level(3)
+		plot.defender.finish_build()
 		plot._refresh()
 	_label = Label.new()
 	_label.add_theme_font_size_override(&"font_size", 34)

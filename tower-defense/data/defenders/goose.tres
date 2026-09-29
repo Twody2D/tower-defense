@@ -1,11 +1,9 @@
-[gd_resource type="Resource" script_class="DefenderData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="DefenderData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://data/types/defender_data.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://art/frames/def_goose.tres" id="4_frames"]
 [ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_goose.png" id="2_portrait"]
 [ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_goose_locked.png" id="3_locked"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_goose_l1_idle_4f.png" id="4_l1"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_goose_l2_idle_4f.png" id="5_l2"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_goose_l3_idle_4f.png" id="6_l3"]
 [ext_resource type="Texture2D" path="res://art/defenders/proj_pea.png" id="7_proj"]
 
 [resource]
@@ -21,7 +19,7 @@ attacks_per_second = 2.0
 radius = 220.0
 projectile_speed = 800.0
 hits_flying = true
-level_idle = Array[Texture2D]([ExtResource("4_l1"), ExtResource("5_l2"), ExtResource("6_l3")])
+frames = ExtResource("4_frames")
 feet_offset = 72.0
 projectile_texture = ExtResource("7_proj")
 projectile_frames = 1

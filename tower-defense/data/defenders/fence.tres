@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="DefenderData" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="DefenderData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/types/defender_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/defenders/fence_l1_damage_3f.png" id="2_l1"]
-[ext_resource type="Texture2D" path="res://art/defenders/fence_l2_damage_3f.png" id="3_l2"]
-[ext_resource type="Texture2D" path="res://art/defenders/fence_l3_damage_3f.png" id="4_l3"]
+[ext_resource type="SpriteFrames" path="res://art/frames/fence.tres" id="4_frames"]
 
 [resource]
 script = ExtResource("1_script")
@@ -16,6 +14,5 @@ attacks_per_second = 0.0
 radius = 0.0
 fence_hp = Array[float]([150.0, 300.0, 600.0])
 repair_price_share = 0.5
-level_idle = Array[Texture2D]([ExtResource("2_l1"), ExtResource("3_l2"), ExtResource("4_l3")])
-idle_frames = 3
+frames = ExtResource("4_frames")
 feet_offset = 28.0

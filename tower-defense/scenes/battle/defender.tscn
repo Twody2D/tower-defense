@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/defender.gd" id="1_def"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_goose_l1_idle_4f.png" id="2_goose"]
+[ext_resource type="SpriteFrames" path="res://art/frames/def_goose.tres" id="2_goose"]
 [ext_resource type="Texture2D" path="res://art/env/ui_def_stars_1.png" id="3_s1"]
 [ext_resource type="Texture2D" path="res://art/env/ui_def_stars_2.png" id="4_s2"]
 [ext_resource type="Texture2D" path="res://art/env/ui_def_stars_3.png" id="5_s3"]
@@ -10,9 +10,9 @@
 script = ExtResource("1_def")
 star_textures = Array[Texture2D]([ExtResource("3_s1"), ExtResource("4_s2"), ExtResource("5_s3")])
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_goose")
-hframes = 4
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_goose")
+animation = &"l1_idle"
 offset = Vector2(0, -72)
 
 [node name="Stars" type="Sprite2D" parent="."]

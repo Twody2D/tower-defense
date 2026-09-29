@@ -4,17 +4,16 @@ extends CharacterBody2D
 ## nearest pest on its own (also while running). A pest touching the hero
 ## stuns it for `stun_time`, then it is untouchable for `invulnerable_time`.
 ## The battle hands in `enemies` and `projectiles`.
+## Animations (SpriteFrames of the skin, art/frames/hero_*.tres): idle, run,
+## throw (standing), build (paying coins into a plot), hit → stun, joy / sad
+## at the end of the battle.
 
 @export var stats: HeroStats
 ## Level bounds the hero cannot leave (set by the battle from the level).
 @export var bounds: Rect2 = Rect2(0, 0, 1920, 1920)
 @export_group("Look")
-@export var idle_sheet: Texture2D
-@export var idle_frames: int = 4
-@export var idle_fps: float = 6.0
-@export var run_sheet: Texture2D
-@export var run_frames: int = 6
-@export var run_fps: float = 12.0
+## Skin animations (art/frames/hero_<skin>.tres).
+@export var skin: SpriteFrames
 @export var projectile_texture: Texture2D
 @export var projectile_frames: int = 4
 ## Where the apple leaves the paw, relative to the feet.
@@ -31,22 +30,28 @@ var attack_speed_mult: float = 1.0
 var _cooldown: float = 0.0
 var _stun_left: float = 0.0
 var _invulnerable_left: float = 0.0
-var _anim_time: float = 0.0
-var _running: bool = false
+## Build pose lasts this long after the last coin paid, s.
+var _build_left: float = 0.0
+## Battle over: joy / sad only.
+var _finished: bool = false
 var _shot: Projectiles.Shot = Projectiles.Shot.new()
 
-@onready var _sprite: Sprite2D = $Sprite
-@onready var _stars: Node2D = $StunStars
+@onready var _sprite: AnimatedSprite2D = $Sprite
+@onready var _stars: AnimatedSprite2D = $StunStars
 
 
 func _ready() -> void:
 	_stars.visible = false
-	_show_anim(false)
+	if skin != null:
+		_sprite.sprite_frames = skin
+	_sprite.play(&"idle")
 	_shot.texture = projectile_texture
 	_shot.frames = projectile_frames
 
 
 func _physics_process(delta: float) -> void:
+	if _finished:
+		return
 	_tick_stun(delta)
 	var dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
 	if joystick != Vector2.ZERO:
@@ -82,6 +87,26 @@ func stun() -> void:
 		return
 	_stun_left = stats.stun_time
 	_stars.visible = true
+	_stars.play(&"stars_head")
+	_sprite.play(&"hit")
+
+
+## A coin went from the hero into a plot (the plot calls this).
+func mark_building() -> void:
+	_build_left = 0.15
+
+
+## End of the battle: jumps for joy or hangs its ears; nothing else runs.
+## The tree is paused then, so the sprite keeps animating on its own.
+func finish(won: bool) -> void:
+	_finished = true
+	_stun_left = 0.0
+	_invulnerable_left = 0.0
+	_stars.visible = false
+	velocity = Vector2.ZERO
+	_sprite.modulate.a = 1.0
+	_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
+	_sprite.play(&"joy" if won else &"sad")
 
 
 func _tick_stun(delta: float) -> void:
@@ -115,21 +140,24 @@ func _attack(delta: float) -> void:
 	_shot.damage = stats.damage * damage_mult
 	_shot.speed = stats.projectile_speed
 	projectiles.fire(global_position + throw_offset, target, _shot)
+	if not is_moving() and _build_left <= 0.0:
+		_sprite.play(&"throw")
+		_sprite.flip_h = enemies.position_at(target).x < global_position.x
 
 
-## Frame stepping over idle/run sheets (stage 5 moves this to SpriteFrames).
+## Picks the animation for the state; once animations (hit, throw) finish first.
 func _animate(delta: float) -> void:
-	var running: bool = is_moving()
-	if running != _running:
-		_show_anim(running)
-	_anim_time += delta
-	var fps: float = run_fps if _running else idle_fps
-	_sprite.frame = int(_anim_time * fps) % _sprite.hframes
-
-
-func _show_anim(running: bool) -> void:
-	_running = running
-	_anim_time = 0.0
-	_sprite.texture = run_sheet if running else idle_sheet
-	_sprite.hframes = run_frames if running else idle_frames
-	_sprite.frame = 0
+	_build_left = maxf(_build_left - delta, 0.0)
+	var current: StringName = _sprite.animation
+	var want: StringName = &"idle"
+	if _stun_left > 0.0:
+		want = &"stun"
+	elif is_moving():
+		want = &"run"
+	elif _build_left > 0.0:
+		want = &"build"
+	var once_playing: bool = (current == &"hit" or current == &"throw") and _sprite.is_playing()
+	if once_playing and not (current == &"throw" and want != &"idle"):
+		return
+	if current != want:
+		_sprite.play(want)

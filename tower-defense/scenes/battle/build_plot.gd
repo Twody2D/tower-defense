@@ -107,6 +107,7 @@ func _process(delta: float) -> void:
 		if not _pay_one():
 			_timer = coin_interval
 			break
+		hero.mark_building()
 
 
 ## One coin into the plot: towards the next level or a fence repair.

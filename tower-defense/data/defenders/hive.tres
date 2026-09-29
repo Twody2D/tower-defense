@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="DefenderData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="DefenderData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://data/types/defender_data.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://art/frames/def_hive.tres" id="4_frames"]
 [ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_hive.png" id="2_portrait"]
 [ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_hive_locked.png" id="3_locked"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_hive_l1_idle_4f.png" id="4_l1"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_hive_l2_idle_4f.png" id="5_l2"]
-[ext_resource type="Texture2D" path="res://art/defenders/def_hive_l3_idle_4f.png" id="6_l3"]
-[ext_resource type="Texture2D" path="res://art/defenders/fx_bee_2f.png" id="7_proj"]
+[ext_resource type="Texture2D" path="res://art/fx/fx_bee_2f.png" id="7_proj"]
 
 [resource]
 script = ExtResource("1_script")
@@ -23,7 +21,7 @@ projectile_speed = 420.0
 hits_flying = true
 dot_dps = 4.0
 dot_time = 3.0
-level_idle = Array[Texture2D]([ExtResource("4_l1"), ExtResource("5_l2"), ExtResource("6_l3")])
+frames = ExtResource("4_frames")
 feet_offset = 70.0
 projectile_texture = ExtResource("7_proj")
 projectile_frames = 2

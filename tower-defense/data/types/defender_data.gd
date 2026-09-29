@@ -49,10 +49,10 @@ enum Kind {
 @export var repair_price_share: float = 0.5
 
 @export_group("Look")
-## Idle sheet per level (1, 2, 3), one row of square frames (design D).
-@export var level_idle: Array[Texture2D] = []
-@export var idle_frames: int = 4
-@export var idle_fps: float = 6.0
+## Animations (art/frames/def_<id>.tres, fence.tres): l<N>_build, l<N>_idle,
+## l<N>_attack, upgrade_1to2, upgrade_2to3; the fence has l<N>_damage (3
+## states by HP), l<N>_hit, l<N>_destroy, l<N>_repair.
+@export var frames: SpriteFrames
 ## Feet are this far below the frame centre, px.
 @export var feet_offset: float = 72.0
 @export var projectile_texture: Texture2D
@@ -83,10 +83,9 @@ func fence_hp_at(level: int) -> float:
 	return fence_hp[clampi(level - 1, 0, fence_hp.size() - 1)]
 
 
-func idle_sheet(level: int) -> Texture2D:
-	if level_idle.is_empty():
-		return null
-	return level_idle[clampi(level - 1, 0, level_idle.size() - 1)]
+## Animation name for a level: anim_at(2, "idle") -> "l2_idle".
+func anim_at(level: int, anim: String) -> StringName:
+	return StringName("l%d_%s" % [clampi(level, 1, max_level()), anim])
 
 
 func max_level() -> int:
