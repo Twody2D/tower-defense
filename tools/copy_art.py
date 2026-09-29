@@ -118,7 +118,7 @@ FENCE_ANIMS = [
 # set "env": design file base name -> (fps, loop); frames come from the file name
 ENV_ANIMS = {
     "base_carrot_idle_2f": (3, True), "base_carrot_pull_4f": (12, False),
-    "spawn_burrow_exit_3f": (6, True),
+    "spawn_burrow_exit_3f": (6, True), "spawn_burrow_idle_1f": (1, True),
     "pad_highlight_3f": (6, True), "pad_unlock_4f": (10, False), "ui_edge_arrow_3f": (6, True),
     "env_farm_barn_flag_4f": (8, True), "env_farm_scarecrow_sway_4f": (4, True),
     "env_wheat_mill_blades_4f": (8, True), "env_wheat_ears_sway_3f": (4, True),

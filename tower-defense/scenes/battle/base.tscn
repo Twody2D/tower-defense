@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/battle/base.gd" id="1_base"]
 [ext_resource type="Texture2D" path="res://art/env/base_bed.png" id="2_bed"]
 [ext_resource type="Texture2D" path="res://art/env/base_hole.png" id="3_hole"]
-[ext_resource type="Texture2D" path="res://art/env/base_carrot_idle_2f.png" id="4_carrot"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="4_env"]
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_base")
@@ -95,102 +95,162 @@ texture = ExtResource("3_hole")
 position = Vector2(80, 70)
 texture = ExtResource("3_hole")
 
-[node name="Carrot1" type="Sprite2D" parent="Carrots"]
+[node name="Carrot1" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-80, -68)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 0.8
 
-[node name="Carrot2" type="Sprite2D" parent="Carrots"]
+[node name="Carrot2" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-40, -68)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.0
 
-[node name="Carrot3" type="Sprite2D" parent="Carrots"]
+[node name="Carrot3" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(0, -68)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.2
 
-[node name="Carrot4" type="Sprite2D" parent="Carrots"]
+[node name="Carrot4" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(40, -68)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 0.9
 
-[node name="Carrot5" type="Sprite2D" parent="Carrots"]
+[node name="Carrot5" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(80, -68)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.1
 
-[node name="Carrot6" type="Sprite2D" parent="Carrots"]
+[node name="Carrot6" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-80, -26)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 0.8
 
-[node name="Carrot7" type="Sprite2D" parent="Carrots"]
+[node name="Carrot7" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-40, -26)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.0
 
-[node name="Carrot8" type="Sprite2D" parent="Carrots"]
+[node name="Carrot8" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(0, -26)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.2
 
-[node name="Carrot9" type="Sprite2D" parent="Carrots"]
+[node name="Carrot9" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(40, -26)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 0.9
 
-[node name="Carrot10" type="Sprite2D" parent="Carrots"]
+[node name="Carrot10" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(80, -26)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.1
 
-[node name="Carrot11" type="Sprite2D" parent="Carrots"]
+[node name="Carrot11" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-80, 16)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 0.8
 
-[node name="Carrot12" type="Sprite2D" parent="Carrots"]
+[node name="Carrot12" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-40, 16)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.0
 
-[node name="Carrot13" type="Sprite2D" parent="Carrots"]
+[node name="Carrot13" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(0, 16)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.2
 
-[node name="Carrot14" type="Sprite2D" parent="Carrots"]
+[node name="Carrot14" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(40, 16)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 0.9
 
-[node name="Carrot15" type="Sprite2D" parent="Carrots"]
+[node name="Carrot15" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(80, 16)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.1
 
-[node name="Carrot16" type="Sprite2D" parent="Carrots"]
+[node name="Carrot16" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-80, 58)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 0.8
 
-[node name="Carrot17" type="Sprite2D" parent="Carrots"]
+[node name="Carrot17" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(-40, 58)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 1.0
 
-[node name="Carrot18" type="Sprite2D" parent="Carrots"]
+[node name="Carrot18" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(0, 58)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.2
 
-[node name="Carrot19" type="Sprite2D" parent="Carrots"]
+[node name="Carrot19" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(40, 58)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+speed_scale = 0.9
 
-[node name="Carrot20" type="Sprite2D" parent="Carrots"]
+[node name="Carrot20" type="AnimatedSprite2D" parent="Carrots"]
 position = Vector2(80, 58)
-texture = ExtResource("4_carrot")
-hframes = 2
+sprite_frames = ExtResource("4_env")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+speed_scale = 1.1

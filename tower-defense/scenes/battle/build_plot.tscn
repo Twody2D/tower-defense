@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/build_plot.gd" id="1_plot"]
 [ext_resource type="Texture2D" path="res://art/env/pad_normal.png" id="2_pad"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/battle/defender.tscn" id="9_def"]
 [ext_resource type="PackedScene" path="res://scenes/battle/fence.tscn" id="10_fence"]
 [ext_resource type="Resource" path="res://data/defenders/fence.tres" id="11_fence_data"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="12_env"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_price"]
 font_size = 26
@@ -26,6 +27,12 @@ pad_locked = ExtResource("4_locked")
 
 [node name="Pad" type="Sprite2D" parent="."]
 texture = ExtResource("2_pad")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("12_env")
+animation = &"pad_highlight"
+autoplay = "pad_highlight"
 
 [node name="Ring" type="TextureProgressBar" parent="."]
 visible = false

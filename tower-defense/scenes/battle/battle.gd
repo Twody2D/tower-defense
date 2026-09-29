@@ -103,6 +103,7 @@ func _process(_delta: float) -> void:
 	if _over:
 		return
 	hud.show_break(waves.break_left if waves.in_break() else 0.0)
+	level.set_spawning(not waves.in_break() and not waves.is_done())
 	hud.set_debug("%d fps · %d pests · %d coins" % [Engine.get_frames_per_second(), enemies.count, coins.count])
 	if waves.is_done() and enemies.count == 0:
 		_on_won()

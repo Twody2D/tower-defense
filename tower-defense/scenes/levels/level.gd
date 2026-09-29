@@ -63,6 +63,16 @@ func base() -> CarrotBase:
 	return $Base as CarrotBase
 
 
+## Burrow (Spawn): pests coming out during a wave, still between waves.
+func set_spawning(on: bool) -> void:
+	var burrow: AnimatedSprite2D = get_node_or_null(^"Spawn") as AnimatedSprite2D
+	if burrow == null:
+		return
+	var anim: StringName = &"spawn_burrow_exit" if on else &"spawn_burrow_idle"
+	if burrow.animation != anim or not burrow.is_playing():
+		burrow.play(anim)
+
+
 func hero_start() -> Vector2:
 	return ($HeroStart as Marker2D).position
 

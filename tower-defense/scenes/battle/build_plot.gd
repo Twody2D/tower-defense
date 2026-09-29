@@ -48,6 +48,7 @@ var _repair_paid: int = 0
 @onready var defender: Defender = $Defender
 @onready var fence: Fence = $Fence
 @onready var _pad: Sprite2D = $Pad
+@onready var _highlight: AnimatedSprite2D = $Highlight
 @onready var _ring: TextureProgressBar = $Ring
 @onready var _price: Node2D = $Price
 @onready var _price_label: Label = $Price/Label
@@ -104,6 +105,7 @@ func _process(delta: float) -> void:
 	var on: bool = hero != null and contains(hero.global_position) and not hero.is_stunned()
 	if on != _hero_on:
 		_hero_on = on
+		_highlight.visible = on
 		_timer = coin_interval
 		_on_time = 0.0
 		if on and not fence_plot and level == 0 and paid == 0:
