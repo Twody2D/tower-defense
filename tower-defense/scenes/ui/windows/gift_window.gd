@@ -24,7 +24,8 @@ func _ready() -> void:
 		_cards.append(card)
 	super()
 	_claim.pressed.connect(_take.bind(1))
-	_claim_x2.rewarded.connect(_take.bind(2))
+	_claim_x2.text = tr("BTN_CLAIM_MULT") % Game.ADS.gift_mult
+	_claim_x2.rewarded.connect(_take.bind(Game.ADS.gift_mult))
 	UiFx.press_spring(_claim)
 	_refresh()
 
@@ -69,7 +70,7 @@ func _refresh() -> void:
 	var bonus: int = roundi(Game.META.gift_week_bonus * 100.0 * mini(week, Game.META.gift_week_max))
 	_streak.text = tr("GIFT_STREAK") % [week + 1, bonus] if week > 0 else tr("GIFT_HINT")
 	_buttons.visible = can
-	_claim_x2.disabled = Game.ads_used(&"gift_x2", date) > 0
+	_claim_x2.disabled = Game.ads_used(&"gift_x2", date) >= Game.ADS.gift_per_day
 	_tomorrow.visible = not can
 	if not can:
 		# Tomorrow continues the streak: the next day, a new week after day 7.

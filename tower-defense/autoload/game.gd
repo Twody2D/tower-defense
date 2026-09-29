@@ -11,6 +11,7 @@ signal grains_changed(grains: int)
 ## Levels in the campaign (farm map).
 const LEVEL_COUNT := 12
 const META: MetaData = preload("res://data/meta.tres")
+const ADS: AdRewards = preload("res://data/ad_rewards.tres")
 
 var music_on: bool = true
 var sound_on: bool = true
@@ -156,10 +157,10 @@ func is_stat_max(id: StringName) -> bool:
 	return stat_level(id) >= META.stat_max_level
 
 
-## Price of the next level (20 × 1.35^(lvl-1)), halved by the ad discount.
+## Price of the next level (20 × 1.35^(lvl-1)), less with the ad discount.
 func stat_price(id: StringName, discount: bool = false) -> int:
 	var p: int = roundi(META.stat_price_base * pow(META.stat_price_growth, stat_level(id) - 1))
-	return maxi(ceili(p * 0.5), 1) if discount else p
+	return maxi(ceili(p * (1.0 - ADS.discount_share)), 1) if discount else p
 
 
 ## Stat multiplier: +10% per level above 1.

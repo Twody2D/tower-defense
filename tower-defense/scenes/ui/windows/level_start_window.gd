@@ -22,7 +22,7 @@ func _ready() -> void:
 	set_title(tr("TITLE_LEVEL") % level)
 	Game.boost_coins = false
 	Game.boost_defender = false
-	_coins_label.text = tr("BOOST_COINS") % Game.META.boost_coins
+	_coins_label.text = tr("BOOST_COINS") % Game.ADS.start_coins
 	_coins_ad.rewarded.connect(_on_coins)
 	_defender_ad.rewarded.connect(_on_defender)
 	_fight.pressed.connect(_on_fight)

@@ -20,16 +20,15 @@ BTN_CONTINUE,Продолжить,Continue
 BTN_RESTART,Заново,Restart
 BTN_TO_MAP,На карту,To map
 BTN_NEXT,Дальше,Next
-BTN_REWARD_X2,Награда ×2,Reward ×2
+BTN_REWARD_MULT,Награда ×%d,Reward ×%d
 BTN_SECOND_CHANCE,Второй шанс,Second chance
 BTN_GREAT,Отлично,Great
 BTN_GOT_IT,Понятно,Got it
 BTN_SELECT,Выбрать,Select
 BTN_TRY,Примерить,Try on
 BTN_CLAIM,Забрать,Claim
-BTN_CLAIM_X2,Забрать ×2,Claim ×2
-BTN_CLAIM_X3,Забрать ×3,Claim ×3
-BTN_DISCOUNT,−50%,−50%
+BTN_CLAIM_MULT,Забрать ×%d,Claim ×%d
+BTN_DISCOUNT,−%d%%,−%d%%
 BTN_OPEN_ADS,Открыть %d/%d,Unlock %d/%d
 BTN_MORE_ADS,Ещё %d,%d more
 BTN_YES,Да,Yes

@@ -7,6 +7,8 @@ signal rewarded(tag: StringName)
 signal rewarded_failed(tag: StringName)
 signal paused
 signal resumed
+## The page was hidden (true) or shown again (false): tab switch, minimised.
+signal hidden_changed(hidden: bool)
 ## init() finished (successfully or not) — the game may start.
 signal initialized
 

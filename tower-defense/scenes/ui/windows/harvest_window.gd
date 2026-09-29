@@ -2,7 +2,7 @@ class_name HarvestWindow
 extends UiWindow
 ## Offline harvest (design I, screen 15): the bed grew grains while the
 ## player was away (MetaData: per hour, up to a cap). "Claim" and "Claim ×3"
-## for an ad; when the bed is empty it says when to come back.
+## for an ad (AdRewards); when the bed is empty it says when to come back.
 
 @onready var _text: Label = %Text
 @onready var _value: Label = %Value
@@ -14,7 +14,8 @@ extends UiWindow
 func _ready() -> void:
 	super()
 	_claim.pressed.connect(_take.bind(1))
-	_claim_x3.rewarded.connect(_take.bind(3))
+	_claim_x3.text = tr("BTN_CLAIM_MULT") % Game.ADS.harvest_mult
+	_claim_x3.rewarded.connect(_take.bind(Game.ADS.harvest_mult))
 	UiFx.press_spring(_claim)
 	_refresh()
 

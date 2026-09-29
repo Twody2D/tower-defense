@@ -60,7 +60,7 @@ text = "BTN_CLAIM"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(380, 112)
 layout_mode = 2
-text = "BTN_CLAIM_X2"
+text = "BTN_CLAIM_MULT"
 tag = &"gift_x2"
 
 [node name="Tomorrow" type="Label" parent="Panel/Content"]

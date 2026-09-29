@@ -16,6 +16,7 @@ var _reward: int = 0
 
 func _ready() -> void:
 	super()
+	_double.text = tr("BTN_REWARD_MULT") % Game.ADS.win_mult
 	_double.rewarded.connect(_on_double)
 	_next.pressed.connect(func() -> void: next.emit())
 	UiFx.press_spring(_next)
@@ -35,8 +36,8 @@ func show_result(stars: int, reward: int) -> void:
 
 
 func _on_double() -> void:
-	Game.add_grains(_reward)
+	Game.add_grains(_reward * (Game.ADS.win_mult - 1))
 	Save.save()
-	_amount.text = "+%d" % (_reward * 2)
+	_amount.text = "+%d" % (_reward * Game.ADS.win_mult)
 	UiFx.bump(_amount, 1.4, 0.3)
 	_double.disabled = true

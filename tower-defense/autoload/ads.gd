@@ -1,11 +1,8 @@
 extends Node
 ## Ad rules on top of YandexSdk. Fullscreen: only on "level → map" and not
-## after levels 1–2 (the SDK itself limits the frequency). Rewarded: the bonus
-## is given only when the video was watched to the reward point.
-## Reward amounts and limits (AdRewards.tres) come in stage 7.
-
-## Levels after which no fullscreen is shown (the first minutes stay clean).
-const NO_FULLSCREEN_UNTIL_LEVEL := 2
+## after the first levels (the SDK itself limits the frequency). Rewarded: the
+## bonus is given only when the video was watched to the reward point.
+## Amounts and limits: data/ad_rewards.tres (Game.ADS).
 
 ## A rewarded video is on screen (buttons wait for it).
 var busy: bool = false
@@ -20,7 +17,7 @@ func _ready() -> void:
 
 ## Called on the way from a finished level back to the farm map.
 func on_level_exit(level: int) -> void:
-	if level > NO_FULLSCREEN_UNTIL_LEVEL:
+	if level > Game.ADS.no_fullscreen_until_level:
 		YandexSdk.show_interstitial()
 
 

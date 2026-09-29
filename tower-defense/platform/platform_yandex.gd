@@ -23,6 +23,7 @@ var _cb_event: JavaScriptObject
 var _cb_fullscreen: JavaScriptObject
 var _cb_rewarded: JavaScriptObject
 var _cb_load: JavaScriptObject
+var _cb_visibility: JavaScriptObject
 
 
 func init() -> void:
@@ -35,6 +36,8 @@ func init() -> void:
 	_cb_fullscreen = JavaScriptBridge.create_callback(_on_fullscreen)
 	_cb_rewarded = JavaScriptBridge.create_callback(_on_rewarded)
 	_cb_load = JavaScriptBridge.create_callback(_on_load)
+	_cb_visibility = JavaScriptBridge.create_callback(_on_visibility)
+	_yg.call("setVisibilityHandler", _cb_visibility)
 	_yg.call("init", _cb_init)
 
 
@@ -133,6 +136,10 @@ func _on_rewarded(args: Array) -> void:
 				rewarded.emit(_reward_tag)
 			else:
 				rewarded_failed.emit(_reward_tag)
+
+
+func _on_visibility(args: Array) -> void:
+	hidden_changed.emit(_arg(args, 0) == "hidden")
 
 
 func _on_load(args: Array) -> void:

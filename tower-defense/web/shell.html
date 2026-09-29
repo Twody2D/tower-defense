@@ -93,6 +93,14 @@ window.YG = (function () {
 	let sdk = null;
 	let playerPromise = null;
 	let onEvent = null;
+	let onVisibility = null;
+
+	// Tab hidden / shown (also without the SDK): the game pauses and goes silent.
+	document.addEventListener('visibilitychange', () => {
+		if (onVisibility) {
+			onVisibility(document.hidden ? 'hidden' : 'visible');
+		}
+	});
 
 	// /sdk.js exists only on Yandex hosting: skip it locally (no 404 in the console).
 	const sdkLoaded = new Promise((resolve) => {
@@ -155,6 +163,10 @@ window.YG = (function () {
 		// cb('pause') / cb('resume') from the platform (ads, tab switch in the Yandex UI).
 		setEventHandler(cb) {
 			onEvent = cb;
+		},
+		// cb('hidden') / cb('visible') on visibilitychange.
+		setVisibilityHandler(cb) {
+			onVisibility = cb;
 		},
 		loadingReady() {
 			sdk?.features?.LoadingAPI?.ready();

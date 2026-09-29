@@ -7,9 +7,6 @@ signal second_chance
 signal restart
 signal to_map
 
-## Carrots given back by the second chance.
-@export var chance_carrots: int = 5
-
 @onready var _chance: AdButton = %Chance
 @onready var _chance_line: Control = %ChanceLine
 @onready var _chance_text: Label = %ChanceText
@@ -20,7 +17,7 @@ signal to_map
 
 func _ready() -> void:
 	super()
-	_chance_text.text = tr("SECOND_CHANCE_TEXT") % chance_carrots
+	_chance_text.text = tr("SECOND_CHANCE_TEXT") % Game.ADS.second_chance_carrots
 	_chance.rewarded.connect(func() -> void:
 		visible = false
 		second_chance.emit())

@@ -33,9 +33,8 @@ signal finished(won: bool, stars: int)
 @export var arrows_linger: float = 1.0
 ## Edge pointers are updated this often, s.
 @export var edge_check_every: float = 0.2
-## Level start boosts (bought with an ad): coins, starting defender and its level.
+## Level start boost (bought with an ad): the starting defender (level: AdRewards).
 @export var boost_defender: DefenderData
-@export var boost_defender_level: int = 2
 @export_file("*.tscn") var menu_scene: String = "res://scenes/map/map.tscn"
 ## Level scenes by number (Game.current_level); level_scene is used if missing.
 @export var level_path_pattern: String = "res://scenes/levels/level_%02d.tscn"
@@ -149,6 +148,7 @@ func _ready() -> void:
 	_wire_windows()
 	_apply_boosts()
 	YandexSdk.gameplay_start()
+	YandexSdk.paused.connect(_on_sdk_paused)
 	for d: DefenderData in data.defenders:
 		if Game.first_meet(d.id):
 			_intros.append(d)
@@ -171,11 +171,11 @@ func _wire_windows() -> void:
 
 func _apply_boosts() -> void:
 	if Game.boost_coins:
-		state.add_coins(Game.META.boost_coins)
+		state.add_coins(Game.ADS.start_coins)
 	if Game.boost_defender and boost_defender != null:
 		for plot: BuildPlot in level.plots():
 			if not plot.fence_plot and not plot.locked:
-				plot.prebuild(boost_defender, boost_defender_level)
+				plot.prebuild(boost_defender, Game.ADS.start_defender_level)
 				break
 	Game.boost_coins = false
 	Game.boost_defender = false
@@ -439,6 +439,15 @@ func _toggle_pause() -> void:
 		pause_window.open()
 
 
+## Ad, SDK pause, hidden tab or lost focus in the middle of the fight: the
+## pause window waits for the player (nothing resumes by itself).
+func _on_sdk_paused() -> void:
+	if _over or get_tree().paused:
+		return
+	_pause_game()
+	pause_window.open()
+
+
 func _pause_game() -> void:
 	get_tree().paused = true
 	_release_input()
@@ -469,7 +478,7 @@ func _on_second_chance() -> void:
 	_chance_used = true
 	_over = false
 	hero.revive()
-	state.give_carrots(lose_window.chance_carrots)
+	state.give_carrots(Game.ADS.second_chance_carrots)
 	_resume()
 
 

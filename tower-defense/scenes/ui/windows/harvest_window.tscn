@@ -105,5 +105,5 @@ text = "BTN_CLAIM"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 112)
 layout_mode = 2
-text = "BTN_CLAIM_X3"
+text = "BTN_CLAIM_MULT"
 tag = &"harvest_x3"

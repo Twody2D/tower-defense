@@ -32,6 +32,7 @@ var stat: StringName = &"damage"
 
 func _ready() -> void:
 	_buy.pressed.connect(_on_buy)
+	_discount.text = tr("BTN_DISCOUNT") % roundi(Game.ADS.discount_share * 100.0)
 	_discount.rewarded.connect(_on_discount)
 	UiFx.press_spring(_buy)
 
@@ -71,7 +72,7 @@ func refresh() -> void:
 		return
 	_buy_text.text = str(Game.stat_price(stat))
 	_buy.disabled = Game.grains < Game.stat_price(stat)
-	var left: int = Game.META.discount_ads_per_day - Game.ads_used(&"discount", Game.today())
+	var left: int = Game.ADS.discount_per_day - Game.ads_used(&"discount", Game.today())
 	_discount.visible = true
 	_discount.disabled = left <= 0 or Game.grains < Game.stat_price(stat, true)
 

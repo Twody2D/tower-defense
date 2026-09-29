@@ -15,6 +15,7 @@ var backend: PlatformBase
 var is_initialized: bool = false
 
 var _unfocused: bool = false
+var _hidden: bool = false
 var _sdk_paused: bool = false
 
 
@@ -29,13 +30,17 @@ func _ready() -> void:
 	backend.rewarded_failed.connect(rewarded_failed.emit)
 	backend.paused.connect(_on_backend_paused)
 	backend.resumed.connect(_on_backend_resumed)
+	backend.hidden_changed.connect(_on_hidden_changed)
 	backend.initialized.connect(_on_initialized, CONNECT_ONE_SHOT)
 	backend.init()
 
 
 ## Tab or window lost focus: silence at once, ask the battle to pause.
 ## Sound comes back on focus; the battle stays paused until the player resumes.
+## Web only: on the desktop (editor, dev screenshots) focus changes are ignored.
 func _notification(what: int) -> void:
+	if not OS.has_feature("web"):
+		return
 	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
 		_unfocused = true
 		update_mute()
@@ -45,9 +50,9 @@ func _notification(what: int) -> void:
 		update_mute()
 
 
-## Master is silent while an ad is on screen or the tab has no focus.
+## Master is silent while an ad is on screen, the tab is hidden or has no focus.
 func update_mute() -> void:
-	AudioServer.set_bus_mute(0, _unfocused or _sdk_paused)
+	AudioServer.set_bus_mute(0, _unfocused or _hidden or _sdk_paused)
 
 
 func ready_to_play() -> void:
@@ -99,3 +104,11 @@ func _on_backend_resumed() -> void:
 	_sdk_paused = false
 	update_mute()
 	resumed.emit()
+
+
+## Tab hidden (visibilitychange): silent and paused like on focus loss.
+func _on_hidden_changed(hidden: bool) -> void:
+	_hidden = hidden
+	update_mute()
+	if hidden:
+		paused.emit()
