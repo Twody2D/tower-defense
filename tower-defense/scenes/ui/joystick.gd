@@ -7,8 +7,8 @@ extends Control
 
 signal changed(dir: Vector2)
 
-## Stick travel, px (64 × 2/3).
-@export var travel: float = 43.0
+## Stick travel, px (design H).
+@export var travel: float = 64.0
 @export var idle_alpha: float = 0.55
 
 var dir: Vector2 = Vector2.ZERO

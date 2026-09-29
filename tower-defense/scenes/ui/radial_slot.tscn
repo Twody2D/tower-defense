@@ -9,15 +9,15 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_coin.png" id="7_coin"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_price"]
-font_size = 18
-outline_size = 5
+font_size = 27
+outline_size = 8
 outline_color = Color(0.169, 0.169, 0.227, 1)
 
 [node name="RadialSlot" type="TextureButton"]
-custom_minimum_size = Vector2(75, 75)
-offset_right = 75.0
-offset_bottom = 75.0
-pivot_offset = Vector2(37.5, 37.5)
+custom_minimum_size = Vector2(112.5, 112.5)
+offset_right = 112.5
+offset_bottom = 112.5
+pivot_offset = Vector2(56.25, 56.25)
 texture_normal = ExtResource("2_slot")
 ignore_texture_size = true
 stretch_mode = 0
@@ -27,10 +27,10 @@ slot_locked_texture = ExtResource("3_locked")
 
 [node name="Portrait" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 4.0
-offset_right = 67.0
-offset_bottom = 63.0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 100.5
+offset_bottom = 94.5
 mouse_filter = 2
 texture = ExtResource("4_goose")
 expand_mode = 1
@@ -38,20 +38,20 @@ expand_mode = 1
 [node name="Lock" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 43.0
-offset_top = 41.0
-offset_right = 72.0
-offset_bottom = 70.0
+offset_left = 64.5
+offset_top = 61.5
+offset_right = 108.0
+offset_bottom = 105.0
 mouse_filter = 2
 texture = ExtResource("5_lock")
 expand_mode = 1
 
 [node name="Price" type="Control" parent="."]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 65.0
-offset_right = 76.0
-offset_bottom = 93.0
+offset_left = 13.5
+offset_top = 97.5
+offset_right = 114.0
+offset_bottom = 139.5
 mouse_filter = 2
 
 [node name="Tag" type="TextureRect" parent="Price"]
@@ -67,19 +67,19 @@ expand_mode = 1
 
 [node name="Coin" type="TextureRect" parent="Price"]
 layout_mode = 0
-offset_left = -11.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 30.0
+offset_left = -16.5
+offset_top = -3.0
+offset_right = 31.5
+offset_bottom = 45.0
 mouse_filter = 2
 texture = ExtResource("7_coin")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Price"]
 layout_mode = 0
-offset_left = 18.0
-offset_right = 62.0
-offset_bottom = 28.0
+offset_left = 27.0
+offset_right = 93.0
+offset_bottom = 42.0
 text = "10"
 label_settings = SubResource("LabelSettings_price")
 horizontal_alignment = 1

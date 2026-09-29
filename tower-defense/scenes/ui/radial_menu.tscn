@@ -15,32 +15,32 @@ script = ExtResource("1_menu")
 
 [node name="Anchor" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 360.0
-offset_top = 360.0
-offset_right = 360.0
-offset_bottom = 360.0
+offset_left = 540.0
+offset_top = 540.0
+offset_right = 540.0
+offset_bottom = 540.0
 mouse_filter = 2
 
 [node name="Slot1" parent="Anchor" instance=ExtResource("2_slot")]
-offset_left = -143.7
-offset_top = -76.1
-offset_right = -68.7
-offset_bottom = -1.1
+offset_left = -215.55
+offset_top = -114.15
+offset_right = -103.05
+offset_bottom = -1.65
 
 [node name="Slot2" parent="Anchor" instance=ExtResource("2_slot")]
-offset_left = -94.0
-offset_top = -135.4
-offset_right = -19.0
-offset_bottom = -60.4
+offset_left = -141.0
+offset_top = -203.1
+offset_right = -28.5
+offset_bottom = -90.6
 
 [node name="Slot3" parent="Anchor" instance=ExtResource("2_slot")]
-offset_left = 19.0
-offset_top = -135.4
-offset_right = 94.0
-offset_bottom = -60.4
+offset_left = 28.5
+offset_top = -203.1
+offset_right = 141.0
+offset_bottom = -90.6
 
 [node name="Slot4" parent="Anchor" instance=ExtResource("2_slot")]
-offset_left = 68.7
-offset_top = -76.1
-offset_right = 143.7
-offset_bottom = -1.1
+offset_left = 103.05
+offset_top = -114.15
+offset_right = 215.55
+offset_bottom = -1.65

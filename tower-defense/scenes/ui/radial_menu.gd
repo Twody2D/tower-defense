@@ -10,7 +10,7 @@ signal picked(plot: BuildPlot, data: DefenderData)
 signal closed
 
 ## Menu centre above the plot centre, px (design: 20 at 1080).
-@export var lift: float = 13.0
+@export var lift: float = 20.0
 
 var plot: BuildPlot
 
