@@ -1,0 +1,32 @@
+# Godot 4
+.godot/
+*.translation
+mono_crash.*.json
+
+# gdUnit4 reports
+reports/
+
+# Build and export
+build/
+*.pck
+*.wasm
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+*~
+
+# Python (tools/)
+__pycache__/
+*.pyc
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
