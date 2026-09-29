@@ -4,7 +4,7 @@ window.YaGames = {
 		const handlers = {};
 		let store = {};
 		const sdk = {
-			environment: { i18n: { lang: 'ru' } },
+			environment: { i18n: { lang: new URLSearchParams(location.search).get('lang') || 'ru' } },
 			on(name, fn) { handlers[name] = fn; },
 			_emit(name) { handlers[name] && handlers[name](); },
 			features: {
@@ -17,7 +17,7 @@ window.YaGames = {
 			},
 			getPlayer() { return Promise.resolve({
 				getData() { return Promise.resolve(store); },
-				setData(d) { store = d; return Promise.resolve(); },
+				setData(d) { store = d; console.log('FAKE setData', JSON.stringify(d).length); return Promise.resolve(); },
 			}); },
 			leaderboards: { setScore(b, s) { console.log('FAKE setScore', b, s); return Promise.resolve(); } },
 		};
