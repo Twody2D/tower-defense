@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
+[ext_resource type="Resource" path="res://data/enemies/caterpillar.tres" id="2_pest"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="3_def_script"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="4_goose"]
+[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="5_frog"]
+[ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="6_beaver"]
+[ext_resource type="Resource" path="res://data/defenders/hive.tres" id="7_hive"]
+
+[resource]
+script = ExtResource("1_level")
+number = 1
+start_coins = 300
+carrots = 20
+defenders = Array[ExtResource("3_def_script")]([ExtResource("4_goose"), ExtResource("5_frog"), ExtResource("6_beaver"), ExtResource("7_hive")])
+test_enemy = ExtResource("2_pest")
+test_wave_base = 10
+test_wave_growth = 4

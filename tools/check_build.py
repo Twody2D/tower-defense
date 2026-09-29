@@ -23,19 +23,34 @@ ZIP = ROOT / "build" / "game.zip"
 MB = 1024 * 1024
 
 
+# 3D classes that disable_3d cuts out although custom.build does not list them.
+THREE_D = {
+    "QuadMesh", "PlaneMesh", "BoxMesh", "SphereMesh", "CylinderMesh", "CapsuleMesh", "PrismMesh",
+    "TorusMesh", "TubeTrailMesh", "RibbonTrailMesh", "PointMesh", "TextMesh", "ImmediateMesh",
+    "StandardMaterial3D", "ORMMaterial3D", "Camera3D", "Node3D", "MeshInstance3D", "Sprite3D",
+}
+# Class used in code: `X.new(`, `: X`, `-> X`, `as X`, `is X` (comments do not count).
+GD_CLASS = r"([A-Z][A-Za-z0-9]+)\.new\(|(?::|->|\bas|\bis)\s*([A-Z][A-Za-z0-9]+)"
+
+
 def disabled_classes_used() -> list[str]:
     profile = ROOT / "custom.build"
     if not profile.is_file():
         return []
-    disabled = set(re.findall(r'"([A-Z][A-Za-z0-9]+)"', profile.read_text(encoding="utf-8")))
+    disabled = set(re.findall(r'"([A-Z][A-Za-z0-9]+)"', profile.read_text(encoding="utf-8"))) | THREE_D
     found: list[str] = []
-    for pattern, rx in (("*.tscn", r'type="([A-Za-z0-9]+)"'), ("*.tres", r'type="([A-Za-z0-9]+)"'),
-                        ("*.gd", r"([A-Z][A-Za-z0-9]+)\.new\(")):
+    for pattern in ("*.tscn", "*.tres", "*.gd"):
         for path in GAME.rglob(pattern):
             rel = path.relative_to(GAME).as_posix()
-            if rel.startswith(("addons/", "tests/", ".godot/")):
+            if rel.startswith(("addons/", "tests/", "dev/", ".godot/")):
                 continue
-            for cls in set(re.findall(rx, path.read_text(encoding="utf-8", errors="ignore"))) & disabled:
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            if pattern == "*.gd":
+                code = "\n".join(line.split("#")[0] for line in text.splitlines())
+                names = {a or b for a, b in re.findall(GD_CLASS, code)}
+            else:
+                names = set(re.findall(r'type="([A-Za-z0-9]+)"', text))
+            for cls in names & disabled:
                 found.append(f"{rel}: {cls}")
     return sorted(found)
 

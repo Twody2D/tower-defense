@@ -37,7 +37,8 @@ func set_level(new_level: int) -> void:
 	_sprite.hframes = data.idle_frames
 	_sprite.offset = Vector2(0, -data.feet_offset)
 	_stars.texture = star_textures[clampi(level - 1, 0, star_textures.size() - 1)]
-	_stars.position = Vector2(0, -data.feet_offset * 2.0 - 4.0)
+	# Stars sit just above the sprite; scaled ×2 in the scene so they read on a phone.
+	_stars.position = Vector2(0, -data.feet_offset * 2.0 - 24.0)
 	_shot.texture = data.projectile_texture
 	_shot.frames = data.projectile_frames
 	_shot.speed = data.projectile_speed

@@ -16,5 +16,6 @@ hframes = 3
 offset = Vector2(0, -20)
 
 [node name="Stars" type="Sprite2D" parent="."]
-position = Vector2(0, -62)
+position = Vector2(0, -74)
+scale = Vector2(2, 2)
 texture = ExtResource("3_s1")

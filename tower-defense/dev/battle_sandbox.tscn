@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/battle/battle.tscn" id="1_battle"]
+[ext_resource type="PackedScene" path="res://dev/level_sandbox.tscn" id="2_level"]
+
+[node name="Battle" instance=ExtResource("1_battle")]
+level_scene = ExtResource("2_level")

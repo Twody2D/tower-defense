@@ -303,13 +303,11 @@ func _view_of(data: EnemyData) -> TypeView:
 	if _views.has(data):
 		return _views[data]
 	var view: TypeView = TypeView.new()
-	var quad: QuadMesh = QuadMesh.new()
 	var size: float = float(data.walk_sheet.get_height())
-	quad.size = Vector2(size, size)
 	var mm: MultiMesh = MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_2D
 	mm.use_custom_data = true
-	mm.mesh = quad
+	mm.mesh = _quad(size)
 	mm.instance_count = capacity
 	mm.visible_instance_count = 0
 	var mat: ShaderMaterial = ShaderMaterial.new()
@@ -327,8 +325,22 @@ func _view_of(data: EnemyData) -> TypeView:
 	return view
 
 
+## Square 2D mesh, y down, UV (0,0) at the top-left. Built by hand: QuadMesh
+## is a 3D class and is cut out of the slim web template (custom.build).
+static func _quad(size: float) -> ArrayMesh:
+	var h: float = size * 0.5
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = PackedVector2Array([Vector2(-h, -h), Vector2(h, -h), Vector2(h, h), Vector2(-h, h)])
+	arrays[Mesh.ARRAY_TEX_UV] = PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
+	arrays[Mesh.ARRAY_INDEX] = PackedInt32Array([0, 1, 2, 0, 2, 3])
+	var mesh: ArrayMesh = ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return mesh
+
+
 ## Writes every pest into its type's instance buffer: transform (facing by the
-## sign of x scale; the quad mesh is y-up, so y scale is -1), then custom data.
+## sign of x scale), then custom data.
 ## The buffer is taken out of the view while filled, so writes do not copy it.
 func _update_views(delta: float) -> void:
 	_time += delta
@@ -347,7 +359,7 @@ func _update_views(delta: float) -> void:
 			b[o + 2] = 0.0
 			b[o + 3] = p.x
 			b[o + 4] = 0.0
-			b[o + 5] = -1.0
+			b[o + 5] = 1.0
 			b[o + 6] = 0.0
 			b[o + 7] = p.y - data.feet_offset
 			b[o + 8] = float(int((_time + _phase[i]) * data.walk_fps) % data.walk_frames)

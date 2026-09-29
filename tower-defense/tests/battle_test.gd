@@ -77,3 +77,29 @@ func test_touch_stuns_then_invulnerable() -> void:
 	assert_bool(hero.is_stunned()).is_false()
 	await runner.simulate_frames(70, 16)
 	assert_bool(hero.is_invulnerable()).is_false()
+
+
+func test_fence_plot_build_and_repair() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://dev/battle_sandbox.tscn")
+	var battle: Battle = runner.scene() as Battle
+	var plot: BuildPlot = null
+	for p: BuildPlot in battle.level.plots():
+		if p.fence_plot:
+			plot = p
+	# Fence plots build right away: no menu.
+	battle.hero.global_position = plot.global_position
+	await runner.simulate_frames(20, 16)
+	assert_bool(battle.get_tree().paused).is_false()
+	assert_int(plot.level).is_equal(1)
+	battle.hero.global_position = plot.global_position + Vector2(300, 0)
+	await runner.simulate_frames(2, 16)
+	var max_hp: float = plot.fence.block.max_hp
+	plot.fence.block.hit(max_hp * 0.5)
+	# A full repair costs half the level price; half the HP needs about half of that.
+	var full_repair: int = ceili(plot.chosen.price(plot.level) * plot.chosen.repair_price_share)
+	battle.state.coins = full_repair
+	battle.hero.global_position = plot.global_position
+	await runner.simulate_frames(30, 16)
+	assert_float(plot.fence.block.hp).is_equal_approx(max_hp, 0.5)
+	assert_int(battle.state.coins).is_greater_equal(0)
+	assert_int(full_repair - battle.state.coins).is_less_equal(full_repair)
