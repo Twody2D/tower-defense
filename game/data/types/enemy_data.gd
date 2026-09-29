@@ -16,5 +16,7 @@ extends Resource
 @export var frame_size: int = 48
 ## Flies straight to the base, ignores fences.
 @export var flying: bool = false
+## Fence damage per second while it stands in front of one.
+@export var chew_dps: float = 5.0
 ## Grey-prototype colour (the horde is purple in the design).
 @export var color: Color = Color("8e44ad")
