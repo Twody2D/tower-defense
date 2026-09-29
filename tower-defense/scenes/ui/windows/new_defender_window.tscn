@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/intro_window.gd" id="2_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/def_frog.tres" id="3_r"]
+[ext_resource type="Script" path="res://scenes/ui/sheet_sprite.gd" id="4_r"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_mole.tres" id="5_r"]
+
+[node name="IntroWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+title_key = "TITLE_NEW_DEFENDER"
+closable = false
+portrait_width = 860.0
+landscape_width = 1200.0
+
+[node name="Columns" type="BoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+metadata/portrait_vertical = true
+
+[node name="Card" type="PanelContainer" parent="Panel/Content/Columns"]
+layout_mode = 2
+custom_minimum_size = Vector2(400, 400)
+size_flags_horizontal = 4
+theme_type_variation = &"CardHighlight"
+
+[node name="Holder" type="Control" parent="Panel/Content/Columns/Card"]
+layout_mode = 2
+custom_minimum_size = Vector2(360, 360)
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="Defender" type="AnimatedSprite2D" parent="Panel/Content/Columns/Card/Holder"]
+unique_name_in_owner = true
+position = Vector2(180, 150)
+scale = Vector2(2.2, 2.2)
+sprite_frames = ExtResource("3_r")
+animation = &"l1_idle"
+
+[node name="Pest" type="Sprite2D" parent="Panel/Content/Columns/Card/Holder"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(180, 180)
+script = ExtResource("4_r")
+atlas = ExtResource("5_r")
+
+[node name="Right" type="VBoxContainer" parent="Panel/Content/Columns"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Name" type="Label" parent="Panel/Content/Columns/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(560, 0)
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 44
+text = "DEF_FROG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Panel/Content/Columns/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(560, 0)
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 32
+text = "DESC_FROG"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Ok" type="Button" parent="Panel/Content/Columns/Right"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(420, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+text = "BTN_GREAT"
+theme_type_variation = &"ButtonGreen"

@@ -1,0 +1,145 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/win_window.gd" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_star_empty_128.png" id="3_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui.tres" id="4_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="5_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="6_r"]
+
+[node name="WinWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+title_key = "TITLE_WIN"
+closable = false
+portrait_width = 900.0
+landscape_width = 1000.0
+
+[node name="Stars" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot1" type="Control" parent="Panel/Content/Stars"]
+layout_mode = 2
+custom_minimum_size = Vector2(170, 170)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Empty" type="TextureRect" parent="Panel/Content/Stars/Slot1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("3_r")
+expand_mode = 1
+
+[node name="Star1" type="AnimatedSprite2D" parent="Panel/Content/Stars/Slot1"]
+unique_name_in_owner = true
+position = Vector2(85, 85)
+scale = Vector2(1.328, 1.328)
+sprite_frames = ExtResource("4_r")
+animation = &"star_appear"
+frame = 4
+
+[node name="Slot2" type="Control" parent="Panel/Content/Stars"]
+layout_mode = 2
+custom_minimum_size = Vector2(204, 204)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Empty" type="TextureRect" parent="Panel/Content/Stars/Slot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("3_r")
+expand_mode = 1
+
+[node name="Star2" type="AnimatedSprite2D" parent="Panel/Content/Stars/Slot2"]
+unique_name_in_owner = true
+position = Vector2(102, 102)
+scale = Vector2(1.594, 1.594)
+sprite_frames = ExtResource("4_r")
+animation = &"star_appear"
+frame = 4
+
+[node name="Slot3" type="Control" parent="Panel/Content/Stars"]
+layout_mode = 2
+custom_minimum_size = Vector2(170, 170)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Empty" type="TextureRect" parent="Panel/Content/Stars/Slot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("3_r")
+expand_mode = 1
+
+[node name="Star3" type="AnimatedSprite2D" parent="Panel/Content/Stars/Slot3"]
+unique_name_in_owner = true
+position = Vector2(85, 85)
+scale = Vector2(1.328, 1.328)
+sprite_frames = ExtResource("4_r")
+animation = &"star_appear"
+frame = 4
+
+[node name="RewardTitle" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 32
+text = "LBL_REWARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reward" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Grain" type="TextureRect" parent="Panel/Content/Reward"]
+layout_mode = 2
+custom_minimum_size = Vector2(96, 96)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="Panel/Content/Reward"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 72
+text = "+25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="BoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+metadata/portrait_vertical = true
+
+[node name="Double" parent="Panel/Content/Buttons" instance=ExtResource("6_r")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(480, 112)
+size_flags_horizontal = 4
+text = "BTN_REWARD_X2"
+
+[node name="Next" type="Button" parent="Panel/Content/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(480, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+text = "BTN_NEXT"

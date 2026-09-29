@@ -75,9 +75,21 @@ func _layout() -> void:
 	_place_decor()
 
 
-## Override: switch content between portrait and landscape arrangements.
-func _on_layout(_portrait: bool) -> void:
-	pass
+## Content arrangement for the orientation: a BoxContainer with the metadata
+## "portrait_vertical" (bool) is vertical in portrait when it is true, in
+## landscape when it is false (columns ⇄ stack like the mockups). Override
+## for more, calling super().
+func _on_layout(portrait: bool) -> void:
+	_flip(content, portrait)
+
+
+func _flip(root: Node, portrait: bool) -> void:
+	for n: Node in root.get_children():
+		var box: BoxContainer = n as BoxContainer
+		if box != null and box.has_meta(&"portrait_vertical"):
+			var pv: bool = box.get_meta(&"portrait_vertical")
+			box.vertical = portrait == pv
+		_flip(n, portrait)
 
 
 func _place_decor() -> void:

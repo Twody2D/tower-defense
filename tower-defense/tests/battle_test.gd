@@ -3,6 +3,14 @@ extends GdUnitTestSuite
 ## pests die and drop coins, coins reach the hero, a touch stuns the hero.
 
 
+## Every defender and pest already met: no newcomer windows pause the fight.
+func before_test() -> void:
+	Game.reset()
+	for id: StringName in [&"goose", &"frog", &"hive", &"beaver", &"fence",
+			&"beetle", &"caterpillar", &"mole", &"crow", &"fox"]:
+		Game.first_meet(id)
+
+
 func _goose(battle: Battle) -> DefenderData:
 	return battle.defender_catalog[0]
 
@@ -72,7 +80,9 @@ func test_pause_key_toggles() -> void:
 	key.pressed = true
 	battle.hud._unhandled_input(key)
 	assert_bool(battle.get_tree().paused).is_true()
+	assert_bool(battle.pause_window.visible).is_true()
 	battle.hud._unhandled_input(key)
+	assert_bool(battle.pause_window.visible).is_false()
 	assert_bool(battle.get_tree().paused).is_false()
 
 

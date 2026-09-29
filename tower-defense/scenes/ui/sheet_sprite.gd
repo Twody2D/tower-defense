@@ -28,15 +28,22 @@ func _setup() -> void:
 		return
 	atlas.prepare()
 	texture = atlas.texture
-	hframes = atlas.columns
-	vframes = atlas.rows()
+	# A region clipped to the cell: scaled up, the filter would otherwise
+	# pick up the edge of the neighbour frame (a dark stripe).
+	region_enabled = true
+	region_filter_clip_enabled = true
 	_row = maxi(atlas.row_of(anim), 0)
 	_time = phase
-	frame = _row * hframes
+	_show_frame(0)
 
 
 func _process(delta: float) -> void:
 	if atlas == null:
 		return
 	_time += delta
-	frame = _row * hframes + atlas.frame_at(_row, _time)
+	_show_frame(atlas.frame_at(_row, _time))
+
+
+func _show_frame(f: int) -> void:
+	var c: float = float(atlas.cell)
+	region_rect = Rect2(f * c, _row * c, c, c)

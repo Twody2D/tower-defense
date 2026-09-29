@@ -1,0 +1,140 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/level_start_window.gd" id="2_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/enemy_card.tscn" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_coin.png" id="4_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="5_r"]
+[ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_goose.png" id="6_r"]
+
+[node name="LevelStartWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+portrait_width = 940.0
+landscape_width = 1500.0
+enemy_card = ExtResource("3_r")
+
+[node name="Columns" type="BoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+size_flags_horizontal = 4
+metadata/portrait_vertical = true
+
+[node name="EnemiesBlock" type="VBoxContainer" parent="Panel/Content/Columns"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Panel/Content/Columns/EnemiesBlock"]
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 36
+text = "LBL_NEW_ENEMIES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyCards" type="HBoxContainer" parent="Panel/Content/Columns/EnemiesBlock"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+unique_name_in_owner = true
+
+[node name="BoostsBlock" type="VBoxContainer" parent="Panel/Content/Columns"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Content/Columns/BoostsBlock"]
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 36
+text = "LBL_BOOSTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Boosts" type="HBoxContainer" parent="Panel/Content/Columns/BoostsBlock"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="CoinsCard" type="PanelContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts"]
+layout_mode = 2
+custom_minimum_size = Vector2(380, 380)
+size_flags_horizontal = 4
+theme_type_variation = &"Card"
+
+[node name="Box" type="VBoxContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box"]
+layout_mode = 2
+custom_minimum_size = Vector2(128, 128)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("4_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 30
+text = "+30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinsAd" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box" instance=ExtResource("5_r")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(280, 112)
+size_flags_horizontal = 4
+text = "BTN_TAKE"
+
+[node name="DefenderCard" type="PanelContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts"]
+layout_mode = 2
+custom_minimum_size = Vector2(380, 380)
+size_flags_horizontal = 4
+theme_type_variation = &"Card"
+
+[node name="Box" type="VBoxContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box"]
+layout_mode = 2
+custom_minimum_size = Vector2(128, 128)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box"]
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 30
+text = "BOOST_DEFENDER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefenderAd" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box" instance=ExtResource("5_r")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(280, 112)
+size_flags_horizontal = 4
+text = "BTN_TAKE"
+
+[node name="Fight" type="Button" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(520, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+text = "BTN_FIGHT"
+theme_override_font_sizes/font_size = 50

@@ -68,6 +68,7 @@ py -3.14 ../tools/copy_art.py             # арт из design/ → art/, атл
 "$G" --headless --path . -s res://tools/import_animations_cli.gd   # SpriteFrames art/frames/*.tres + атласы врагов (в редакторе: tools/import_animations.gd, Ctrl+Shift+X)
 "$G" --path . --resolution 1280x720 -s res://dev/battle_demo.gd -- <out> 60,700   # скриншоты боя
 "$G" --path . --resolution 1280x720 -s res://dev/sandbox_demo.gd -- <out> 700      # все защитники и враги
+"$G" --path . --resolution 540x960 -s res://dev/windows_demo.gd -- <out_dir>           # снимки всех окон
 "$G" --headless --path . -s res://dev/rebuild_level.gd -- res://scenes/levels/level_01.tscn  # тайлы по Path2D
 "$G" --headless --path . --export-release "WebStress" ../build/stress/index.html   # стресс-тест для телефона
 py -3.14 -m http.server 8063 --bind 0.0.0.0 -d ../build/stress   # телефон: http://192.168.0.35:8063/?n=250

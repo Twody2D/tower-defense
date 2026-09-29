@@ -2,7 +2,9 @@ class_name Battle
 extends Node2D
 ## One battle: instances the level scene, wires hero, pests, coins, shots,
 ## plots, waves and HUD together; decides victory (all waves out, field
-## clear) or defeat (no carrots) and stores the stars.
+## clear) or defeat (no carrots) and stores the stars. Windows (pause,
+## victory, defeat, "New defender!/pest!") are made with the scene and only
+## shown; each of them pauses the fight.
 
 signal finished(won: bool, stars: int)
 
@@ -16,8 +18,11 @@ signal finished(won: bool, stars: int)
 ## Camera shake when carrots are taken / the boss hits the hero, px.
 @export var shake_carrot: float = 10.0
 @export var shake_boss: float = 18.0
-## Pause on the result message before going back to the menu, s.
-@export var result_delay: float = 3.0
+## Pause between the end of the fight and the result window, s.
+@export var result_delay: float = 1.2
+## Level start boosts (bought with an ad): coins, starting defender and its level.
+@export var boost_defender: DefenderData
+@export var boost_defender_level: int = 2
 @export_file("*.tscn") var menu_scene: String = "res://scenes/map/map.tscn"
 ## Level scenes by number (Game.current_level); level_scene is used if missing.
 @export var level_path_pattern: String = "res://scenes/levels/level_%02d.tscn"
@@ -30,6 +35,9 @@ var won: bool = false
 var reward: int = 0
 
 var _over: bool = false
+var _chance_used: bool = false
+## Newcomers waiting for their window (DefenderData / EnemyData).
+var _intros: Array[Resource] = []
 
 @onready var _level_holder: Node2D = $World/LevelHolder
 @onready var enemies: EnemyManager = $World/Enemies
@@ -40,6 +48,11 @@ var _over: bool = false
 @onready var camera: Camera2D = $World/Hero/Camera2D
 @onready var waves: WaveRunner = $WaveRunner
 @onready var hud: Hud = $Hud
+@onready var pause_window: PauseWindow = $Windows/PauseWindow
+@onready var win_window: WinWindow = $Windows/WinWindow
+@onready var lose_window: LoseWindow = $Windows/LoseWindow
+@onready var defender_intro: IntroWindow = $Windows/NewDefender
+@onready var enemy_intro: IntroWindow = $Windows/NewEnemy
 
 
 func _ready() -> void:
@@ -61,6 +74,7 @@ func _ready() -> void:
 	enemies.hero_struck.connect(hero.stun)
 	enemies.hero_struck.connect(shake.bind(shake_boss, 0.35))
 	enemies.boss_spawned.connect(_on_boss_spawned)
+	enemies.first_of_type.connect(_on_first_of_type)
 	enemies.fx = fx
 	projectiles.enemies = enemies
 	projectiles.fx = fx
@@ -110,7 +124,63 @@ func _ready() -> void:
 	waves.wave_started.connect(_on_wave_started)
 	waves.start(data, enemies)
 	hud.set_wave(0, waves.total())
+	_wire_windows()
+	_apply_boosts()
 	YandexSdk.gameplay_start()
+	for d: DefenderData in data.defenders:
+		if Game.first_meet(d.id):
+			_intros.append(d)
+	_next_intro()
+
+
+func _wire_windows() -> void:
+	pause_window.resume.connect(_resume)
+	pause_window.restart.connect(_restart)
+	pause_window.to_map.connect(_to_map)
+	win_window.next.connect(_to_map)
+	lose_window.second_chance.connect(_on_second_chance)
+	lose_window.restart.connect(_restart)
+	lose_window.to_map.connect(_to_map)
+	defender_intro.closed.connect(_on_intro_closed)
+	enemy_intro.closed.connect(_on_intro_closed)
+
+
+func _apply_boosts() -> void:
+	if Game.boost_coins:
+		state.add_coins(Game.META.boost_coins)
+	if Game.boost_defender and boost_defender != null:
+		for plot: BuildPlot in level.plots():
+			if not plot.fence_plot and not plot.locked:
+				plot.prebuild(boost_defender, boost_defender_level)
+				break
+	Game.boost_coins = false
+	Game.boost_defender = false
+
+
+## Shows the next newcomer window, pausing the fight while it is open.
+func _next_intro() -> void:
+	if _intros.is_empty() or _over or defender_intro.visible or enemy_intro.visible:
+		return
+	var item: Resource = _intros.pop_front()
+	_pause_game()
+	if item is DefenderData:
+		defender_intro.show_defender(item as DefenderData)
+	else:
+		enemy_intro.show_enemy(item as EnemyData)
+
+
+func _on_intro_closed() -> void:
+	Save.save()
+	if _intros.is_empty():
+		_resume()
+	else:
+		_next_intro()
+
+
+func _on_first_of_type(data: EnemyData) -> void:
+	if Game.first_meet(data.id):
+		_intros.append(data)
+		_next_intro()
 
 
 func _process(_delta: float) -> void:
@@ -209,22 +279,54 @@ func _release_input() -> void:
 
 
 ## Pause button, Esc / P (the HUD catches the key: it runs while paused).
-## Esc with the pick menu open only closes the menu.
+## Esc with the pick menu open only closes the menu; newcomer windows wait
+## for their button.
 func _toggle_pause() -> void:
-	if _over:
+	if _over or defender_intro.visible or enemy_intro.visible:
 		return
 	if hud.radial_menu.visible:
 		hud.radial_menu.close()
 		return
-	var tree: SceneTree = get_tree()
-	tree.paused = not tree.paused
-	_release_input()
-	if tree.paused:
-		YandexSdk.gameplay_stop()
-		hud.show_message(tr("MSG_PAUSED"))
+	if pause_window.visible:
+		pause_window.visible = false
+		_resume()
 	else:
-		YandexSdk.gameplay_start()
-		hud.show_message("")
+		_pause_game()
+		pause_window.open()
+
+
+func _pause_game() -> void:
+	get_tree().paused = true
+	_release_input()
+	YandexSdk.gameplay_stop()
+
+
+func _resume() -> void:
+	if _over:
+		return
+	get_tree().paused = false
+	YandexSdk.gameplay_start()
+
+
+func _restart() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+## Back to the farm map (fullscreen ad point: level → map).
+func _to_map() -> void:
+	get_tree().paused = false
+	Ads.on_level_exit(level.data.number)
+	get_tree().change_scene_to_file(menu_scene)
+
+
+## +5 carrots, the fight goes on (once per level).
+func _on_second_chance() -> void:
+	_chance_used = true
+	_over = false
+	hero.revive()
+	state.give_carrots(lose_window.chance_carrots)
+	_resume()
 
 
 func _on_won() -> void:
@@ -233,26 +335,29 @@ func _on_won() -> void:
 	reward = Game.finish_level(level.data.number, s)
 	Save.save()
 	fx.play(&"confetti", hero.global_position + Vector2(0, -120), 2.0, true)
-	_finish(tr("MSG_WON") + "  " + "★".repeat(s), s)
+	if await _finish(s):
+		win_window.show_result(s, reward)
 
 
 func _on_lost() -> void:
-	_finish(tr("MSG_LOST"), 0)
+	if await _finish(0):
+		lose_window.show_result(not _chance_used)
 
 
-## Result for now: a message, then back to the menu (win/lose screens: stage 6).
-func _finish(message: String, s: int) -> void:
+## Stops the fight; after a short look at the field the result window opens
+## (false if the scene is gone by then).
+func _finish(s: int) -> bool:
 	if _over:
-		return
+		return false
 	_over = true
 	# A tried-on skin lasts one level.
-	Game.trial_skin = &""
+	if won:
+		Game.trial_skin = &""
 	YandexSdk.gameplay_stop()
 	_release_input()
+	hud.radial_menu.close()
 	hero.finish(won)
-	hud.show_message(message)
 	get_tree().paused = true
 	finished.emit(won, s)
-	await get_tree().create_timer(result_delay).timeout
-	get_tree().paused = false
-	get_tree().change_scene_to_file(menu_scene)
+	await get_tree().create_timer(result_delay, true).timeout
+	return is_inside_tree()

@@ -28,6 +28,12 @@ func spend(n: int) -> bool:
 	return true
 
 
+## Second chance: carrots come back.
+func give_carrots(n: int) -> void:
+	carrots += n
+	carrots_changed.emit(carrots)
+
+
 func take_carrots(n: int) -> void:
 	if carrots <= 0:
 		return

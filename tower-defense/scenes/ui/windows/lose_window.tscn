@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/lose_window.gd" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_ribbon_blue.png" id="3_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon.tres" id="4_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="5_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_carrot.png" id="6_r"]
+
+[node name="LoseWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+title_key = "TITLE_LOSE"
+closable = false
+portrait_width = 900.0
+landscape_width = 1200.0
+ribbon_texture = ExtResource("3_r")
+
+[node name="Columns" type="BoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+metadata/portrait_vertical = true
+
+[node name="HeroBox" type="Control" parent="Panel/Content/Columns"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 300)
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="Hero" type="AnimatedSprite2D" parent="Panel/Content/Columns/HeroBox"]
+unique_name_in_owner = true
+position = Vector2(150, 150)
+scale = Vector2(2.34, 2.34)
+sprite_frames = ExtResource("4_r")
+animation = &"sad"
+autoplay = "sad"
+
+[node name="Right" type="VBoxContainer" parent="Panel/Content/Columns"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Text" type="Label" parent="Panel/Content/Columns/Right"]
+layout_mode = 2
+custom_minimum_size = Vector2(640, 0)
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 34
+text = "LOSE_TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Chance" parent="Panel/Content/Columns/Right" instance=ExtResource("5_r")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(560, 112)
+size_flags_horizontal = 4
+text = "BTN_SECOND_CHANCE"
+
+[node name="ChanceLine" type="HBoxContainer" parent="Panel/Content/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+unique_name_in_owner = true
+
+[node name="Carrot" type="TextureRect" parent="Panel/Content/Columns/Right/ChanceLine"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 40)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ChanceText" type="Label" parent="Panel/Content/Columns/Right/ChanceLine"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 30
+text = "+5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/Content/Columns/Right"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Restart" type="Button" parent="Panel/Content/Columns/Right/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+text = "BTN_RESTART"
+
+[node name="ToMap" type="Button" parent="Panel/Content/Columns/Right/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 112)
+size_flags_horizontal = 4
+focus_mode = 0
+text = "BTN_TO_MAP"
+theme_type_variation = &"ButtonBlue"

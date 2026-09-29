@@ -114,6 +114,13 @@ func set_skin(frames: SpriteFrames, projectile: Texture2D) -> void:
 		_sprite.play(&"idle")
 
 
+## Second chance: back in the fight after finish(false).
+func revive() -> void:
+	_finished = false
+	_sprite.process_mode = Node.PROCESS_MODE_INHERIT
+	_sprite.play(&"idle")
+
+
 ## A coin went from the hero into a plot (the plot calls this).
 func mark_building() -> void:
 	_build_left = 0.15

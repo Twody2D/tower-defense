@@ -20,6 +20,8 @@ signal reached_base(data: EnemyData)
 ## A boss hit the hero (the battle stuns it).
 signal hero_struck
 signal boss_spawned(id: int, data: EnemyData)
+## The first pest of a type in this battle ("New pest!" window).
+signal first_of_type(data: EnemyData)
 
 ## One pest type on screen: its MultiMesh and the per-frame instance buffer.
 class TypeView:
@@ -110,6 +112,7 @@ var _bar_fills: MultiMeshInstance2D
 var _bar_buf: PackedFloat32Array = PackedFloat32Array()
 var _fill_buf: PackedFloat32Array = PackedFloat32Array()
 var _index_by_id: Dictionary[int, int] = {}
+var _types_met: Array[EnemyData] = []
 var _next_id: int = 1
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -238,6 +241,9 @@ func spawn(data: EnemyData, hp_multiplier: float = 1.0, road: int = 0) -> int:
 	_hash_dirty = true
 	if data.is_boss:
 		boss_spawned.emit(id, data)
+	if not data in _types_met:
+		_types_met.append(data)
+		first_of_type.emit(data)
 	return id
 
 

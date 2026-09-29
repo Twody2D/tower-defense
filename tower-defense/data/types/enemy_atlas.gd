@@ -1,3 +1,4 @@
+@tool
 class_name EnemyAtlas
 extends Resource
 ## All animations of one pest in one texture: a row per animation, square

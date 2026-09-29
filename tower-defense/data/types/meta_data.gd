@@ -25,6 +25,10 @@ extends Resource
 ## Grains for days 1..7; a missed day starts over from day 1.
 @export var daily_gifts: Array[int] = [20, 30, 40, 50, 60, 80, 150]
 
+@export_group("Level start boosts")
+## Coins at the start of the battle for an ad.
+@export var boost_coins: int = 30
+
 @export_group("Offline harvest")
 @export var harvest_per_hour: float = 5.0
 @export var harvest_max_hours: float = 8.0

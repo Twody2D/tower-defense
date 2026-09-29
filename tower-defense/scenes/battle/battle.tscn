@@ -1,5 +1,11 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=28 format=3]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/pause_window.tscn" id="50_0"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/win_window.tscn" id="50_1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/lose_window.tscn" id="50_2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/new_defender_window.tscn" id="50_3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/new_enemy_window.tscn" id="50_4"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="55_goose"]
 [ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_battle"]
 [ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="2_level"]
 [ext_resource type="Resource" path="res://data/hero_stats.tres" id="3_stats"]
@@ -27,6 +33,7 @@ script = ExtResource("1_battle")
 level_scene = ExtResource("2_level")
 hero_stats = ExtResource("3_stats")
 defender_catalog = Array[ExtResource("12_def_script")]([ExtResource("13_goose"), ExtResource("14_frog"), ExtResource("15_beaver"), ExtResource("16_hive")])
+boost_defender = ExtResource("55_goose")
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -61,3 +68,22 @@ frames = ExtResource("43_fxframes")
 script = ExtResource("17_waves")
 
 [node name="Hud" parent="." instance=ExtResource("8_hud")]
+
+[node name="Windows" type="CanvasLayer" parent="."]
+layer = 10
+process_mode = 3
+
+[node name="PauseWindow" parent="Windows" instance=ExtResource("50_0")]
+visible = false
+
+[node name="WinWindow" parent="Windows" instance=ExtResource("50_1")]
+visible = false
+
+[node name="LoseWindow" parent="Windows" instance=ExtResource("50_2")]
+visible = false
+
+[node name="NewDefender" parent="Windows" instance=ExtResource("50_3")]
+visible = false
+
+[node name="NewEnemy" parent="Windows" instance=ExtResource("50_4")]
+visible = false

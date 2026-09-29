@@ -99,6 +99,16 @@ props.append(f'CardHighlight/styles/panel = SubResource("{box("ui_card_highlight
 props.append('Toast/base_type = &"PanelContainer"')
 props.append(f'Toast/styles/panel = SubResource("{box("ui_toast", (0, 40, 0, 40), (16, 48, 20, 48))}")')
 
+# Volume slider (track / fill 256×40, slice 0 20 0 20; knob 56).
+props.append(f'HSlider/styles/slider = SubResource("{box("ui_slider_track", (0, 20, 0, 20), (8, 0, 8, 0))}")')
+fill = box("ui_slider_fill", (0, 20, 0, 20), (8, 0, 8, 0))
+props.append(f'HSlider/styles/grabber_area = SubResource("{fill}")')
+props.append(f'HSlider/styles/grabber_area_highlight = SubResource("{fill}")')
+knob = tex("ui_slider_knob")
+props.append(f'HSlider/icons/grabber = ExtResource("{knob}")')
+props.append(f'HSlider/icons/grabber_highlight = ExtResource("{knob}")')
+props.append("HSlider/constants/center_grabber = 1")
+
 # Labels: white with ink outline by default (HUD numbers, buttons).
 props += [f"Label/colors/font_color = {WHITE}", f"Label/colors/font_outline_color = {INK}",
           "Label/constants/outline_size = 10", "Label/font_sizes/font_size = 40"]

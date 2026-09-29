@@ -3,6 +3,11 @@ extends Resource
 ## One pest type (CODE_PROMPT, "Вредители"). HP grows per campaign level in LevelData.
 
 @export var id: StringName = &"beetle"
+## Name and "how to beat it" keys for tr() ("New pest!", level start).
+@export var name_key: String = "ENEMY_BEETLE"
+@export var hint_key: String = "HINT_BEETLE"
+## Portrait 128 (design C).
+@export var portrait: Texture2D
 @export var hp: float = 12.0
 ## Walk speed along the road, px/s.
 @export var speed: float = 70.0

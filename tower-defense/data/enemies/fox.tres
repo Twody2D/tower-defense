@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/enemies/ui_enemy_portrait_fox.png" id="9_portrait"]
 [ext_resource type="Resource" path="res://art/enemies/atlas_fox.tres" id="2_atlas"]
 
 [resource]
 script = ExtResource("1_script")
 id = &"fox"
+name_key = "ENEMY_FOX"
+hint_key = "HINT_FOX"
+portrait = ExtResource("9_portrait")
 hp = 1500.0
 speed = 35.0
 coins = 50

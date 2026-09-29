@@ -18,6 +18,10 @@ func _ready() -> void:
 func apply_settings() -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(MUSIC_BUS), not Game.music_on)
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(SFX_BUS), not Game.sound_on)
+	# The volume slider moves both child buses (Master mute stays with YandexSdk).
+	var db: float = linear_to_db(maxf(Game.volume, 0.0001))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), db)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), db)
 
 
 static func _ensure_bus(bus: StringName) -> void:

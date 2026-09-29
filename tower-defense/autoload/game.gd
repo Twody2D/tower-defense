@@ -14,6 +14,11 @@ const META: MetaData = preload("res://data/meta.tres")
 
 var music_on: bool = true
 var sound_on: bool = true
+## Master volume 0..1 (settings slider).
+var volume: float = 1.0
+## Level start boosts bought with an ad; the battle uses and clears them.
+var boost_coins: bool = false
+var boost_defender: bool = false
 ## Stars per level (0..3), index 0 = level 1. 0 = not passed yet.
 var level_stars: Array[int] = []
 ## Meta currency (golden grains) and everything ever earned (save tie-break).
@@ -49,6 +54,9 @@ func _init() -> void:
 func reset() -> void:
 	music_on = true
 	sound_on = true
+	volume = 1.0
+	boost_coins = false
+	boost_defender = false
 	grains = 0
 	grains_earned = 0
 	level_stars.clear()
@@ -323,12 +331,18 @@ func set_music(on: bool) -> void:
 	settings_changed.emit()
 
 
+func set_volume(v: float) -> void:
+	volume = clampf(v, 0.0, 1.0)
+	settings_changed.emit()
+
+
 # --- Save layout --------------------------------------------------------------
 
 func to_dict() -> Dictionary:
 	return {
 		"music_on": music_on,
 		"sound_on": sound_on,
+		"volume": volume,
 		"level_stars": level_stars.duplicate(),
 		"grains": grains,
 		"grains_earned": grains_earned,
@@ -352,6 +366,10 @@ func from_dict(d: Dictionary) -> void:
 	music_on = _bool(d, "music_on", music_on)
 	sound_on = _bool(d, "sound_on", sound_on)
 	tutorial_done = _bool(d, "tutorial_done", tutorial_done)
+	var vol: Variant = d.get("volume", volume)
+	if vol is float or vol is int:
+		var vf: float = vol
+		volume = clampf(vf, 0.0, 1.0)
 	grains = maxi(_int(d, "grains", 0), 0)
 	grains_earned = maxi(_int(d, "grains_earned", grains), grains)
 	gift_day = clampi(_int(d, "gift_day", 0), 0, META.daily_gifts.size() - 1)

@@ -89,6 +89,15 @@ func contains(world_pos: Vector2) -> bool:
 	return d.x / half_size.x + d.y / half_size.y <= 1.0
 
 
+## Level start boost: a defender already standing at `at_level`.
+func prebuild(data: DefenderData, at_level: int) -> void:
+	choose(data)
+	level = at_level
+	paid = 0
+	defender.set_level(at_level)
+	_refresh()
+
+
 ## Radial menu answer. Changing the pick is allowed while nothing is paid.
 func choose(data: DefenderData) -> void:
 	if level > 0 or paid > 0:

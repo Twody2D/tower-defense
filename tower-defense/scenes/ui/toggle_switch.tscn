@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/toggle_switch.gd" id="1_toggle"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_toggle_track_off.png" id="2_off"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_toggle_track_on.png" id="3_on"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_toggle_knob.png" id="4_knob"]
+
+[node name="ToggleSwitch" type="TextureButton"]
+custom_minimum_size = Vector2(128, 64)
+offset_right = 128.0
+offset_bottom = 64.0
+focus_mode = 0
+toggle_mode = true
+texture_normal = ExtResource("2_off")
+texture_pressed = ExtResource("3_on")
+script = ExtResource("1_toggle")
+
+[node name="Knob" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 60.0
+mouse_filter = 2
+texture = ExtResource("4_knob")

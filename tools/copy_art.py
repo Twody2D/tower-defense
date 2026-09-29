@@ -40,6 +40,11 @@ FILES: dict[str, list[str]] = {
     ],
     "enemies": [
         "c/enemy_crow_shadow_1f.png",
+        "c/ui_enemy_portrait_beetle.png",
+        "c/ui_enemy_portrait_caterpillar.png",
+        "c/ui_enemy_portrait_mole.png",
+        "c/ui_enemy_portrait_crow.png",
+        "c/ui_enemy_portrait_fox.png",
         "c/item_carrot_hold.png",
         "c/ui_hp_mini_frame.png",
         "c/ui_hp_mini_fill.png",

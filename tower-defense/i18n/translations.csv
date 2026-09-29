@@ -33,6 +33,7 @@ BTN_DISCOUNT,−50%,−50%
 BTN_OPEN_ADS,Открыть %d/%d,Unlock %d/%d
 BTN_MORE_ADS,Ещё %d,%d more
 BTN_YES,Да,Yes
+BTN_DONE,Готово,Done
 BTN_NO,Нет,No
 TITLE_LEVEL,Уровень %d,Level %d
 TITLE_PAUSE,Пауза,Paused
@@ -55,6 +56,7 @@ BOOST_DEFENDER,Стартовый защитник,Starting defender
 LBL_REWARD,Награда,Reward
 LBL_MUSIC,Музыка,Music
 LBL_SOUND,Звук,Sound
+LBL_VOLUME,Громкость,Volume
 LOSE_TEXT,Вредители унесли все морковки,The pests took all the carrots
 SECOND_CHANCE_TEXT,+%d морковок — бой продолжается,+%d carrots — the fight goes on
 TAB_UPGRADES,Прокачка,Upgrades
