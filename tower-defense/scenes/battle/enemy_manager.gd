@@ -60,6 +60,8 @@ var count: int = 0
 var last_usec: int = 0
 ## Set by the battle: bosses stun it when close.
 var hero: Node2D
+## Set by the battle: a pest that grabbed carrots vanishes in a poof.
+var fx: FxPool
 
 var _roads: Array[Curve2D] = []
 var _lengths: PackedFloat32Array = PackedFloat32Array()
@@ -535,9 +537,12 @@ func _step_ghosts(delta: float) -> void:
 	var g: int = 0
 	while g < _g_count:
 		_g_t[g] += delta
-		if _g_t[g] < _g_type[g].atlas.length(_g_row[g]) + ghost_hold:
+		var gd: EnemyData = _g_type[g]
+		if _g_t[g] < gd.atlas.length(_g_row[g]) + ghost_hold:
 			g += 1
 			continue
+		if fx != null and _g_row[g] == gd.atlas.grab:
+			fx.play(&"poof", _g_pos[g] - Vector2(0.0, gd.feet_offset + gd.fly_height), maxf(1.5, gd.atlas.cell / 48.0))
 		var last: int = _g_count - 1
 		_g_type[g] = _g_type[last]
 		_g_pos[g] = _g_pos[last]

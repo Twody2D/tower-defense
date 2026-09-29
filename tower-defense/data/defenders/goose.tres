@@ -23,3 +23,5 @@ frames = ExtResource("4_frames")
 feet_offset = 72.0
 projectile_texture = ExtResource("7_proj")
 projectile_frames = 1
+hit_fx = &"hit"
+hit_fx_size = 1.5

@@ -22,3 +22,5 @@ slow = 0.4
 slow_time = 1.2
 frames = ExtResource("4_frames")
 feet_offset = 70.0
+hit_fx = &"splash"
+hit_fx_size = 1.5

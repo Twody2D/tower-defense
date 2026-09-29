@@ -15,6 +15,10 @@ extends CharacterBody2D
 ## Skin animations (art/frames/hero_<skin>.tres).
 @export var skin: SpriteFrames
 @export var projectile_texture: Texture2D
+## Effect where an apple lands (fx.tres).
+@export var hit_fx: StringName = &"proj_splat"
+## Dust puff from the feet while running, every this many seconds.
+@export var dust_every: float = 0.3
 @export var projectile_frames: int = 4
 ## Where the apple leaves the paw, relative to the feet.
 @export var throw_offset: Vector2 = Vector2(0, -60)
@@ -23,6 +27,7 @@ extends CharacterBody2D
 var joystick: Vector2 = Vector2.ZERO
 var enemies: EnemyManager
 var projectiles: Projectiles
+var fx: FxPool
 ## Damage and attack speed multipliers (meta upgrades, "Rage" bonus).
 var damage_mult: float = 1.0
 var attack_speed_mult: float = 1.0
@@ -32,6 +37,7 @@ var _stun_left: float = 0.0
 var _invulnerable_left: float = 0.0
 ## Build pose lasts this long after the last coin paid, s.
 var _build_left: float = 0.0
+var _dust_left: float = 0.0
 ## Battle over: joy / sad only.
 var _finished: bool = false
 var _shot: Projectiles.Shot = Projectiles.Shot.new()
@@ -45,6 +51,8 @@ func _ready() -> void:
 	if skin != null:
 		_sprite.sprite_frames = skin
 	_sprite.play(&"idle")
+	_shot.hit_fx = hit_fx
+	_shot.hit_fx_size = 1.5
 	_shot.texture = projectile_texture
 	_shot.frames = projectile_frames
 
@@ -148,6 +156,10 @@ func _attack(delta: float) -> void:
 ## Picks the animation for the state; once animations (hit, throw) finish first.
 func _animate(delta: float) -> void:
 	_build_left = maxf(_build_left - delta, 0.0)
+	_dust_left -= delta
+	if is_moving() and _dust_left <= 0.0 and fx != null:
+		_dust_left = dust_every
+		fx.play(&"dust", global_position + Vector2(-signf(velocity.x) * 14.0, 0.0), 1.5)
 	var current: StringName = _sprite.animation
 	var want: StringName = &"idle"
 	if _stun_left > 0.0:

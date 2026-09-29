@@ -4,6 +4,7 @@ extends Node
 ## big FPS / frame time read-out. Lives in dev/, so the release build skips it.
 ## PC: `-- uncapped` removes vsync and the FPS cap to show the headroom.
 ## Web: `?n=100` in the address sets the pest count (compare 0 / 100 / 250).
+## PC profiling: `-- uncapped nobars nopests nolevel nohud` hides that part.
 
 @export var target: int = 250
 @export var types: Array[EnemyData] = []
@@ -25,10 +26,22 @@ func _ready() -> void:
 		Engine.max_fps = 0
 	if OS.has_feature("web"):
 		var location: JavaScriptObject = JavaScriptBridge.get_interface("location")
-		var search: String = str(location.search)
+		var search: String = str(location.get("search"))
 		if search.begins_with("?n="):
 			target = search.substr(3).to_int()
 	await get_tree().process_frame
+	var args: PackedStringArray = OS.get_cmdline_user_args()
+	var em0: EnemyManager = _battle.enemies
+	for n: Node in em0.get_children():
+		var c: CanvasItem = n as CanvasItem
+		if "nobars" in args and n.name.begins_with("Hp"):
+			c.visible = false
+		if "nopests" in args and not n.name.begins_with("Hp"):
+			c.visible = false
+	if "nolevel" in args:
+		_battle.level.visible = false
+	if "nohud" in args:
+		_battle.hud.visible = false
 	for plot: BuildPlot in _battle.level.plots():
 		if plot.fence_plot:
 			continue

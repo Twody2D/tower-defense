@@ -19,6 +19,9 @@ class Shot:
 	var dot_dps: float = 0.0
 	var dot_time: float = 0.0
 	var include_flying: bool = true
+	## Effect at the hit point (fx.tres animation, "" = none) and its scale.
+	var hit_fx: StringName = &""
+	var hit_fx_size: float = 1.0
 
 @export var projectile_scene: PackedScene
 @export var capacity: int = 256
@@ -27,6 +30,7 @@ class Shot:
 
 var count: int = 0
 var enemies: EnemyManager
+var fx: FxPool
 
 var _pool: Array[Projectile] = []
 
@@ -72,6 +76,8 @@ func clear() -> void:
 
 func _hit(p: Projectile, idx: int) -> void:
 	var shot: Shot = p.shot
+	if fx != null and shot.hit_fx != &"":
+		fx.play(shot.hit_fx, p.global_position, shot.hit_fx_size)
 	if shot.splash_radius > 0.0:
 		enemies.damage_area(p.target_pos, shot.splash_radius, shot.damage, shot.include_flying)
 		return

@@ -11,12 +11,15 @@ extends Node2D
 @export var retarget_time: float = 0.2
 ## A looping attack (sprinkler) goes back to idle this long after the last use, s.
 @export var attack_linger: float = 0.4
+## Sprinkler: splash effects on at most this many watered pests per use.
+@export var splash_fx_max: int = 3
 @export var star_textures: Array[Texture2D] = []
 
 var data: DefenderData
 var level: int = 0
 var enemies: EnemyManager
 var projectiles: Projectiles
+var fx: FxPool
 
 var _cooldown: float = 0.0
 var _retarget: float = 0.0
@@ -57,6 +60,8 @@ func set_level(new_level: int) -> void:
 	_shot.splash_radius = data.splash_radius
 	_shot.dot_dps = data.dot_dps_at(level)
 	_shot.dot_time = data.dot_time
+	_shot.hit_fx = data.hit_fx
+	_shot.hit_fx_size = data.hit_fx_size
 	if data.kind == DefenderData.Kind.DOT:
 		_shot.damage = 0.0
 
@@ -142,6 +147,9 @@ func _splash_slow() -> void:
 		return
 	_cooldown = 1.0 / data.attacks_per_second
 	_play_attack()
+	if fx != null and data.hit_fx != &"":
+		for k: int in mini(hit.size(), splash_fx_max):
+			fx.play(data.hit_fx, enemies.position_at(hit[k]) + Vector2(0, -16), data.hit_fx_size)
 	for i: int in hit:
 		enemies.apply_slow(i, data.slow, data.slow_time)
 	enemies.damage_area(global_position, r, data.damage_at(level), data.hits_flying)

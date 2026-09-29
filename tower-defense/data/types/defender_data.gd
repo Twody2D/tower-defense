@@ -57,6 +57,10 @@ enum Kind {
 @export var feet_offset: float = 72.0
 @export var projectile_texture: Texture2D
 @export var projectile_frames: int = 1
+## Effect where the shot lands (fx.tres animation, "" = none); the sprinkler
+## splashes (`hit_fx`) on the pests it waters.
+@export var hit_fx: StringName = &""
+@export var hit_fx_size: float = 1.0
 ## Where the shot starts, relative to the plot centre.
 @export var muzzle: Vector2 = Vector2(0, -90)
 

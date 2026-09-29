@@ -29,6 +29,7 @@ var _over: bool = false
 @onready var coins: Coins = $World/Coins
 @onready var hero: Hero = $World/Hero
 @onready var projectiles: Projectiles = $World/Projectiles
+@onready var fx: FxPool = $World/Fx
 @onready var camera: Camera2D = $World/Hero/Camera2D
 @onready var waves: WaveRunner = $WaveRunner
 @onready var hud: Hud = $Hud
@@ -49,11 +50,14 @@ func _ready() -> void:
 	enemies.reached_base.connect(_on_enemy_reached_base)
 	enemies.hero_struck.connect(hero.stun)
 	enemies.boss_spawned.connect(_on_boss_spawned)
+	enemies.fx = fx
 	projectiles.enemies = enemies
+	projectiles.fx = fx
 
 	hero.stats = hero_stats
 	hero.enemies = enemies
 	hero.projectiles = projectiles
+	hero.fx = fx
 	hero.bounds = level.bounds()
 	hero.position = level.hero_start()
 
@@ -65,8 +69,10 @@ func _ready() -> void:
 		plot.hero = hero
 		plot.state = state
 		plot.options = data.defenders
-		plot.attach(enemies, projectiles)
+		plot.attach(enemies, projectiles, fx)
 		plot.menu_requested.connect(_on_menu_requested)
+		plot.built.connect(_on_plot_built)
+		plot.coin_paid.connect(_on_coin_paid)
 		plot.hero_left.connect(_on_hero_left_plot)
 
 	hud.bind(state)
@@ -151,6 +157,16 @@ func _on_menu_requested(plot: BuildPlot) -> void:
 	hud.radial_menu.open(plot, defender_catalog, plot.options)
 
 
+## Build flash for a new defender / fence, sparks for an upgrade.
+func _on_plot_built(plot: BuildPlot, new_level: int) -> void:
+	fx.play(&"build_flash" if new_level == 1 else &"upgrade", plot.global_position + Vector2(0, -48), 1.5)
+
+
+## A coin flies from the hero's paws into the plot.
+func _on_coin_paid(plot: BuildPlot) -> void:
+	fx.fly(&"coin_trail", hero.global_position + Vector2(0, -60), plot.global_position, 0.2, 1.5)
+
+
 func _on_hero_left_plot(plot: BuildPlot) -> void:
 	if hud.radial_menu.plot == plot:
 		hud.radial_menu.close()
@@ -191,6 +207,7 @@ func _on_won() -> void:
 	if index >= 0 and index < Game.level_stars.size():
 		Game.level_stars[index] = maxi(Game.level_stars[index], s)
 		Save.save()
+	fx.play(&"confetti", hero.global_position + Vector2(0, -120), 2.0, true)
 	_finish(tr("MSG_WON") + "  " + "★".repeat(s), s)
 
 

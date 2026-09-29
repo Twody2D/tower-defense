@@ -135,13 +135,13 @@ FX_ANIMS = {
     "fx_upgrade_5f": (10, False), "fx_parcel_fall_4f": (6, True), "fx_parcel_land_3f": (10, False),
     "fx_parcel_glow_4f": (8, True), "fx_parcel_open_5f": (10, False), "fx_tractor_4f": (10, True),
     "fx_sleepy_cloud_4f": (6, True), "fx_gold_rain_coin_4f": (12, True), "fx_magnet_aura_4f": (8, True),
-    "fx_confetti_6f": (10, False), "fx_rage_aura_4f": (8, True),
+    "fx_confetti_6f": (10, False), "fx_rage_aura_4f": (8, True), "proj_splat_3f": (12, False),
 }
 
 # set "projectiles": hero throws (by skin) and the tomato
 PROJ_ANIMS = {
     "b/proj_apple_spin_4f": (12, True), "b/proj_bone_spin_4f": (12, True), "b/proj_acorn_spin_4f": (12, True),
-    "b/proj_carrot_spin_4f": (12, True), "b/proj_egg_spin_4f": (12, True), "b/proj_splat_3f": (12, False),
+    "b/proj_carrot_spin_4f": (12, True), "b/proj_egg_spin_4f": (12, True),
     "d/proj_tomato_spin_4f": (12, True),
 }
 
@@ -215,7 +215,7 @@ def build_frames() -> dict[str, dict]:
     }
     sets["fx"] = {}
     for b, (fps, loop) in FX_ANIMS.items():
-        folder = "b" if b == "fx_rage_aura_4f" else "f"
+        folder = "b" if b in ("fx_rage_aura_4f", "proj_splat_3f") else "f"
         sets["fx"][anim_name(b).removeprefix("fx_")] = entry(copy(f"{folder}/{b}.png", "fx"), frames_in(b), fps, loop)
     return sets
 

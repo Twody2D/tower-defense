@@ -64,9 +64,10 @@ func _ready() -> void:
 
 
 ## Called by the battle once the pests exist (fences register on the road).
-func attach(enemies: EnemyManager, projectiles: Projectiles) -> void:
+func attach(enemies: EnemyManager, projectiles: Projectiles, fx: FxPool = null) -> void:
 	defender.enemies = enemies
 	defender.projectiles = projectiles
+	defender.fx = fx
 	if fence_plot:
 		fence.attach(enemies)
 

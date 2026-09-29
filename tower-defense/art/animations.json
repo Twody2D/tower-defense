@@ -281,12 +281,6 @@
     "fps": 12,
     "loop": true
    },
-   "splat": {
-    "file": "res://art/hero/proj_splat_3f.png",
-    "frames": 3,
-    "fps": 12,
-    "loop": false
-   },
    "tomato": {
     "file": "res://art/defenders/proj_tomato_spin_4f.png",
     "frames": 4,
@@ -912,6 +906,12 @@
     "frames": 4,
     "fps": 8,
     "loop": true
+   },
+   "proj_splat": {
+    "file": "res://art/fx/proj_splat_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
    }
   }
  },

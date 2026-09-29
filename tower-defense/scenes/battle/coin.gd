@@ -6,6 +6,9 @@ extends Sprite2D
 @export var small_sheet: Texture2D
 @export var big_sheet: Texture2D
 @export var spin_fps: float = 10.0
+## Pop on drop: a hop this high, this long (design F coin_pop, done in code).
+@export var pop_height: float = 36.0
+@export var pop_time: float = 0.35
 
 var age: float = 0.0
 var value: int = 1
@@ -29,4 +32,9 @@ func set_value(v: int, big_from: int) -> void:
 
 func tick_look(time: float, blinking: bool) -> void:
 	frame = int(time * spin_fps + position.x * 0.01) % hframes
+	if age < pop_time:
+		var t: float = age / pop_time
+		offset.y = -sin(t * PI) * pop_height * (1.0 - t * 0.5)
+	else:
+		offset.y = 0.0
 	self_modulate.a = 0.25 if blinking and fmod(time, 0.3) < 0.12 else 1.0
