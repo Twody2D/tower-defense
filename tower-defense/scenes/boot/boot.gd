@@ -13,4 +13,6 @@ func _ready() -> void:
 	Save.merge_cloud(cloud)
 	I18n.apply_sdk_lang()
 	YandexSdk.ready_to_play()
-	get_tree().change_scene_to_file.call_deferred(next_scene)
+	# The phone stress build (export preset "WebStress", feature "stress") opens the test at once.
+	var scene: String = "res://dev/battle_stress.tscn" if OS.has_feature("stress") else next_scene
+	get_tree().change_scene_to_file.call_deferred(scene)

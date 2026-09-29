@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
+[ext_resource type="Script" path="res://data/types/wave_data.gd" id="2_wave"]
+[ext_resource type="Script" path="res://data/types/wave_group.gd" id="3_group"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="4_def"]
+[ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="5_beetle"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="6_goose"]
+
+[sub_resource type="Resource" id="WaveGroup_never"]
+script = ExtResource("3_group")
+enemy = ExtResource("5_beetle")
+count = 1
+interval = 1.0
+delay = 100000.0
+
+[sub_resource type="Resource" id="WaveData_never"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_never")])
+
+[resource]
+script = ExtResource("1_level")
+start_coins = 0
+carrots = 1000000
+defenders = Array[ExtResource("4_def")]([ExtResource("6_goose")])
+waves = Array[ExtResource("2_wave")]([SubResource("WaveData_never")])
+first_pause = 0.0

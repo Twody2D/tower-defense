@@ -36,6 +36,8 @@ class TypeView:
 @export var hash_cell: float = 128.0
 
 var count: int = 0
+## Time of the last _process (move + effects + drawing buffers), µs — for the stress test.
+var last_usec: int = 0
 ## Set by the battle: bosses stun it when close.
 var hero: Node2D
 
@@ -174,8 +176,10 @@ func spawn(data: EnemyData, hp_multiplier: float = 1.0, road: int = 0) -> int:
 
 
 func _process(delta: float) -> void:
+	var t0: int = Time.get_ticks_usec()
 	step(delta)
 	_update_views(delta)
+	last_usec = Time.get_ticks_usec() - t0
 
 
 ## Moves everyone, applies effects; pests at the road end take carrots and leave.

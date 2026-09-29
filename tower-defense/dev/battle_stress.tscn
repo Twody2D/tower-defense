@@ -1,0 +1,17 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/battle/battle.tscn" id="1_battle"]
+[ext_resource type="PackedScene" path="res://dev/level_stress.tscn" id="2_level"]
+[ext_resource type="Script" path="res://dev/stress_driver.gd" id="3_driver"]
+[ext_resource type="Script" path="res://data/types/enemy_data.gd" id="4_enemy"]
+[ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="5_beetle"]
+[ext_resource type="Resource" path="res://data/enemies/caterpillar.tres" id="6_cat"]
+[ext_resource type="Resource" path="res://data/enemies/mole.tres" id="7_mole"]
+[ext_resource type="Resource" path="res://data/enemies/crow.tres" id="8_crow"]
+
+[node name="Battle" instance=ExtResource("1_battle")]
+level_scene = ExtResource("2_level")
+
+[node name="StressDriver" type="Node" parent="."]
+script = ExtResource("3_driver")
+types = Array[ExtResource("4_enemy")]([ExtResource("5_beetle"), ExtResource("5_beetle"), ExtResource("5_beetle"), ExtResource("6_cat"), ExtResource("7_mole"), ExtResource("8_crow")])
