@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_battle"]
 [ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="2_level"]
@@ -18,6 +18,8 @@
 [ext_resource type="Resource" path="res://data/defenders/hive.tres" id="16_hive"]
 [ext_resource type="Script" path="res://scenes/battle/wave_runner.gd" id="17_waves"]
 
+[ext_resource type="Texture2D" path="res://art/enemies/ui_hp_mini_frame.png" id="40_hpframe"]
+[ext_resource type="Texture2D" path="res://art/enemies/ui_hp_mini_fill.png" id="41_hpfill"]
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
 level_scene = ExtResource("2_level")
@@ -38,6 +40,8 @@ coin_scene = ExtResource("9_coin")
 script = ExtResource("5_enemies")
 lateral_spread = 10.0
 frames_shader = ExtResource("11_frames")
+hp_frame = ExtResource("40_hpframe")
+hp_fill = ExtResource("41_hpfill")
 
 [node name="Hero" parent="World" instance=ExtResource("6_hero")]
 

@@ -67,13 +67,13 @@ func _ready() -> void:
 		plot.options = data.defenders
 		plot.attach(enemies, projectiles)
 		plot.menu_requested.connect(_on_menu_requested)
+		plot.hero_left.connect(_on_hero_left_plot)
 
 	hud.bind(state)
 	hud.joystick.changed.connect(_on_joystick)
 	hud.pause_pressed.connect(_toggle_pause)
 	hud.call_pressed.connect(_on_call_now)
 	hud.radial_menu.picked.connect(_on_defender_picked)
-	hud.radial_menu.closed.connect(_on_menu_closed)
 	level.base().set_carrots(state.carrots)
 	state.carrots_changed.connect(level.base().set_carrots)
 	state.carrots_gone.connect(_on_lost)
@@ -100,11 +100,6 @@ func _process(_delta: float) -> void:
 	hud.set_debug("%d fps · %d pests · %d coins" % [Engine.get_frames_per_second(), enemies.count, coins.count])
 	if waves.is_done() and enemies.count == 0:
 		_on_won()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"pause"):
-		_toggle_pause()
 
 
 func stars() -> int:
@@ -149,22 +144,20 @@ func _on_boss_spawned(_id: int, _data: EnemyData) -> void:
 		hud.show_message("")
 
 
-## Hero stepped on an empty plot: pause and show the defender pick.
+## Hero stepped on an empty plot: the defender pick, the game goes on.
 func _on_menu_requested(plot: BuildPlot) -> void:
 	if _over or get_tree().paused:
 		return
-	get_tree().paused = true
-	_release_input()
 	hud.radial_menu.open(plot, defender_catalog, plot.options)
+
+
+func _on_hero_left_plot(plot: BuildPlot) -> void:
+	if hud.radial_menu.plot == plot:
+		hud.radial_menu.close()
 
 
 func _on_defender_picked(plot: BuildPlot, data: DefenderData) -> void:
 	plot.choose(data)
-
-
-func _on_menu_closed() -> void:
-	if not _over:
-		get_tree().paused = false
 
 
 func _release_input() -> void:
@@ -172,8 +165,13 @@ func _release_input() -> void:
 	hero.joystick = Vector2.ZERO
 
 
+## Pause button, Esc / P (the HUD catches the key: it runs while paused).
+## Esc with the pick menu open only closes the menu.
 func _toggle_pause() -> void:
-	if _over or hud.radial_menu.visible:
+	if _over:
+		return
+	if hud.radial_menu.visible:
+		hud.radial_menu.close()
 		return
 	var tree: SceneTree = get_tree()
 	tree.paused = not tree.paused

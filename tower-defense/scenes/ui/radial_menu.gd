@@ -1,8 +1,10 @@
 class_name RadialMenu
 extends Control
 ## Defender pick over a build plot (design H: arc of 4 slots, R 170 at 1080
-## → 113 here). The battle pauses the game while it is open. Tap a slot or
-## press 1–4 to pick; tap outside to close without a pick.
+## → 113 here). The game goes on while it is open (Twody: the hero must not
+## get stuck on a plot): tap a slot or press 1–4 to pick; the battle closes it
+## when the hero steps off the plot. Taps outside the slots go to the
+## joystick (the menu ignores the mouse, slots are in "hud_blocker").
 
 signal picked(plot: BuildPlot, data: DefenderData)
 signal closed
@@ -23,6 +25,7 @@ func _ready() -> void:
 		if slot != null:
 			_slots.append(slot)
 			slot.picked.connect(_on_slot_picked)
+			slot.add_to_group(&"hud_blocker")
 
 
 ## `catalog` — all defenders in menu order; `allowed` — open on this level.
@@ -57,15 +60,6 @@ func _follow_plot() -> void:
 	_anchor.position = screen - Vector2(0, lift)
 
 
-func _gui_input(event: InputEvent) -> void:
-	# A tap that no slot took closes the menu.
-	if event is InputEventMouseButton:
-		var mb: InputEventMouseButton = event
-		if mb.pressed:
-			close()
-			accept_event()
-
-
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not visible or not event.is_pressed():
 		return
@@ -75,9 +69,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	var n: int = key.physical_keycode - KEY_1
 	if n >= 0 and n < _slots.size() and _slots[n].visible and not _slots[n].disabled:
 		_on_slot_picked(_slots[n].data)
-		get_viewport().set_input_as_handled()
-	elif key.physical_keycode == KEY_ESCAPE:
-		close()
 		get_viewport().set_input_as_handled()
 
 

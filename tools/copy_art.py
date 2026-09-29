@@ -31,6 +31,8 @@ FILES: dict[str, list[str]] = {
     "enemies": [
         "c/enemy_crow_shadow_1f.png",
         "c/item_carrot_hold.png",
+        "c/ui_hp_mini_frame.png",
+        "c/ui_hp_mini_fill.png",
     ],
     "defenders": [
         f"d/ui_def_portrait_{d}{s}.png" for d in ("goose", "frog", "beaver", "hive") for s in ("", "_locked")

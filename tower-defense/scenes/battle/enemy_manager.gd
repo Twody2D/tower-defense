@@ -44,6 +44,16 @@ class TypeView:
 @export var hash_cell: float = 128.0
 ## A ghost keeps the last frame of defeat / grab this long, s.
 @export var ghost_hold: float = 0.15
+@export_group("HP bar")
+## Mini HP bar over a hurt pest (design C: frame 48×6, fill 45×3).
+@export var hp_frame: Texture2D
+@export var hp_fill: Texture2D
+## Bar scale = pest cell / 48 × this, clamped to hp_scale_min..max (readable on a phone).
+@export var hp_scale: float = 1.6
+@export var hp_scale_min: float = 2.0
+@export var hp_scale_max: float = 3.0
+## Bar centre above the feet, share of the cell (sprites have air on top).
+@export var hp_height: float = 0.85
 
 var count: int = 0
 ## Time of the last _process (move + effects + drawing buffers), µs — for the stress test.
@@ -93,6 +103,10 @@ var _g_facing: PackedFloat32Array = PackedFloat32Array()
 var _g_row: PackedInt32Array = PackedInt32Array()
 var _g_t: PackedFloat32Array = PackedFloat32Array()
 var _views: Dictionary[EnemyData, TypeView] = {}
+var _bar_frames: MultiMeshInstance2D
+var _bar_fills: MultiMeshInstance2D
+var _bar_buf: PackedFloat32Array = PackedFloat32Array()
+var _fill_buf: PackedFloat32Array = PackedFloat32Array()
 var _index_by_id: Dictionary[int, int] = {}
 var _next_id: int = 1
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -137,6 +151,18 @@ func setup(roads: Array[Curve2D], bounds: Rect2, types: Array[EnemyData] = []) -
 	_g_t.resize(capacity)
 	for data: EnemyData in types:
 		_view_of(data)
+	if hp_frame != null and hp_fill != null and _bar_frames == null:
+		var fw: Vector2 = hp_frame.get_size()
+		var lw: Vector2 = hp_fill.get_size()
+		_bar_frames = _multimesh_node("HpFrames", _quad_rect(Rect2(-fw * 0.5, fw)), false, capacity, fw.x)
+		_bar_frames.texture = hp_frame
+		# Fill grows from its left edge: scaling x keeps it inside the frame.
+		_bar_fills = _multimesh_node("HpFills", _quad_rect(Rect2(Vector2(0.0, -lw.y * 0.5), lw)), false, capacity, fw.x)
+		_bar_fills.texture = hp_fill
+		_bar_frames.z_index = 5
+		_bar_fills.z_index = 5
+		_bar_buf.resize(capacity * 8)
+		_fill_buf.resize(capacity * 8)
 	count = 0
 	_g_count = 0
 
@@ -581,14 +607,15 @@ func _view_of(data: EnemyData) -> TypeView:
 	mat.set_shader_parameter(&"columns", a.columns)
 	mat.set_shader_parameter(&"rows", a.rows())
 	# Live pests and ghosts share the buffer.
-	view.node = _multimesh_node(String(data.id), float(a.cell), true, capacity * 2)
+	view.node = _multimesh_node(String(data.id), _quad(float(a.cell)), true, capacity * 2, float(a.cell))
 	view.node.texture = a.texture
 	view.node.material = mat
 	# Crows fly above everything on the ground.
 	view.node.z_index = 4 if data.flying else 0
 	view.buffer.resize(capacity * 2 * 12)
 	if data.shadow != null:
-		view.shadow = _multimesh_node(String(data.id) + "Shadow", float(data.shadow.get_width()), false, capacity)
+		var sw: float = float(data.shadow.get_width())
+		view.shadow = _multimesh_node(String(data.id) + "Shadow", _quad(sw), false, capacity, sw)
 		view.shadow.texture = data.shadow
 		view.shadow.z_index = -1
 		view.shadow_buffer.resize(capacity * 8)
@@ -596,11 +623,12 @@ func _view_of(data: EnemyData) -> TypeView:
 	return view
 
 
-func _multimesh_node(node_name: String, size: float, custom: bool, instances: int) -> MultiMeshInstance2D:
+## `size`: the biggest sprite side, px (margin of the culling box).
+func _multimesh_node(node_name: String, mesh: ArrayMesh, custom: bool, instances: int, size: float) -> MultiMeshInstance2D:
 	var mm: MultiMesh = MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_2D
 	mm.use_custom_data = custom
-	mm.mesh = _quad(size)
+	mm.mesh = mesh
 	mm.instance_count = instances
 	mm.visible_instance_count = 0
 	# Culling box = the whole level (plus a margin for big sprites). Without it
@@ -618,10 +646,15 @@ func _multimesh_node(node_name: String, size: float, custom: bool, instances: in
 ## Square 2D mesh, y down, UV (0,0) at the top-left. Built by hand: QuadMesh
 ## is a 3D class and is cut out of the slim web template (custom.build).
 static func _quad(size: float) -> ArrayMesh:
-	var h: float = size * 0.5
+	return _quad_rect(Rect2(-size * 0.5, -size * 0.5, size, size))
+
+
+static func _quad_rect(r: Rect2) -> ArrayMesh:
+	var a: Vector2 = r.position
+	var b: Vector2 = r.end
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = PackedVector2Array([Vector2(-h, -h), Vector2(h, -h), Vector2(h, h), Vector2(-h, h)])
+	arrays[Mesh.ARRAY_VERTEX] = PackedVector2Array([a, Vector2(b.x, a.y), b, Vector2(a.x, b.y)])
 	arrays[Mesh.ARRAY_TEX_UV] = PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)])
 	arrays[Mesh.ARRAY_INDEX] = PackedInt32Array([0, 1, 2, 0, 2, 3])
 	var mesh: ArrayMesh = ArrayMesh.new()
@@ -704,3 +737,53 @@ func _update_views(delta: float) -> void:
 		view.shadow_buffer = sb
 	for i: int in count:
 		_flash[i] = maxf(_flash[i] - delta, 0.0)
+	_update_bars()
+
+
+## Frame + fill over every hurt, visible pest.
+func _update_bars() -> void:
+	if _bar_frames == null:
+		return
+	var fb: PackedFloat32Array = _bar_buf
+	_bar_buf = PackedFloat32Array()
+	var lb: PackedFloat32Array = _fill_buf
+	_fill_buf = PackedFloat32Array()
+	var half: float = hp_frame.get_width() * 0.5
+	var inset: float = (hp_frame.get_width() - hp_fill.get_width()) * 0.5
+	var used: int = 0
+	for i: int in count:
+		if _hp[i] >= _max_hp[i] or _hidden[i] == 1:
+			continue
+		var data: EnemyData = _types[i]
+		if data.atlas == null:
+			continue
+		var cell: float = float(data.atlas.cell)
+		var sc: float = clampf(cell / 48.0 * hp_scale, hp_scale_min, hp_scale_max)
+		var x: float = _pos[i].x
+		var y: float = _pos[i].y - data.feet_offset - data.fly_height - cell * (hp_height - 0.5)
+		var o: int = used * 8
+		fb[o] = sc
+		fb[o + 1] = 0.0
+		fb[o + 2] = 0.0
+		fb[o + 3] = x
+		fb[o + 4] = 0.0
+		fb[o + 5] = sc
+		fb[o + 6] = 0.0
+		fb[o + 7] = y
+		lb[o] = sc * clampf(_hp[i] / _max_hp[i], 0.0, 1.0)
+		lb[o + 1] = 0.0
+		lb[o + 2] = 0.0
+		lb[o + 3] = x - (half - inset) * sc
+		lb[o + 4] = 0.0
+		lb[o + 5] = sc
+		lb[o + 6] = 0.0
+		lb[o + 7] = y
+		used += 1
+	var fmm: MultiMesh = _bar_frames.multimesh
+	fmm.buffer = fb
+	fmm.visible_instance_count = used
+	var lmm: MultiMesh = _bar_fills.multimesh
+	lmm.buffer = lb
+	lmm.visible_instance_count = used
+	_bar_buf = fb
+	_fill_buf = lb

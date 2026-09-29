@@ -32,6 +32,13 @@ func _ready() -> void:
 	_timer_row.visible = false
 
 
+## Esc / P: the HUD runs while the game is paused, so the key also resumes.
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"pause"):
+		get_viewport().set_input_as_handled()
+		pause_pressed.emit()
+
+
 func bind(state: BattleState) -> void:
 	_max_carrots = state.carrots
 	state.coins_changed.connect(set_coins)

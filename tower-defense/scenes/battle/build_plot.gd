@@ -1,15 +1,19 @@
 class_name BuildPlot
 extends Node2D
 ## Build plot (design E: pad 128×96, progress ring, price tag).
-## Empty plot: the hero steps on → `menu_requested` (the battle pauses and
-## shows the radial menu) → a defender is chosen → coins go in one by one
-## (`coin_interval`) up to its price → it is built. Standing again upgrades
-## it up to level 3. Leaving keeps the paid progress; the choice can change
-## while nothing is paid yet.
+## Empty plot: the hero steps on → `menu_requested` (the battle shows the
+## radial menu, the game goes on; stepping off → `hero_left` closes it) → a
+## defender is chosen → after `start_delay` on the plot coins go in one by
+## one (`coin_interval`) up to its price → it is built. Standing again
+## upgrades it up to level 3. Coins only start going in when the hero can pay
+## the whole level; stepping off before it is done gives them back (Twody:
+## running past must not spend anything). The choice can change while
+## nothing is paid.
 ## Fence plot (on the road): only the fence; a damaged fence is repaired for
 ## coins (a full repair = `repair_price_share` of the level price).
 
 signal menu_requested(plot: BuildPlot)
+signal hero_left(plot: BuildPlot)
 signal built(plot: BuildPlot, level: int)
 signal coin_paid(plot: BuildPlot)
 
@@ -22,6 +26,8 @@ signal coin_paid(plot: BuildPlot)
 @export var half_size: Vector2 = Vector2(64, 48)
 ## One coin goes into the plot every this many seconds (CODE_PROMPT: 0.05).
 @export var coin_interval: float = 0.05
+## The hero has to stand on the plot this long before coins go in, s.
+@export var start_delay: float = 0.35
 @export var pad_normal: Texture2D
 @export var pad_max: Texture2D
 @export var pad_locked: Texture2D
@@ -36,6 +42,7 @@ var state: BattleState
 
 var _timer: float = 0.0
 var _hero_on: bool = false
+var _on_time: float = 0.0
 var _repair_paid: int = 0
 
 @onready var defender: Defender = $Defender
@@ -97,9 +104,16 @@ func _process(delta: float) -> void:
 	if on != _hero_on:
 		_hero_on = on
 		_timer = coin_interval
+		_on_time = 0.0
 		if on and not fence_plot and level == 0 and paid == 0:
 			menu_requested.emit(self)
+		if not on:
+			_refund()
+			hero_left.emit(self)
 	if not on:
+		return
+	_on_time += delta
+	if _on_time < start_delay:
 		return
 	_timer -= delta
 	while _timer <= 0.0:
@@ -116,6 +130,9 @@ func _pay_one() -> bool:
 		return _repair_one()
 	if chosen == null or is_max():
 		return false
+	# A level starts only if the hero can pay all of it.
+	if paid == 0 and state.coins < next_price():
+		return false
 	if not state.spend(1):
 		return false
 	paid += 1
@@ -130,6 +147,15 @@ func _pay_one() -> bool:
 		built.emit(self, level)
 	_refresh()
 	return true
+
+
+## Unfinished level: the coins go back to the hero.
+func _refund() -> void:
+	if paid <= 0:
+		return
+	state.add_coins(paid)
+	paid = 0
+	_refresh()
 
 
 func _repair_one() -> bool:
