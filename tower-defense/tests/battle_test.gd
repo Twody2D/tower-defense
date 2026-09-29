@@ -60,7 +60,7 @@ func test_hero_kills_pests_and_collects_coins() -> void:
 	var road: Curve2D = battle.level.road_curve()
 	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-90, 0)
 	await runner.simulate_frames(1500, 16)
-	assert_int(battle.wave).is_greater_equal(1)
+	assert_int(battle.waves.wave).is_greater_equal(1)
 	assert_int(battle.state.coins).is_greater(start_coins)
 
 

@@ -6,7 +6,8 @@ extends RefCounted
 signal hp_changed(hp: float)
 signal broken
 
-## Position along the road curve, px.
+## Which road and where along it, px.
+var road: int = 0
 var progress: float = 0.0
 var hp: float = 0.0
 var max_hp: float = 0.0

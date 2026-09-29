@@ -24,7 +24,8 @@ func _ready() -> void:
 
 ## Registers the fence on the road at the plot position.
 func attach(enemies: EnemyManager) -> void:
-	block.progress = enemies.progress_of(global_position)
+	block.road = enemies.nearest_road(global_position)
+	block.progress = enemies.progress_of(global_position, block.road)
 	enemies.add_block(block)
 
 

@@ -13,7 +13,7 @@ func before_test() -> void:
 	_enemies = auto_free(EnemyManager.new())
 	_enemies.lateral_spread = 0.0
 	_enemies.frames_shader = load("res://shaders/enemy_frames.gdshader")
-	_enemies.setup(curve)
+	_enemies.setup([curve] as Array[Curve2D], Rect2(-200, -200, 3400, 600))
 	add_child(_enemies)
 	_projectiles = auto_free(Projectiles.new())
 	_projectiles.projectile_scene = load("res://scenes/battle/projectile.tscn")

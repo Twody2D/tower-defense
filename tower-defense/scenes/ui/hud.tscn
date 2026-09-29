@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/joystick.tscn" id="2_joy"]
@@ -9,6 +9,25 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_round_pressed.png" id="7_round_p"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_pause.png" id="8_pause"]
 [ext_resource type="PackedScene" path="res://scenes/ui/radial_menu.tscn" id="9_radial"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="10_pframe"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="11_pfill"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_clock.png" id="12_clock"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_green_normal.png" id="13_green"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_green_pressed.png" id="14_green_p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_green"]
+texture = ExtResource("13_green")
+texture_margin_left = 44.0
+texture_margin_top = 44.0
+texture_margin_right = 44.0
+texture_margin_bottom = 52.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBox_green_pressed"]
+texture = ExtResource("14_green_p")
+texture_margin_left = 44.0
+texture_margin_top = 44.0
+texture_margin_right = 44.0
+texture_margin_bottom = 52.0
 
 [node name="Hud" type="CanvasLayer"]
 process_mode = 3
@@ -127,21 +146,136 @@ mouse_filter = 2
 texture = ExtResource("8_pause")
 expand_mode = 1
 
-[node name="WaveLabel" type="Label" parent="."]
-unique_name_in_owner = true
+[node name="TopCenter" type="Control" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -150.0
-offset_top = 70.0
-offset_right = 150.0
-offset_bottom = 105.0
-grow_horizontal = 2
+scale = Vector2(0.667, 0.667)
+mouse_filter = 2
+
+[node name="WaveLabel" type="Label" parent="TopCenter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -225.0
+offset_top = 104.0
+offset_right = 225.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 38
+text = "Волна 1/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaveBar" type="TextureProgressBar" parent="TopCenter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -225.0
+offset_top = 158.0
+offset_right = 225.0
+offset_bottom = 206.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+value = 0.2
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_right = 24
+texture_under = ExtResource("10_pframe")
+texture_progress = ExtResource("11_pfill")
+texture_progress_offset = Vector2(8, 8)
+
+[node name="TimerRow" type="Control" parent="TopCenter"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -297.0
+offset_top = 236.0
+offset_right = 297.0
+offset_bottom = 340.0
+mouse_filter = 2
+
+[node name="Plate" type="TextureRect" parent="TopCenter/TimerRow"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 84.0
+mouse_filter = 2
+texture = ExtResource("3_plate")
+expand_mode = 1
+
+[node name="Clock" type="TextureRect" parent="TopCenter/TimerRow"]
+layout_mode = 0
+offset_left = -12.0
+offset_top = 14.0
+offset_right = 64.0
+offset_bottom = 90.0
+mouse_filter = 2
+texture = ExtResource("12_clock")
+expand_mode = 1
+
+[node name="TimerLabel" type="Label" parent="TopCenter/TimerRow"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 20.0
+offset_right = 184.0
+offset_bottom = 84.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
 theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 36
+text = "0:20"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CallButton" type="Button" parent="TopCenter/TimerRow" groups=["hud_blocker"]]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 214.0
+offset_right = 594.0
+offset_bottom = 104.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBox_green")
+theme_override_styles/hover = SubResource("StyleBox_green")
+theme_override_styles/pressed = SubResource("StyleBox_green_pressed")
+
+[node name="Text" type="Label" parent="TopCenter/TimerRow/CallButton"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_right = 258.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 27
+text = "Вызвать сейчас"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coin" type="TextureRect" parent="TopCenter/TimerRow/CallButton"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 26.0
+offset_right = 300.0
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("4_coin")
+expand_mode = 1
+
+[node name="Bonus" type="Label" parent="TopCenter/TimerRow/CallButton"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 302.0
+offset_right = 372.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(1, 0.788, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "+15"
+vertical_alignment = 1
 
 [node name="MessageLabel" type="Label" parent="."]
 unique_name_in_owner = true

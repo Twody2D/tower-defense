@@ -1,7 +1,14 @@
 keys,ru,en
 GAME_TITLE,Защити огород!,Protect the Garden!
 BTN_PLAY,Играть,Play
-HUD_WAVE,Волна %d,Wave %d
+HUD_WAVE,Волна %d/%d,Wave %d/%d
+HUD_CALL_NOW,Вызвать сейчас,Call now
 MSG_PAUSED,Пауза,Paused
 MSG_LOST,Морковки унесли!,The carrots are gone!
+MSG_WON,Огород спасён!,The garden is safe!
+MSG_BOSS,Идёт Лис!,The Fox is coming!
+DEF_FROG,Поливалка,Sprinkler
+DEF_BEAVER,Помидорная пушка,Tomato Cannon
+DEF_HIVE,Улей,Beehive
+DEF_FENCE,Забор,Fence
 DEF_GOOSE,Гусь-стрелок,Goose Archer

@@ -60,4 +60,4 @@ func _build_all() -> void:
 			defender.call("set_level", lv)
 			n += 1
 		plot.call("_refresh")
-	hero.global_position = Vector2(1150, 1150)
+	hero.global_position = Vector2(1150, 700)

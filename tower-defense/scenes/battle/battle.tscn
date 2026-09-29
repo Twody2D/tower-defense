@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_battle"]
 [ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="2_level"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" path="res://data/defenders/frog.tres" id="14_frog"]
 [ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="15_beaver"]
 [ext_resource type="Resource" path="res://data/defenders/hive.tres" id="16_hive"]
+[ext_resource type="Script" path="res://scenes/battle/wave_runner.gd" id="17_waves"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
@@ -44,5 +45,8 @@ frames_shader = ExtResource("11_frames")
 z_index = 5
 script = ExtResource("7_proj")
 projectile_scene = ExtResource("10_projectile")
+
+[node name="WaveRunner" type="Node" parent="."]
+script = ExtResource("17_waves")
 
 [node name="Hud" parent="." instance=ExtResource("8_hud")]

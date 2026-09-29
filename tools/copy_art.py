@@ -92,6 +92,12 @@ FILES: dict[str, list[str]] = {
         "g/ui_btn_round_pressed.png",
         "g/ui_icon_pause.png",
         "g/ui_lock.png",
+        "h/ui_icon_clock.png",
+        "g/ui_btn_green_normal.png",
+        "g/ui_btn_green_pressed.png",
+        "g/ui_btn_green_disabled.png",
+        "g/ui_progress_frame.png",
+        "g/ui_progress_fill.png",
     ],
 }
 

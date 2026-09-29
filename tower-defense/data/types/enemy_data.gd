@@ -18,6 +18,22 @@ extends Resource
 @export var flying: bool = false
 ## Fence damage per second while it stands in front of one.
 @export var chew_dps: float = 5.0
+@export_group("Mole")
+## Goes underground now and then: untouchable, not targeted, passes under fences.
+@export var can_dive: bool = false
+@export var dive_time: float = 2.0
+## Walking time between dives, s.
+@export var dive_every: float = 4.0
+
+@export_group("Boss")
+@export var is_boss: bool = false
+## Fence strikes: a fence breaks after this many hits.
+@export var fence_hits: int = 2
+@export var strike_every: float = 1.5
+## Stuns the hero within this radius every `stun_every` seconds.
+@export var stun_radius: float = 160.0
+@export var stun_every: float = 5.0
+
 @export_group("Look")
 ## Walk sheet: one row of square frames (design C).
 @export var walk_sheet: Texture2D

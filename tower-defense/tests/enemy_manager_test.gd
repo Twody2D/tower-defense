@@ -17,7 +17,7 @@ func _make() -> EnemyManager:
 	var m: EnemyManager = auto_free(EnemyManager.new())
 	m.lateral_spread = 0.0
 	m.capacity = 16
-	m.setup(curve)
+	m.setup([curve] as Array[Curve2D], Rect2(-200, -200, 1400, 400))
 	return m
 
 

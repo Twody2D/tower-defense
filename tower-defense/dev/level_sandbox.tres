@@ -1,19 +1,85 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
-[ext_resource type="Resource" path="res://data/enemies/caterpillar.tres" id="2_pest"]
-[ext_resource type="Script" path="res://data/types/defender_data.gd" id="3_def_script"]
-[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="4_goose"]
-[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="5_frog"]
-[ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="6_beaver"]
-[ext_resource type="Resource" path="res://data/defenders/hive.tres" id="7_hive"]
+[ext_resource type="Script" path="res://data/types/wave_data.gd" id="2_wave"]
+[ext_resource type="Script" path="res://data/types/wave_group.gd" id="3_group"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="4_def"]
+[ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="e_beetle"]
+[ext_resource type="Resource" path="res://data/enemies/caterpillar.tres" id="e_caterpillar"]
+[ext_resource type="Resource" path="res://data/enemies/crow.tres" id="e_crow"]
+[ext_resource type="Resource" path="res://data/enemies/fox.tres" id="e_fox"]
+[ext_resource type="Resource" path="res://data/enemies/mole.tres" id="e_mole"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="d_goose"]
+[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="d_frog"]
+[ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="d_beaver"]
+[ext_resource type="Resource" path="res://data/defenders/hive.tres" id="d_hive"]
+
+[sub_resource type="Resource" id="WaveGroup_1_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 12
+interval = 0.5
+road = 0
+delay = 0.0
+
+[sub_resource type="Resource" id="WaveGroup_1_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 4
+interval = 2.0
+road = 0
+delay = 2.0
+
+[sub_resource type="Resource" id="WaveData_1"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_1_1"), SubResource("WaveGroup_1_2")])
+
+[sub_resource type="Resource" id="WaveGroup_2_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 8
+interval = 1.0
+road = 0
+delay = 0.0
+
+[sub_resource type="Resource" id="WaveGroup_2_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 6
+interval = 1.2
+road = 0
+delay = 1.0
+
+[sub_resource type="Resource" id="WaveData_2"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_2_1"), SubResource("WaveGroup_2_2")])
+
+[sub_resource type="Resource" id="WaveGroup_3_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_fox")
+count = 1
+interval = 1.0
+road = 0
+delay = 0.0
+
+[sub_resource type="Resource" id="WaveGroup_3_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 20
+interval = 0.4
+road = 0
+delay = 3.0
+
+[sub_resource type="Resource" id="WaveData_3"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_3_1"), SubResource("WaveGroup_3_2")])
 
 [resource]
 script = ExtResource("1_level")
 number = 1
 start_coins = 300
 carrots = 20
-defenders = Array[ExtResource("3_def_script")]([ExtResource("4_goose"), ExtResource("5_frog"), ExtResource("6_beaver"), ExtResource("7_hive")])
-test_enemy = ExtResource("2_pest")
-test_wave_base = 10
-test_wave_growth = 4
+defenders = Array[ExtResource("4_def")]([ExtResource("d_goose"), ExtResource("d_frog"), ExtResource("d_beaver"), ExtResource("d_hive")])
+waves = Array[ExtResource("2_wave")]([SubResource("WaveData_1"), SubResource("WaveData_2"), SubResource("WaveData_3")])
+wave_pause = 8.0
+first_pause = 3.0
