@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/hero_chicken_sad_4f.png-17f8ccd84cfd70fa56d1c
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

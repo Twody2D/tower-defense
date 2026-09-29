@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/env_farm_barn_flag_4f.png-3342a0fc5bb0a92e6d0
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
