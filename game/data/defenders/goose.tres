@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DefenderData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"goose"
+name_key = "DEF_GOOSE"
+prices = Array[int]([10, 20, 40])
+damage = 8.0
+attacks_per_second = 2.0
+radius = 220.0
+hits_flying = true

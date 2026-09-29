@@ -1,0 +1,180 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/joystick.tscn" id="2_joy"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_counter_plate.png" id="3_plate"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_coin.png" id="4_coin"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_carrot.png" id="5_carrot"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_round_normal.png" id="6_round"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_round_pressed.png" id="7_round_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_pause.png" id="8_pause"]
+
+[node name="Hud" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hud")
+
+[node name="Joystick" parent="." instance=ExtResource("2_joy")]
+
+[node name="TopLeft" type="HBoxContainer" parent="."]
+offset_left = 22.0
+offset_top = 18.0
+offset_right = 322.0
+offset_bottom = 61.0
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="Coins" type="Control" parent="TopLeft"]
+custom_minimum_size = Vector2(128, 43)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Plate" type="TextureRect" parent="TopLeft/Coins"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_plate")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TopLeft/Coins"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 43.0
+offset_bottom = 47.0
+mouse_filter = 2
+texture = ExtResource("4_coin")
+expand_mode = 1
+
+[node name="CoinsLabel" type="Label" parent="TopLeft/Coins"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_right = 124.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 25
+text = "0"
+vertical_alignment = 1
+
+[node name="Carrots" type="Control" parent="TopLeft"]
+custom_minimum_size = Vector2(128, 43)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Plate" type="TextureRect" parent="TopLeft/Carrots"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_plate")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TopLeft/Carrots"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -6.0
+offset_right = 43.0
+offset_bottom = 45.0
+mouse_filter = 2
+texture = ExtResource("5_carrot")
+expand_mode = 1
+
+[node name="CarrotsLabel" type="Label" parent="TopLeft/Carrots"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_right = 124.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 25
+text = "20/20"
+vertical_alignment = 1
+
+[node name="PauseButton" type="TextureButton" parent="." groups=["hud_blocker"]]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.0
+offset_top = 14.0
+offset_right = -22.0
+offset_bottom = 78.0
+grow_horizontal = 0
+texture_normal = ExtResource("6_round")
+texture_pressed = ExtResource("7_round_p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="PauseButton"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 50.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = ExtResource("8_pause")
+expand_mode = 1
+
+[node name="WaveLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 70.0
+offset_right = 150.0
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -40.0
+offset_right = 300.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DebugLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -34.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2

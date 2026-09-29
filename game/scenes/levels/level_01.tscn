@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_level"]
+[ext_resource type="Resource" path="res://data/levels/level_01.tres" id="2_data"]
+[ext_resource type="PackedScene" path="res://scenes/battle/base.tscn" id="3_base"]
+[ext_resource type="PackedScene" path="res://scenes/battle/build_plot.tscn" id="4_plot"]
+
+[sub_resource type="Curve2D" id="Curve2D_road"]
+_data = {
+"points": PackedVector2Array(0, 0, -220, 0, 2000, 200, 220, -40, -220, 40, 1400, 420, 0, -220, 0, 220, 1150, 880, 0, -220, 0, 220, 1500, 1300, 260, 0, -260, 0, 1100, 1720, 220, 0, 0, 0, 520, 1760)
+}
+point_count = 6
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_level")
+data = ExtResource("2_data")
+bounds = Rect2(0, 0, 2200, 2200)
+road_width = 72.0
+
+[node name="Road" type="Path2D" parent="."]
+curve = SubResource("Curve2D_road")
+
+[node name="Base" parent="." instance=ExtResource("3_base")]
+position = Vector2(390, 1760)
+
+[node name="HeroStart" type="Marker2D" parent="."]
+position = Vector2(640, 1460)
+
+[node name="Plots" type="Node2D" parent="."]
+
+[node name="Plot1" parent="Plots" instance=ExtResource("4_plot")]
+position = Vector2(860, 1540)

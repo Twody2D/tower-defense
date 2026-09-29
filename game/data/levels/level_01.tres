@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
+[ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="2_beetle"]
+
+[resource]
+script = ExtResource("1_level")
+number = 1
+start_coins = 10
+carrots = 20
+test_enemy = ExtResource("2_beetle")

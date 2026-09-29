@@ -44,6 +44,7 @@ build/           экспорт (в .gitignore)
 ## Технические правила
 
 - GDScript строго типизирован, `untyped_declaration` и `unsafe_*` — ошибки.
+- Макеты дизайна нарисованы под 1080 по короткой стороне: размеры UI из макетов × 2/3. Камера показывает 1080 px мира по короткой стороне (мир в макете 1:1).
 - Compatibility, база 720×720, stretch `canvas_items` + `expand` (ландшафт → 1280×720, портрет → 720×1280). UI на якорях.
 - Враги — данные в `EnemyManager`, рисуются `MultiMeshInstance2D`. В бою без `instantiate()`/`queue_free()` — пулы.
 - Баланс — только в `.tres` в `game/data/`. Тексты — `tr("KEY")`, `localization/translations.csv`.

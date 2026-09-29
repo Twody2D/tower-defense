@@ -1,0 +1,33 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_battle"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="2_level"]
+[ext_resource type="Resource" path="res://data/hero_stats.tres" id="3_stats"]
+[ext_resource type="Script" path="res://scenes/battle/coins.gd" id="4_coins"]
+[ext_resource type="Script" path="res://scenes/battle/enemy_manager.gd" id="5_enemies"]
+[ext_resource type="PackedScene" path="res://scenes/battle/hero.tscn" id="6_hero"]
+[ext_resource type="Script" path="res://scenes/battle/projectiles.gd" id="7_proj"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8_hud"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_battle")
+level_scene = ExtResource("2_level")
+hero_stats = ExtResource("3_stats")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="LevelHolder" type="Node2D" parent="World"]
+
+[node name="Coins" type="Node2D" parent="World"]
+script = ExtResource("4_coins")
+
+[node name="Enemies" type="Node2D" parent="World"]
+script = ExtResource("5_enemies")
+lateral_spread = 20.0
+
+[node name="Hero" parent="World" instance=ExtResource("6_hero")]
+
+[node name="Projectiles" type="Node2D" parent="World"]
+script = ExtResource("7_proj")
+
+[node name="Hud" parent="." instance=ExtResource("8_hud")]

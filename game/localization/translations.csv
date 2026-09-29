@@ -1,3 +1,7 @@
 keys,ru,en
 GAME_TITLE,Защити огород!,Protect the Garden!
 BTN_PLAY,Играть,Play
+HUD_WAVE,Волна %d,Wave %d
+MSG_PAUSED,Пауза,Paused
+MSG_LOST,Морковки унесли!,The carrots are gone!
+DEF_GOOSE,Гусь-стрелок,Goose Archer
