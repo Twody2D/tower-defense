@@ -1,13 +1,24 @@
 class_name Hero
 extends CharacterBody2D
 ## Raccoon farmer: runs from WASD/arrows or the joystick, throws apples at the
-## nearest pest on its own. The battle hands in `enemies` and `projectiles`.
+## nearest pest on its own (also while running). A pest touching the hero
+## stuns it for `stun_time`, then it is untouchable for `invulnerable_time`.
+## The battle hands in `enemies` and `projectiles`.
 
 @export var stats: HeroStats
 ## Level bounds the hero cannot leave (set by the battle from the level).
-@export var bounds: Rect2 = Rect2(0, 0, 2000, 2000)
-@export var apple_color: Color = Color("e53935")
-@export var apple_size: float = 8.0
+@export var bounds: Rect2 = Rect2(0, 0, 1920, 1920)
+@export_group("Look")
+@export var idle_sheet: Texture2D
+@export var idle_frames: int = 4
+@export var idle_fps: float = 6.0
+@export var run_sheet: Texture2D
+@export var run_frames: int = 6
+@export var run_fps: float = 12.0
+@export var projectile_texture: Texture2D
+@export var projectile_frames: int = 4
+## Where the apple leaves the paw, relative to the feet.
+@export var throw_offset: Vector2 = Vector2(0, -60)
 
 ## Joystick direction (length 0..1), written by the HUD joystick.
 var joystick: Vector2 = Vector2.ZERO
@@ -19,11 +30,24 @@ var attack_speed_mult: float = 1.0
 
 var _cooldown: float = 0.0
 var _stun_left: float = 0.0
-var _facing: float = 1.0
+var _invulnerable_left: float = 0.0
+var _anim_time: float = 0.0
+var _running: bool = false
+var _shot: Projectiles.Shot = Projectiles.Shot.new()
+
+@onready var _sprite: Sprite2D = $Sprite
+@onready var _stars: Node2D = $StunStars
+
+
+func _ready() -> void:
+	_stars.visible = false
+	_show_anim(false)
+	_shot.texture = projectile_texture
+	_shot.frames = projectile_frames
 
 
 func _physics_process(delta: float) -> void:
-	_stun_left = maxf(_stun_left - delta, 0.0)
+	_tick_stun(delta)
 	var dir: Vector2 = Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
 	if joystick != Vector2.ZERO:
 		dir = joystick
@@ -31,12 +55,13 @@ func _physics_process(delta: float) -> void:
 		dir = Vector2.ZERO
 	velocity = dir.limit_length(1.0) * stats.speed
 	if absf(velocity.x) > 1.0:
-		_facing = signf(velocity.x)
+		_sprite.flip_h = velocity.x < 0.0
 	move_and_slide()
 	var r: float = stats.body_radius
 	position = position.clamp(bounds.position + Vector2(r, r), bounds.end - Vector2(r, r))
+	_check_touch()
 	_attack(delta)
-	queue_redraw()
+	_animate(delta)
 
 
 func is_moving() -> bool:
@@ -47,8 +72,36 @@ func is_stunned() -> bool:
 	return _stun_left > 0.0
 
 
+func is_invulnerable() -> bool:
+	return _invulnerable_left > 0.0
+
+
+## Stun from a pest touch or the fox strike; ignored while untouchable.
 func stun() -> void:
+	if _stun_left > 0.0 or _invulnerable_left > 0.0:
+		return
 	_stun_left = stats.stun_time
+	_stars.visible = true
+
+
+func _tick_stun(delta: float) -> void:
+	if _stun_left > 0.0:
+		_stun_left -= delta
+		if _stun_left <= 0.0:
+			_stun_left = 0.0
+			_invulnerable_left = stats.invulnerable_time
+			_stars.visible = false
+	elif _invulnerable_left > 0.0:
+		_invulnerable_left = maxf(_invulnerable_left - delta, 0.0)
+	# Blink while untouchable.
+	_sprite.modulate.a = 0.5 if _invulnerable_left > 0.0 and fmod(_invulnerable_left, 0.2) < 0.1 else 1.0
+
+
+func _check_touch() -> void:
+	if enemies == null or _stun_left > 0.0 or _invulnerable_left > 0.0:
+		return
+	if enemies.find_touching(global_position, stats.body_radius) >= 0:
+		stun()
 
 
 func _attack(delta: float) -> void:
@@ -59,18 +112,24 @@ func _attack(delta: float) -> void:
 	if target < 0:
 		return
 	_cooldown = 1.0 / (stats.attacks_per_second * attack_speed_mult)
-	var from: Vector2 = global_position + Vector2(0, -30)
-	projectiles.fire(from, target, stats.damage * damage_mult, stats.projectile_speed, apple_color, apple_size)
+	_shot.damage = stats.damage * damage_mult
+	_shot.speed = stats.projectile_speed
+	projectiles.fire(global_position + throw_offset, target, _shot)
 
 
-## Grey prototype look: body, straw hat, eye on the facing side.
-func _draw() -> void:
-	var outline: Color = Color("2b2b3a")
-	draw_circle(Vector2(0, 26), 24.0, Color(0, 0, 0, 0.2))
-	draw_circle(Vector2(0, 0), 26.0, Color("8d8d99"))
-	draw_circle(Vector2(0, 0), 26.0, outline, false, 3.0)
-	draw_circle(Vector2(12 * _facing, -4), 5.0, Color.WHITE)
-	draw_rect(Rect2(-30, -34, 60, 8), Color("e8c56a"))
-	draw_rect(Rect2(-16, -48, 32, 16), Color("e8c56a"))
-	if _stun_left > 0.0:
-		draw_circle(Vector2(0, -60), 8.0, Color("ffc933"))
+## Frame stepping over idle/run sheets (stage 5 moves this to SpriteFrames).
+func _animate(delta: float) -> void:
+	var running: bool = is_moving()
+	if running != _running:
+		_show_anim(running)
+	_anim_time += delta
+	var fps: float = run_fps if _running else idle_fps
+	_sprite.frame = int(_anim_time * fps) % _sprite.hframes
+
+
+func _show_anim(running: bool) -> void:
+	_running = running
+	_anim_time = 0.0
+	_sprite.texture = run_sheet if running else idle_sheet
+	_sprite.hframes = run_frames if running else idle_frames
+	_sprite.frame = 0

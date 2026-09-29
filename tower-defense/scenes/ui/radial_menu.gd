@@ -1,0 +1,89 @@
+class_name RadialMenu
+extends Control
+## Defender pick over a build plot (design H: arc of 4 slots, R 170 at 1080
+## → 113 here). The battle pauses the game while it is open. Tap a slot or
+## press 1–4 to pick; tap outside to close without a pick.
+
+signal picked(plot: BuildPlot, data: DefenderData)
+signal closed
+
+## Menu centre above the plot centre, px (design: 20 at 1080).
+@export var lift: float = 13.0
+
+var plot: BuildPlot
+
+@onready var _anchor: Control = $Anchor
+var _slots: Array[RadialSlot] = []
+
+
+func _ready() -> void:
+	visible = false
+	for child: Node in _anchor.get_children():
+		var slot: RadialSlot = child as RadialSlot
+		if slot != null:
+			_slots.append(slot)
+			slot.picked.connect(_on_slot_picked)
+
+
+## `catalog` — all defenders in menu order; `allowed` — open on this level.
+func open(for_plot: BuildPlot, catalog: Array[DefenderData], allowed: Array[DefenderData]) -> void:
+	plot = for_plot
+	for i: int in _slots.size():
+		var slot: RadialSlot = _slots[i]
+		slot.visible = i < catalog.size()
+		if slot.visible:
+			slot.show_defender(catalog[i], catalog[i] in allowed)
+	_follow_plot()
+	visible = true
+
+
+func close() -> void:
+	if not visible:
+		return
+	visible = false
+	plot = null
+	closed.emit()
+
+
+func _process(_delta: float) -> void:
+	if visible:
+		_follow_plot()
+
+
+func _follow_plot() -> void:
+	if plot == null:
+		return
+	var screen: Vector2 = get_viewport().get_canvas_transform() * plot.global_position
+	_anchor.position = screen - Vector2(0, lift)
+
+
+func _gui_input(event: InputEvent) -> void:
+	# A tap that no slot took closes the menu.
+	if event is InputEventMouseButton:
+		var mb: InputEventMouseButton = event
+		if mb.pressed:
+			close()
+			accept_event()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not visible or not event.is_pressed():
+		return
+	var key: InputEventKey = event as InputEventKey
+	if key == null:
+		return
+	var n: int = key.physical_keycode - KEY_1
+	if n >= 0 and n < _slots.size() and _slots[n].visible and not _slots[n].disabled:
+		_on_slot_picked(_slots[n].data)
+		get_viewport().set_input_as_handled()
+	elif key.physical_keycode == KEY_ESCAPE:
+		close()
+		get_viewport().set_input_as_handled()
+
+
+func _on_slot_picked(data: DefenderData) -> void:
+	var p: BuildPlot = plot
+	visible = false
+	plot = null
+	picked.emit(p, data)
+	closed.emit()

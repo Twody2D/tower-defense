@@ -1,6 +1,196 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/base.gd" id="1_base"]
+[ext_resource type="Texture2D" path="res://art/env/base_bed.png" id="2_bed"]
+[ext_resource type="Texture2D" path="res://art/env/base_hole.png" id="3_hole"]
+[ext_resource type="Texture2D" path="res://art/env/base_carrot_idle_2f.png" id="4_carrot"]
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_base")
+
+[node name="Bed" type="Sprite2D" parent="."]
+texture = ExtResource("2_bed")
+
+[node name="Holes" type="Node2D" parent="."]
+
+[node name="Carrots" type="Node2D" parent="."]
+
+[node name="Hole1" type="Sprite2D" parent="Holes"]
+position = Vector2(-80, -56)
+texture = ExtResource("3_hole")
+
+[node name="Hole2" type="Sprite2D" parent="Holes"]
+position = Vector2(-40, -56)
+texture = ExtResource("3_hole")
+
+[node name="Hole3" type="Sprite2D" parent="Holes"]
+position = Vector2(0, -56)
+texture = ExtResource("3_hole")
+
+[node name="Hole4" type="Sprite2D" parent="Holes"]
+position = Vector2(40, -56)
+texture = ExtResource("3_hole")
+
+[node name="Hole5" type="Sprite2D" parent="Holes"]
+position = Vector2(80, -56)
+texture = ExtResource("3_hole")
+
+[node name="Hole6" type="Sprite2D" parent="Holes"]
+position = Vector2(-80, -14)
+texture = ExtResource("3_hole")
+
+[node name="Hole7" type="Sprite2D" parent="Holes"]
+position = Vector2(-40, -14)
+texture = ExtResource("3_hole")
+
+[node name="Hole8" type="Sprite2D" parent="Holes"]
+position = Vector2(0, -14)
+texture = ExtResource("3_hole")
+
+[node name="Hole9" type="Sprite2D" parent="Holes"]
+position = Vector2(40, -14)
+texture = ExtResource("3_hole")
+
+[node name="Hole10" type="Sprite2D" parent="Holes"]
+position = Vector2(80, -14)
+texture = ExtResource("3_hole")
+
+[node name="Hole11" type="Sprite2D" parent="Holes"]
+position = Vector2(-80, 28)
+texture = ExtResource("3_hole")
+
+[node name="Hole12" type="Sprite2D" parent="Holes"]
+position = Vector2(-40, 28)
+texture = ExtResource("3_hole")
+
+[node name="Hole13" type="Sprite2D" parent="Holes"]
+position = Vector2(0, 28)
+texture = ExtResource("3_hole")
+
+[node name="Hole14" type="Sprite2D" parent="Holes"]
+position = Vector2(40, 28)
+texture = ExtResource("3_hole")
+
+[node name="Hole15" type="Sprite2D" parent="Holes"]
+position = Vector2(80, 28)
+texture = ExtResource("3_hole")
+
+[node name="Hole16" type="Sprite2D" parent="Holes"]
+position = Vector2(-80, 70)
+texture = ExtResource("3_hole")
+
+[node name="Hole17" type="Sprite2D" parent="Holes"]
+position = Vector2(-40, 70)
+texture = ExtResource("3_hole")
+
+[node name="Hole18" type="Sprite2D" parent="Holes"]
+position = Vector2(0, 70)
+texture = ExtResource("3_hole")
+
+[node name="Hole19" type="Sprite2D" parent="Holes"]
+position = Vector2(40, 70)
+texture = ExtResource("3_hole")
+
+[node name="Hole20" type="Sprite2D" parent="Holes"]
+position = Vector2(80, 70)
+texture = ExtResource("3_hole")
+
+[node name="Carrot1" type="Sprite2D" parent="Carrots"]
+position = Vector2(-80, -68)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot2" type="Sprite2D" parent="Carrots"]
+position = Vector2(-40, -68)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot3" type="Sprite2D" parent="Carrots"]
+position = Vector2(0, -68)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot4" type="Sprite2D" parent="Carrots"]
+position = Vector2(40, -68)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot5" type="Sprite2D" parent="Carrots"]
+position = Vector2(80, -68)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot6" type="Sprite2D" parent="Carrots"]
+position = Vector2(-80, -26)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot7" type="Sprite2D" parent="Carrots"]
+position = Vector2(-40, -26)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot8" type="Sprite2D" parent="Carrots"]
+position = Vector2(0, -26)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot9" type="Sprite2D" parent="Carrots"]
+position = Vector2(40, -26)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot10" type="Sprite2D" parent="Carrots"]
+position = Vector2(80, -26)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot11" type="Sprite2D" parent="Carrots"]
+position = Vector2(-80, 16)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot12" type="Sprite2D" parent="Carrots"]
+position = Vector2(-40, 16)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot13" type="Sprite2D" parent="Carrots"]
+position = Vector2(0, 16)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot14" type="Sprite2D" parent="Carrots"]
+position = Vector2(40, 16)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot15" type="Sprite2D" parent="Carrots"]
+position = Vector2(80, 16)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot16" type="Sprite2D" parent="Carrots"]
+position = Vector2(-80, 58)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot17" type="Sprite2D" parent="Carrots"]
+position = Vector2(-40, 58)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot18" type="Sprite2D" parent="Carrots"]
+position = Vector2(0, 58)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot19" type="Sprite2D" parent="Carrots"]
+position = Vector2(40, 58)
+texture = ExtResource("4_carrot")
+hframes = 2
+
+[node name="Carrot20" type="Sprite2D" parent="Carrots"]
+position = Vector2(80, 58)
+texture = ExtResource("4_carrot")
+hframes = 2

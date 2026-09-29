@@ -1,16 +1,18 @@
 class_name Coins
 extends Node2D
-## Coins on the ground as arrays. A coin pops out of a defeated pest, lies
-## `lifetime` seconds (blinks at the end) and flies to the hero inside the
-## magnet radius. Over `capacity` new coins merge into existing ones (×5 coin).
+## Coins on the ground: a pool of Coin nodes made once at start. A coin pops
+## out of a defeated pest, lies `lifetime` seconds (blinks at the end) and
+## flies to the hero inside the magnet radius. Over `capacity` new coins
+## merge into existing ones (the big ×5 coin).
 
 signal collected(value: int)
 
+@export var coin_scene: PackedScene
 @export var lifetime: float = 15.0
 ## Blinking before a coin disappears, s.
 @export var blink_time: float = 3.0
 @export var capacity: int = 150
-## Value of a merged big coin.
+## A coin worth this much or more looks like the big ×5 coin.
 @export var merged_value: int = 5
 ## Pop scatter around the drop point, px.
 @export var scatter: float = 26.0
@@ -19,126 +21,111 @@ signal collected(value: int)
 @export var fly_accel: float = 1400.0
 ## Pick-up distance, px.
 @export var pickup_distance: float = 22.0
+## Coins fly to the hero from the chest height, px.
+@export var hero_offset: Vector2 = Vector2(0, -40)
 
 var count: int = 0
 ## Set by the battle: coins fly to this node inside `magnet_radius`.
 var hero: Node2D
 var magnet_radius: float = 120.0
 
-var _pos: PackedVector2Array = PackedVector2Array()
-var _age: PackedFloat32Array = PackedFloat32Array()
-var _value: PackedInt32Array = PackedInt32Array()
-## 0 = lying, > 0 = flying at this speed.
-var _fly: PackedFloat32Array = PackedFloat32Array()
+var _pool: Array[Coin] = []
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _time: float = 0.0
 
 
 func _ready() -> void:
-	_pos.resize(capacity)
-	_age.resize(capacity)
-	_value.resize(capacity)
-	_fly.resize(capacity)
+	for i: int in capacity:
+		var c: Coin = coin_scene.instantiate() as Coin
+		c.visible = false
+		add_child(c)
+		_pool.append(c)
 
 
 func drop(at: Vector2, amount: int) -> void:
 	for n: int in amount:
 		var p: Vector2 = at + Vector2(_rng.randf_range(-scatter, scatter), _rng.randf_range(-scatter, scatter) * 0.6)
 		if count < capacity:
-			var i: int = count
+			_pool[count].drop(p)
 			count += 1
-			_pos[i] = p
-			_age[i] = 0.0
-			_value[i] = 1
-			_fly[i] = 0.0
 		else:
 			_merge(p)
 
 
 func _process(delta: float) -> void:
 	if hero != null:
-		step(delta, hero.global_position, magnet_radius)
-	queue_redraw()
+		step(delta, hero.global_position + hero_offset, magnet_radius)
 
 
 ## One frame: age, magnet, pick-up. Separate from _process for tests.
-func step(delta: float, hero_pos: Vector2, magnet_radius: float) -> void:
+func step(delta: float, hero_pos: Vector2, magnet: float) -> void:
 	_time += delta
-	var r2: float = magnet_radius * magnet_radius
+	var r2: float = magnet * magnet
 	var i: int = 0
 	while i < count:
-		_age[i] += delta
-		if _fly[i] == 0.0 and _pos[i].distance_squared_to(hero_pos) <= r2:
-			_fly[i] = fly_speed
-		if _fly[i] > 0.0:
-			_fly[i] += fly_accel * delta
-			var to: Vector2 = hero_pos - _pos[i]
-			var travel: float = _fly[i] * delta
+		var c: Coin = _pool[i]
+		c.age += delta
+		if c.fly == 0.0 and c.global_position.distance_squared_to(hero_pos) <= r2:
+			c.fly = fly_speed
+		if c.fly > 0.0:
+			c.fly += fly_accel * delta
+			var to: Vector2 = hero_pos - c.global_position
+			var travel: float = c.fly * delta
 			if to.length() <= maxf(travel, pickup_distance):
-				var v: int = _value[i]
-				_remove(i)
+				var v: int = c.value
+				_release(i)
 				collected.emit(v)
 				continue
-			_pos[i] += to.normalized() * travel
-		elif _age[i] >= lifetime:
-			_remove(i)
+			c.global_position += to.normalized() * travel
+		elif c.age >= lifetime:
+			_release(i)
 			continue
+		c.tick_look(_time, c.fly == 0.0 and lifetime - c.age < blink_time)
 		i += 1
 
 
 func clear() -> void:
+	for i: int in count:
+		_pool[i].visible = false
 	count = 0
 
 
 func total_value() -> int:
 	var total: int = 0
 	for i: int in count:
-		total += _value[i]
+		total += _pool[i].value
 	return total
 
 
-## Pool is full: add the coin to the nearest lying single coin (it becomes ×5),
+## Pool is full: add the coin to the nearest lying small coin (it grows to ×5),
 ## or to the nearest coin at all.
 func _merge(p: Vector2) -> void:
 	var best: int = -1
 	var best_d2: float = INF
 	for i: int in count:
-		if _fly[i] > 0.0 or _value[i] >= merged_value:
+		var c: Coin = _pool[i]
+		if c.fly > 0.0 or c.value >= merged_value:
 			continue
-		var d2: float = p.distance_squared_to(_pos[i])
+		var d2: float = p.distance_squared_to(c.global_position)
 		if d2 < best_d2:
 			best_d2 = d2
 			best = i
 	if best < 0:
 		for i: int in count:
-			var d2: float = p.distance_squared_to(_pos[i])
+			var d2: float = p.distance_squared_to(_pool[i].global_position)
 			if d2 < best_d2:
 				best_d2 = d2
 				best = i
 	if best >= 0:
-		_value[best] += 1
-		_age[best] = 0.0
+		var c: Coin = _pool[best]
+		c.set_value(c.value + 1, merged_value)
+		c.age = 0.0
 
 
-func _remove(i: int) -> void:
+func _release(i: int) -> void:
 	var last: int = count - 1
-	if i != last:
-		_pos[i] = _pos[last]
-		_age[i] = _age[last]
-		_value[i] = _value[last]
-		_fly[i] = _fly[last]
+	var done: Coin = _pool[i]
+	done.visible = false
+	_pool[i] = _pool[last]
+	_pool[last] = done
 	count = last
-
-
-func _draw() -> void:
-	for i: int in count:
-		var left: float = lifetime - _age[i]
-		if _fly[i] == 0.0 and left < blink_time and fmod(_time, 0.3) < 0.12:
-			continue
-		var r: float = 11.0 if _value[i] < merged_value else 16.0
-		var p: Vector2 = _pos[i]
-		if _fly[i] == 0.0:
-			draw_circle(p + Vector2(0, r * 0.7), r * 0.8, Color(0, 0, 0, 0.18))
-		draw_circle(p, r, Color("ffc933"))
-		draw_circle(p, r, Color("2b2b3a"), false, 2.5)
-		draw_circle(p + Vector2(-r * 0.3, -r * 0.3), r * 0.25, Color("fff4dc"))

@@ -21,9 +21,9 @@ enum Kind {
 @export var damage: float = 8.0
 @export var attacks_per_second: float = 2.0
 @export var radius: float = 220.0
-## Damage multiplier per level (1, 2, 3). The spec gives only level 1 values.
-@export var level_damage: Array[float] = [1.0, 1.5, 2.2]
-## Radius multiplier per level.
+## Damage multiplier per level (1, 2, 3): +50% per level (CODE_PROMPT).
+@export var level_damage: Array[float] = [1.0, 1.5, 2.0]
+## Radius multiplier per level: +10% per level.
 @export var level_radius: Array[float] = [1.0, 1.1, 1.2]
 @export var projectile_speed: float = 800.0
 ## Hits flying pests (crows).
@@ -45,13 +45,20 @@ enum Kind {
 @export_group("Fence")
 ## Fence HP per level.
 @export var fence_hp: Array[float] = []
-## Repair: HP restored per coin.
-@export var repair_hp_per_coin: float = 30.0
+## Full repair costs this share of the current level price.
+@export var repair_price_share: float = 0.5
 
-@export_group("Prototype")
-@export var color: Color = Color("9e9e9e")
-@export var projectile_color: Color = Color("7ed957")
-@export var projectile_size: float = 6.0
+@export_group("Look")
+## Idle sheet per level (1, 2, 3), one row of square frames (design D).
+@export var level_idle: Array[Texture2D] = []
+@export var idle_frames: int = 4
+@export var idle_fps: float = 6.0
+## Feet are this far below the frame centre, px.
+@export var feet_offset: float = 72.0
+@export var projectile_texture: Texture2D
+@export var projectile_frames: int = 1
+## Where the shot starts, relative to the plot centre.
+@export var muzzle: Vector2 = Vector2(0, -90)
 
 
 func price(level: int) -> int:
@@ -74,6 +81,12 @@ func fence_hp_at(level: int) -> float:
 	if fence_hp.is_empty():
 		return 0.0
 	return fence_hp[clampi(level - 1, 0, fence_hp.size() - 1)]
+
+
+func idle_sheet(level: int) -> Texture2D:
+	if level_idle.is_empty():
+		return null
+	return level_idle[clampi(level - 1, 0, level_idle.size() - 1)]
 
 
 func max_level() -> int:

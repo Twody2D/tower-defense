@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/enemies/enemy_beetle_walk_4f.png" id="2_sheet"]
 
 [resource]
-script = ExtResource("1_enemy")
+script = ExtResource("1_script")
 id = &"beetle"
 hp = 12.0
 speed = 70.0
@@ -11,3 +12,8 @@ coins = 1
 carrots = 1
 radius = 16.0
 frame_size = 48
+flying = false
+chew_dps = 5.0
+walk_sheet = ExtResource("2_sheet")
+walk_frames = 4
+feet_offset = 23.0

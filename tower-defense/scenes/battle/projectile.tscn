@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/battle/projectile.gd" id="1_proj"]
+[ext_resource type="Texture2D" path="res://art/hero/proj_apple_spin_4f.png" id="2_apple"]
+
+[node name="Projectile" type="Sprite2D"]
+texture = ExtResource("2_apple")
+hframes = 4
+script = ExtResource("1_proj")

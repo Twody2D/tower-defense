@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/enemies/boss_fox_walk_6f.png" id="2_sheet"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"fox"
+hp = 1500.0
+speed = 35.0
+coins = 50
+carrots = 5
+radius = 60.0
+frame_size = 192
+flying = false
+chew_dps = 75.0
+walk_sheet = ExtResource("2_sheet")
+walk_frames = 6
+feet_offset = 88.0

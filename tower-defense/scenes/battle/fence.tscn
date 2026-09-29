@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/battle/fence.gd" id="1_fence"]
+[ext_resource type="Texture2D" path="res://art/defenders/fence_l1_damage_3f.png" id="2_fence"]
+[ext_resource type="Texture2D" path="res://art/env/ui_def_stars_1.png" id="3_s1"]
+[ext_resource type="Texture2D" path="res://art/env/ui_def_stars_2.png" id="4_s2"]
+[ext_resource type="Texture2D" path="res://art/env/ui_def_stars_3.png" id="5_s3"]
+
+[node name="Fence" type="Node2D"]
+script = ExtResource("1_fence")
+star_textures = Array[Texture2D]([ExtResource("3_s1"), ExtResource("4_s2"), ExtResource("5_s3")])
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_fence")
+hframes = 3
+offset = Vector2(0, -20)
+
+[node name="Stars" type="Sprite2D" parent="."]
+position = Vector2(0, -62)
+texture = ExtResource("3_s1")

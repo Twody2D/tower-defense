@@ -4,9 +4,10 @@ extends GdUnitTestSuite
 
 func _make(capacity: int = 150) -> Coins:
 	var c: Coins = auto_free(Coins.new())
+	c.coin_scene = load("res://scenes/battle/coin.tscn")
 	c.capacity = capacity
 	c.scatter = 0.0
-	c._ready()
+	add_child(c)
 	return c
 
 

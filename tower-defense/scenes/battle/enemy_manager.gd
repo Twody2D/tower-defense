@@ -5,7 +5,15 @@ extends Node2D
 ## sideways offset so the horde looks like a crowd. Removal is swap-with-last,
 ## so indices change: keep ids, not indices, across frames (index_of).
 ## Effects: slow (sprinkler), damage over time (hive), fences (RoadBlock).
-## Grey prototype draws circles; stage 4 switches drawing to MultiMesh.
+## Drawing: one MultiMeshInstance2D per pest type (made in setup), frames
+## picked in shaders/enemy_frames.gdshader through INSTANCE_CUSTOM.
+
+## One pest type on screen: its MultiMesh and the per-frame instance buffer.
+class TypeView:
+	extends RefCounted
+	var node: MultiMeshInstance2D
+	var buffer: PackedFloat32Array = PackedFloat32Array()
+	var used: int = 0
 
 signal defeated(pos: Vector2, data: EnemyData)
 signal reached_base(data: EnemyData)
@@ -16,6 +24,9 @@ signal reached_base(data: EnemyData)
 @export var capacity: int = 400
 ## Gap between a pest and the fence it chews, px (half the fence depth).
 @export var fence_gap: float = 14.0
+@export var frames_shader: Shader
+## Red flash after a hit, s.
+@export var flash_time: float = 0.12
 
 var count: int = 0
 
@@ -34,13 +45,18 @@ var _slow: PackedFloat32Array = PackedFloat32Array()
 var _slow_left: PackedFloat32Array = PackedFloat32Array()
 var _dot_dps: PackedFloat32Array = PackedFloat32Array()
 var _dot_left: PackedFloat32Array = PackedFloat32Array()
+var _phase: PackedFloat32Array = PackedFloat32Array()
+var _flash: PackedFloat32Array = PackedFloat32Array()
+var _views: Dictionary[EnemyData, TypeView] = {}
+var _time: float = 0.0
 var _index_by_id: Dictionary[int, int] = {}
 var _next_id: int = 1
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
-## Road in world coordinates (the curve is baked with the Path2D transform).
-func setup(curve: Curve2D) -> void:
+## Road in world coordinates (the curve is baked with the Path2D transform) and
+## every pest type the level spawns (their MultiMesh nodes are made here).
+func setup(curve: Curve2D, types: Array[EnemyData] = []) -> void:
 	_curve = curve
 	_length = curve.get_baked_length()
 	_types.resize(capacity)
@@ -55,6 +71,10 @@ func setup(curve: Curve2D) -> void:
 	_slow_left.resize(capacity)
 	_dot_dps.resize(capacity)
 	_dot_left.resize(capacity)
+	_phase.resize(capacity)
+	_flash.resize(capacity)
+	for data: EnemyData in types:
+		_view_of(data)
 	count = 0
 
 
@@ -90,6 +110,8 @@ func spawn(data: EnemyData, hp_multiplier: float = 1.0) -> int:
 	_slow_left[i] = 0.0
 	_dot_dps[i] = 0.0
 	_dot_left[i] = 0.0
+	_phase[i] = _rng.randf()
+	_flash[i] = 0.0
 	_index_by_id[id] = i
 	_place(i)
 	return id
@@ -97,7 +119,7 @@ func spawn(data: EnemyData, hp_multiplier: float = 1.0) -> int:
 
 func _process(delta: float) -> void:
 	step(delta)
-	queue_redraw()
+	_update_views(delta)
 
 
 ## Moves everyone, applies effects; pests at the road end take carrots and leave.
@@ -158,6 +180,18 @@ func find_nearest(pos: Vector2, radius: float, include_flying: bool = true) -> i
 	return best
 
 
+## A walking pest whose body touches a circle at `pos` (hero stun), -1 if none.
+func find_touching(pos: Vector2, radius: float) -> int:
+	for i: int in count:
+		var data: EnemyData = _types[i]
+		if data.flying:
+			continue
+		var r: float = radius + data.radius
+		if pos.distance_squared_to(_pos[i]) <= r * r:
+			return i
+	return -1
+
+
 ## Indices of pests within `radius` (for splash / slow areas).
 func find_in_radius(pos: Vector2, radius: float, include_flying: bool = true) -> PackedInt32Array:
 	var out: PackedInt32Array = PackedInt32Array()
@@ -196,6 +230,7 @@ func damage(index: int, amount: float) -> void:
 	if index < 0 or index >= count:
 		return
 	_hp[index] -= amount
+	_flash[index] = flash_time
 	if _hp[index] <= 0.0:
 		_defeat(index)
 
@@ -257,28 +292,73 @@ func _remove(i: int) -> void:
 		_slow_left[i] = _slow_left[last]
 		_dot_dps[i] = _dot_dps[last]
 		_dot_left[i] = _dot_left[last]
+		_phase[i] = _phase[last]
+		_flash[i] = _flash[last]
 		_index_by_id[_ids[i]] = i
 	_types[last] = null
 	count = last
 
 
-func _draw() -> void:
-	var outline: Color = Color("2b2b3a")
+func _view_of(data: EnemyData) -> TypeView:
+	if _views.has(data):
+		return _views[data]
+	var view: TypeView = TypeView.new()
+	var quad: QuadMesh = QuadMesh.new()
+	var size: float = float(data.walk_sheet.get_height())
+	quad.size = Vector2(size, size)
+	var mm: MultiMesh = MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_2D
+	mm.use_custom_data = true
+	mm.mesh = quad
+	mm.instance_count = capacity
+	mm.visible_instance_count = 0
+	var mat: ShaderMaterial = ShaderMaterial.new()
+	mat.shader = frames_shader
+	mat.set_shader_parameter(&"hframes", data.walk_frames)
+	var node: MultiMeshInstance2D = MultiMeshInstance2D.new()
+	node.name = String(data.id)
+	node.multimesh = mm
+	node.texture = data.walk_sheet
+	node.material = mat
+	add_child(node)
+	view.node = node
+	view.buffer.resize(capacity * 12)
+	_views[data] = view
+	return view
+
+
+## Writes every pest into its type's instance buffer: transform (facing by the
+## sign of x scale; the quad mesh is y-up, so y scale is -1), then custom data.
+## The buffer is taken out of the view while filled, so writes do not copy it.
+func _update_views(delta: float) -> void:
+	_time += delta
+	for data: EnemyData in _views:
+		var view: TypeView = _views[data]
+		var b: PackedFloat32Array = view.buffer
+		view.buffer = PackedFloat32Array()
+		var used: int = 0
+		for i: int in count:
+			if _types[i] != data:
+				continue
+			var o: int = used * 12
+			var p: Vector2 = _pos[i]
+			b[o] = _facing[i]
+			b[o + 1] = 0.0
+			b[o + 2] = 0.0
+			b[o + 3] = p.x
+			b[o + 4] = 0.0
+			b[o + 5] = -1.0
+			b[o + 6] = 0.0
+			b[o + 7] = p.y - data.feet_offset
+			b[o + 8] = float(int((_time + _phase[i]) * data.walk_fps) % data.walk_frames)
+			b[o + 9] = clampf(_flash[i] / flash_time, 0.0, 1.0)
+			b[o + 10] = 1.0 if _slow_left[i] > 0.0 else 0.0
+			b[o + 11] = 0.0
+			used += 1
+		var mm: MultiMesh = view.node.multimesh
+		mm.buffer = b
+		mm.visible_instance_count = used
+		view.buffer = b
+		view.used = used
 	for i: int in count:
-		var data: EnemyData = _types[i]
-		var p: Vector2 = _pos[i]
-		var body: Color = data.color
-		if _slow_left[i] > 0.0:
-			body = body.lerp(Color("6ec6ff"), 0.45)
-		draw_circle(p + Vector2(0, data.radius * 0.6), data.radius * 0.9, Color(0, 0, 0, 0.18))
-		draw_circle(p, data.radius, body)
-		draw_circle(p, data.radius, outline, false, 3.0)
-		# Eye shows the walking direction.
-		draw_circle(p + Vector2(data.radius * 0.45 * _facing[i], -data.radius * 0.25), data.radius * 0.22, Color.WHITE)
-		if _dot_left[i] > 0.0:
-			draw_circle(p + Vector2(-data.radius * 0.6, -data.radius), 4.0, Color("ffc933"))
-		if _hp[i] < _max_hp[i]:
-			var w: float = data.radius * 2.0
-			var top: Vector2 = p + Vector2(-w * 0.5, -data.radius - 10.0)
-			draw_rect(Rect2(top, Vector2(w, 5)), outline)
-			draw_rect(Rect2(top, Vector2(w * _hp[i] / _max_hp[i], 5)), Color("7ed957"))
+		_flash[i] = maxf(_flash[i] - delta, 0.0)

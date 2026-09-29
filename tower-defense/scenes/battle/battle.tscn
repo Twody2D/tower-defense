@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scenes/battle/battle.gd" id="1_battle"]
 [ext_resource type="PackedScene" path="res://scenes/levels/level_01.tscn" id="2_level"]
@@ -8,26 +8,41 @@
 [ext_resource type="PackedScene" path="res://scenes/battle/hero.tscn" id="6_hero"]
 [ext_resource type="Script" path="res://scenes/battle/projectiles.gd" id="7_proj"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8_hud"]
+[ext_resource type="PackedScene" path="res://scenes/battle/coin.tscn" id="9_coin"]
+[ext_resource type="PackedScene" path="res://scenes/battle/projectile.tscn" id="10_projectile"]
+[ext_resource type="Shader" path="res://shaders/enemy_frames.gdshader" id="11_frames"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="12_def_script"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="13_goose"]
+[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="14_frog"]
+[ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="15_beaver"]
+[ext_resource type="Resource" path="res://data/defenders/hive.tres" id="16_hive"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
 level_scene = ExtResource("2_level")
 hero_stats = ExtResource("3_stats")
+defender_catalog = Array[ExtResource("12_def_script")]([ExtResource("13_goose"), ExtResource("14_frog"), ExtResource("15_beaver"), ExtResource("16_hive")])
 
 [node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="LevelHolder" type="Node2D" parent="World"]
+y_sort_enabled = true
 
 [node name="Coins" type="Node2D" parent="World"]
 script = ExtResource("4_coins")
+coin_scene = ExtResource("9_coin")
 
 [node name="Enemies" type="Node2D" parent="World"]
 script = ExtResource("5_enemies")
-lateral_spread = 20.0
+lateral_spread = 10.0
+frames_shader = ExtResource("11_frames")
 
 [node name="Hero" parent="World" instance=ExtResource("6_hero")]
 
 [node name="Projectiles" type="Node2D" parent="World"]
+z_index = 5
 script = ExtResource("7_proj")
+projectile_scene = ExtResource("10_projectile")
 
 [node name="Hud" parent="." instance=ExtResource("8_hud")]

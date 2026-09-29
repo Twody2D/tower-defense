@@ -1,11 +1,14 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
 [ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="2_beetle"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="3_def_script"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="4_goose"]
 
 [resource]
 script = ExtResource("1_level")
 number = 1
 start_coins = 10
 carrots = 20
+defenders = Array[ExtResource("3_def_script")]([ExtResource("4_goose")])
 test_enemy = ExtResource("2_beetle")

@@ -10,6 +10,8 @@ extends Node2D
 @export var visible_short_side: float = 1080.0
 ## Delay before the first wave, s.
 @export var first_wave_delay: float = 3.0
+## All defenders in radial menu order; the level opens some of them.
+@export var defender_catalog: Array[DefenderData] = []
 @export_file("*.tscn") var menu_scene: String = "res://scenes/ui/main_menu.tscn"
 
 var level: Level
@@ -36,7 +38,8 @@ func _ready() -> void:
 	var data: LevelData = level.data
 	state = BattleState.new(data.start_coins, data.carrots)
 
-	enemies.setup(level.road_curve())
+	var types: Array[EnemyData] = [data.test_enemy]
+	enemies.setup(level.road_curve(), types)
 	enemies.defeated.connect(_on_enemy_defeated)
 	enemies.reached_base.connect(_on_enemy_reached_base)
 	projectiles.enemies = enemies
@@ -44,8 +47,8 @@ func _ready() -> void:
 	hero.stats = hero_stats
 	hero.enemies = enemies
 	hero.projectiles = projectiles
-	hero.bounds = level.bounds
-	hero.position = level.hero_start.position
+	hero.bounds = level.bounds()
+	hero.position = level.hero_start()
 
 	coins.hero = hero
 	coins.magnet_radius = hero_stats.magnet_radius
@@ -54,20 +57,24 @@ func _ready() -> void:
 	for plot: BuildPlot in level.plots():
 		plot.hero = hero
 		plot.state = state
-		plot.defender.enemies = enemies
-		plot.defender.projectiles = projectiles
+		plot.options = data.defenders
+		plot.attach(enemies, projectiles)
+		plot.menu_requested.connect(_on_menu_requested)
 
 	hud.bind(state)
 	hud.joystick.changed.connect(_on_joystick)
 	hud.pause_pressed.connect(_toggle_pause)
-	level.base.set_carrots(state.carrots)
-	state.carrots_changed.connect(level.base.set_carrots)
+	hud.radial_menu.picked.connect(_on_defender_picked)
+	hud.radial_menu.closed.connect(_on_menu_closed)
+	level.base().set_carrots(state.carrots)
+	state.carrots_changed.connect(level.base().set_carrots)
 	state.carrots_gone.connect(_on_lost)
 
-	camera.limit_left = int(level.bounds.position.x)
-	camera.limit_top = int(level.bounds.position.y)
-	camera.limit_right = int(level.bounds.end.x)
-	camera.limit_bottom = int(level.bounds.end.y)
+	var b: Rect2 = level.bounds()
+	camera.limit_left = int(b.position.x)
+	camera.limit_top = int(b.position.y)
+	camera.limit_right = int(b.end.x)
+	camera.limit_bottom = int(b.end.y)
 	get_viewport().size_changed.connect(_update_zoom)
 	_update_zoom()
 	camera.reset_smoothing()
@@ -127,13 +134,35 @@ func _on_enemy_reached_base(data: EnemyData) -> void:
 	state.take_carrots(data.carrots)
 
 
+## Hero stepped on an empty plot: pause and show the defender pick.
+func _on_menu_requested(plot: BuildPlot) -> void:
+	if _over or get_tree().paused:
+		return
+	get_tree().paused = true
+	_release_input()
+	hud.radial_menu.open(plot, defender_catalog, plot.options)
+
+
+func _on_defender_picked(plot: BuildPlot, data: DefenderData) -> void:
+	plot.choose(data)
+
+
+func _on_menu_closed() -> void:
+	if not _over:
+		get_tree().paused = false
+
+
+func _release_input() -> void:
+	hud.joystick.release()
+	hero.joystick = Vector2.ZERO
+
+
 func _toggle_pause() -> void:
-	if _over:
+	if _over or hud.radial_menu.visible:
 		return
 	var tree: SceneTree = get_tree()
 	tree.paused = not tree.paused
-	hud.joystick.release()
-	hero.joystick = Vector2.ZERO
+	_release_input()
 	if tree.paused:
 		YandexSdk.gameplay_stop()
 		hud.show_message(tr("MSG_PAUSED"))

@@ -1,14 +1,26 @@
 extends GdUnitTestSuite
-## Whole battle scene: the hero on the plot builds and upgrades the defender,
-## pests die and drop coins, coins reach the hero.
+## Whole battle scene: plot flow (menu → pick → pay → build → upgrade),
+## pests die and drop coins, coins reach the hero, a touch stuns the hero.
 
 
-func test_plot_builds_and_upgrades() -> void:
+func _goose(battle: Battle) -> DefenderData:
+	return battle.defender_catalog[0]
+
+
+func test_plot_menu_pick_build_upgrade() -> void:
 	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
 	var battle: Battle = runner.scene() as Battle
 	var plot: BuildPlot = battle.level.plots()[0]
 	battle.hero.global_position = plot.global_position
-	await runner.simulate_frames(90, 16)
+	await runner.simulate_frames(5, 16)
+	# Stepping on an empty plot pauses the game and opens the menu.
+	assert_bool(battle.get_tree().paused).is_true()
+	assert_bool(battle.hud.radial_menu.visible).is_true()
+	assert_int(plot.paid).is_equal(0)
+	battle.hud.radial_menu._on_slot_picked(_goose(battle))
+	assert_bool(battle.get_tree().paused).is_false()
+	# 10 coins at 0.05 s each.
+	await runner.simulate_frames(50, 16)
 	assert_int(plot.level).is_equal(1)
 	assert_int(battle.state.coins).is_equal(0)
 	assert_bool(plot.defender.visible).is_true()
@@ -27,13 +39,41 @@ func test_plot_builds_and_upgrades() -> void:
 	assert_int(battle.state.coins).is_equal(105 - 20 - 40)
 
 
+func test_menu_closes_without_pick() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
+	var battle: Battle = runner.scene() as Battle
+	var plot: BuildPlot = battle.level.plots()[0]
+	battle.hero.global_position = plot.global_position
+	await runner.simulate_frames(5, 16)
+	battle.hud.radial_menu.close()
+	assert_bool(battle.get_tree().paused).is_false()
+	await runner.simulate_frames(20, 16)
+	assert_object(plot.chosen).is_null()
+	assert_int(battle.state.coins).is_equal(10)
+
+
 func test_hero_kills_pests_and_collects_coins() -> void:
 	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
 	var battle: Battle = runner.scene() as Battle
 	var start_coins: int = battle.state.coins
 	# Stand next to the road where the first wave passes.
 	var road: Curve2D = battle.level.road_curve()
-	battle.hero.global_position = road.sample_baked(500.0) + Vector2(0, 90)
+	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-90, 0)
 	await runner.simulate_frames(1500, 16)
 	assert_int(battle.wave).is_greater_equal(1)
 	assert_int(battle.state.coins).is_greater(start_coins)
+
+
+func test_touch_stuns_then_invulnerable() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
+	var battle: Battle = runner.scene() as Battle
+	var hero: Hero = battle.hero
+	hero.stun()
+	assert_bool(hero.is_stunned()).is_true()
+	await runner.simulate_frames(100, 16)
+	assert_bool(hero.is_stunned()).is_false()
+	assert_bool(hero.is_invulnerable()).is_true()
+	hero.stun()
+	assert_bool(hero.is_stunned()).is_false()
+	await runner.simulate_frames(70, 16)
+	assert_bool(hero.is_invulnerable()).is_false()

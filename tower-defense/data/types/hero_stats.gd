@@ -12,8 +12,10 @@ extends Resource
 @export var attack_radius: float = 180.0
 ## Coins inside this radius fly to the hero, px.
 @export var magnet_radius: float = 120.0
-## Stun time when an enemy (the fox) hits the hero, s.
+## Stun time when a pest touches the hero (or the fox strikes), s.
 @export var stun_time: float = 1.5
+## Untouchable time after a stun, s.
+@export var invulnerable_time: float = 1.0
 ## Flight speed of the thrown apple, px/s.
 @export var projectile_speed: float = 700.0
 ## Body radius for collisions and plot checks, px.

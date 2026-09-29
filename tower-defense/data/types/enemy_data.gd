@@ -18,5 +18,10 @@ extends Resource
 @export var flying: bool = false
 ## Fence damage per second while it stands in front of one.
 @export var chew_dps: float = 5.0
-## Grey-prototype colour (the horde is purple in the design).
-@export var color: Color = Color("8e44ad")
+@export_group("Look")
+## Walk sheet: one row of square frames (design C).
+@export var walk_sheet: Texture2D
+@export var walk_frames: int = 4
+@export var walk_fps: float = 8.0
+## Feet are this far below the frame centre, px (sprite drawn up from the feet).
+@export var feet_offset: float = 23.0

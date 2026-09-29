@@ -6,6 +6,7 @@ extends CanvasLayer
 signal pause_pressed
 
 @onready var joystick: Joystick = $Joystick
+@onready var radial_menu: RadialMenu = $RadialMenu
 @onready var _coins: Label = %CoinsLabel
 @onready var _carrots: Label = %CarrotsLabel
 @onready var _wave: Label = %WaveLabel

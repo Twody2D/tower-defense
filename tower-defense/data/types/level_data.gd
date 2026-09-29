@@ -8,6 +8,8 @@ extends Resource
 @export var start_coins: int = 10
 ## Carrots in the base.
 @export var carrots: int = 20
+## Defenders the player may build on this level (the rest show a lock).
+@export var defenders: Array[DefenderData] = []
 ## Pest HP grows by this share per campaign level (0.08 = +8%).
 @export var hp_growth_per_level: float = 0.08
 ## Grey prototype: one pest type, endless growing waves (real waves in stage 4).

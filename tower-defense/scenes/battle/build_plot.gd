@@ -1,20 +1,34 @@
 class_name BuildPlot
 extends Node2D
-## Build plot (design: dark green rhombus 128×96 with a dashed frame and a price).
-## The hero stands on it → coins go in one by one → at the full price the
-## defender appears; standing again upgrades it (up to max level). Leaving
-## keeps the paid progress.
+## Build plot (design E: pad 128×96, progress ring, price tag).
+## Empty plot: the hero steps on → `menu_requested` (the battle pauses and
+## shows the radial menu) → a defender is chosen → coins go in one by one
+## (`coin_interval`) up to its price → it is built. Standing again upgrades
+## it up to level 3. Leaving keeps the paid progress; the choice can change
+## while nothing is paid yet.
+## Fence plot (on the road): only the fence; a damaged fence is repaired for
+## coins (a full repair = `repair_price_share` of the level price).
 
+signal menu_requested(plot: BuildPlot)
 signal built(plot: BuildPlot, level: int)
 signal coin_paid(plot: BuildPlot)
 
-@export var defender_data: DefenderData
-## Rhombus half-size (pad 128×96 from the design), px.
+## Fence plot: sits on the road, builds only `fence_data`.
+@export var fence_plot: bool = false
+@export var fence_data: DefenderData
+## Not available on this level (grey pad with a lock).
+@export var locked: bool = false
+## Rhombus half-size (pad 128×96), px.
 @export var half_size: Vector2 = Vector2(64, 48)
-## A full price is paid in about this time (cheap ones go at max_interval per coin), s.
-@export var fill_time: float = 1.2
-@export var max_interval: float = 0.09
+## One coin goes into the plot every this many seconds (CODE_PROMPT: 0.05).
+@export var coin_interval: float = 0.05
+@export var pad_normal: Texture2D
+@export var pad_max: Texture2D
+@export var pad_locked: Texture2D
 
+## Defenders the player may pick here (the battle sets it from LevelData).
+var options: Array[DefenderData] = []
+var chosen: DefenderData
 var level: int = 0
 var paid: int = 0
 var hero: Hero
@@ -22,21 +36,43 @@ var state: BattleState
 
 var _timer: float = 0.0
 var _hero_on: bool = false
+var _repair_paid: int = 0
 
 @onready var defender: Defender = $Defender
+@onready var fence: Fence = $Fence
+@onready var _pad: Sprite2D = $Pad
+@onready var _ring: TextureProgressBar = $Ring
+@onready var _price: Node2D = $Price
+@onready var _price_label: Label = $Price/Label
 
 
 func _ready() -> void:
-	defender.data = defender_data
+	defender.visible = false
+	fence.visible = false
+	if fence_plot:
+		chosen = fence_data
+		fence.data = fence_data
+		fence.destroyed.connect(_on_fence_destroyed)
+	_refresh()
+
+
+## Called by the battle once the pests exist (fences register on the road).
+func attach(enemies: EnemyManager, projectiles: Projectiles) -> void:
+	defender.enemies = enemies
+	defender.projectiles = projectiles
+	if fence_plot:
+		fence.attach(enemies)
 
 
 func is_max() -> bool:
-	return level >= defender_data.max_level()
+	return chosen != null and level >= chosen.max_level()
 
 
-## Price of the next level (0 when maxed).
+## Coins still needed for the next level (0 when maxed or nothing chosen).
 func next_price() -> int:
-	return 0 if is_max() else defender_data.price(level + 1)
+	if chosen == null or is_max():
+		return 0
+	return chosen.price(level + 1)
 
 
 func contains(world_pos: Vector2) -> bool:
@@ -44,52 +80,86 @@ func contains(world_pos: Vector2) -> bool:
 	return d.x / half_size.x + d.y / half_size.y <= 1.0
 
 
+## Radial menu answer. Changing the pick is allowed while nothing is paid.
+func choose(data: DefenderData) -> void:
+	if level > 0 or paid > 0:
+		return
+	chosen = data
+	defender.data = data
+	_timer = coin_interval
+	_refresh()
+
+
 func _process(delta: float) -> void:
+	if locked:
+		return
 	var on: bool = hero != null and contains(hero.global_position) and not hero.is_stunned()
 	if on != _hero_on:
 		_hero_on = on
-		_timer = 0.0
-		queue_redraw()
-	if not on or is_max():
+		_timer = coin_interval
+		if on and not fence_plot and level == 0 and paid == 0:
+			menu_requested.emit(self)
+	if not on:
 		return
 	_timer -= delta
-	while _timer <= 0.0 and not is_max():
-		if not state.spend(1):
-			return
-		paid += 1
-		coin_paid.emit(self)
-		_timer += minf(max_interval, fill_time / float(next_price()))
-		if paid >= next_price():
-			paid = 0
-			level += 1
+	while _timer <= 0.0:
+		_timer += coin_interval
+		if not _pay_one():
+			_timer = coin_interval
+			break
+
+
+## One coin into the plot: towards the next level or a fence repair.
+func _pay_one() -> bool:
+	if fence_plot and fence.is_damaged():
+		return _repair_one()
+	if chosen == null or is_max():
+		return false
+	if not state.spend(1):
+		return false
+	paid += 1
+	coin_paid.emit(self)
+	if paid >= next_price():
+		paid = 0
+		level += 1
+		if fence_plot:
+			fence.set_level(level)
+		else:
 			defender.set_level(level)
-			built.emit(self, level)
-		queue_redraw()
+		built.emit(self, level)
+	_refresh()
+	return true
 
 
-func _draw() -> void:
-	var pts: PackedVector2Array = PackedVector2Array([
-		Vector2(0, -half_size.y), Vector2(half_size.x, 0), Vector2(0, half_size.y), Vector2(-half_size.x, 0)])
-	var fill: Color = Color("2e6b35") if not _hero_on else Color("3a8a44")
-	draw_colored_polygon(pts, fill)
-	# Dashed white frame.
-	for k: int in 4:
-		var a: Vector2 = pts[k]
-		var b: Vector2 = pts[(k + 1) % 4]
-		draw_dashed_line(a.lerp(b, 0.08), b.lerp(a, 0.08), Color.WHITE, 4.0, 10.0)
-	if is_max():
+func _repair_one() -> bool:
+	var full_cost: int = maxi(ceili(chosen.price(level) * chosen.repair_price_share), 1)
+	if not state.spend(1):
+		return false
+	coin_paid.emit(self)
+	fence.repair(fence.block.max_hp / float(full_cost))
+	_refresh()
+	return true
+
+
+func _on_fence_destroyed() -> void:
+	level = 0
+	paid = 0
+	_refresh()
+
+
+func _refresh() -> void:
+	if locked:
+		_pad.texture = pad_locked
+		_ring.visible = false
+		_price.visible = false
 		return
+	_pad.texture = pad_max if is_max() else pad_normal
 	var price: int = next_price()
-	if paid > 0:
-		draw_arc(Vector2(0, 0), 30.0, -PI * 0.5, -PI * 0.5 + TAU * float(paid) / float(price), 32, Color("ffc933"), 6.0)
-	# Price in the middle of an empty plot, under the defender on a built one.
-	var y: float = 0.0 if level == 0 else half_size.y + 16.0
-	var fs: int = 30 if level == 0 else 24
-	var font: Font = ThemeDB.get_project_theme().default_font
-	var text: String = str(price - paid)
-	var w: float = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-	var base: Vector2 = Vector2(-w * 0.5 - 10, y + fs * 0.36)
-	draw_string_outline(font, base, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 6, Color("2b2b3a"))
-	draw_string(font, base, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
-	draw_circle(Vector2(w * 0.5 + 6, y), fs * 0.33, Color("ffc933"))
-	draw_circle(Vector2(w * 0.5 + 6, y), fs * 0.33, Color("2b2b3a"), false, 2.0)
+	_ring.visible = paid > 0
+	_ring.max_value = maxf(price, 1)
+	_ring.value = paid
+	# Empty plot before a pick shows nothing; the menu shows the prices.
+	_price.visible = price > 0
+	_price_label.text = str(price - paid)
+	# Built plot: the price tag moves under the defender.
+	_price.position = Vector2(0, 0) if level == 0 else Vector2(0, half_size.y + 6.0)

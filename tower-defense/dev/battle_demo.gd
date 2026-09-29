@@ -37,9 +37,15 @@ func _process(_delta: float) -> bool:
 	if _frame == _start:
 		state.call("add_coins", 25)
 		hero.global_position = plot.global_position
+	# The radial menu is open now: pick the first defender in it.
+	if _frame == _start + 40:
+		var hud: Node = _battle.get("hud")
+		var menu: Node = hud.get("radial_menu")
+		var catalog: Array = _battle.get("defender_catalog")
+		menu.call("_on_slot_picked", catalog[0])
 	if _frame == 200:
 		var road: Curve2D = level.call("road_curve")
-		hero.global_position = road.sample_baked(road.get_baked_length() * 0.55) + Vector2(-110, 40)
+		hero.global_position = road.sample_baked(road.get_baked_length() * 0.12) + Vector2(-90, 0)
 	if _frame in _shots:
 		var img: Image = root.get_texture().get_image()
 		var path: String = "%s_%d.png" % [_out, _frame]
