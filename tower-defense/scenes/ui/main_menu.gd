@@ -1,6 +1,6 @@
 extends Control
 ## Main menu (design I, screen 3): logo, hero in idle, Play → farm map,
-## shop, settings, daily gift (shakes with a red dot while it can be taken),
+## shop, settings, "How to play", daily gift (shakes with a red dot while it can be taken),
 ## grains counter. Windows open over the menu. A gift that can be taken
 ## opens by itself once per launch (so the player sees the streak).
 
@@ -11,11 +11,14 @@ static var _gift_auto_shown: bool = false
 @export var shop_window: PackedScene
 @export var settings_window: PackedScene
 @export var gift_window: PackedScene
+## "How to play" (Yandex requirement 2.2).
+@export var how_to_window: PackedScene
 
 @onready var _play: Button = %Play
 @onready var _shop: RoundButton = %Shop
 @onready var _settings: RoundButton = %Settings
 @onready var _gift: RoundButton = %Gift
+@onready var _how_to: RoundButton = %HowTo
 @onready var _grains: Counter = %Grains
 @onready var _hero: AnimatedSprite2D = $Stage/Hero/Sprite
 
@@ -27,6 +30,7 @@ func _ready() -> void:
 	_shop.pressed.connect(_open.bind(shop_window))
 	_settings.pressed.connect(_open.bind(settings_window))
 	_gift.pressed.connect(_open.bind(gift_window))
+	_how_to.pressed.connect(_open.bind(how_to_window))
 	Game.grains_changed.connect(_on_grains)
 	Game.progress_changed.connect(_refresh)
 	var skin: SkinData = Game.META.skin(Game.skin)

@@ -404,6 +404,19 @@ func find_nearest(pos: Vector2, radius: float, include_flying: bool = true) -> i
 	return best
 
 
+## Index of the nearest pest anywhere on the level, -1 if none (the edge
+## pointer; a plain scan, a few times a second).
+func find_nearest_any(pos: Vector2) -> int:
+	var best: int = -1
+	var best_d2: float = INF
+	for i: int in count:
+		var d2: float = pos.distance_squared_to(_pos[i])
+		if d2 < best_d2:
+			best_d2 = d2
+			best = i
+	return best
+
+
 ## A walking pest whose body touches a circle at `pos` (hero stun), -1 if none.
 func find_touching(pos: Vector2, radius: float) -> int:
 	_rebuild_hash()

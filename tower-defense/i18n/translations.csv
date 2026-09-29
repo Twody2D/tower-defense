@@ -125,3 +125,5 @@ GIFT_HINT,Заходи каждый день — подарки растут!,Co
 GIFT_STREAK,"Неделя %d подряд: подарки +%d%%","Week %d in a row: gifts +%d%%"
 GIFT_TOMORROW,Приходи завтра за +%d зёрен!,Come back tomorrow for +%d grains!
 TOAST_GRAINS,+%d зёрен,+%d grains
+ENEMY_FOX_COMING,Идёт Лис!,The Fox is coming!
+HOW_TO_BOSS,"В конце уровня приходит Лис: сильный, ломает заборы и оглушает героя. Готовь защитников заранее!","At the end of a level the Fox comes: strong, breaks fences and stuns the hero. Get your defenders ready!"

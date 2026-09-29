@@ -1,12 +1,12 @@
 extends SceneTree
 ## Screenshots of every window over the battle, for a visual check.
 ## "$G" --path . --resolution 1280x720 -s res://dev/windows_demo.gd -- <out_dir> [names]
-## `names`: comma-separated subset of NAMES (default: all).
+## `names`: comma-separated subset of NAMES (default: all). DEMO_LOCALE=en for English.
 ## Class names that touch autoloads are not used here (see godot-web-game):
 ## windows are driven through call().
 
 const NAMES: PackedStringArray = ["pause", "win", "lose", "new_defender", "new_enemy", "level_start", "settings",
-		"shop", "shop_skins", "confirm", "gift", "gift_taken", "harvest"]
+		"shop", "shop_skins", "confirm", "gift", "gift_taken", "harvest", "how_to"]
 const EXTRA: Dictionary = {
 	"level_start": "res://scenes/ui/windows/level_start_window.tscn",
 	"settings": "res://scenes/ui/windows/settings_window.tscn",
@@ -15,6 +15,7 @@ const EXTRA: Dictionary = {
 	"gift": "res://scenes/ui/windows/gift_window.tscn",
 	"gift_taken": "res://scenes/ui/windows/gift_window.tscn",
 	"harvest": "res://scenes/ui/windows/harvest_window.tscn",
+	"how_to": "res://scenes/ui/windows/how_to_window.tscn",
 }
 const WAIT: int = 120
 
@@ -33,6 +34,9 @@ func _initialize() -> void:
 		_out = args[0]
 	if args.size() > 1:
 		_names = args[1].split(",")
+	# DEMO_LOCALE=en: check the English texts fit.
+	if OS.get_environment("DEMO_LOCALE") != "":
+		TranslationServer.set_locale(OS.get_environment("DEMO_LOCALE"))
 	DirAccess.make_dir_recursive_absolute(_out)
 	change_scene_to_file("res://scenes/battle/battle.tscn")
 

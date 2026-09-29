@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/settings_window.tscn" id="90_0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/shop_window.tscn" id="90_2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_window.tscn" id="90_3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/how_to_window.tscn" id="90_4"]
 [ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_r"]
 [ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
 [ext_resource type="Script" path="res://scenes/ui/stage.gd" id="3_r"]
@@ -26,6 +27,7 @@ script = ExtResource("1_r")
 settings_window = ExtResource("90_0")
 shop_window = ExtResource("90_2")
 gift_window = ExtResource("90_3")
+how_to_window = ExtResource("90_4")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -231,37 +233,60 @@ metadata/portrait = Rect2(280, 1050, 520, 112)
 [node name="Shop" parent="Stage" instance=ExtResource("14_r")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 196
+offset_left = 92
 offset_top = 640
-offset_right = 308
+offset_right = 204
 offset_bottom = 752
 icon = ExtResource("13_r")
 label_key = "BTN_SHOP"
-metadata/portrait = Rect2(232, 1240, 112, 112)
+metadata/portrait = Rect2(169, 1240, 112, 112)
 
 [node name="Settings" parent="Stage" instance=ExtResource("14_r")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 404
+offset_left = 300
 offset_top = 640
-offset_right = 516
+offset_right = 412
 offset_bottom = 752
 icon = ExtResource("15_r")
 label_key = "BTN_SETTINGS"
-metadata/portrait = Rect2(484, 1240, 112, 112)
+metadata/portrait = Rect2(379, 1240, 112, 112)
 
 [node name="Gift" parent="Stage" instance=ExtResource("14_r")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 612
+offset_left = 508
 offset_top = 640
-offset_right = 724
+offset_right = 620
 offset_bottom = 752
 icon = ExtResource("16_r")
 label_key = "BTN_GIFT"
 icon_anim = &"icon_gift_shake"
 badge = true
-metadata/portrait = Rect2(736, 1240, 112, 112)
+metadata/portrait = Rect2(589, 1240, 112, 112)
+
+[node name="HowTo" parent="Stage" instance=ExtResource("14_r")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 716
+offset_top = 640
+offset_right = 828
+offset_bottom = 752
+label_key = "BTN_HOW_TO"
+metadata/portrait = Rect2(799, 1240, 112, 112)
+
+[node name="Mark" type="Label" parent="Stage/HowTo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -12.0
+mouse_filter = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 64
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Grains" parent="Stage" instance=ExtResource("17_r")]
 unique_name_in_owner = true

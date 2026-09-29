@@ -31,6 +31,8 @@ signal finished(won: bool, stars: int)
 @export var arrow_delay: float = 0.05
 @export var arrow_size: float = 0.8
 @export var arrows_linger: float = 1.0
+## Edge pointers are updated this often, s.
+@export var edge_check_every: float = 0.2
 ## Level start boosts (bought with an ad): coins, starting defender and its level.
 @export var boost_defender: DefenderData
 @export var boost_defender_level: int = 2
@@ -54,6 +56,8 @@ var _chance_used: bool = false
 var _intros: Array[Resource] = []
 var _spawns_shown: bool = false
 var _arrows: Node2D
+var _boss_id: int = 0
+var _edge_left: float = 0.0
 
 @onready var _level_holder: Node2D = $World/LevelHolder
 @onready var enemies: EnemyManager = $World/Enemies
@@ -109,6 +113,7 @@ func _ready() -> void:
 	coins.hero = hero
 	coins.magnet_radius = hero.stats.magnet_radius
 	coins.collected.connect(state.add_coins)
+	coins.collected.connect(_on_coins_collected)
 
 	for plot: BuildPlot in level.plots():
 		plot.hero = hero
@@ -215,12 +220,15 @@ func _show_spawns() -> void:
 	_arrows.z_index = 5
 	level.add_child(_arrows)
 	var tw: Tween = create_tween()
+	# The camera flies by the view centre it can really reach (the level edges
+	# stop it), without smoothing, so every move is the eased curve itself.
 	tw.tween_callback(func() -> void:
 		var at: Vector2 = camera.get_screen_center_position()
+		camera.position_smoothing_enabled = false
 		camera.top_level = true
 		camera.global_position = at)
 	for road: Path2D in level.roads():
-		var start: Vector2 = road.to_global(road.curve.get_point_position(0))
+		var start: Vector2 = _camera_reach(road.to_global(road.curve.get_point_position(0)))
 		tw.tween_property(camera, ^"global_position", start, spawn_fly_time) \
 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.tween_callback(_pop_arrows.bind(road))
@@ -228,15 +236,25 @@ func _show_spawns() -> void:
 	var back: Array[Vector2] = [Vector2.ZERO]
 	tw.tween_callback(func() -> void: back[0] = camera.global_position)
 	tw.tween_method(func(k: float) -> void:
-		camera.global_position = back[0].lerp(hero.global_position + Vector2(0, -40), k),
+		camera.global_position = back[0].lerp(_camera_reach(hero.global_position + Vector2(0, -40)), k),
 		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_callback(func() -> void:
 		camera.top_level = false
-		camera.position = Vector2(0, -40))
+		camera.position = Vector2(0, -40)
+		camera.reset_smoothing()
+		camera.position_smoothing_enabled = true)
 	tw.tween_interval(arrows_linger)
 	tw.tween_property(_arrows, ^"modulate:a", 0.0, 0.5)
 	# Made once at the start, so freed once (not a battle-time pool object).
 	tw.tween_callback(_arrows.queue_free)
+
+
+## The view centre nearest to `p` that the camera limits allow.
+func _camera_reach(p: Vector2) -> Vector2:
+	var half: Vector2 = get_viewport_rect().size / camera.zoom * 0.5
+	var lo: Vector2 = Vector2(camera.limit_left, camera.limit_top) + half
+	var hi: Vector2 = Vector2(camera.limit_right, camera.limit_bottom) - half
+	return Vector2(clampf(p.x, lo.x, maxf(lo.x, hi.x)), clampf(p.y, lo.y, maxf(lo.y, hi.y)))
 
 
 ## Arrows along a road, from its start to the carrots, popping in order.
@@ -272,8 +290,50 @@ func _process(_delta: float) -> void:
 	hud.show_break(waves.break_left if waves.in_break() else 0.0)
 	level.set_spawning(not waves.in_break() and not waves.is_done())
 	hud.set_debug("%d fps · %d pests · %d coins" % [Engine.get_frames_per_second(), enemies.count, coins.count])
+	_update_boss()
+	_edge_left -= _delta
+	if _edge_left <= 0.0:
+		_edge_left = edge_check_every
+		_update_edges()
 	if waves.is_done() and enemies.count == 0:
 		_on_won()
+
+
+func _update_boss() -> void:
+	if _boss_id == 0:
+		return
+	var i: int = enemies.index_of(_boss_id)
+	if i < 0:
+		_boss_id = 0
+		hud.hide_boss()
+		hud.hide_edge(true)
+		return
+	hud.set_boss_hp(enemies.hp_at(i) / enemies.max_hp_at(i))
+
+
+## Pointers at the screen edge: to the boss when it is off screen, and to the
+## nearest pest when none is on screen (so the hero knows where to run).
+func _update_edges() -> void:
+	var to_screen: Transform2D = get_viewport().get_canvas_transform()
+	var screen: Rect2 = get_viewport().get_visible_rect()
+	var boss: int = enemies.index_of(_boss_id) if _boss_id != 0 else -1
+	if boss >= 0 and not screen.has_point(to_screen * enemies.position_at(boss)):
+		hud.point_edge(true, to_screen * enemies.position_at(boss), enemies.data_at(boss).portrait)
+	else:
+		hud.hide_edge(true)
+	var world: Rect2 = to_screen.affine_inverse() * screen
+	var nearest: int = -1
+	if enemies.count > 0 and enemies.find_in_radius(world.get_center(), world.size.length() * 0.5).is_empty():
+		nearest = enemies.find_nearest_any(hero.global_position)
+	if nearest >= 0 and nearest != boss:
+		hud.point_edge(false, to_screen * enemies.position_at(nearest), enemies.data_at(nearest).portrait)
+	else:
+		hud.hide_edge(false)
+
+
+func _on_coins_collected(n: int) -> void:
+	var at: Vector2 = get_viewport().get_canvas_transform() * (hero.global_position + Vector2(0, -110))
+	hud.popup(at, "+%d" % n)
 
 
 func stars() -> int:
@@ -292,6 +352,8 @@ func _on_joystick(dir: Vector2) -> void:
 
 func _on_wave_started(number: int, total: int) -> void:
 	hud.set_wave(number, total)
+	if number >= 1:
+		hud.show_wave_banner(number)
 
 
 ## "Call now": the next wave comes at once, +1 coin per second of the break left.
@@ -323,11 +385,10 @@ func _on_enemy_reached_base(data: EnemyData) -> void:
 	carrots_lost += before - state.carrots
 
 
-func _on_boss_spawned(_id: int, _data: EnemyData) -> void:
-	hud.show_message(tr("MSG_BOSS"))
-	await get_tree().create_timer(2.0, false).timeout
-	if not _over:
-		hud.show_message("")
+## The boss banner, its HP bar and edge pointer (updated in _process).
+func _on_boss_spawned(id: int, data: EnemyData) -> void:
+	_boss_id = id
+	hud.show_boss(data)
 
 
 ## Hero stepped on an empty plot: the defender pick, the game goes on.

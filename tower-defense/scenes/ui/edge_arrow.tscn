@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/edge_arrow.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_btn_round_normal.png" id="2_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="3_r"]
+
+[node name="EdgeArrow" type="Control"]
+script = ExtResource("1_r")
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 80.0
+mouse_filter = 2
+
+[node name="Round" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 80
+offset_bottom = 80
+mouse_filter = 2
+texture = ExtResource("2_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 14
+offset_top = 10
+offset_right = 66
+offset_bottom = 62
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Arrow" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(40, 40)
+sprite_frames = ExtResource("3_r")
+animation = &"ui_edge_arrow"
+autoplay = "ui_edge_arrow"
+offset = Vector2(76, 0)

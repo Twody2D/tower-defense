@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_green_normal.png" id="13_green"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_green_pressed.png" id="14_green_p"]
 
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_banner.tscn" id="20_banner"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boss_bar.tscn" id="21_boss"]
+[ext_resource type="PackedScene" path="res://scenes/ui/edge_arrow.tscn" id="22_edge"]
 [sub_resource type="StyleBoxTexture" id="StyleBox_green"]
 texture = ExtResource("13_green")
 texture_margin_left = 44.0
@@ -315,3 +318,104 @@ theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2
 
 [node name="RadialMenu" parent="." groups=["hud_blocker"] instance=ExtResource("9_radial")]
+
+[node name="Banner" parent="." instance=ExtResource("20_banner")]
+
+[node name="BossBar" parent="TopCenter" instance=ExtResource("21_boss")]
+offset_left = -350.0
+offset_top = 226.0
+offset_right = 350.0
+offset_bottom = 322.0
+
+[node name="EdgeBoss" parent="." instance=ExtResource("22_edge")]
+
+[node name="EdgePests" parent="." instance=ExtResource("22_edge")]
+
+[node name="Popups" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Popup0" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup1" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup2" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup3" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup4" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup5" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup6" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1
+
+[node name="Popup7" type="Label" parent="Popups"]
+visible = false
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 40
+text = "+1"
+horizontal_alignment = 1

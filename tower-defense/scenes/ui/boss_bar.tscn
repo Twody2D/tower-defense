@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/boss_bar.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_boss_hp_frame.png" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_boss_hp_fill.png" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_radial_slot.png" id="4_r"]
+
+[node name="BossBar" type="Control"]
+script = ExtResource("1_r")
+visible = false
+custom_minimum_size = Vector2(700, 96)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 700.0
+offset_bottom = 96.0
+mouse_filter = 2
+
+[node name="Frame" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 60
+offset_top = 16
+offset_right = 700
+offset_bottom = 80
+mouse_filter = 2
+texture = ExtResource("2_r")
+patch_margin_left = 32
+patch_margin_right = 32
+
+[node name="Fill" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 68
+offset_top = 26
+offset_right = 692
+offset_bottom = 70
+mouse_filter = 2
+texture = ExtResource("3_r")
+patch_margin_left = 22
+patch_margin_right = 22
+
+[node name="Slot" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 0
+offset_top = 0
+offset_right = 96
+offset_bottom = 96
+mouse_filter = 2
+texture = ExtResource("4_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Portrait" type="TextureRect" parent="Slot"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8
+offset_top = 4
+offset_right = 88
+offset_bottom = 84
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
