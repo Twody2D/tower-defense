@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://art/ui/logo_plate.png" id="1_plate"]
+
+[sub_resource type="GDScript" id="GDScript_logo"]
+script/source = "extends Control
+## Game logo (design I): wooden plate, white first line, big gold second line.
+## Texts from tr(): the language comes from the SDK.
+
+
+func _ready() -> void:
+	($Line1 as Label).text = tr(\"LOGO_LINE_1\")
+	($Line2 as Label).text = tr(\"LOGO_LINE_2\")
+"
+
+[node name="Logo" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 440.0
+mouse_filter = 2
+script = SubResource("GDScript_logo")
+
+[node name="Plate" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("1_plate")
+expand_mode = 1
+
+[node name="Line1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 110.0
+offset_right = 900.0
+offset_bottom = 236.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 112
+text = "Защити"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 206.0
+offset_right = 900.0
+offset_bottom = 372.0
+theme_override_colors/font_color = Color(1, 0.788, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0.169, 0.169, 0.227, 1)
+theme_override_constants/outline_size = 22
+theme_override_font_sizes/font_size = 140
+text = "огород!"
+horizontal_alignment = 1
+vertical_alignment = 1

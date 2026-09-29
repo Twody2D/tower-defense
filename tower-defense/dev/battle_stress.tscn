@@ -11,6 +11,7 @@
 
 [node name="Battle" instance=ExtResource("1_battle")]
 level_scene = ExtResource("2_level")
+level_path_pattern = ""
 
 [node name="StressDriver" type="Node" parent="."]
 script = ExtResource("3_driver")

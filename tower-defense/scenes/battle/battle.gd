@@ -18,7 +18,9 @@ signal finished(won: bool, stars: int)
 @export var shake_boss: float = 18.0
 ## Pause on the result message before going back to the menu, s.
 @export var result_delay: float = 3.0
-@export_file("*.tscn") var menu_scene: String = "res://scenes/ui/main_menu.tscn"
+@export_file("*.tscn") var menu_scene: String = "res://scenes/map/map.tscn"
+## Level scenes by number (Game.current_level); level_scene is used if missing.
+@export var level_path_pattern: String = "res://scenes/levels/level_%02d.tscn"
 
 var level: Level
 var state: BattleState
@@ -41,6 +43,9 @@ var _over: bool = false
 
 
 func _ready() -> void:
+	var path: String = level_path_pattern % Game.current_level
+	if level_path_pattern != "" and ResourceLoader.exists(path):
+		level_scene = load(path) as PackedScene
 	level = level_scene.instantiate() as Level
 	_level_holder.add_child(level)
 	var data: LevelData = level.data

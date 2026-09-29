@@ -71,6 +71,20 @@ FILES: dict[str, list[str]] = {
         "e/env_rocks.png",
         "e/env_stump.png",
         "e/env_fence_decor.png",
+        # screens: grass and road tiles as pictures, map decor of all biomes
+        "e/tile_farm_grass_1.png",
+        "e/tile_wheat_grass_1.png",
+        "e/tile_lake_grass_1.png",
+        "e/tile_farm_road_straight_rl.png",
+        "e/tile_farm_road_straight_tb.png",
+        "e/tile_farm_road_corner_bl.png",
+        "e/env_farm_bed.png",
+        "e/env_wheat_mill.png",
+        "e/env_wheat_sheaf.png",
+        "e/env_wheat_cart.png",
+        "e/env_lake_lake.png",
+        "e/env_lake_boat.png",
+        "e/env_lake_skep.png",
     ],
     "fx": [],
     # The whole UI kit (G) and screen parts (I); animated ones go to UI_ANIMS.
@@ -284,8 +298,24 @@ def pack_tiles() -> None:
         atlas.save(out / f"tiles_{biome}.png", optimize=True)
 
 
+def make_shadow() -> None:
+    """Soft ground shadow under heroes on screens (the mockups draw it with CSS):
+    ellipse 4:1, #2B2B3A at 22%."""
+    w, h = 128, 32
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    px = img.load()
+    for y in range(h):
+        for x in range(w):
+            d = ((x + 0.5 - w / 2) / (w / 2)) ** 2 + ((y + 0.5 - h / 2) / (h / 2)) ** 2
+            if d <= 1.0:
+                a = 0.22 * min(1.0, (1.0 - d) * 6.0)
+                px[x, y] = (43, 43, 58, round(a * 255))
+    img.save(DST / "ui" / "shadow.png", optimize=True)
+
+
 def main() -> int:
     n = copy_files()
+    make_shadow()
     frames = build_frames()
     atlases = build_atlases()
     pack_tiles()

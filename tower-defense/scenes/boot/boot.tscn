@@ -1,21 +1,719 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=22 format=3]
 
-[ext_resource type="Script" path="res://scenes/boot/boot.gd" id="1_boot"]
+[ext_resource type="Script" path="res://scenes/boot/boot.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
+[ext_resource type="Script" path="res://scenes/ui/stage.gd" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_road_straight_rl.png" id="4_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="5_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="6_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="7_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="8_r"]
+[ext_resource type="Texture2D" path="res://art/env/base_bed.png" id="9_r"]
+[ext_resource type="Texture2D" path="res://art/env/base_hole.png" id="10_r"]
+[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="11_r"]
+[ext_resource type="Script" path="res://scenes/ui/sheet_sprite.gd" id="12_r"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_fox.tres" id="13_r"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_beetle.tres" id="14_r"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_caterpillar.tres" id="15_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="16_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="17_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon.tres" id="18_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="19_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="20_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="21_r"]
 
 [node name="Boot" type="Control"]
+script = ExtResource("1_r")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_boot")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Grass" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.298, 0.686, 0.314, 1)
+mouse_filter = 2
+texture = ExtResource("2_r")
+stretch_mode = 1
+
+[node name="Stage" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+script = ExtResource("3_r")
+
+[node name="Landscape" type="Control" parent="Stage"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+metadata/only = "landscape"
+
+[node name="Road" type="TextureRect" parent="Stage/Landscape"]
+layout_mode = 0
+offset_left = 0
+offset_top = 640
+offset_right = 900
+offset_bottom = 704
+mouse_filter = 2
+texture = ExtResource("4_r")
+stretch_mode = 1
+
+[node name="Decor" type="Node2D" parent="Stage/Landscape"]
+y_sort_enabled = true
+
+[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(126, 126)
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("5_r")
+animation = &"env_tree_apple_sway"
+autoplay = "env_tree_apple_sway"
+frame = 0
+
+[node name="Barn" type="Sprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(1730, 490)
+scale = Vector2(1.172, 1.172)
+texture = ExtResource("6_r")
+
+[node name="BarnFlag" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(1730, 490)
+scale = Vector2(1.172, 1.172)
+sprite_frames = ExtResource("5_r")
+animation = &"env_farm_barn_flag"
+autoplay = "env_farm_barn_flag"
+frame = 0
+
+[node name="Bush" type="Sprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(1518, 888)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(72, 908)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 0
+
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(132, 928)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 1
+
+[node name="Haystack" type="Sprite2D" parent="Stage/Landscape/Decor"]
+position = Vector2(1837.5, 817.5)
+scale = Vector2(1.198, 1.198)
+texture = ExtResource("8_r")
+
+[node name="Base" type="Node2D" parent="Stage/Landscape"]
+
+[node name="Bed" type="Sprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1028, 648)
+scale = Vector2(1, 1)
+texture = ExtResource("9_r")
+
+[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(950, 590)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(989, 590)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1028, 590)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Hole3" type="Sprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1067, 590)
+scale = Vector2(1, 1)
+texture = ExtResource("10_r")
+
+[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1106, 590)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(950, 626)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(989, 626)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1028, 626)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1067, 626)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1106, 626)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(950, 662)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(989, 662)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Hole12" type="Sprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1028, 662)
+scale = Vector2(1, 1)
+texture = ExtResource("10_r")
+
+[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1067, 662)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1106, 662)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(950, 698)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(989, 698)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1028, 698)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1067, 698)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+position = Vector2(1106, 698)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="FoxShadow" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(170, 668)
+scale = Vector2(0.9375, 0.9)
+texture = ExtResource("11_r")
+
+[node name="Fox" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(165, 575)
+scale = Vector2(1.198, 1.198)
+script = ExtResource("12_r")
+atlas = ExtResource("13_r")
+anim = &"walk"
+phase = 0
+
+[node name="Pest1" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(368.5, 638.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0
+
+[node name="Pest2" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(458.5, 648.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0.13
+
+[node name="Pest3" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(550, 636)
+scale = Vector2(1.562, 1.562)
+script = ExtResource("12_r")
+atlas = ExtResource("15_r")
+anim = &"walk"
+phase = 0.06
+
+[node name="Pest4" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(648.5, 644.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0.21
+
+[node name="Pest5" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(740, 636)
+scale = Vector2(1.562, 1.562)
+script = ExtResource("12_r")
+atlas = ExtResource("15_r")
+anim = &"walk"
+phase = 0.15
+
+[node name="Pest6" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(838.5, 644.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0.03
+
+[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(1226, 846)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 0
+
+[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(1296, 876)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 2
+
+[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(1366, 836)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 4
+
+[node name="Portrait" type="Control" parent="Stage"]
+visible = false
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+mouse_filter = 2
+metadata/only = "portrait"
+
+[node name="Road" type="TextureRect" parent="Stage/Portrait"]
+layout_mode = 0
+offset_left = 0
+offset_top = 1100
+offset_right = 480
+offset_bottom = 1164
+mouse_filter = 2
+texture = ExtResource("4_r")
+stretch_mode = 1
+
+[node name="Decor" type="Node2D" parent="Stage/Portrait"]
+y_sort_enabled = true
+
+[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+position = Vector2(106, 696)
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("5_r")
+animation = &"env_tree_apple_sway"
+autoplay = "env_tree_apple_sway"
+frame = 0
+
+[node name="Bush" type="Sprite2D" parent="Stage/Portrait/Decor"]
+position = Vector2(948, 808)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+position = Vector2(912, 1388)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 0
+
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+position = Vector2(972, 1408)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 1
+
+[node name="Rocks" type="Sprite2D" parent="Stage/Portrait/Decor"]
+position = Vector2(172, 1392)
+scale = Vector2(1, 1)
+texture = ExtResource("17_r")
+
+[node name="Base" type="Node2D" parent="Stage/Portrait"]
+
+[node name="Bed" type="Sprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(608, 1088)
+scale = Vector2(1, 1)
+texture = ExtResource("9_r")
+
+[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(530, 1030)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(569, 1030)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(608, 1030)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Hole3" type="Sprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(647, 1030)
+scale = Vector2(1, 1)
+texture = ExtResource("10_r")
+
+[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(686, 1030)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(530, 1066)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(569, 1066)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(608, 1066)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(647, 1066)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(686, 1066)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(530, 1102)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(569, 1102)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Hole12" type="Sprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(608, 1102)
+scale = Vector2(1, 1)
+texture = ExtResource("10_r")
+
+[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(647, 1102)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(686, 1102)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(530, 1138)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(569, 1138)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(608, 1138)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(647, 1138)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 0
+
+[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+position = Vector2(686, 1138)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("5_r")
+animation = &"base_carrot_idle"
+autoplay = "base_carrot_idle"
+frame = 1
+
+[node name="FoxShadow" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(90, 1100)
+scale = Vector2(0.9375, 0.9)
+texture = ExtResource("11_r")
+
+[node name="Fox" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(85, 995)
+scale = Vector2(1.198, 1.198)
+script = ExtResource("12_r")
+atlas = ExtResource("13_r")
+anim = &"walk"
+phase = 0
+
+[node name="Pest1" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(238.5, 1098.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0
+
+[node name="Pest2" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(308.5, 1108.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0.13
+
+[node name="Pest3" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(380, 1096)
+scale = Vector2(1.562, 1.562)
+script = ExtResource("12_r")
+atlas = ExtResource("15_r")
+anim = &"walk"
+phase = 0.06
+
+[node name="Pest4" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(448.5, 1104.5)
+scale = Vector2(1.604, 1.604)
+script = ExtResource("12_r")
+atlas = ExtResource("14_r")
+anim = &"walk"
+phase = 0.21
+
+[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(816, 1276)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 0
+
+[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(876, 1306)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 2
+
+[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(936, 1266)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("16_r")
+animation = &"coin_spin"
+autoplay = "coin_spin"
+frame = 4
+
+[node name="Hero" type="Node2D" parent="Stage"]
+position = Vector2(1300, 670)
+metadata/portrait = Vector2(890, 1110)
+
+[node name="Shadow" type="Sprite2D" parent="Stage/Hero"]
+position = Vector2(0, 101.4)
+scale = Vector2(1.016, 0.975)
+texture = ExtResource("11_r")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero"]
+scale = Vector2(2.031, 2.031)
+sprite_frames = ExtResource("18_r")
+animation = &"joy"
+autoplay = "joy"
+
+[node name="Logo" parent="Stage" instance=ExtResource("19_r")]
+layout_mode = 0
+offset_left = 560
+offset_top = 24
+offset_right = 1520
+offset_bottom = 464
+scale = Vector2(0.8333, 0.8333)
+metadata/portrait = Rect2(90, 170, 960, 440)
+metadata/portrait_scale = Vector2(0.9375, 0.9375)
+
+[node name="Status" type="Label" parent="Stage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 560
+offset_top = 910
+offset_right = 1360
+offset_bottom = 966
+theme_override_font_sizes/font_size = 40
+text = "Загрузка… 64%"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/portrait = Rect2(140, 1570, 800, 56)
+
+[node name="Bar" type="TextureProgressBar" parent="Stage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 560
+offset_top = 974
+offset_right = 1360
+offset_bottom = 1022
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+value = 0.64
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_right = 24
+texture_under = ExtResource("20_r")
+texture_progress = ExtResource("21_r")
+texture_progress_offset = Vector2(8, 8)
+metadata/portrait = Rect2(140, 1640, 800, 48)
+
+[node name="Tip" type="Label" parent="Stage"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 60
+offset_top = 1730
+offset_right = 1020
+offset_bottom = 1780
+theme_override_font_sizes/font_size = 30
+text = "Совет"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/only = "portrait"

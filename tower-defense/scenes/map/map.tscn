@@ -1,0 +1,855 @@
+[gd_scene load_steps=28 format=3]
+
+[ext_resource type="Script" path="res://scenes/map/map.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_lake_grass_1.png" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_wheat_grass_1.png" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="4_r"]
+[ext_resource type="Texture2D" path="res://art/ui/map_path_dot.png" id="5_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="6_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="7_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="8_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="9_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="10_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="11_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="12_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_bed.png" id="13_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_mill.png" id="14_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_sheaf.png" id="15_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_cart.png" id="16_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_lake.png" id="17_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_boat.png" id="18_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_skep.png" id="19_r"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui.tres" id="20_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_badge_dot.png" id="21_r"]
+[ext_resource type="PackedScene" path="res://scenes/map/map_node.tscn" id="22_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="23_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="24_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="25_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="26_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="27_r"]
+
+[node name="Map" type="Control"]
+script = ExtResource("1_r")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Sky" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.298, 0.686, 0.314, 1)
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Bands" type="Node2D" parent="World"]
+
+[node name="Lake" type="TextureRect" parent="World/Bands"]
+offset_top = 0.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+mouse_filter = 2
+texture = ExtResource("2_r")
+stretch_mode = 1
+
+[node name="Wheat" type="TextureRect" parent="World/Bands"]
+offset_top = 1920.0
+offset_right = 1080.0
+offset_bottom = 3840.0
+mouse_filter = 2
+texture = ExtResource("3_r")
+stretch_mode = 1
+
+[node name="Farm" type="TextureRect" parent="World/Bands"]
+offset_top = 3840.0
+offset_right = 1080.0
+offset_bottom = 5760.0
+mouse_filter = 2
+texture = ExtResource("4_r")
+stretch_mode = 1
+
+[node name="Path" type="Node2D" parent="World"]
+
+[node name="Dot1" type="Sprite2D" parent="World/Path"]
+position = Vector2(350, 5444)
+texture = ExtResource("5_r")
+
+[node name="Dot2" type="Sprite2D" parent="World/Path"]
+position = Vector2(384, 5406)
+texture = ExtResource("5_r")
+
+[node name="Dot3" type="Sprite2D" parent="World/Path"]
+position = Vector2(419, 5367)
+texture = ExtResource("5_r")
+
+[node name="Dot4" type="Sprite2D" parent="World/Path"]
+position = Vector2(453, 5329)
+texture = ExtResource("5_r")
+
+[node name="Dot5" type="Sprite2D" parent="World/Path"]
+position = Vector2(487, 5291)
+texture = ExtResource("5_r")
+
+[node name="Dot6" type="Sprite2D" parent="World/Path"]
+position = Vector2(521, 5253)
+texture = ExtResource("5_r")
+
+[node name="Dot7" type="Sprite2D" parent="World/Path"]
+position = Vector2(556, 5214)
+texture = ExtResource("5_r")
+
+[node name="Dot8" type="Sprite2D" parent="World/Path"]
+position = Vector2(590, 5176)
+texture = ExtResource("5_r")
+
+[node name="Dot9" type="Sprite2D" parent="World/Path"]
+position = Vector2(672, 5052)
+texture = ExtResource("5_r")
+
+[node name="Dot10" type="Sprite2D" parent="World/Path"]
+position = Vector2(695, 5003)
+texture = ExtResource("5_r")
+
+[node name="Dot11" type="Sprite2D" parent="World/Path"]
+position = Vector2(718, 4954)
+texture = ExtResource("5_r")
+
+[node name="Dot12" type="Sprite2D" parent="World/Path"]
+position = Vector2(742, 4906)
+texture = ExtResource("5_r")
+
+[node name="Dot13" type="Sprite2D" parent="World/Path"]
+position = Vector2(765, 4857)
+texture = ExtResource("5_r")
+
+[node name="Dot14" type="Sprite2D" parent="World/Path"]
+position = Vector2(788, 4808)
+texture = ExtResource("5_r")
+
+[node name="Dot15" type="Sprite2D" parent="World/Path"]
+position = Vector2(774, 4681)
+texture = ExtResource("5_r")
+
+[node name="Dot16" type="Sprite2D" parent="World/Path"]
+position = Vector2(744, 4644)
+texture = ExtResource("5_r")
+
+[node name="Dot17" type="Sprite2D" parent="World/Path"]
+position = Vector2(714, 4606)
+texture = ExtResource("5_r")
+
+[node name="Dot18" type="Sprite2D" parent="World/Path"]
+position = Vector2(685, 4569)
+texture = ExtResource("5_r")
+
+[node name="Dot19" type="Sprite2D" parent="World/Path"]
+position = Vector2(655, 4531)
+texture = ExtResource("5_r")
+
+[node name="Dot20" type="Sprite2D" parent="World/Path"]
+position = Vector2(626, 4494)
+texture = ExtResource("5_r")
+
+[node name="Dot21" type="Sprite2D" parent="World/Path"]
+position = Vector2(596, 4456)
+texture = ExtResource("5_r")
+
+[node name="Dot22" type="Sprite2D" parent="World/Path"]
+position = Vector2(566, 4419)
+texture = ExtResource("5_r")
+
+[node name="Dot23" type="Sprite2D" parent="World/Path"]
+position = Vector2(477, 4299)
+texture = ExtResource("5_r")
+
+[node name="Dot24" type="Sprite2D" parent="World/Path"]
+position = Vector2(446, 4256)
+texture = ExtResource("5_r")
+
+[node name="Dot25" type="Sprite2D" parent="World/Path"]
+position = Vector2(416, 4213)
+texture = ExtResource("5_r")
+
+[node name="Dot26" type="Sprite2D" parent="World/Path"]
+position = Vector2(385, 4170)
+texture = ExtResource("5_r")
+
+[node name="Dot27" type="Sprite2D" parent="World/Path"]
+position = Vector2(354, 4127)
+texture = ExtResource("5_r")
+
+[node name="Dot28" type="Sprite2D" parent="World/Path"]
+position = Vector2(324, 4084)
+texture = ExtResource("5_r")
+
+[node name="Dot29" type="Sprite2D" parent="World/Path"]
+position = Vector2(293, 4041)
+texture = ExtResource("5_r")
+
+[node name="Dot30" type="Sprite2D" parent="World/Path"]
+position = Vector2(282, 3912)
+texture = ExtResource("5_r")
+
+[node name="Dot31" type="Sprite2D" parent="World/Path"]
+position = Vector2(303, 3867)
+texture = ExtResource("5_r")
+
+[node name="Dot32" type="Sprite2D" parent="World/Path"]
+position = Vector2(324, 3822)
+texture = ExtResource("5_r")
+
+[node name="Dot33" type="Sprite2D" parent="World/Path"]
+position = Vector2(346, 3778)
+texture = ExtResource("5_r")
+
+[node name="Dot34" type="Sprite2D" parent="World/Path"]
+position = Vector2(367, 3733)
+texture = ExtResource("5_r")
+
+[node name="Dot35" type="Sprite2D" parent="World/Path"]
+position = Vector2(388, 3688)
+texture = ExtResource("5_r")
+
+[node name="Dot36" type="Sprite2D" parent="World/Path"]
+position = Vector2(472, 3566)
+texture = ExtResource("5_r")
+
+[node name="Dot37" type="Sprite2D" parent="World/Path"]
+position = Vector2(506, 3529)
+texture = ExtResource("5_r")
+
+[node name="Dot38" type="Sprite2D" parent="World/Path"]
+position = Vector2(541, 3493)
+texture = ExtResource("5_r")
+
+[node name="Dot39" type="Sprite2D" parent="World/Path"]
+position = Vector2(575, 3456)
+texture = ExtResource("5_r")
+
+[node name="Dot40" type="Sprite2D" parent="World/Path"]
+position = Vector2(610, 3420)
+texture = ExtResource("5_r")
+
+[node name="Dot41" type="Sprite2D" parent="World/Path"]
+position = Vector2(645, 3384)
+texture = ExtResource("5_r")
+
+[node name="Dot42" type="Sprite2D" parent="World/Path"]
+position = Vector2(679, 3347)
+texture = ExtResource("5_r")
+
+[node name="Dot43" type="Sprite2D" parent="World/Path"]
+position = Vector2(714, 3311)
+texture = ExtResource("5_r")
+
+[node name="Dot44" type="Sprite2D" parent="World/Path"]
+position = Vector2(748, 3274)
+texture = ExtResource("5_r")
+
+[node name="Dot45" type="Sprite2D" parent="World/Path"]
+position = Vector2(782, 3147)
+texture = ExtResource("5_r")
+
+[node name="Dot46" type="Sprite2D" parent="World/Path"]
+position = Vector2(769, 3096)
+texture = ExtResource("5_r")
+
+[node name="Dot47" type="Sprite2D" parent="World/Path"]
+position = Vector2(756, 3045)
+texture = ExtResource("5_r")
+
+[node name="Dot48" type="Sprite2D" parent="World/Path"]
+position = Vector2(744, 2995)
+texture = ExtResource("5_r")
+
+[node name="Dot49" type="Sprite2D" parent="World/Path"]
+position = Vector2(731, 2944)
+texture = ExtResource("5_r")
+
+[node name="Dot50" type="Sprite2D" parent="World/Path"]
+position = Vector2(718, 2893)
+texture = ExtResource("5_r")
+
+[node name="Dot51" type="Sprite2D" parent="World/Path"]
+position = Vector2(649, 2765)
+texture = ExtResource("5_r")
+
+[node name="Dot52" type="Sprite2D" parent="World/Path"]
+position = Vector2(616, 2729)
+texture = ExtResource("5_r")
+
+[node name="Dot53" type="Sprite2D" parent="World/Path"]
+position = Vector2(582, 2692)
+texture = ExtResource("5_r")
+
+[node name="Dot54" type="Sprite2D" parent="World/Path"]
+position = Vector2(549, 2656)
+texture = ExtResource("5_r")
+
+[node name="Dot55" type="Sprite2D" parent="World/Path"]
+position = Vector2(515, 2620)
+texture = ExtResource("5_r")
+
+[node name="Dot56" type="Sprite2D" parent="World/Path"]
+position = Vector2(481, 2584)
+texture = ExtResource("5_r")
+
+[node name="Dot57" type="Sprite2D" parent="World/Path"]
+position = Vector2(448, 2548)
+texture = ExtResource("5_r")
+
+[node name="Dot58" type="Sprite2D" parent="World/Path"]
+position = Vector2(414, 2511)
+texture = ExtResource("5_r")
+
+[node name="Dot59" type="Sprite2D" parent="World/Path"]
+position = Vector2(381, 2475)
+texture = ExtResource("5_r")
+
+[node name="Dot60" type="Sprite2D" parent="World/Path"]
+position = Vector2(355, 2349)
+texture = ExtResource("5_r")
+
+[node name="Dot61" type="Sprite2D" parent="World/Path"]
+position = Vector2(372, 2304)
+texture = ExtResource("5_r")
+
+[node name="Dot62" type="Sprite2D" parent="World/Path"]
+position = Vector2(388, 2259)
+texture = ExtResource("5_r")
+
+[node name="Dot63" type="Sprite2D" parent="World/Path"]
+position = Vector2(404, 2213)
+texture = ExtResource("5_r")
+
+[node name="Dot64" type="Sprite2D" parent="World/Path"]
+position = Vector2(421, 2168)
+texture = ExtResource("5_r")
+
+[node name="Dot65" type="Sprite2D" parent="World/Path"]
+position = Vector2(437, 2123)
+texture = ExtResource("5_r")
+
+[node name="Dot66" type="Sprite2D" parent="World/Path"]
+position = Vector2(453, 2077)
+texture = ExtResource("5_r")
+
+[node name="Dot67" type="Sprite2D" parent="World/Path"]
+position = Vector2(469, 2032)
+texture = ExtResource("5_r")
+
+[node name="Dot68" type="Sprite2D" parent="World/Path"]
+position = Vector2(486, 1987)
+texture = ExtResource("5_r")
+
+[node name="Dot69" type="Sprite2D" parent="World/Path"]
+position = Vector2(502, 1941)
+texture = ExtResource("5_r")
+
+[node name="Dot70" type="Sprite2D" parent="World/Path"]
+position = Vector2(518, 1896)
+texture = ExtResource("5_r")
+
+[node name="Dot71" type="Sprite2D" parent="World/Path"]
+position = Vector2(535, 1851)
+texture = ExtResource("5_r")
+
+[node name="Dot72" type="Sprite2D" parent="World/Path"]
+position = Vector2(591, 1712)
+texture = ExtResource("5_r")
+
+[node name="Dot73" type="Sprite2D" parent="World/Path"]
+position = Vector2(611, 1669)
+texture = ExtResource("5_r")
+
+[node name="Dot74" type="Sprite2D" parent="World/Path"]
+position = Vector2(631, 1627)
+texture = ExtResource("5_r")
+
+[node name="Dot75" type="Sprite2D" parent="World/Path"]
+position = Vector2(650, 1584)
+texture = ExtResource("5_r")
+
+[node name="Dot76" type="Sprite2D" parent="World/Path"]
+position = Vector2(670, 1541)
+texture = ExtResource("5_r")
+
+[node name="Dot77" type="Sprite2D" parent="World/Path"]
+position = Vector2(690, 1499)
+texture = ExtResource("5_r")
+
+[node name="Dot78" type="Sprite2D" parent="World/Path"]
+position = Vector2(710, 1456)
+texture = ExtResource("5_r")
+
+[node name="Dot79" type="Sprite2D" parent="World/Path"]
+position = Vector2(729, 1413)
+texture = ExtResource("5_r")
+
+[node name="Dot80" type="Sprite2D" parent="World/Path"]
+position = Vector2(749, 1371)
+texture = ExtResource("5_r")
+
+[node name="Dot81" type="Sprite2D" parent="World/Path"]
+position = Vector2(769, 1328)
+texture = ExtResource("5_r")
+
+[node name="Dot82" type="Sprite2D" parent="World/Path"]
+position = Vector2(761, 1196)
+texture = ExtResource("5_r")
+
+[node name="Dot83" type="Sprite2D" parent="World/Path"]
+position = Vector2(737, 1157)
+texture = ExtResource("5_r")
+
+[node name="Dot84" type="Sprite2D" parent="World/Path"]
+position = Vector2(712, 1118)
+texture = ExtResource("5_r")
+
+[node name="Dot85" type="Sprite2D" parent="World/Path"]
+position = Vector2(688, 1078)
+texture = ExtResource("5_r")
+
+[node name="Dot86" type="Sprite2D" parent="World/Path"]
+position = Vector2(664, 1039)
+texture = ExtResource("5_r")
+
+[node name="Dot87" type="Sprite2D" parent="World/Path"]
+position = Vector2(640, 1000)
+texture = ExtResource("5_r")
+
+[node name="Dot88" type="Sprite2D" parent="World/Path"]
+position = Vector2(616, 961)
+texture = ExtResource("5_r")
+
+[node name="Dot89" type="Sprite2D" parent="World/Path"]
+position = Vector2(592, 922)
+texture = ExtResource("5_r")
+
+[node name="Dot90" type="Sprite2D" parent="World/Path"]
+position = Vector2(568, 882)
+texture = ExtResource("5_r")
+
+[node name="Dot91" type="Sprite2D" parent="World/Path"]
+position = Vector2(543, 843)
+texture = ExtResource("5_r")
+
+[node name="Dot92" type="Sprite2D" parent="World/Path"]
+position = Vector2(519, 804)
+texture = ExtResource("5_r")
+
+[node name="Decor" type="Node2D" parent="World"]
+
+[node name="Bush1" type="Sprite2D" parent="World/Decor"]
+position = Vector2(60, 1920)
+scale = Vector2(1, 1)
+texture = ExtResource("6_r")
+
+[node name="Fence2" type="Sprite2D" parent="World/Decor"]
+position = Vector2(300, 1920)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="Bush3" type="Sprite2D" parent="World/Decor"]
+position = Vector2(780, 1920)
+scale = Vector2(1, 1)
+texture = ExtResource("6_r")
+
+[node name="Fence4" type="Sprite2D" parent="World/Decor"]
+position = Vector2(1020, 1920)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="Bush5" type="Sprite2D" parent="World/Decor"]
+position = Vector2(60, 3840)
+scale = Vector2(1, 1)
+texture = ExtResource("6_r")
+
+[node name="Fence6" type="Sprite2D" parent="World/Decor"]
+position = Vector2(300, 3840)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="Bush7" type="Sprite2D" parent="World/Decor"]
+position = Vector2(780, 3840)
+scale = Vector2(1, 1)
+texture = ExtResource("6_r")
+
+[node name="Fence8" type="Sprite2D" parent="World/Decor"]
+position = Vector2(1020, 3840)
+scale = Vector2(1, 1)
+texture = ExtResource("7_r")
+
+[node name="FarmBarn1" type="Sprite2D" parent="World/Decor"]
+position = Vector2(840, 5520)
+scale = Vector2(1, 1)
+texture = ExtResource("8_r")
+
+[node name="FarmBarnFlag2" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(840, 5520)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_farm_barn_flag"
+autoplay = "env_farm_barn_flag"
+frame = 1
+
+[node name="FarmScarecrowSway3" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(120, 5160)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_farm_scarecrow_sway"
+autoplay = "env_farm_scarecrow_sway"
+frame = 2
+
+[node name="FarmHaystack4" type="Sprite2D" parent="World/Decor"]
+position = Vector2(950, 4260)
+scale = Vector2(1, 1)
+texture = ExtResource("10_r")
+
+[node name="TreeAppleSway5" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(160, 4600)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_tree_apple_sway"
+autoplay = "env_tree_apple_sway"
+frame = 1
+
+[node name="FarmWheelbarrow6" type="Sprite2D" parent="World/Decor"]
+position = Vector2(80, 4040)
+scale = Vector2(1, 1)
+texture = ExtResource("11_r")
+
+[node name="Bush7" type="Sprite2D" parent="World/Decor"]
+position = Vector2(900, 5000)
+scale = Vector2(1, 1)
+texture = ExtResource("6_r")
+
+[node name="Rocks8" type="Sprite2D" parent="World/Decor"]
+position = Vector2(420, 4700)
+scale = Vector2(1, 1)
+texture = ExtResource("12_r")
+
+[node name="SunflowerSway9" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(960, 4480)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 2
+
+[node name="FarmBed10" type="Sprite2D" parent="World/Decor"]
+position = Vector2(600, 5640)
+scale = Vector2(1, 1)
+texture = ExtResource("13_r")
+
+[node name="WheatMill11" type="Sprite2D" parent="World/Decor"]
+position = Vector2(170, 3060)
+scale = Vector2(1, 1)
+texture = ExtResource("14_r")
+
+[node name="WheatMillBlades12" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(170, 3060)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_mill_blades"
+autoplay = "env_wheat_mill_blades"
+frame = 2
+
+[node name="WheatSheaf13" type="Sprite2D" parent="World/Decor"]
+position = Vector2(600, 3440)
+scale = Vector2(1, 1)
+texture = ExtResource("15_r")
+
+[node name="WheatCart14" type="Sprite2D" parent="World/Decor"]
+position = Vector2(920, 2240)
+scale = Vector2(1, 1)
+texture = ExtResource("16_r")
+
+[node name="WheatEarsSway15" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(900, 3600)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 2
+
+[node name="WheatEarsSway16" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(960, 3660)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 0
+
+[node name="WheatEarsSway17" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(120, 2240)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 1
+
+[node name="WheatEarsSway18" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(180, 2300)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 2
+
+[node name="WheatEarsSway19" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(520, 2620)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 0
+
+[node name="SunflowerSway20" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(980, 2900)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 1
+
+[node name="LakeLake21" type="Sprite2D" parent="World/Decor"]
+position = Vector2(300, 1250)
+scale = Vector2(1, 1)
+texture = ExtResource("17_r")
+
+[node name="LakeRipple22" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(300, 1250)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_lake_ripple"
+autoplay = "env_lake_ripple"
+frame = 0
+
+[node name="LakeBoat23" type="Sprite2D" parent="World/Decor"]
+position = Vector2(320, 1230)
+scale = Vector2(1, 1)
+texture = ExtResource("18_r")
+
+[node name="LakeReedsSway24" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(110, 1110)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_lake_reeds_sway"
+autoplay = "env_lake_reeds_sway"
+frame = 2
+
+[node name="LakeReedsSway25" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(500, 1370)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_lake_reeds_sway"
+autoplay = "env_lake_reeds_sway"
+frame = 0
+
+[node name="LakeSkep26" type="Sprite2D" parent="World/Decor"]
+position = Vector2(880, 620)
+scale = Vector2(1, 1)
+texture = ExtResource("19_r")
+
+[node name="LakeSkepBees27" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(880, 620)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_lake_skep_bees"
+autoplay = "env_lake_skep_bees"
+frame = 2
+
+[node name="LakeSkep28" type="Sprite2D" parent="World/Decor"]
+position = Vector2(970, 720)
+scale = Vector2(1, 1)
+texture = ExtResource("19_r")
+
+[node name="TreePineSway29" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(160, 420)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 1
+
+[node name="TreePineSway30" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(900, 1600)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("9_r")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 2
+
+[node name="HarvestBed" type="Node2D" parent="World"]
+position = Vector2(600, 5540)
+
+[node name="Icon" type="AnimatedSprite2D" parent="World/HarvestBed"]
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("20_r")
+animation = &"icon_harvest_ripe"
+autoplay = "icon_harvest_ripe"
+
+[node name="Badge" type="Sprite2D" parent="World/HarvestBed"]
+position = Vector2(31, -31)
+scale = Vector2(0.9375, 0.9375)
+texture = ExtResource("21_r")
+
+[node name="Nodes" type="Node2D" parent="World"]
+
+[node name="Level1" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 236.0
+offset_top = 5436.0
+offset_right = 364.0
+offset_bottom = 5564.0
+level = 1
+
+[node name="Level2" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 576.0
+offset_top = 5056.0
+offset_right = 704.0
+offset_bottom = 5184.0
+level = 2
+
+[node name="Level3" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 756.0
+offset_top = 4676.0
+offset_right = 884.0
+offset_bottom = 4804.0
+level = 3
+
+[node name="Level4" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 456.0
+offset_top = 4296.0
+offset_right = 584.0
+offset_bottom = 4424.0
+level = 4
+
+[node name="Level5" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 186.0
+offset_top = 3916.0
+offset_right = 314.0
+offset_bottom = 4044.0
+level = 5
+
+[node name="Level6" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 356.0
+offset_top = 3556.0
+offset_right = 484.0
+offset_bottom = 3684.0
+level = 6
+
+[node name="Level7" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 736.0
+offset_top = 3156.0
+offset_right = 864.0
+offset_bottom = 3284.0
+level = 7
+
+[node name="Level8" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 636.0
+offset_top = 2756.0
+offset_right = 764.0
+offset_bottom = 2884.0
+level = 8
+
+[node name="Level9" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 266.0
+offset_top = 2356.0
+offset_right = 394.0
+offset_bottom = 2484.0
+level = 9
+
+[node name="Level10" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 496.0
+offset_top = 1716.0
+offset_right = 624.0
+offset_bottom = 1844.0
+level = 10
+
+[node name="Level11" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 736.0
+offset_top = 1196.0
+offset_right = 864.0
+offset_bottom = 1324.0
+level = 11
+
+[node name="Level12" parent="World/Nodes" instance=ExtResource("22_r")]
+offset_left = 416.0
+offset_top = 676.0
+offset_right = 544.0
+offset_bottom = 804.0
+level = 12
+
+[node name="Grains" parent="." instance=ExtResource("23_r")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 44.0
+offset_top = 40.0
+offset_right = 304.0
+offset_bottom = 104.0
+
+[node name="Shop" parent="." instance=ExtResource("25_r")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -372.0
+offset_top = 30.0
+offset_right = -276.0
+offset_bottom = 126.0
+grow_horizontal = 0
+icon = ExtResource("24_r")
+
+[node name="Settings" parent="." instance=ExtResource("25_r")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -256.0
+offset_top = 30.0
+offset_right = -160.0
+offset_bottom = 126.0
+grow_horizontal = 0
+icon = ExtResource("26_r")
+
+[node name="Gift" parent="." instance=ExtResource("25_r")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 30.0
+offset_right = -44.0
+offset_bottom = 126.0
+grow_horizontal = 0
+icon = ExtResource("27_r")
+icon_anim = &"icon_gift_shake"
+badge = true
+
+[node name="Harvest" parent="." instance=ExtResource("25_r")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -196.0
+offset_right = -44.0
+offset_bottom = -76.0
+grow_horizontal = 0
+grow_vertical = 0
+icon = ExtResource("27_r")
+icon_anim = &"icon_harvest_ripe"
+label_key = "BTN_HARVEST"

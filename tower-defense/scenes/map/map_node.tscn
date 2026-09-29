@@ -1,0 +1,110 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scenes/map/map_node.gd" id="1_node"]
+[ext_resource type="Texture2D" path="res://art/ui/map_node_locked.png" id="2_locked"]
+[ext_resource type="Texture2D" path="res://art/ui/map_node_open.png" id="3_open"]
+[ext_resource type="Texture2D" path="res://art/ui/map_node_current.png" id="4_current"]
+[ext_resource type="Texture2D" path="res://art/ui/map_node_done.png" id="5_done"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_star_full_32.png" id="6_full"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_star_empty_32.png" id="7_empty"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_lock.png" id="8_lock"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_radial_slot.png" id="9_slot"]
+[ext_resource type="Texture2D" path="res://art/hero/ui_avatar_raccoon.png" id="10_avatar"]
+
+[node name="MapNode" type="TextureButton"]
+offset_right = 128.0
+offset_bottom = 128.0
+focus_mode = 0
+texture_normal = ExtResource("3_open")
+texture_disabled = ExtResource("2_locked")
+script = ExtResource("1_node")
+tex_locked = ExtResource("2_locked")
+tex_open = ExtResource("3_open")
+tex_current = ExtResource("4_current")
+tex_done = ExtResource("5_done")
+star_full = ExtResource("6_full")
+star_empty = ExtResource("7_empty")
+
+[node name="Number" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 26.0
+offset_right = 114.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 48
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lock" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 88.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("8_lock")
+expand_mode = 1
+
+[node name="Stars" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Star1" type="TextureRect" parent="Stars"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -14.0
+offset_right = 47.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource("6_full")
+expand_mode = 1
+
+[node name="Star2" type="TextureRect" parent="Stars"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -22.0
+offset_right = 81.0
+offset_bottom = 12.0
+mouse_filter = 2
+texture = ExtResource("6_full")
+expand_mode = 1
+
+[node name="Star3" type="TextureRect" parent="Stars"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = -14.0
+offset_right = 115.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource("6_full")
+expand_mode = 1
+
+[node name="Avatar" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 8.0
+offset_top = -110.0
+offset_right = 120.0
+offset_bottom = 2.0
+mouse_filter = 2
+
+[node name="Slot" type="TextureRect" parent="Avatar"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 112.0
+mouse_filter = 2
+texture = ExtResource("9_slot")
+expand_mode = 1
+
+[node name="Face" type="TextureRect" parent="Avatar"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 98.0
+mouse_filter = 2
+texture = ExtResource("10_avatar")
+expand_mode = 1

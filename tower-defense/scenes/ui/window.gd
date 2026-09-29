@@ -16,6 +16,8 @@ signal closed
 @export var landscape_width: float = 1300.0
 ## Ribbon: as wide as the title plus its ends (slice 104), at least this.
 @export var ribbon_min_width: float = 520.0
+## Another ribbon colour (design I: blue for defeat, purple for a new pest).
+@export var ribbon_texture: Texture2D
 
 @onready var panel: PanelContainer = $Panel
 @onready var content: VBoxContainer = $Panel/Content
@@ -27,6 +29,8 @@ signal closed
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_close.visible = closable
+	if ribbon_texture != null:
+		_ribbon.texture = ribbon_texture
 	_close.pressed.connect(close)
 	UiFx.press_spring(_close)
 	if title_key != "":
