@@ -1,0 +1,1099 @@
+{
+ "frames": {
+  "hero_raccoon": {
+   "idle": {
+    "file": "res://art/hero/hero_raccoon_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "run": {
+    "file": "res://art/hero/hero_raccoon_run_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "throw": {
+    "file": "res://art/hero/hero_raccoon_throw_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "build": {
+    "file": "res://art/hero/hero_raccoon_build_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/hero/hero_raccoon_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "stun": {
+    "file": "res://art/hero/hero_raccoon_stun_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hero/hero_raccoon_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hero/hero_raccoon_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_corgi": {
+   "idle": {
+    "file": "res://art/hero/hero_corgi_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "run": {
+    "file": "res://art/hero/hero_corgi_run_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "throw": {
+    "file": "res://art/hero/hero_corgi_throw_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "build": {
+    "file": "res://art/hero/hero_corgi_build_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/hero/hero_corgi_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "stun": {
+    "file": "res://art/hero/hero_corgi_stun_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hero/hero_corgi_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hero/hero_corgi_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_pig": {
+   "idle": {
+    "file": "res://art/hero/hero_pig_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "run": {
+    "file": "res://art/hero/hero_pig_run_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "throw": {
+    "file": "res://art/hero/hero_pig_throw_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "build": {
+    "file": "res://art/hero/hero_pig_build_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/hero/hero_pig_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "stun": {
+    "file": "res://art/hero/hero_pig_stun_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hero/hero_pig_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hero/hero_pig_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_rabbit": {
+   "idle": {
+    "file": "res://art/hero/hero_rabbit_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "run": {
+    "file": "res://art/hero/hero_rabbit_run_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "throw": {
+    "file": "res://art/hero/hero_rabbit_throw_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "build": {
+    "file": "res://art/hero/hero_rabbit_build_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/hero/hero_rabbit_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "stun": {
+    "file": "res://art/hero/hero_rabbit_stun_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hero/hero_rabbit_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hero/hero_rabbit_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "hero_chicken": {
+   "idle": {
+    "file": "res://art/hero/hero_chicken_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "run": {
+    "file": "res://art/hero/hero_chicken_run_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "throw": {
+    "file": "res://art/hero/hero_chicken_throw_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "build": {
+    "file": "res://art/hero/hero_chicken_build_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/hero/hero_chicken_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "stun": {
+    "file": "res://art/hero/hero_chicken_stun_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "joy": {
+    "file": "res://art/hero/hero_chicken_joy_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": true
+   },
+   "sad": {
+    "file": "res://art/hero/hero_chicken_sad_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   }
+  },
+  "projectiles": {
+   "apple": {
+    "file": "res://art/hero/proj_apple_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "bone": {
+    "file": "res://art/hero/proj_bone_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "acorn": {
+    "file": "res://art/hero/proj_acorn_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "carrot": {
+    "file": "res://art/hero/proj_carrot_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "egg": {
+    "file": "res://art/hero/proj_egg_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "splat": {
+    "file": "res://art/hero/proj_splat_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
+   },
+   "tomato": {
+    "file": "res://art/defenders/proj_tomato_spin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   }
+  },
+  "def_goose": {
+   "l1_build": {
+    "file": "res://art/defenders/def_goose_l1_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l1_idle": {
+    "file": "res://art/defenders/def_goose_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l1_attack": {
+    "file": "res://art/defenders/def_goose_l1_attack_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "l2_build": {
+    "file": "res://art/defenders/def_goose_l2_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_idle": {
+    "file": "res://art/defenders/def_goose_l2_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l2_attack": {
+    "file": "res://art/defenders/def_goose_l2_attack_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "l3_build": {
+    "file": "res://art/defenders/def_goose_l3_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_idle": {
+    "file": "res://art/defenders/def_goose_l3_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l3_attack": {
+    "file": "res://art/defenders/def_goose_l3_attack_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "upgrade_1to2": {
+    "file": "res://art/defenders/def_goose_upgrade_1to2_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "upgrade_2to3": {
+    "file": "res://art/defenders/def_goose_upgrade_2to3_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   }
+  },
+  "def_frog": {
+   "l1_build": {
+    "file": "res://art/defenders/def_frog_l1_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l1_idle": {
+    "file": "res://art/defenders/def_frog_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l1_attack": {
+    "file": "res://art/defenders/def_frog_l1_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "l2_build": {
+    "file": "res://art/defenders/def_frog_l2_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_idle": {
+    "file": "res://art/defenders/def_frog_l2_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l2_attack": {
+    "file": "res://art/defenders/def_frog_l2_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "l3_build": {
+    "file": "res://art/defenders/def_frog_l3_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_idle": {
+    "file": "res://art/defenders/def_frog_l3_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l3_attack": {
+    "file": "res://art/defenders/def_frog_l3_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "upgrade_1to2": {
+    "file": "res://art/defenders/def_frog_upgrade_1to2_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "upgrade_2to3": {
+    "file": "res://art/defenders/def_frog_upgrade_2to3_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   }
+  },
+  "def_beaver": {
+   "l1_build": {
+    "file": "res://art/defenders/def_beaver_l1_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l1_idle": {
+    "file": "res://art/defenders/def_beaver_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l1_attack": {
+    "file": "res://art/defenders/def_beaver_l1_attack_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "l2_build": {
+    "file": "res://art/defenders/def_beaver_l2_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_idle": {
+    "file": "res://art/defenders/def_beaver_l2_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l2_attack": {
+    "file": "res://art/defenders/def_beaver_l2_attack_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "l3_build": {
+    "file": "res://art/defenders/def_beaver_l3_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_idle": {
+    "file": "res://art/defenders/def_beaver_l3_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l3_attack": {
+    "file": "res://art/defenders/def_beaver_l3_attack_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "upgrade_1to2": {
+    "file": "res://art/defenders/def_beaver_upgrade_1to2_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "upgrade_2to3": {
+    "file": "res://art/defenders/def_beaver_upgrade_2to3_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   }
+  },
+  "def_hive": {
+   "l1_build": {
+    "file": "res://art/defenders/def_hive_l1_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l1_idle": {
+    "file": "res://art/defenders/def_hive_l1_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l1_attack": {
+    "file": "res://art/defenders/def_hive_l1_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_build": {
+    "file": "res://art/defenders/def_hive_l2_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_idle": {
+    "file": "res://art/defenders/def_hive_l2_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l2_attack": {
+    "file": "res://art/defenders/def_hive_l2_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_build": {
+    "file": "res://art/defenders/def_hive_l3_build_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_idle": {
+    "file": "res://art/defenders/def_hive_l3_idle_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "l3_attack": {
+    "file": "res://art/defenders/def_hive_l3_attack_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": false
+   },
+   "upgrade_1to2": {
+    "file": "res://art/defenders/def_hive_upgrade_1to2_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "upgrade_2to3": {
+    "file": "res://art/defenders/def_hive_upgrade_2to3_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   }
+  },
+  "fence": {
+   "l1_build": {
+    "file": "res://art/defenders/fence_l1_build_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "l1_idle": {
+    "file": "res://art/defenders/fence_l1_idle_1f.png",
+    "frames": 1,
+    "fps": 0,
+    "loop": false
+   },
+   "l1_damage": {
+    "file": "res://art/defenders/fence_l1_damage_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "l1_hit": {
+    "file": "res://art/defenders/fence_l1_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "l1_destroy": {
+    "file": "res://art/defenders/fence_l1_destroy_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": false
+   },
+   "l1_repair": {
+    "file": "res://art/defenders/fence_l1_repair_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": false
+   },
+   "l2_build": {
+    "file": "res://art/defenders/fence_l2_build_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "l2_idle": {
+    "file": "res://art/defenders/fence_l2_idle_1f.png",
+    "frames": 1,
+    "fps": 0,
+    "loop": false
+   },
+   "l2_damage": {
+    "file": "res://art/defenders/fence_l2_damage_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "l2_hit": {
+    "file": "res://art/defenders/fence_l2_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "l2_destroy": {
+    "file": "res://art/defenders/fence_l2_destroy_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": false
+   },
+   "l2_repair": {
+    "file": "res://art/defenders/fence_l2_repair_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": false
+   },
+   "l3_build": {
+    "file": "res://art/defenders/fence_l3_build_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "l3_idle": {
+    "file": "res://art/defenders/fence_l3_idle_1f.png",
+    "frames": 1,
+    "fps": 0,
+    "loop": false
+   },
+   "l3_damage": {
+    "file": "res://art/defenders/fence_l3_damage_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "l3_hit": {
+    "file": "res://art/defenders/fence_l3_hit_2f.png",
+    "frames": 2,
+    "fps": 12,
+    "loop": false
+   },
+   "l3_destroy": {
+    "file": "res://art/defenders/fence_l3_destroy_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": false
+   },
+   "l3_repair": {
+    "file": "res://art/defenders/fence_l3_repair_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": false
+   }
+  },
+  "env": {
+   "base_carrot_idle": {
+    "file": "res://art/env/base_carrot_idle_2f.png",
+    "frames": 2,
+    "fps": 3,
+    "loop": true
+   },
+   "base_carrot_pull": {
+    "file": "res://art/env/base_carrot_pull_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "spawn_burrow_exit": {
+    "file": "res://art/env/spawn_burrow_exit_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "pad_highlight": {
+    "file": "res://art/env/pad_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "pad_unlock": {
+    "file": "res://art/env/pad_unlock_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": false
+   },
+   "ui_edge_arrow": {
+    "file": "res://art/env/ui_edge_arrow_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "env_farm_barn_flag": {
+    "file": "res://art/env/env_farm_barn_flag_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "env_farm_scarecrow_sway": {
+    "file": "res://art/env/env_farm_scarecrow_sway_4f.png",
+    "frames": 4,
+    "fps": 4,
+    "loop": true
+   },
+   "env_wheat_mill_blades": {
+    "file": "res://art/env/env_wheat_mill_blades_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "env_wheat_ears_sway": {
+    "file": "res://art/env/env_wheat_ears_sway_3f.png",
+    "frames": 3,
+    "fps": 4,
+    "loop": true
+   },
+   "env_lake_ripple": {
+    "file": "res://art/env/env_lake_ripple_4f.png",
+    "frames": 4,
+    "fps": 4,
+    "loop": true
+   },
+   "env_lake_reeds_sway": {
+    "file": "res://art/env/env_lake_reeds_sway_3f.png",
+    "frames": 3,
+    "fps": 4,
+    "loop": true
+   },
+   "env_lake_skep_bees": {
+    "file": "res://art/env/env_lake_skep_bees_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "env_sunflower_sway": {
+    "file": "res://art/env/env_sunflower_sway_3f.png",
+    "frames": 3,
+    "fps": 4,
+    "loop": true
+   },
+   "env_tree_apple_sway": {
+    "file": "res://art/env/env_tree_apple_sway_3f.png",
+    "frames": 3,
+    "fps": 3,
+    "loop": true
+   },
+   "env_tree_pine_sway": {
+    "file": "res://art/env/env_tree_pine_sway_3f.png",
+    "frames": 3,
+    "fps": 3,
+    "loop": true
+   }
+  },
+  "fx": {
+   "poof": {
+    "file": "res://art/fx/fx_poof_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "stars_head": {
+    "file": "res://art/fx/fx_stars_head_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "hit": {
+    "file": "res://art/fx/fx_hit_3f.png",
+    "frames": 3,
+    "fps": 15,
+    "loop": false
+   },
+   "splash": {
+    "file": "res://art/fx/fx_splash_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "tomato_burst": {
+    "file": "res://art/fx/fx_tomato_burst_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "bee": {
+    "file": "res://art/fx/fx_bee_2f.png",
+    "frames": 2,
+    "fps": 16,
+    "loop": true
+   },
+   "dust": {
+    "file": "res://art/fx/fx_dust_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "coin_pop": {
+    "file": "res://art/fx/fx_coin_pop_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "coin_spin": {
+    "file": "res://art/fx/fx_coin_spin_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "coin5_spin": {
+    "file": "res://art/fx/fx_coin5_spin_6f.png",
+    "frames": 6,
+    "fps": 12,
+    "loop": true
+   },
+   "coin_trail": {
+    "file": "res://art/fx/fx_coin_trail_3f.png",
+    "frames": 3,
+    "fps": 10,
+    "loop": true
+   },
+   "build_flash": {
+    "file": "res://art/fx/fx_build_flash_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "upgrade": {
+    "file": "res://art/fx/fx_upgrade_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "parcel_fall": {
+    "file": "res://art/fx/fx_parcel_fall_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "parcel_land": {
+    "file": "res://art/fx/fx_parcel_land_3f.png",
+    "frames": 3,
+    "fps": 10,
+    "loop": false
+   },
+   "parcel_glow": {
+    "file": "res://art/fx/fx_parcel_glow_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "parcel_open": {
+    "file": "res://art/fx/fx_parcel_open_5f.png",
+    "frames": 5,
+    "fps": 10,
+    "loop": false
+   },
+   "tractor": {
+    "file": "res://art/fx/fx_tractor_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "sleepy_cloud": {
+    "file": "res://art/fx/fx_sleepy_cloud_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "gold_rain_coin": {
+    "file": "res://art/fx/fx_gold_rain_coin_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "magnet_aura": {
+    "file": "res://art/fx/fx_magnet_aura_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   },
+   "confetti": {
+    "file": "res://art/fx/fx_confetti_6f.png",
+    "frames": 6,
+    "fps": 10,
+    "loop": false
+   },
+   "rage_aura": {
+    "file": "res://art/fx/fx_rage_aura_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
+   }
+  }
+ },
+ "atlases": {
+  "beetle": {
+   "file": "res://art/enemies/atlas_beetle.png",
+   "cell": 48,
+   "columns": 5,
+   "anims": {
+    "walk": {
+     "row": 0,
+     "frames": 4,
+     "fps": 8,
+     "loop": true
+    },
+    "chew": {
+     "row": 1,
+     "frames": 3,
+     "fps": 8,
+     "loop": true
+    },
+    "grab": {
+     "row": 2,
+     "frames": 3,
+     "fps": 10,
+     "loop": false
+    },
+    "defeat": {
+     "row": 3,
+     "frames": 5,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "caterpillar": {
+   "file": "res://art/enemies/atlas_caterpillar.png",
+   "cell": 64,
+   "columns": 5,
+   "anims": {
+    "walk": {
+     "row": 0,
+     "frames": 4,
+     "fps": 8,
+     "loop": true
+    },
+    "chew": {
+     "row": 1,
+     "frames": 3,
+     "fps": 8,
+     "loop": true
+    },
+    "grab": {
+     "row": 2,
+     "frames": 3,
+     "fps": 10,
+     "loop": false
+    },
+    "defeat": {
+     "row": 3,
+     "frames": 5,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "mole": {
+   "file": "res://art/enemies/atlas_mole.png",
+   "cell": 56,
+   "columns": 5,
+   "anims": {
+    "walk": {
+     "row": 0,
+     "frames": 4,
+     "fps": 8,
+     "loop": true
+    },
+    "dive": {
+     "row": 1,
+     "frames": 4,
+     "fps": 10,
+     "loop": false
+    },
+    "underground": {
+     "row": 2,
+     "frames": 2,
+     "fps": 6,
+     "loop": true
+    },
+    "emerge": {
+     "row": 3,
+     "frames": 4,
+     "fps": 10,
+     "loop": false
+    },
+    "chew": {
+     "row": 4,
+     "frames": 3,
+     "fps": 8,
+     "loop": true
+    },
+    "grab": {
+     "row": 5,
+     "frames": 3,
+     "fps": 10,
+     "loop": false
+    },
+    "defeat": {
+     "row": 6,
+     "frames": 5,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "crow": {
+   "file": "res://art/enemies/atlas_crow.png",
+   "cell": 56,
+   "columns": 5,
+   "anims": {
+    "fly": {
+     "row": 0,
+     "frames": 4,
+     "fps": 10,
+     "loop": true
+    },
+    "swoop": {
+     "row": 1,
+     "frames": 3,
+     "fps": 12,
+     "loop": false
+    },
+    "defeat": {
+     "row": 2,
+     "frames": 5,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  },
+  "fox": {
+   "file": "res://art/enemies/atlas_fox.png",
+   "cell": 192,
+   "columns": 8,
+   "anims": {
+    "walk": {
+     "row": 0,
+     "frames": 6,
+     "fps": 10,
+     "loop": true
+    },
+    "appear": {
+     "row": 1,
+     "frames": 6,
+     "fps": 8,
+     "loop": false
+    },
+    "strike": {
+     "row": 2,
+     "frames": 5,
+     "fps": 12,
+     "loop": false
+    },
+    "stun": {
+     "row": 3,
+     "frames": 4,
+     "fps": 8,
+     "loop": true
+    },
+    "grab": {
+     "row": 4,
+     "frames": 4,
+     "fps": 8,
+     "loop": false
+    },
+    "defeat": {
+     "row": 5,
+     "frames": 8,
+     "fps": 10,
+     "loop": false
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyAtlas" format=3]
+
+[ext_resource type="Script" path="res://data/types/enemy_atlas.gd" id="1_7yl0f"]
+[ext_resource type="Texture2D" path="res://art/enemies/atlas_beetle.png" id="2_g28t5"]
+
+[resource]
+script = ExtResource("1_7yl0f")
+texture = ExtResource("2_g28t5")
+columns = 5
+anims = Array[StringName]([&"walk", &"chew", &"grab", &"defeat"])
+frames = PackedInt32Array(4, 3, 3, 5)
+fps = PackedFloat32Array(8, 8, 10, 10)
+loops = PackedByteArray(1, 1, 0, 0)

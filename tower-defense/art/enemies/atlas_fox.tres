@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyAtlas" format=3]
+
+[ext_resource type="Script" path="res://data/types/enemy_atlas.gd" id="1_mcmij"]
+[ext_resource type="Texture2D" path="res://art/enemies/atlas_fox.png" id="2_5xxs6"]
+
+[resource]
+script = ExtResource("1_mcmij")
+texture = ExtResource("2_5xxs6")
+cell = 192
+columns = 8
+anims = Array[StringName]([&"walk", &"appear", &"strike", &"stun", &"grab", &"defeat"])
+frames = PackedInt32Array(6, 6, 5, 4, 4, 8)
+fps = PackedFloat32Array(10, 8, 12, 8, 8, 10)
+loops = PackedByteArray(1, 0, 0, 1, 0, 0)

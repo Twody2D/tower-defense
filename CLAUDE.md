@@ -62,7 +62,9 @@ G="/c/PROGRAMS/Godot/Godot_v4.7.2-stable_win64_console.exe"
 py -3.14 ../tools/check_build.py          # проверка + build/game.zip
 py -3.14 -m http.server 8061 --bind 127.0.0.1 -d ../build/web
 py -3.14 ../tools/browser_check.py http://127.0.0.1:8061/ <out> 10 1280 720 "640,327@4"   # консоль + скриншот
-py -3.14 ../tools/copy_art.py             # арт из design/ → art/ (+ атласы тайлов)
+py -3.14 ../tools/copy_art.py             # арт из design/ → art/, атласы тайлов и врагов, art/animations.json
+"$G" --headless --path . --import          # затем импорт новых PNG (может не выйти сам — снять процесс)
+"$G" --headless --path . -s res://tools/import_animations_cli.gd   # SpriteFrames art/frames/*.tres + атласы врагов (в редакторе: tools/import_animations.gd, Ctrl+Shift+X)
 "$G" --path . --resolution 1280x720 -s res://dev/battle_demo.gd -- <out> 60,700   # скриншоты боя
 "$G" --path . --resolution 1280x720 -s res://dev/sandbox_demo.gd -- <out> 700      # все защитники и враги
 "$G" --headless --path . -s res://dev/rebuild_level.gd -- res://scenes/levels/level_01.tscn  # тайлы по Path2D

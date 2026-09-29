@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyAtlas" format=3]
+
+[ext_resource type="Script" path="res://data/types/enemy_atlas.gd" id="1_irqk3"]
+[ext_resource type="Texture2D" path="res://art/enemies/atlas_crow.png" id="2_vf6gm"]
+
+[resource]
+script = ExtResource("1_irqk3")
+texture = ExtResource("2_vf6gm")
+cell = 56
+columns = 5
+anims = Array[StringName]([&"fly", &"swoop", &"defeat"])
+frames = PackedInt32Array(4, 3, 5)
+fps = PackedFloat32Array(10, 12, 10)
+loops = PackedByteArray(1, 0, 0)

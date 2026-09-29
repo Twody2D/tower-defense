@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/enemies/enemy_caterpillar_walk_4f.png" id="2_sheet"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_caterpillar.tres" id="2_atlas"]
 
 [resource]
 script = ExtResource("1_script")
@@ -11,9 +11,7 @@ speed = 40.0
 coins = 3
 carrots = 1
 radius = 22.0
-frame_size = 64
 flying = false
 chew_dps = 8.0
-walk_sheet = ExtResource("2_sheet")
-walk_frames = 4
+atlas = ExtResource("2_atlas")
 feet_offset = 22.0

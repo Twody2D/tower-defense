@@ -1,13 +1,15 @@
 shader_type canvas_item;
-// Enemy horde in a MultiMesh (one per pest type). The sheet is one row of
-// frames. INSTANCE_CUSTOM: x = frame index, y = hit flash 0..1, z = slowed 0/1.
+// Enemy horde in a MultiMesh (one per pest type) over the pest's EnemyAtlas:
+// a row per animation, square cells. INSTANCE_CUSTOM: x = frame (column),
+// y = hit flash 0..1, z = slowed 0/1, w = row (animation).
 
-uniform int hframes = 4;
+uniform int columns = 4;
+uniform int rows = 1;
 
 varying vec4 custom;
 
 void vertex() {
-	UV.x = (UV.x + INSTANCE_CUSTOM.x) / float(hframes);
+	UV = (UV + INSTANCE_CUSTOM.xw) / vec2(float(columns), float(rows));
 	custom = INSTANCE_CUSTOM;
 }
 

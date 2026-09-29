@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://data/types/enemy_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://art/enemies/boss_fox_walk_6f.png" id="2_sheet"]
+[ext_resource type="Resource" path="res://art/enemies/atlas_fox.tres" id="2_atlas"]
 
 [resource]
 script = ExtResource("1_script")
@@ -11,7 +11,6 @@ speed = 35.0
 coins = 50
 carrots = 5
 radius = 60.0
-frame_size = 192
 flying = false
 is_boss = true
 fence_hits = 2
@@ -19,6 +18,5 @@ strike_every = 1.5
 stun_radius = 160.0
 stun_every = 5.0
 chew_dps = 75.0
-walk_sheet = ExtResource("2_sheet")
-walk_frames = 6
+atlas = ExtResource("2_atlas")
 feet_offset = 88.0

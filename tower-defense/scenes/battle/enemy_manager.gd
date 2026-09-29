@@ -7,8 +7,13 @@ extends Node2D
 ## swap-with-last, so indices change: keep ids across frames (index_of).
 ## Effects: slow (sprinkler), damage over time (hive), fences (RoadBlock),
 ## mole dives, boss strikes. Lookups go through a SpatialHash (cell 128).
-## Drawing: one MultiMeshInstance2D per pest type (made in setup), frames
-## picked in shaders/enemy_frames.gdshader through INSTANCE_CUSTOM.
+## Drawing: one MultiMeshInstance2D per pest type (made in setup) over the
+## pest's EnemyAtlas; row (animation) and frame go to
+## shaders/enemy_frames.gdshader through INSTANCE_CUSTOM.
+## Animations: walk (crow: fly), chew at a fence, mole dive → underground →
+## emerge, boss appear and strike. A defeated pest (or one that took carrots)
+## leaves the arrays at once and plays defeat (grab / swoop) as a "ghost" that
+## is only drawn.
 
 signal defeated(pos: Vector2, data: EnemyData)
 signal reached_base(data: EnemyData)
@@ -22,6 +27,9 @@ class TypeView:
 	var node: MultiMeshInstance2D
 	var buffer: PackedFloat32Array = PackedFloat32Array()
 	var used: int = 0
+	## Flying pests: shadows on the ground (transform only).
+	var shadow: MultiMeshInstance2D
+	var shadow_buffer: PackedFloat32Array = PackedFloat32Array()
 
 ## Max sideways offset from the road centre, px.
 @export var lateral_spread: float = 30.0
@@ -34,6 +42,8 @@ class TypeView:
 @export var flash_time: float = 0.12
 ## Spatial hash cell, px (CODE_PROMPT: 128).
 @export var hash_cell: float = 128.0
+## A ghost keeps the last frame of defeat / grab this long, s.
+@export var ghost_hold: float = 0.15
 
 var count: int = 0
 ## Time of the last _process (move + effects + drawing buffers), µs — for the stress test.
@@ -70,8 +80,19 @@ var _stun_cd: PackedFloat32Array = PackedFloat32Array()
 var _hidden: PackedByteArray = PackedByteArray()
 var _phase: PackedFloat32Array = PackedFloat32Array()
 var _flash: PackedFloat32Array = PackedFloat32Array()
+## Atlas row playing and time since it started, s.
+var _anim: PackedInt32Array = PackedInt32Array()
+var _anim_t: PackedFloat32Array = PackedFloat32Array()
+## 1 = stands at a fence this frame.
+var _blocked: PackedByteArray = PackedByteArray()
+## Ghosts: finished pests playing their last animation.
+var _g_count: int = 0
+var _g_type: Array[EnemyData] = []
+var _g_pos: PackedVector2Array = PackedVector2Array()
+var _g_facing: PackedFloat32Array = PackedFloat32Array()
+var _g_row: PackedInt32Array = PackedInt32Array()
+var _g_t: PackedFloat32Array = PackedFloat32Array()
 var _views: Dictionary[EnemyData, TypeView] = {}
-var _time: float = 0.0
 var _index_by_id: Dictionary[int, int] = {}
 var _next_id: int = 1
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -106,9 +127,18 @@ func setup(roads: Array[Curve2D], bounds: Rect2, types: Array[EnemyData] = []) -
 	_hidden.resize(capacity)
 	_phase.resize(capacity)
 	_flash.resize(capacity)
+	_anim.resize(capacity)
+	_anim_t.resize(capacity)
+	_blocked.resize(capacity)
+	_g_type.resize(capacity)
+	_g_pos.resize(capacity)
+	_g_facing.resize(capacity)
+	_g_row.resize(capacity)
+	_g_t.resize(capacity)
 	for data: EnemyData in types:
 		_view_of(data)
 	count = 0
+	_g_count = 0
 
 
 func road_count() -> int:
@@ -167,6 +197,14 @@ func spawn(data: EnemyData, hp_multiplier: float = 1.0, road: int = 0) -> int:
 	_hidden[i] = 0
 	_phase[i] = _rng.randf()
 	_flash[i] = 0.0
+	_blocked[i] = 0
+	_anim[i] = 0
+	_anim_t[i] = _phase[i] * 4.0
+	if data.atlas != null:
+		data.atlas.prepare()
+		_anim[i] = data.atlas.walk
+		if data.is_boss:
+			_play(i, data.atlas.appear)
 	_index_by_id[id] = i
 	_place(i)
 	_hash_dirty = true
@@ -200,20 +238,56 @@ func step(delta: float) -> void:
 			speed *= 1.0 - _slow[i]
 		if data.can_dive:
 			_tick_dive(i, data, delta)
+		_anim_t[i] += delta
+		if data.is_boss and data.atlas != null and _playing(i, data.atlas.appear):
+			speed = 0.0
 		var from: float = _progress[i]
 		var to: float = from + speed * delta
+		_blocked[i] = 0
 		if not data.flying and _hidden[i] == 0:
 			to = _stop_at_fence(i, from, to, data, delta)
 		_progress[i] = to
 		if to >= _lengths[_road[i]]:
-			_remove(i)
-			reached_base.emit(data)
+			_leave(i)
 			continue
 		if data.is_boss:
 			_tick_boss_stun(i, data, delta)
 		_place(i)
+		_pick_anim(i, data)
 		i += 1
+	_step_ghosts(delta)
 	_hash_dirty = true
+
+
+## Starts a once animation (row -1 = the pest does not have it).
+func _play(i: int, row: int) -> void:
+	if row >= 0:
+		_anim[i] = row
+		_anim_t[i] = 0.0
+
+
+## True while `row` is a once animation still playing on pest i.
+func _playing(i: int, row: int) -> bool:
+	if row < 0 or _anim[i] != row:
+		return false
+	var a: EnemyAtlas = _types[i].atlas
+	return not a.is_loop(row) and _anim_t[i] < a.length(row)
+
+
+## After a once animation ends, or when the state changes: the loop for the
+## current state (underground / chewing / walking).
+func _pick_anim(i: int, data: EnemyData) -> void:
+	var a: EnemyAtlas = data.atlas
+	if a == null or _playing(i, _anim[i]):
+		return
+	var want: int = a.walk
+	if _hidden[i] == 1 and a.underground >= 0:
+		want = a.underground
+	elif _blocked[i] == 1 and not data.is_boss and a.chew >= 0:
+		want = a.chew
+	if _anim[i] != want:
+		_anim[i] = want
+		_anim_t[i] = _phase[i] * 4.0
 
 
 func _tick_dive(i: int, data: EnemyData, delta: float) -> void:
@@ -223,6 +297,8 @@ func _tick_dive(i: int, data: EnemyData, delta: float) -> void:
 			_under_left[i] = 0.0
 			_hidden[i] = 0
 			_dive_cd[i] = data.dive_every
+			if data.atlas != null:
+				_play(i, data.atlas.emerge)
 	else:
 		_dive_cd[i] -= delta
 		if _dive_cd[i] <= 0.0:
@@ -233,6 +309,8 @@ func _dive(i: int, data: EnemyData) -> void:
 	_under_left[i] = data.dive_time
 	_hidden[i] = 1
 	_dot_left[i] = 0.0
+	if data.atlas != null:
+		_play(i, data.atlas.dive)
 
 
 func _tick_boss_stun(i: int, data: EnemyData, delta: float) -> void:
@@ -241,6 +319,8 @@ func _tick_boss_stun(i: int, data: EnemyData, delta: float) -> void:
 		return
 	if hero.global_position.distance_to(_pos[i]) <= data.stun_radius:
 		_stun_cd[i] = data.stun_every
+		if data.atlas != null:
+			_play(i, data.atlas.strike)
 		hero_struck.emit()
 
 
@@ -260,8 +340,11 @@ func _stop_at_fence(i: int, from: float, to: float, data: EnemyData, delta: floa
 				if _strike_cd[i] <= 0.0:
 					_strike_cd[i] = data.strike_every
 					block.hit(block.max_hp / float(maxi(data.fence_hits, 1)) + 0.01)
+					if data.atlas != null:
+						_play(i, data.atlas.strike)
 			else:
 				block.hit(data.chew_dps * delta)
+			_blocked[i] = 1
 			return stop
 	return to
 
@@ -382,15 +465,61 @@ func apply_dot(index: int, dps: float, time: float) -> void:
 
 func clear() -> void:
 	count = 0
+	_g_count = 0
 	_index_by_id.clear()
 	_hash_dirty = true
+
+
+## Pests still on screen: live ones and ghosts.
+func drawn_count() -> int:
+	return count + _g_count
 
 
 func _defeat(i: int) -> void:
 	var pos: Vector2 = _pos[i]
 	var data: EnemyData = _types[i]
+	if data.atlas != null:
+		_add_ghost(i, data.atlas.defeat)
 	_remove(i)
 	defeated.emit(pos, data)
+
+
+## Reached the base: grabs carrots (the crow swoops) and is gone.
+func _leave(i: int) -> void:
+	var data: EnemyData = _types[i]
+	if data.atlas != null:
+		_add_ghost(i, data.atlas.grab)
+	_remove(i)
+	reached_base.emit(data)
+
+
+func _add_ghost(i: int, row: int) -> void:
+	if row < 0 or _g_count >= capacity:
+		return
+	var g: int = _g_count
+	_g_count += 1
+	_g_type[g] = _types[i]
+	_g_pos[g] = _pos[i]
+	_g_facing[g] = _facing[i]
+	_g_row[g] = row
+	_g_t[g] = 0.0
+
+
+func _step_ghosts(delta: float) -> void:
+	var g: int = 0
+	while g < _g_count:
+		_g_t[g] += delta
+		if _g_t[g] < _g_type[g].atlas.length(_g_row[g]) + ghost_hold:
+			g += 1
+			continue
+		var last: int = _g_count - 1
+		_g_type[g] = _g_type[last]
+		_g_pos[g] = _g_pos[last]
+		_g_facing[g] = _g_facing[last]
+		_g_row[g] = _g_row[last]
+		_g_t[g] = _g_t[last]
+		_g_type[last] = null
+		_g_count = last
 
 
 func _place(i: int) -> void:
@@ -432,6 +561,9 @@ func _remove(i: int) -> void:
 		_hidden[i] = _hidden[last]
 		_phase[i] = _phase[last]
 		_flash[i] = _flash[last]
+		_anim[i] = _anim[last]
+		_anim_t[i] = _anim_t[last]
+		_blocked[i] = _blocked[last]
 		_index_by_id[_ids[i]] = i
 	_types[last] = null
 	count = last
@@ -442,33 +574,45 @@ func _view_of(data: EnemyData) -> TypeView:
 	if _views.has(data):
 		return _views[data]
 	var view: TypeView = TypeView.new()
-	var size: float = float(data.walk_sheet.get_height())
+	var a: EnemyAtlas = data.atlas
+	a.prepare()
+	var mat: ShaderMaterial = ShaderMaterial.new()
+	mat.shader = frames_shader
+	mat.set_shader_parameter(&"columns", a.columns)
+	mat.set_shader_parameter(&"rows", a.rows())
+	# Live pests and ghosts share the buffer.
+	view.node = _multimesh_node(String(data.id), float(a.cell), true, capacity * 2)
+	view.node.texture = a.texture
+	view.node.material = mat
+	# Crows fly above everything on the ground.
+	view.node.z_index = 4 if data.flying else 0
+	view.buffer.resize(capacity * 2 * 12)
+	if data.shadow != null:
+		view.shadow = _multimesh_node(String(data.id) + "Shadow", float(data.shadow.get_width()), false, capacity)
+		view.shadow.texture = data.shadow
+		view.shadow.z_index = -1
+		view.shadow_buffer.resize(capacity * 8)
+	_views[data] = view
+	return view
+
+
+func _multimesh_node(node_name: String, size: float, custom: bool, instances: int) -> MultiMeshInstance2D:
 	var mm: MultiMesh = MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_2D
-	mm.use_custom_data = true
+	mm.use_custom_data = custom
 	mm.mesh = _quad(size)
-	mm.instance_count = capacity
+	mm.instance_count = instances
 	mm.visible_instance_count = 0
 	# Culling box = the whole level (plus a margin for big sprites). Without it
 	# the box is computed once from the first positions and pests that walk out
 	# of it are culled: invisible, yet still shot at.
 	var area: Rect2 = _bounds.grow(size * 2.0)
 	mm.custom_aabb = AABB(Vector3(area.position.x, area.position.y, -1.0), Vector3(area.size.x, area.size.y, 2.0))
-	var mat: ShaderMaterial = ShaderMaterial.new()
-	mat.shader = frames_shader
-	mat.set_shader_parameter(&"hframes", data.walk_frames)
 	var node: MultiMeshInstance2D = MultiMeshInstance2D.new()
-	node.name = String(data.id)
+	node.name = node_name
 	node.multimesh = mm
-	node.texture = data.walk_sheet
-	node.material = mat
-	# Crows fly above everything on the ground.
-	node.z_index = 4 if data.flying else 0
 	add_child(node)
-	view.node = node
-	view.buffer.resize(capacity * 12)
-	_views[data] = view
-	return view
+	return node
 
 
 ## Square 2D mesh, y down, UV (0,0) at the top-left. Built by hand: QuadMesh
@@ -485,40 +629,78 @@ static func _quad(size: float) -> ArrayMesh:
 	return mesh
 
 
-## Writes every pest into its type's instance buffer: transform (facing by the
-## sign of x scale), then custom data. Underground moles are drawn flat and
-## dim until stage 5 brings the burrow frames.
-## The buffer is taken out of the view while filled, so writes do not copy it.
+## Writes every pest and ghost into its type's instance buffer: transform
+## (facing by the sign of x scale), then custom data = frame, hit flash,
+## slowed, atlas row. Flying pests also fill their shadow buffer.
+## Buffers are taken out of the view while filled, so writes do not copy them.
 func _update_views(delta: float) -> void:
-	_time += delta
 	for data: EnemyData in _views:
 		var view: TypeView = _views[data]
+		var a: EnemyAtlas = data.atlas
+		var lift: float = data.feet_offset + data.fly_height
 		var b: PackedFloat32Array = view.buffer
 		view.buffer = PackedFloat32Array()
+		var sb: PackedFloat32Array = view.shadow_buffer
+		view.shadow_buffer = PackedFloat32Array()
 		var used: int = 0
 		for i: int in count:
 			if _types[i] != data:
 				continue
-			var o: int = used * 12
 			var p: Vector2 = _pos[i]
-			var under: bool = _hidden[i] == 1
+			var row: int = _anim[i]
+			var o: int = used * 12
 			b[o] = _facing[i]
 			b[o + 1] = 0.0
 			b[o + 2] = 0.0
 			b[o + 3] = p.x
 			b[o + 4] = 0.0
-			b[o + 5] = 0.35 if under else 1.0
+			b[o + 5] = 1.0
 			b[o + 6] = 0.0
-			b[o + 7] = p.y - (0.0 if under else data.feet_offset)
-			b[o + 8] = float(int((_time + _phase[i]) * data.walk_fps) % data.walk_frames)
+			b[o + 7] = p.y - lift
+			b[o + 8] = float(a.frame_at(row, _anim_t[i]))
 			b[o + 9] = clampf(_flash[i] / flash_time, 0.0, 1.0)
 			b[o + 10] = 1.0 if _slow_left[i] > 0.0 else 0.0
-			b[o + 11] = 0.0
+			b[o + 11] = float(row)
+			if view.shadow != null:
+				var so: int = used * 8
+				sb[so] = 1.0
+				sb[so + 1] = 0.0
+				sb[so + 2] = 0.0
+				sb[so + 3] = p.x
+				sb[so + 4] = 0.0
+				sb[so + 5] = 1.0
+				sb[so + 6] = 0.0
+				sb[so + 7] = p.y
+			used += 1
+		var live: int = used
+		for g: int in _g_count:
+			if _g_type[g] != data:
+				continue
+			var p: Vector2 = _g_pos[g]
+			var row: int = _g_row[g]
+			var o: int = used * 12
+			b[o] = _g_facing[g]
+			b[o + 1] = 0.0
+			b[o + 2] = 0.0
+			b[o + 3] = p.x
+			b[o + 4] = 0.0
+			b[o + 5] = 1.0
+			b[o + 6] = 0.0
+			b[o + 7] = p.y - lift
+			b[o + 8] = float(a.frame_at(row, _g_t[g]))
+			b[o + 9] = 0.0
+			b[o + 10] = 0.0
+			b[o + 11] = float(row)
 			used += 1
 		var mm: MultiMesh = view.node.multimesh
 		mm.buffer = b
 		mm.visible_instance_count = used
 		view.buffer = b
 		view.used = used
+		if view.shadow != null:
+			var smm: MultiMesh = view.shadow.multimesh
+			smm.buffer = sb
+			smm.visible_instance_count = live
+		view.shadow_buffer = sb
 	for i: int in count:
 		_flash[i] = maxf(_flash[i] - delta, 0.0)
