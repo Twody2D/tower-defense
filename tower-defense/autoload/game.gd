@@ -33,6 +33,8 @@ var skin_ads: Dictionary[StringName, int] = {}
 ## Daily gift: next calendar day 0..6 and the date of the last claim.
 var gift_day: int = 0
 var gift_date: String = ""
+## Full gift weeks in a row (a missed day sets it back to 0).
+var gift_week: int = 0
 ## Offline harvest: last collection time.
 var harvest_time: int = 0
 ## Rewarded uses today by kind ("upgrade_discount", "gift_x2", ...).
@@ -73,6 +75,7 @@ func reset() -> void:
 	skin_ads.clear()
 	gift_day = 0
 	gift_date = ""
+	gift_week = 0
 	harvest_time = 0
 	ad_date = ""
 	ad_used.clear()
@@ -252,13 +255,33 @@ func can_claim_gift(date: String) -> bool:
 	return gift_date != date
 
 
+## Week of the streak the gift of `date` belongs to (0 = the first).
+func gift_week_on(date: String) -> int:
+	if gift_date == "":
+		return 0
+	var days: int = _days_between(gift_date, date)
+	if days <= 0:
+		return gift_week
+	if days > 1:
+		return 0
+	# The day after day 7 starts the next week.
+	return gift_week + 1 if gift_day == META.daily_gifts.size() - 1 else gift_week
+
+
+## Grains of calendar day `day` in streak week `week` (without the ad ×2).
+func gift_amount(day: int, week: int) -> int:
+	var k: float = 1.0 + META.gift_week_bonus * mini(week, META.gift_week_max)
+	return roundi(META.daily_gifts[day] * k)
+
+
 ## Claims today's gift (× `mult` for the ad); returns the grains given.
 func claim_gift(date: String, mult: int = 1) -> int:
 	if not can_claim_gift(date):
 		return 0
+	gift_week = gift_week_on(date)
 	gift_day = gift_day_on(date)
 	gift_date = date
-	var n: int = META.daily_gifts[gift_day] * mult
+	var n: int = gift_amount(gift_day, gift_week) * mult
 	add_grains(n)
 	progress_changed.emit()
 	return n
@@ -272,7 +295,7 @@ static func _days_between(a: String, b: String) -> int:
 
 # --- Offline harvest ----------------------------------------------------------
 
-## Grains grown since the last collection (5 per hour, up to 8 hours).
+## Grains grown since the last collection (8 per hour, up to 12 hours).
 func harvest_amount(at: int) -> int:
 	if harvest_time <= 0:
 		return 0
@@ -353,6 +376,7 @@ func to_dict() -> Dictionary:
 		"skin_ads": _names_to_dict(skin_ads),
 		"gift_day": gift_day,
 		"gift_date": gift_date,
+		"gift_week": gift_week,
 		"harvest_time": harvest_time,
 		"ad_date": ad_date,
 		"ad_used": _names_to_dict(ad_used),
@@ -375,6 +399,7 @@ func from_dict(d: Dictionary) -> void:
 	grains_earned = maxi(_int(d, "grains_earned", grains), grains)
 	gift_day = clampi(_int(d, "gift_day", 0), 0, META.daily_gifts.size() - 1)
 	gift_date = _str(d, "gift_date")
+	gift_week = maxi(_int(d, "gift_week", 0), 0)
 	harvest_time = maxi(_int(d, "harvest_time", 0), 0)
 	ad_date = _str(d, "ad_date")
 	var stars: Variant = d.get("level_stars", [])

@@ -22,8 +22,15 @@ signal finished(won: bool, stars: int)
 @export var result_delay: float = 1.2
 ## Start of the fight: the camera flies to where each road starts, waits and
 ## comes back to the hero (fly and hold times, s).
-@export var spawn_fly_time: float = 0.8
-@export var spawn_hold_time: float = 1.0
+@export var spawn_fly_time: float = 1.3
+@export var spawn_hold_time: float = 1.6
+## Road arrows of the tour: frames (env set, "ui_edge_arrow"), step along
+## the road, pop delay between arrows, size, how long they stay after it.
+@export var arrow_frames: SpriteFrames
+@export var arrow_step: float = 90.0
+@export var arrow_delay: float = 0.05
+@export var arrow_size: float = 0.8
+@export var arrows_linger: float = 1.0
 ## Level start boosts (bought with an ad): coins, starting defender and its level.
 @export var boost_defender: DefenderData
 @export var boost_defender_level: int = 2
@@ -46,6 +53,7 @@ var _chance_used: bool = false
 ## Newcomers waiting for their window (DefenderData / EnemyData).
 var _intros: Array[Resource] = []
 var _spawns_shown: bool = false
+var _arrows: Node2D
 
 @onready var _level_holder: Node2D = $World/LevelHolder
 @onready var enemies: EnemyManager = $World/Enemies
@@ -195,26 +203,67 @@ func _on_first_of_type(data: EnemyData) -> void:
 		_next_intro()
 
 
-## Camera tour of the road starts (once, at the start of the fight). The
-## camera leaves the hero for the tour and comes back to where he is now.
+## Camera tour at the start of the fight (once): the camera glides to where
+## each road starts, arrows pop one after another along the road to the
+## carrots and pulse, then the camera glides back to the hero and the arrows
+## fade out.
 func _show_spawns() -> void:
 	if _spawns_shown or _over:
 		return
 	_spawns_shown = true
+	_arrows = Node2D.new()
+	_arrows.z_index = 5
+	level.add_child(_arrows)
 	var tw: Tween = create_tween()
 	tw.tween_callback(func() -> void:
+		var at: Vector2 = camera.get_screen_center_position()
 		camera.top_level = true
-		camera.global_position = hero.global_position + Vector2(0, -40))
+		camera.global_position = at)
 	for road: Path2D in level.roads():
 		var start: Vector2 = road.to_global(road.curve.get_point_position(0))
-		tw.tween_property(camera, ^"global_position", start, spawn_fly_time) 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_property(camera, ^"global_position", start, spawn_fly_time) \
+				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_callback(_pop_arrows.bind(road))
 		tw.tween_interval(spawn_hold_time)
+	var back: Array[Vector2] = [Vector2.ZERO]
+	tw.tween_callback(func() -> void: back[0] = camera.global_position)
 	tw.tween_method(func(k: float) -> void:
-		camera.global_position = camera.global_position.lerp(hero.global_position + Vector2(0, -40), k),
-		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		camera.global_position = back[0].lerp(hero.global_position + Vector2(0, -40), k),
+		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_callback(func() -> void:
 		camera.top_level = false
 		camera.position = Vector2(0, -40))
+	tw.tween_interval(arrows_linger)
+	tw.tween_property(_arrows, ^"modulate:a", 0.0, 0.5)
+	# Made once at the start, so freed once (not a battle-time pool object).
+	tw.tween_callback(_arrows.queue_free)
+
+
+## Arrows along a road, from its start to the carrots, popping in order.
+func _pop_arrows(road: Path2D) -> void:
+	var curve: Curve2D = road.curve
+	var length: float = curve.get_baked_length()
+	var n: int = int(length / arrow_step)
+	for i: int in n:
+		var d: float = (i + 0.5) * arrow_step
+		var p: Vector2 = curve.sample_baked(d)
+		var ahead: Vector2 = curve.sample_baked(minf(d + 8.0, length))
+		var a: AnimatedSprite2D = AnimatedSprite2D.new()
+		a.sprite_frames = arrow_frames
+		a.play(&"ui_edge_arrow")
+		a.position = road.to_global(p) - level.global_position
+		a.rotation = (ahead - p).angle()
+		a.scale = Vector2.ZERO
+		_arrows.add_child(a)
+		var tw: Tween = a.create_tween()
+		tw.tween_interval(i * arrow_delay)
+		tw.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.2) \
+				.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		# Then a soft pulse while the tour lasts.
+		tw.tween_callback(func() -> void:
+			var pulse: Tween = a.create_tween().set_loops()
+			pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size * 0.85, 0.35).set_trans(Tween.TRANS_SINE)
+			pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.35).set_trans(Tween.TRANS_SINE))
 
 
 func _process(_delta: float) -> void:

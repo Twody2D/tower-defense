@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 	for g: int in data.groups.size():
 		var group: WaveGroup = data.groups[g]
 		while _spawned[g] < group.count and _time >= group.delay + group.interval * float(_spawned[g]):
-			enemies.spawn(group.enemy, level.hp_multiplier(), group.road)
+			enemies.spawn(group.enemy, level.hp_multiplier() * group.hp_scale, group.road)
 			_spawned[g] += 1
 		if _spawned[g] < group.count:
 			finished = false

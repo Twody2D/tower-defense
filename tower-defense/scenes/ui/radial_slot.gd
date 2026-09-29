@@ -1,14 +1,18 @@
 class_name RadialSlot
 extends TextureButton
 ## One defender in the radial menu: portrait, price tag, or a lock when the
-## defender is not open on this level (design H).
+## defender is not open on this level (design H). Not enough coins: greyed,
+## red price, cannot be picked.
 
 signal picked(data: DefenderData)
 
 @export var slot_texture: Texture2D
 @export var slot_locked_texture: Texture2D
+@export var poor_modulate: Color = Color(0.6, 0.6, 0.6, 1.0)
+@export var poor_price_color: Color = Color(1.0, 0.42, 0.42, 1.0)
 
 var data: DefenderData
+var _open: bool = false
 
 @onready var _portrait: TextureRect = $Portrait
 @onready var _lock: TextureRect = $Lock
@@ -27,4 +31,18 @@ func show_defender(d: DefenderData, open: bool) -> void:
 	_lock.visible = not open
 	_price.visible = open
 	_price_label.text = str(d.price(1))
+	_open = open
 	disabled = not open
+
+
+## Coins changed: a defender the hero cannot pay for is greyed out.
+func set_coins(coins: int) -> void:
+	if not _open:
+		return
+	var poor: bool = coins < data.price(1)
+	disabled = poor
+	_portrait.modulate = poor_modulate if poor else Color.WHITE
+	if poor:
+		_price_label.add_theme_color_override(&"font_color", poor_price_color)
+	else:
+		_price_label.remove_theme_color_override(&"font_color")

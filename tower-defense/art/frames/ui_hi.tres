@@ -1,0 +1,79 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://art/hi/ui_icon_gift.png" id="1_mp1mo"]
+[ext_resource type="Texture2D" path="res://art/hi/ui_icon_gift_shake_4f.png" id="2_3usx1"]
+[ext_resource type="Texture2D" path="res://art/hi/ui_icon_harvest_ripe_3f.png" id="3_x0yfx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cemtb"]
+atlas = ExtResource("1_mp1mo")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veqf8"]
+atlas = ExtResource("2_3usx1")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72w8h"]
+atlas = ExtResource("2_3usx1")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fale0"]
+atlas = ExtResource("2_3usx1")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25tb2"]
+atlas = ExtResource("2_3usx1")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2l06"]
+atlas = ExtResource("3_x0yfx")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbohq"]
+atlas = ExtResource("3_x0yfx")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tp8s"]
+atlas = ExtResource("3_x0yfx")
+region = Rect2(512, 0, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cemtb")
+}],
+"loop": 1,
+"name": &"gift",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_veqf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72w8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fale0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25tb2")
+}],
+"loop": 1,
+"name": &"gift_shake",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2l06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbohq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tp8s")
+}],
+"loop": 1,
+"name": &"harvest_ripe",
+"speed": 6.0
+}]

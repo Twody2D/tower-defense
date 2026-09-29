@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="16_barrow"]
 [ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="17_fence_decor"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barn"]
+size = Vector2(180, 236)
+
 [sub_resource type="Curve2D" id="Curve2D_road1"]
 _data = {
 "points": PackedVector2Array(0.0, 0.0, 0.0, 0.0, 1376.0, 32.0, 0.0, -30.0, -30.0, 0.0, 1376.0, 480.0, 30.0, 0.0, 0.0, 30.0, 544.0, 480.0, 0.0, -30.0, 30.0, 0.0, 544.0, 992.0, -30.0, 0.0, 0.0, 30.0, 1312.0, 992.0, 0.0, -30.0, -30.0, 0.0, 1312.0, 1504.0, 0.0, 0.0, 0.0, 0.0, 608.0, 1504.0)
@@ -66,6 +69,12 @@ y_sort_enabled = true
 position = Vector2(300, 300)
 texture = ExtResource("7_barn")
 offset = Vector2(0, -108)
+
+[node name="Block" type="StaticBody2D" parent="Decor/Barn"]
+
+[node name="Shape" type="CollisionShape2D" parent="Decor/Barn/Block"]
+position = Vector2(0, -98)
+shape = SubResource("RectangleShape2D_barn")
 
 [node name="Flag" type="AnimatedSprite2D" parent="Decor/Barn"]
 sprite_frames = ExtResource("20_env")

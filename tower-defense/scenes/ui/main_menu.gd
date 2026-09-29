@@ -1,7 +1,11 @@
 extends Control
 ## Main menu (design I, screen 3): logo, hero in idle, Play → farm map,
 ## shop, settings, daily gift (shakes with a red dot while it can be taken),
-## grains counter. Windows open over the menu.
+## grains counter. Windows open over the menu. A gift that can be taken
+## opens by itself once per launch (so the player sees the streak).
+
+## The gift window already opened by itself in this launch.
+static var _gift_auto_shown: bool = false
 
 @export_file("*.tscn") var map_scene: String = "res://scenes/map/map.tscn"
 @export var shop_window: PackedScene
@@ -30,6 +34,9 @@ func _ready() -> void:
 		_hero.sprite_frames = skin.ui_frames
 		_hero.play(&"idle")
 	_refresh()
+	if Game.can_claim_gift(Game.today()) and not _gift_auto_shown:
+		_gift_auto_shown = true
+		_open.call_deferred(gift_window)
 
 
 func _refresh() -> void:

@@ -135,7 +135,12 @@ func _shoot() -> void:
 	if idx < 0:
 		return
 	_cooldown = 1.0 / data.attacks_per_second
-	projectiles.fire(global_position + data.muzzle, idx, _shot)
+	# The art faces right: turn to the target, the muzzle turns too.
+	_sprite.flip_h = enemies.position_at(idx).x < global_position.x
+	var muzzle: Vector2 = data.muzzle
+	if _sprite.flip_h:
+		muzzle.x = -muzzle.x
+	projectiles.fire(global_position + muzzle, idx, _shot)
 	_play_attack()
 
 

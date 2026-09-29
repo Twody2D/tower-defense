@@ -28,6 +28,9 @@ signal coin_paid(plot: BuildPlot)
 @export var coin_interval: float = 0.05
 ## The hero has to stand on the plot this long before coins go in, s.
 @export var start_delay: float = 0.35
+## A built defender is solid (the hero cannot walk into it), so the hero
+## upgrades it from next to it: the plot area grows by this factor.
+@export var built_reach: float = 1.7
 @export var pad_normal: Texture2D
 @export var pad_max: Texture2D
 @export var pad_locked: Texture2D
@@ -52,6 +55,7 @@ var _repair_paid: int = 0
 @onready var _ring: TextureProgressBar = $Ring
 @onready var _price: Node2D = $Price
 @onready var _price_label: Label = $Price/Label
+@onready var _block: CollisionShape2D = $Block/Shape
 
 
 func _ready() -> void:
@@ -86,7 +90,8 @@ func next_price() -> int:
 
 func contains(world_pos: Vector2) -> bool:
 	var d: Vector2 = (world_pos - global_position).abs()
-	return d.x / half_size.x + d.y / half_size.y <= 1.0
+	var k: float = built_reach if level > 0 and not fence_plot else 1.0
+	return d.x / (half_size.x * k) + d.y / (half_size.y * k) <= 1.0
 
 
 ## Level start boost: a defender already standing at `at_level`.
@@ -193,6 +198,8 @@ func _refresh() -> void:
 		_price.visible = false
 		return
 	_pad.texture = pad_max if is_max() else pad_normal
+	# Deferred: _refresh may run inside a physics callback.
+	_block.set_deferred(&"disabled", level == 0 or fence_plot)
 	var price: int = next_price()
 	_ring.visible = paid > 0
 	_ring.max_value = maxf(price, 1)

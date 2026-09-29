@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://data/types/wave_group.gd" id="3_group"]
 [ext_resource type="Script" path="res://data/types/defender_data.gd" id="4_def"]
 [ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="e_beetle"]
+[ext_resource type="Resource" path="res://data/enemies/fox.tres" id="e_fox"]
 [ext_resource type="Resource" path="res://data/defenders/goose.tres" id="d_goose"]
 
 [sub_resource type="Resource" id="WaveGroup_1_1"]
@@ -79,9 +80,18 @@ interval = 0.35
 road = 0
 delay = 8.0
 
+[sub_resource type="Resource" id="WaveGroup_5_boss"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_fox")
+count = 1
+interval = 1.0
+road = 0
+delay = 18.0
+hp_scale = 0.12
+
 [sub_resource type="Resource" id="WaveData_5"]
 script = ExtResource("2_wave")
-groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_5_1"), SubResource("WaveGroup_5_2")])
+groups = Array[ExtResource("3_group")]([SubResource("WaveGroup_5_1"), SubResource("WaveGroup_5_2"), SubResource("WaveGroup_5_boss")])
 
 [resource]
 script = ExtResource("1_level")

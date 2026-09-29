@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
+[ext_resource type="Script" path="res://scenes/ui/windows/gift_window.gd" id="2_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_day.tscn" id="3_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="4_r"]
+
+[node name="GiftWindow" instance=ExtResource("1_r")]
+script = ExtResource("2_r")
+title_key = "TITLE_GIFT"
+portrait_width = 980.0
+landscape_width = 1760.0
+ribbon_min_width = 760.0
+day_card = ExtResource("3_r")
+
+[node name="Streak" type="Label" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 30
+text = "GIFT_HINT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Days" type="VBoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Row1" type="HBoxContainer" parent="Panel/Content/Days"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Row2" type="HBoxContainer" parent="Panel/Content/Days"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Row3" type="HBoxContainer" parent="Panel/Content/Days"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Claim" type="Button" parent="Panel/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 112)
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"ButtonGreen"
+text = "BTN_CLAIM"
+
+[node name="ClaimX2" parent="Panel/Content/Buttons" instance=ExtResource("4_r")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(380, 112)
+layout_mode = 2
+text = "BTN_CLAIM_X2"
+tag = &"gift_x2"
+
+[node name="Tomorrow" type="Label" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 36
+text = "GIFT_TOMORROW"
+horizontal_alignment = 1
+vertical_alignment = 1
+visible = false

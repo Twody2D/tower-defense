@@ -6,8 +6,9 @@
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="4_fx"]
 [ext_resource type="Texture2D" path="res://art/hero/proj_apple_spin_4f.png" id="5_apple"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
-radius = 22.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 18.0
+height = 84.0
 
 [node name="Hero" type="CharacterBody2D"]
 motion_mode = 1
@@ -15,6 +16,40 @@ script = ExtResource("1_hero")
 stats = ExtResource("2_stats")
 skin = ExtResource("3_skin")
 projectile_texture = ExtResource("5_apple")
+
+[node name="Dust" type="Node2D" parent="."]
+
+[node name="Dust0" type="AnimatedSprite2D" parent="Dust"]
+visible = false
+top_level = true
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("4_fx")
+animation = &"dust"
+offset = Vector2(0, -12)
+
+[node name="Dust1" type="AnimatedSprite2D" parent="Dust"]
+visible = false
+top_level = true
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("4_fx")
+animation = &"dust"
+offset = Vector2(0, -12)
+
+[node name="Dust2" type="AnimatedSprite2D" parent="Dust"]
+visible = false
+top_level = true
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("4_fx")
+animation = &"dust"
+offset = Vector2(0, -12)
+
+[node name="Dust3" type="AnimatedSprite2D" parent="Dust"]
+visible = false
+top_level = true
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("4_fx")
+animation = &"dust"
+offset = Vector2(0, -12)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_skin")
@@ -30,7 +65,8 @@ animation = &"stars_head"
 
 [node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_body")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_body")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3

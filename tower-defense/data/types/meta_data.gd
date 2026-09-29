@@ -22,8 +22,12 @@ extends Resource
 @export var skins: Array[SkinData] = []
 
 @export_group("Daily gift")
-## Grains for days 1..7; a missed day starts over from day 1.
-@export var daily_gifts: Array[int] = [20, 30, 40, 50, 60, 80, 150]
+## Grains for days 1..7 (day 7 is the chest); a missed day starts over from
+## day 1 of week 1 (Twody: the player must want to come back every day).
+@export var daily_gifts: Array[int] = [30, 50, 70, 100, 130, 170, 300]
+## Every full week in a row adds this share to all gifts, up to `gift_week_max` weeks.
+@export var gift_week_bonus: float = 0.25
+@export var gift_week_max: int = 4
 
 @export_group("Level start boosts")
 ## Coins at the start of the battle for an ad.
@@ -34,8 +38,8 @@ extends Resource
 @export var discount_ads_per_day: int = 3
 
 @export_group("Offline harvest")
-@export var harvest_per_hour: float = 5.0
-@export var harvest_max_hours: float = 8.0
+@export var harvest_per_hour: float = 8.0
+@export var harvest_max_hours: float = 12.0
 
 
 func level_reward(stars: int) -> int:

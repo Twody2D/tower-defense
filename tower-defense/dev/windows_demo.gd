@@ -6,12 +6,15 @@ extends SceneTree
 ## windows are driven through call().
 
 const NAMES: PackedStringArray = ["pause", "win", "lose", "new_defender", "new_enemy", "level_start", "settings",
-		"shop", "shop_skins", "confirm"]
+		"shop", "shop_skins", "confirm", "gift", "gift_taken", "harvest"]
 const EXTRA: Dictionary = {
 	"level_start": "res://scenes/ui/windows/level_start_window.tscn",
 	"settings": "res://scenes/ui/windows/settings_window.tscn",
 	"shop": "res://scenes/ui/windows/shop_window.tscn",
 	"shop_skins": "res://scenes/ui/windows/shop_window.tscn",
+	"gift": "res://scenes/ui/windows/gift_window.tscn",
+	"gift_taken": "res://scenes/ui/windows/gift_window.tscn",
+	"harvest": "res://scenes/ui/windows/harvest_window.tscn",
 }
 const WAIT: int = 120
 
@@ -77,6 +80,13 @@ func _show(step: int) -> void:
 		owned.append(&"corgi")
 		var ads: Dictionary = game.get("skin_ads")
 		ads[&"rabbit"] = 3
+		# Gift: day 2 taken yesterday (today is day 3); the bed grew 6 hours.
+		var now: int = int(Time.get_unix_time_from_system())
+		var bias: int = Time.get_time_zone_from_system()["bias"]
+		var local: int = now + bias * 60
+		game.set("gift_date", Time.get_date_string_from_unix_time(local - 86400))
+		game.set("gift_day", 1)
+		game.set("harvest_time", now - 6 * 3600)
 	var name: String = _name(step)
 	match name:
 		"pause":
@@ -105,6 +115,9 @@ func _show(step: int) -> void:
 			_shown = scene.instantiate()
 			_layer.add_child(_shown)
 			_shown.call("open")
+			if name == "gift_taken":
+				root.get_node("Game").call("claim_gift", Time.get_date_string_from_system())
+				_shown.call("_refresh")
 			if name == "shop_skins":
 				_shown.call("_show_tab", true)
 				_shown.call("_preview_skin", &"rabbit")

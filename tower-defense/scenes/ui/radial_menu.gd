@@ -37,6 +37,7 @@ func open(for_plot: BuildPlot, catalog: Array[DefenderData], allowed: Array[Defe
 		if slot.visible:
 			slot.show_defender(catalog[i], catalog[i] in allowed)
 	_follow_plot()
+	_process(0.0)
 	visible = true
 	UiFx.pop(_anchor, 0.4, 0.2)
 
@@ -52,6 +53,10 @@ func close() -> void:
 func _process(_delta: float) -> void:
 	if visible:
 		_follow_plot()
+		if plot != null and plot.state != null:
+			for slot: RadialSlot in _slots:
+				if slot.visible:
+					slot.set_coins(plot.state.coins)
 
 
 func _follow_plot() -> void:

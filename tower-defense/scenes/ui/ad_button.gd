@@ -1,8 +1,9 @@
 class_name AdButton
 extends Button
-## Rewarded button (design G: own colour, video icon, glint). Pressing shows
-## the video through Ads; `rewarded` fires only when it was watched to the
-## end (onRewarded + onClose), otherwise a toast says ads are not available.
+## Rewarded button (design G: own colour, glint; the video icon is part of
+## the picture). Pressing shows the video through Ads; `rewarded` fires only
+## when it was watched to the end (onRewarded + onClose), otherwise a toast
+## says ads are not available.
 
 signal rewarded
 
@@ -25,13 +26,6 @@ var _glint_time: float = 0.0
 
 func _ready() -> void:
 	theme_type_variation = &"ButtonAdSmall" if small else &"ButtonAd"
-	if small:
-		# Video icon of the 80 px button: 38 px, the text starts at 54.
-		var icon: TextureRect = $Icon
-		icon.offset_left = 10.0
-		icon.offset_right = 48.0
-		icon.offset_top = -23.0
-		icon.offset_bottom = 15.0
 	focus_mode = Control.FOCUS_NONE
 	pressed.connect(_on_pressed)
 	resized.connect(_place_glint)

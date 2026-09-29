@@ -44,7 +44,7 @@ TITLE_NEW_DEFENDER,Новый защитник!,New defender!
 TITLE_NEW_ENEMY,Новый враг!,New pest!
 TITLE_SHOP,Магазин,Shop
 TITLE_GIFT,Ежедневный подарок,Daily gift
-TITLE_HARVEST,Офлайн-урожай,Offline harvest
+TITLE_HARVEST,Урожай созрел!,The harvest is ripe!
 TITLE_HOW_TO,Как играть,How to play
 CONFIRM_TITLE,Точно?,Are you sure?
 CONFIRM_TO_MAP,Выйти на карту? Прогресс уровня пропадёт.,Leave to the map? The level progress will be lost.
@@ -80,7 +80,7 @@ SKIN_BY_GRAINS,Купи за золотые зёрна,Buy for golden grains
 SKIN_LEVEL_SHORT,Ур. %d,Lv. %d
 LBL_DAY,День %d,Day %d
 LBL_TODAY,Сегодня,Today
-HARVEST_TEXT,"Грядка вырастила зёрна, пока тебя не было",The bed grew grains while you were away
+HARVEST_TEXT,"Пока тебя не было, на грядке выросло:","While you were away, the bed grew:"
 HARVEST_EMPTY,Пока ничего не выросло — загляни позже,Nothing has grown yet — come back later
 HUD_WAVE,Волна %d/%d,Wave %d/%d
 HUD_WAVE_BANNER,Волна %d!,Wave %d!
@@ -119,3 +119,9 @@ HOW_TO_PLOT,Встань на площадку и выбери защитник�
 HOW_TO_CARROTS,Не дай унести морковки: чем меньше потерял — тем больше звёзд.,Keep the carrots safe: the fewer you lose — the more stars you get.
 TOAST_TRIAL,Примерка — на следующий бой,Trying on — for the next fight
 TOAST_SKIN_OPEN,Новый скин открыт!,New skin unlocked!
+HARVEST_FULL_IN,Грядка заполнится через %d ч,The bed will be full in %d h
+HARVEST_FULL,Грядка полная — забирай урожай!,The bed is full — take the harvest!
+GIFT_HINT,Заходи каждый день — подарки растут!,Come every day — the gifts grow!
+GIFT_STREAK,"Неделя %d подряд: подарки +%d%%","Week %d in a row: gifts +%d%%"
+GIFT_TOMORROW,Приходи завтра за +%d зёрен!,Come back tomorrow for +%d grains!
+TOAST_GRAINS,+%d зёрен,+%d grains

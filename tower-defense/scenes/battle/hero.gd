@@ -21,6 +21,8 @@ extends CharacterBody2D
 @export var hit_tint: Color = Color(1.0, 0.45, 0.45)
 ## Dust puff from the feet while running, every this many seconds.
 @export var dust_every: float = 0.3
+## The puff appears this far behind the feet, px.
+@export var dust_back: float = 18.0
 @export var projectile_frames: int = 4
 ## Where the apple leaves the paw, relative to the feet.
 @export var throw_offset: Vector2 = Vector2(0, -60)
@@ -40,16 +42,21 @@ var _invulnerable_left: float = 0.0
 ## Build pose lasts this long after the last coin paid, s.
 var _build_left: float = 0.0
 var _dust_left: float = 0.0
+var _dust_next: int = 0
 ## Battle over: joy / sad only.
 var _finished: bool = false
 var _shot: Projectiles.Shot = Projectiles.Shot.new()
 
 @onready var _sprite: AnimatedSprite2D = $Sprite
 @onready var _stars: AnimatedSprite2D = $StunStars
+@onready var _dust: Node2D = $Dust
 
 
 func _ready() -> void:
 	_stars.visible = false
+	for puff: Node in _dust.get_children():
+		var a: AnimatedSprite2D = puff as AnimatedSprite2D
+		a.animation_finished.connect(a.hide)
 	if skin != null:
 		_sprite.sprite_frames = skin
 	_sprite.play(&"idle")
@@ -175,13 +182,23 @@ func _attack(delta: float) -> void:
 		_sprite.flip_h = enemies.position_at(target).x < global_position.x
 
 
+## Run dust: a puff behind the feet (against the run), drawn behind the hero
+## (Dust is before Sprite; the puffs stay where they appeared: top_level).
+func _puff() -> void:
+	var puff: AnimatedSprite2D = _dust.get_child(_dust_next) as AnimatedSprite2D
+	_dust_next = (_dust_next + 1) % _dust.get_child_count()
+	puff.global_position = global_position - velocity.normalized() * dust_back
+	puff.visible = true
+	puff.play(&"dust")
+
+
 ## Picks the animation for the state; once animations (hit, throw) finish first.
 func _animate(delta: float) -> void:
 	_build_left = maxf(_build_left - delta, 0.0)
 	_dust_left -= delta
-	if is_moving() and _dust_left <= 0.0 and fx != null:
+	if is_moving() and _dust_left <= 0.0:
 		_dust_left = dust_every
-		fx.play(&"dust", global_position + Vector2(-signf(velocity.x) * 14.0, 0.0), 1.5)
+		_puff()
 	var current: StringName = _sprite.animation
 	var want: StringName = &"idle"
 	if _stun_left > 0.0:

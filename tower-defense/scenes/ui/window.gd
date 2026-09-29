@@ -65,6 +65,8 @@ func open() -> void:
 		tw.tween_property(c, ^"scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_dim.modulate.a = 0.0
 	_dim.create_tween().tween_property(_dim, ^"modulate:a", 1.0, 0.15)
+	# Wrapped labels know their height only after a layout pass: fit again.
+	_layout.call_deferred()
 
 
 func close() -> void:

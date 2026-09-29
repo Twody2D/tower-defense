@@ -78,13 +78,24 @@ func test_daily_gift_wraps_after_day_7() -> void:
 	assert_int(Game.gift_day_on("2026-09-08")).is_equal(0)
 
 
+func test_gift_weeks_in_a_row_grow() -> void:
+	var gifts: Array[int] = Game.META.daily_gifts
+	for d: int in 7:
+		Game.claim_gift("2026-09-%02d" % (d + 1))
+	# Week 2: +25%.
+	assert_int(Game.claim_gift("2026-09-08")).is_equal(roundi(gifts[0] * 1.25))
+	# A missed day: week 1, day 1 again.
+	assert_int(Game.claim_gift("2026-09-10")).is_equal(gifts[0])
+	assert_int(Game.gift_week).is_equal(0)
+
+
 func test_offline_harvest() -> void:
 	assert_int(Game.harvest_amount(1000)).is_equal(0)
 	Game.start_harvest(1000)
-	# 5 per hour, 8 hours max.
-	assert_int(Game.harvest_amount(1000 + 3600 * 2)).is_equal(10)
-	assert_int(Game.harvest_amount(1000 + 3600 * 20)).is_equal(40)
-	assert_int(Game.collect_harvest(1000 + 3600 * 3, 3)).is_equal(45)
+	# 8 per hour, 12 hours max.
+	assert_int(Game.harvest_amount(1000 + 3600 * 2)).is_equal(16)
+	assert_int(Game.harvest_amount(1000 + 3600 * 20)).is_equal(96)
+	assert_int(Game.collect_harvest(1000 + 3600 * 3, 3)).is_equal(72)
 	assert_int(Game.harvest_amount(1000 + 3600 * 3)).is_equal(0)
 
 

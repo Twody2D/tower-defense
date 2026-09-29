@@ -27,11 +27,13 @@
 [ext_resource type="Texture2D" path="res://art/enemies/ui_hp_mini_fill.png" id="41_hpfill"]
 [ext_resource type="Script" path="res://scenes/battle/fx_pool.gd" id="42_fx"]
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="43_fxframes"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="60_envframes"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
 level_scene = ExtResource("2_level")
 hero_stats = ExtResource("3_stats")
+arrow_frames = ExtResource("60_envframes")
 defender_catalog = Array[ExtResource("12_def_script")]([ExtResource("13_goose"), ExtResource("14_frog"), ExtResource("15_beaver"), ExtResource("16_hive")])
 boost_defender = ExtResource("55_goose")
 
