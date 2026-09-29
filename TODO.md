@@ -39,7 +39,7 @@
 - [x] `web/shell.html` с мостом `window.YG`, холст ≤ 2:1 в обе стороны
 - [x] Тесты сохранений (gdUnit4) — 3/3
 - [x] Скриншоты меню в ландшафте и портрете
-- [x] Свой web-шаблон по `custom.build` → `C:\PROGRAMS\godot-templates	owerdefence_web_release.zip`
+- [x] Свой web-шаблон по `custom.build` → `C:\PROGRAMS\godot-templates\towerdefence_web_release.zip`
 - [x] Экспорт, `check_build.py`: **ZIP 5,12 МБ** (движок 5,04) → `docs/size_log.md`
 - [x] Браузер: консоль без ошибок, мост с поддельным SDK (`LoadingAPI.ready`), портрет и ландшафт
 - [x] Шрифт Nunito Black в теме (в облегчённом движке нет встроенного шрифта)
