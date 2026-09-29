@@ -1122,6 +1122,12 @@
     "frames": 1,
     "fps": 1,
     "loop": true
+   },
+   "parcel_glow": {
+    "file": "res://art/hi/fx_parcel_glow_4f.png",
+    "frames": 4,
+    "fps": 8,
+    "loop": true
    }
   }
  },

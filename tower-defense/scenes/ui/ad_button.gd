@@ -6,6 +6,8 @@ extends Button
 ## says ads are not available.
 
 signal rewarded
+## The video was closed early or not shown (the toast is already on screen).
+signal failed
 
 ## What the reward is for (Ads tag, daily limit key).
 @export var tag: StringName = &"reward"
@@ -67,3 +69,4 @@ func _on_pressed() -> void:
 		rewarded.emit()
 	else:
 		Ui.toast(tr("TOAST_NO_AD"))
+		failed.emit()

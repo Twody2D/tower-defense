@@ -13,6 +13,12 @@ signal call_pressed
 ## hero is lower); landscape — this far below the screen centre (little height).
 @export var banner_top_portrait: float = 560.0
 @export var banner_below_landscape: float = 220.0
+## Bonus rings: landscape — a row under the counters; portrait — a column
+## under the pause button (design H).
+@export var rings_landscape: Vector2 = Vector2(33, 108)
+@export var rings_portrait_top: float = 136.0
+## Parcel pointer icon at the screen edge.
+@export var parcel_icon: Texture2D
 
 @onready var joystick: Joystick = $Joystick
 @onready var radial_menu: RadialMenu = $RadialMenu
@@ -33,6 +39,8 @@ signal call_pressed
 @onready var _boss_bar: BossBar = $TopCenter/BossBar
 @onready var _edge_boss: EdgeArrow = $EdgeBoss
 @onready var _edge_pests: EdgeArrow = $EdgePests
+@onready var _edge_parcel: EdgeArrow = $EdgeParcel
+@onready var _rings: BoxContainer = $Rings
 @onready var _popups: Control = $Popups
 
 var _next_popup: int = 0
@@ -59,6 +67,15 @@ func _layout() -> void:
 	_top_center.position.y = -landscape_lift if s.x > s.y else 0.0
 	var cy: float = s.y * 0.5 + banner_below_landscape if s.x > s.y else banner_top_portrait
 	_banner.position = Vector2((s.x - _banner.size.x) * 0.5, cy - _banner.size.y * 0.5)
+	var portrait: bool = s.y > s.x
+	_rings.vertical = portrait
+	_rings.reset_size()
+	if portrait:
+		# Centred under the pause button.
+		var pause_centre: float = _pause.get_global_rect().get_center().x
+		_rings.position = Vector2(pause_centre - _rings.size.x * 0.5, rings_portrait_top)
+	else:
+		_rings.position = rings_landscape
 
 
 ## Esc / P: the HUD runs while the game is paused, so the key also resumes.
@@ -149,6 +166,41 @@ func point_edge(boss: bool, target: Vector2, icon: Texture2D) -> void:
 
 func hide_edge(boss: bool) -> void:
 	(_edge_boss if boss else _edge_pests).visible = false
+
+
+## Pointer to the parcel lying off screen (`target` in screen coordinates).
+func point_parcel(target: Vector2) -> void:
+	_edge_parcel.point(target, get_viewport().get_visible_rect(), parcel_icon)
+
+
+func hide_parcel_edge() -> void:
+	_edge_parcel.visible = false
+
+
+## Rings of the running bonuses (icon and time left 0..1), in this order.
+func show_rings(icons: Array[Texture2D], shares: PackedFloat32Array) -> void:
+	var was: int = _visible_rings()
+	for i: int in _rings.get_child_count():
+		var ring: BonusRing = _rings.get_child(i) as BonusRing
+		if i < icons.size():
+			ring.show_bonus(icons[i], shares[i])
+		else:
+			ring.visible = false
+	if _visible_rings() != was:
+		_layout()
+
+
+func _visible_rings() -> int:
+	var n: int = 0
+	for c: Node in _rings.get_children():
+		if (c as Control).visible:
+			n += 1
+	return n
+
+
+## "Gold rain!" with the bonus icon above the ribbon.
+func show_bonus_banner(text: String, icon: Texture2D) -> void:
+	_banner.show_banner(text, icon, false)
 
 
 ## Gold "+N" that floats up from `at` (screen coordinates) and fades.

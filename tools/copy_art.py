@@ -340,7 +340,8 @@ def make_small_buttons() -> None:
 # The PNG sheets are drawn for the battle (hero 128, beetle 48); menus and
 # windows show them 3–6 times bigger and they blur. These sheets are rendered
 # again from the design SVGs at a scale (frame ≈ 250–400 px):
-# sets hero_<skin>_ui (idle, sad; the raccoon also joy), ui_hi (gift, harvest icons), pests_ui (<pest>: walk/fly), defenders_ui (<id>: l1 idle).
+# sets hero_<skin>_ui (idle, sad; the raccoon also joy), ui_hi (gift, harvest icons, parcel glow),
+# single pictures art/hi/ui_icon_bonus_*.png, pests_ui (<pest>: walk/fly), defenders_ui (<id>: l1 idle).
 HI_HERO = [("idle", 4, 6, True), ("sad", 4, 6, True)]
 HI_HERO_EXTRA = {"raccoon": [("joy", 6, 10, True)]}  # the loading screen
 HI_HERO_SCALE = 3.0
@@ -357,6 +358,10 @@ HI_UI = {  # name in ui_hi: (svg base, frames, fps, scale) — gift and harvest 
     "gift_shake": ("ui_icon_gift_shake_4f", 4, 10, 2.0),
     "gift": ("ui_icon_gift", 1, 1, 2.0),
 }
+# Parcel window (design H): the glowing box and the bonus icons at 128 px.
+HI_FX = {"parcel_glow": ("fx_parcel_glow_4f", 4, 8, 2.0)}  # name in ui_hi: (svg base in f/, frames, fps, scale)
+HI_ICONS = [f"ui_icon_bonus_{b}" for b in ("gold_rain", "rage", "super_magnet", "upgrade", "tractor", "sleepy_rain", "helper")]
+HI_ICON_SCALE = 2.0
 
 
 def flat_svg(text: str) -> str:
@@ -411,6 +416,10 @@ def make_hi() -> dict[str, dict]:
     sets["ui_hi"] = {
         name: entry(job("g", base, k), n, fps, True) for name, (base, n, fps, k) in HI_UI.items()
     }
+    for name, (base, n, fps, k) in HI_FX.items():
+        sets["ui_hi"][name] = entry(job("f", base, k), n, fps, True)
+    for base in HI_ICONS:
+        job("g", base, HI_ICON_SCALE)
     # The logo carrot's leaves stick out above the plate's box (the PNG cuts
     # them): the plate is rendered with 40 px more on top, 960×480.
     logo = re.sub(r"<metadata>.*?</metadata>", "", (SVG / "i" / "logo_plate.svg").read_text(encoding="utf-8"), flags=re.S)

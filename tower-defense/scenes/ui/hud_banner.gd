@@ -17,12 +17,13 @@ var _tween: Tween
 @onready var _title: Label = %Title
 
 
-## `portrait` null: a plain orange ribbon; otherwise the boss ribbon.
-func show_banner(text: String, portrait: Texture2D = null) -> void:
+## `portrait` null: a plain orange ribbon; otherwise the picture in the slot
+## above and the boss ribbon (`boss` false: orange, for a parcel bonus).
+func show_banner(text: String, portrait: Texture2D = null, boss: bool = true) -> void:
 	_title.text = text
 	_slot.visible = portrait != null
 	_portrait.texture = portrait
-	_ribbon.texture = ribbon_boss if portrait != null else ribbon_normal
+	_ribbon.texture = ribbon_boss if portrait != null and boss else ribbon_normal
 	visible = true
 	modulate.a = 1.0
 	pivot_offset = size * 0.5

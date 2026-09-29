@@ -103,6 +103,23 @@ func prebuild(data: DefenderData, at_level: int) -> void:
 	_refresh()
 
 
+func can_free_upgrade() -> bool:
+	return not locked and not fence_plot and level > 0 and not is_max()
+
+
+## Parcel bonus: a built defender goes one level up for free (the coins paid
+## towards the next level go back to the hero). False if nothing to raise.
+func free_upgrade() -> bool:
+	if not can_free_upgrade():
+		return false
+	_refund()
+	level += 1
+	defender.set_level(level)
+	built.emit(self, level)
+	_refresh()
+	return true
+
+
 ## Radial menu answer. Changing the pick is allowed while nothing is paid.
 func choose(data: DefenderData) -> void:
 	if level > 0 or paid > 0:

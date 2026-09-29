@@ -57,6 +57,8 @@ var _spawns_shown: bool = false
 var _arrows: Node2D
 var _boss_id: int = 0
 var _edge_left: float = 0.0
+## Waves left until the next parcel falls.
+var _parcel_in: int = 0
 
 @onready var _level_holder: Node2D = $World/LevelHolder
 @onready var enemies: EnemyManager = $World/Enemies
@@ -72,6 +74,10 @@ var _edge_left: float = 0.0
 @onready var lose_window: LoseWindow = $Windows/LoseWindow
 @onready var defender_intro: IntroWindow = $Windows/NewDefender
 @onready var enemy_intro: IntroWindow = $Windows/NewEnemy
+@onready var parcel_window: ParcelWindow = $Windows/ParcelWindow
+@onready var parcel: Parcel = $World/Parcel
+@onready var helper: Helper = $World/Helper
+@onready var bonuses: Bonuses = $World/Bonuses
 
 
 func _ready() -> void:
@@ -146,6 +152,7 @@ func _ready() -> void:
 	waves.start(data, enemies)
 	hud.set_wave(0, waves.total())
 	_wire_windows()
+	_wire_parcel()
 	_apply_boosts()
 	YandexSdk.gameplay_start()
 	YandexSdk.paused.connect(_on_sdk_paused)
@@ -167,6 +174,86 @@ func _wire_windows() -> void:
 	lose_window.to_map.connect(_to_map)
 	defender_intro.closed.connect(_on_intro_closed)
 	enemy_intro.closed.connect(_on_intro_closed)
+
+
+## "Посылка от фермера": the parcel, its pick window, the bonuses and the helper.
+func _wire_parcel() -> void:
+	var ads: AdRewards = Game.ADS
+	_parcel_in = randi_range(ads.parcel_every_min, ads.parcel_every_max)
+	parcel.hero = hero
+	parcel.fx = fx
+	parcel.lifetime = ads.parcel_lifetime
+	parcel.blink = ads.parcel_blink
+	parcel.pickup = ads.parcel_pickup
+	parcel.picked.connect(_on_parcel_picked)
+	parcel_window.picked.connect(_on_bonus_picked)
+	parcel_window.declined.connect(_resume)
+	helper.hero = hero
+	helper.enemies = enemies
+	helper.projectiles = projectiles
+	helper.fx = fx
+	helper.stats = hero.stats
+	bonuses.hero = hero
+	bonuses.coins = coins
+	bonuses.enemies = enemies
+	bonuses.fx = fx
+	bonuses.helper = helper
+	bonuses.camera = camera
+	bonuses.hud = hud
+	bonuses.plots = level.plots()
+	bonuses.roads = level.roads()
+	bonuses.bounds = level.bounds()
+	bonuses.setup()
+
+
+## Every 2–3 waves the parcel falls near the hero a few seconds after the wave starts.
+func _count_parcel() -> void:
+	_parcel_in -= 1
+	if _parcel_in > 0:
+		return
+	var ads: AdRewards = Game.ADS
+	_parcel_in = randi_range(ads.parcel_every_min, ads.parcel_every_max)
+	# A pausable timer: it waits while the game is paused.
+	get_tree().create_timer(ads.parcel_delay, false).timeout.connect(_drop_parcel)
+
+
+func _drop_parcel() -> void:
+	if _over or parcel.is_out() or not is_inside_tree():
+		return
+	parcel.drop(_parcel_spot())
+
+
+## A free spot around the hero (not inside the barn, the bed or a built plot).
+func _parcel_spot() -> Vector2:
+	var space: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	var b: Rect2 = level.bounds().grow(-120.0)
+	var d: float = Game.ADS.parcel_distance
+	for attempt: int in 12:
+		var a: float = randf() * TAU
+		var p: Vector2 = (hero.global_position + Vector2(cos(a), sin(a) * 0.8) * d).clamp(b.position, b.end)
+		query.position = p
+		if space.intersect_point(query, 1).is_empty() and p.distance_to(hero.global_position) > Game.ADS.parcel_pickup * 1.5:
+			return p
+	return (hero.global_position + Vector2(d, 0)).clamp(b.position, b.end)
+
+
+## The hero opened the parcel: the fight waits for the pick.
+func _on_parcel_picked() -> void:
+	if _over:
+		return
+	var ids: Array[StringName] = bonuses.offer(2)
+	var icons: Array[Texture2D] = []
+	for id: StringName in ids:
+		icons.append(bonuses.big_icon(id))
+	_pause_game()
+	parcel_window.show_bonuses(ids, icons)
+
+
+func _on_bonus_picked(id: StringName) -> void:
+	_resume()
+	bonuses.apply(id, waves.wave)
+	hud.show_bonus_banner(tr("BONUS_" + String(id).to_upper()), bonuses.big_icon(id))
 
 
 func _apply_boosts() -> void:
@@ -329,6 +416,10 @@ func _update_edges() -> void:
 		hud.point_edge(false, to_screen * enemies.position_at(nearest), enemies.data_at(nearest).portrait)
 	else:
 		hud.hide_edge(false)
+	if parcel.is_waiting() and not screen.has_point(to_screen * parcel.global_position):
+		hud.point_parcel(to_screen * parcel.global_position)
+	else:
+		hud.hide_parcel_edge()
 
 
 func _on_coins_collected(n: int) -> void:
@@ -354,6 +445,7 @@ func _on_wave_started(number: int, total: int) -> void:
 	hud.set_wave(number, total)
 	if number >= 1:
 		hud.show_wave_banner(number)
+		_count_parcel()
 
 
 ## "Call now": the next wave comes at once, +1 coin per second of the break left.
@@ -426,7 +518,7 @@ func _release_input() -> void:
 ## Esc with the pick menu open only closes the menu; newcomer windows wait
 ## for their button.
 func _toggle_pause() -> void:
-	if _over or defender_intro.visible or enemy_intro.visible:
+	if _over or defender_intro.visible or enemy_intro.visible or parcel_window.visible:
 		return
 	if hud.radial_menu.visible:
 		hud.radial_menu.close()
@@ -509,6 +601,9 @@ func _finish(s: int) -> bool:
 	YandexSdk.gameplay_stop()
 	_release_input()
 	hud.radial_menu.close()
+	if parcel.is_waiting():
+		parcel.hide_now()
+	hud.hide_parcel_edge()
 	hero.finish(won)
 	get_tree().paused = true
 	finished.emit(won, s)

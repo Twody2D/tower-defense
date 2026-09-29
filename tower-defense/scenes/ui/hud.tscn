@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/joystick.tscn" id="2_joy"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_banner.tscn" id="20_banner"]
 [ext_resource type="PackedScene" path="res://scenes/ui/boss_bar.tscn" id="21_boss"]
 [ext_resource type="PackedScene" path="res://scenes/ui/edge_arrow.tscn" id="22_edge"]
+[ext_resource type="PackedScene" path="res://scenes/ui/bonus_ring.tscn" id="23_ring"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_parcel.png" id="24_parcel"]
 [sub_resource type="StyleBoxTexture" id="StyleBox_green"]
 texture = ExtResource("13_green")
 texture_margin_left = 44.0
@@ -35,6 +37,7 @@ texture_margin_bottom = 52.0
 [node name="Hud" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_hud")
+parcel_icon = ExtResource("24_parcel")
 
 [node name="Joystick" parent="." instance=ExtResource("2_joy")]
 
@@ -330,6 +333,32 @@ offset_bottom = 322.0
 [node name="EdgeBoss" parent="." instance=ExtResource("22_edge")]
 
 [node name="EdgePests" parent="." instance=ExtResource("22_edge")]
+
+[node name="EdgeParcel" parent="." instance=ExtResource("22_edge")]
+
+[node name="Rings" type="BoxContainer" parent="."]
+offset_left = 33.0
+offset_top = 108.0
+offset_right = 409.0
+offset_bottom = 196.0
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Ring0" parent="Rings" instance=ExtResource("23_ring")]
+visible = false
+layout_mode = 2
+
+[node name="Ring1" parent="Rings" instance=ExtResource("23_ring")]
+visible = false
+layout_mode = 2
+
+[node name="Ring2" parent="Rings" instance=ExtResource("23_ring")]
+visible = false
+layout_mode = 2
+
+[node name="Ring3" parent="Rings" instance=ExtResource("23_ring")]
+visible = false
+layout_mode = 2
 
 [node name="Popups" type="Control" parent="."]
 layout_mode = 3

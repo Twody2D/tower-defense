@@ -42,14 +42,16 @@ func play(anim: StringName, at: Vector2, size: float = 1.0, always: bool = false
 
 
 ## A looping effect that flies from `from` to `to` in `time` s, then is gone
-## (coins into a plot).
-func fly(anim: StringName, from: Vector2, to: Vector2, time: float, size: float = 1.0) -> void:
+## (coins into a plot). Returns its tween (null if the pool is full) to chain
+## more after the arrival.
+func fly(anim: StringName, from: Vector2, to: Vector2, time: float, size: float = 1.0) -> Tween:
 	var s: AnimatedSprite2D = play(anim, from, size)
 	if s == null:
-		return
+		return null
 	var tw: Tween = s.create_tween()
 	tw.tween_property(s, ^"global_position", to, time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tw.tween_callback(_release.bind(s))
+	return tw
 
 
 func _release(s: AnimatedSprite2D) -> void:

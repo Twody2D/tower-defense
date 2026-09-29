@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/pause_window.tscn" id="50_0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/win_window.tscn" id="50_1"]
@@ -28,6 +28,10 @@
 [ext_resource type="Script" path="res://scenes/battle/fx_pool.gd" id="42_fx"]
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="43_fxframes"]
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="60_envframes"]
+[ext_resource type="PackedScene" path="res://scenes/battle/parcel.tscn" id="61_parcel"]
+[ext_resource type="PackedScene" path="res://scenes/battle/helper.tscn" id="62_helper"]
+[ext_resource type="Script" path="res://scenes/battle/bonuses.gd" id="63_bonuses"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/parcel_window.tscn" id="64_parcelwin"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
@@ -61,6 +65,15 @@ z_index = 5
 script = ExtResource("7_proj")
 projectile_scene = ExtResource("10_projectile")
 
+[node name="Parcel" parent="World" instance=ExtResource("61_parcel")]
+
+[node name="Helper" parent="World" instance=ExtResource("62_helper")]
+
+[node name="Bonuses" type="Node2D" parent="World"]
+y_sort_enabled = true
+script = ExtResource("63_bonuses")
+fx_frames = ExtResource("43_fxframes")
+
 [node name="Fx" type="Node2D" parent="World"]
 z_index = 6
 script = ExtResource("42_fx")
@@ -88,4 +101,7 @@ visible = false
 visible = false
 
 [node name="NewEnemy" parent="Windows" instance=ExtResource("50_4")]
+visible = false
+
+[node name="ParcelWindow" parent="Windows" instance=ExtResource("64_parcelwin")]
 visible = false

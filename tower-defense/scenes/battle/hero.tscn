@@ -51,6 +51,20 @@ sprite_frames = ExtResource("4_fx")
 animation = &"dust"
 offset = Vector2(0, -12)
 
+[node name="MagnetAura" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -40)
+scale = Vector2(1.2, 1.2)
+sprite_frames = ExtResource("4_fx")
+animation = &"magnet_aura"
+
+[node name="RageAura" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -80)
+scale = Vector2(1.3, 1.3)
+sprite_frames = ExtResource("4_fx")
+animation = &"rage_aura"
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_skin")
 animation = &"idle"

@@ -50,6 +50,8 @@ var _shot: Projectiles.Shot = Projectiles.Shot.new()
 @onready var _sprite: AnimatedSprite2D = $Sprite
 @onready var _stars: AnimatedSprite2D = $StunStars
 @onready var _dust: Node2D = $Dust
+@onready var _rage_aura: AnimatedSprite2D = $RageAura
+@onready var _magnet_aura: AnimatedSprite2D = $MagnetAura
 
 
 func _ready() -> void:
@@ -119,6 +121,26 @@ func set_skin(frames: SpriteFrames, projectile: Texture2D) -> void:
 	if is_node_ready():
 		_sprite.sprite_frames = frames
 		_sprite.play(&"idle")
+
+
+## Parcel "Rage": damage and attack speed × `mult` (1 = off), flames at the feet.
+func set_rage(mult: float) -> void:
+	damage_mult = mult
+	attack_speed_mult = mult
+	_show_aura(_rage_aura, mult > 1.0)
+
+
+## Parcel "Super magnet": the rings around the hero (the pull is in Coins).
+func set_magnet_aura(on: bool) -> void:
+	_show_aura(_magnet_aura, on)
+
+
+func _show_aura(aura: AnimatedSprite2D, on: bool) -> void:
+	aura.visible = on
+	if on:
+		aura.play()
+	else:
+		aura.stop()
 
 
 ## Second chance: back in the fight after finish(false).

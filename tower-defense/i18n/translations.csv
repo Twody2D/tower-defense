@@ -126,3 +126,20 @@ GIFT_TOMORROW,Приходи завтра за +%d зёрен!,Come back tomorro
 TOAST_GRAINS,+%d зёрен,+%d grains
 ENEMY_FOX_COMING,Идёт Лис!,The Fox is coming!
 HOW_TO_BOSS,"В конце уровня приходит Лис: сильный, ломает заборы и оглушает героя. Готовь защитников заранее!","At the end of a level the Fox comes: strong, breaks fences and stuns the hero. Get your defenders ready!"
+TITLE_PARCEL,Посылка!,A parcel!
+PARCEL_PICK,Выбери бонус,Pick a bonus
+BTN_NO_THANKS,"Нет, спасибо","No, thanks"
+BONUS_GOLD_RAIN,Золотой дождь,Gold rain
+BONUS_GOLD_RAIN_DESC,Монеты сыплются с неба вокруг тебя,Coins pour from the sky around you
+BONUS_RAGE,Ярость героя,Hero rage
+BONUS_RAGE_DESC,Бросаешь вдвое сильнее и чаще,You throw twice as hard and fast
+BONUS_SUPER_MAGNET,Супер-магнит,Super magnet
+BONUS_SUPER_MAGNET_DESC,Монеты со всей карты летят к тебе,Coins from the whole map fly to you
+BONUS_UPGRADE,Бесплатный апгрейд,Free upgrade
+BONUS_UPGRADE_DESC,Все защитники +1 уровень,All defenders +1 level
+BONUS_TRACTOR,Трактор,Tractor
+BONUS_TRACTOR_DESC,Проезжает по дороге и сдувает вредителей,Drives along the road and blows pests away
+BONUS_SLEEPY_RAIN,Сонный дождь,Sleepy rain
+BONUS_SLEEPY_RAIN_DESC,Все вредители ползут медленнее,All pests crawl slower
+BONUS_HELPER,Помощник,Helper
+BONUS_HELPER_DESC,Второй герой бегает рядом и помогает,A second hero runs along and helps

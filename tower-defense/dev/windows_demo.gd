@@ -6,7 +6,7 @@ extends SceneTree
 ## windows are driven through call().
 
 const NAMES: PackedStringArray = ["pause", "win", "lose", "new_defender", "new_enemy", "level_start", "settings",
-		"shop", "shop_skins", "confirm", "gift", "gift_taken", "harvest", "how_to"]
+		"shop", "shop_skins", "confirm", "gift", "gift_taken", "harvest", "how_to", "parcel"]
 const EXTRA: Dictionary = {
 	"level_start": "res://scenes/ui/windows/level_start_window.tscn",
 	"settings": "res://scenes/ui/windows/settings_window.tscn",
@@ -110,6 +110,14 @@ func _show(step: int) -> void:
 			var ui: Node = root.get_node("Ui")
 			_shown = ui.get("_confirm")
 			ui.call("ask", "Выйти на карту? Прогресс уровня пропадёт.")
+		"parcel":
+			_shown = _battle.get_node("Windows/ParcelWindow")
+			var bonuses: Node = _battle.get("bonuses")
+			var ids: Array[StringName] = [&"tractor", &"sleepy_rain"]
+			var icons: Array[Texture2D] = []
+			for id: StringName in ids:
+				icons.append(bonuses.call("big_icon", id))
+			_shown.call("show_bonuses", ids, icons)
 		"new_enemy":
 			_shown = _battle.get_node("Windows/NewEnemy")
 			_shown.call("show_enemy", load("res://data/enemies/beetle.tres"))

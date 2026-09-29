@@ -58,6 +58,8 @@ class TypeView:
 @export var hp_height: float = 0.85
 
 var count: int = 0
+## Slows everyone by this share on top of their own slows (sleepy rain).
+var global_slow: float = 0.0
 ## Time of the last _process (move + effects + drawing buffers), µs — for the stress test.
 var last_usec: int = 0
 ## Set by the battle: bosses stun it when close.
@@ -270,6 +272,7 @@ func step(delta: float) -> void:
 		if _slow_left[i] > 0.0:
 			_slow_left[i] -= delta
 			speed *= 1.0 - _slow[i]
+		speed *= 1.0 - global_slow
 		if data.can_dive:
 			_tick_dive(i, data, delta)
 		_anim_t[i] += delta

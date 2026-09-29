@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_w"]
+[ext_resource type="Script" path="res://scenes/ui/windows/parcel_window.gd" id="2_w"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui_hi.tres" id="3_w"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/bonus_card.tscn" id="4_w"]
+
+[node name="ParcelWindow" instance=ExtResource("1_w")]
+script = ExtResource("2_w")
+title_key = "TITLE_PARCEL"
+closable = false
+portrait_width = 960.0
+landscape_width = 1060.0
+
+[node name="Glow" type="Control" parent="Panel/Content"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Box" type="AnimatedSprite2D" parent="Panel/Content/Glow"]
+unique_name_in_owner = true
+position = Vector2(424, 50)
+scale = Vector2(0.75, 0.75)
+sprite_frames = ExtResource("3_w")
+animation = &"parcel_glow"
+autoplay = "parcel_glow"
+
+[node name="Hint" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 36
+text = "PARCEL_PICK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cards" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Card1" parent="Panel/Content/Cards" instance=ExtResource("4_w")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Card2" parent="Panel/Content/Cards" instance=ExtResource("4_w")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Decline" type="Button" parent="Panel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 104)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_type_variation = &"ButtonBlue"
+text = "BTN_NO_THANKS"

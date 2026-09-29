@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/windows/bonus_card.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://art/hi/ui_icon_bonus_gold_rain.png" id="2_icon"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="3_ad"]
+
+[node name="BonusCard" type="PanelContainer"]
+custom_minimum_size = Vector2(420, 0)
+theme_type_variation = &"Card"
+script = ExtResource("1_card")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("2_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Box"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 38
+text = "BONUS_GOLD_RAIN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 76)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 30
+text = "BONUS_GOLD_RAIN_DESC"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Take" parent="Box" instance=ExtResource("3_ad")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BTN_TAKE"
+tag = &"parcel"
