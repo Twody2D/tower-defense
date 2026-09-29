@@ -5,7 +5,7 @@ Usage: py -3.14 tools/browser_check.py <url> <out_prefix> <seconds> [w h] ["x,y@
   - serve the build first: py -3.14 -m http.server 8060 --bind 127.0.0.1 -d build/web
   - clicks are in window pixels (the canvas is centred, max 2:1)
   - fake Yandex SDK test: copy tools/fake_yandex_sdk.js to build/web/sdk.js and open
-    http://fake.test:8060/ (mapped to localhost below). Delete sdk.js before packing!
+    http://fake.test:8061/ (mapped to localhost below). Delete sdk.js before packing!
 """
 import base64, json, os, socket, struct, subprocess, sys, time, urllib.request
 
@@ -23,7 +23,7 @@ if len(sys.argv) > 6:
 chrome = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 prof = os.path.join(os.environ.get('TEMP', '.'), 'chrome_cdp')
 p = subprocess.Popen([chrome, '--headless=new', '--remote-debugging-port=9333', f'--user-data-dir={prof}',
-                      '--host-resolver-rules=MAP fake.test 127.0.0.1', '--no-proxy-server', '--unsafely-treat-insecure-origin-as-secure=http://fake.test:8060', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', f'--window-size={w},{h}', 'about:blank'],
+                      '--host-resolver-rules=MAP fake.test 127.0.0.1', '--no-proxy-server', '--unsafely-treat-insecure-origin-as-secure=http://fake.test:8061', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', f'--window-size={w},{h}', 'about:blank'],
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 ws_url = None
 for _ in range(150):

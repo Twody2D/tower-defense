@@ -58,7 +58,7 @@ G="/c/PROGRAMS/Godot/Godot_v4.7.2-stable_win64_console.exe"
 "$G" --headless --path . -s addons/gdUnit4/bin/GdUnitCmdTool.gd -a tests --ignoreHeadlessMode
 "$G" --headless --path . --export-release "Web" ../build/web/index.html
 py -3.14 ../tools/check_build.py          # проверка + build/game.zip
-py -3.14 -m http.server 8060 --bind 127.0.0.1 -d ../build/web
+py -3.14 -m http.server 8061 --bind 127.0.0.1 -d ../build/web
 ```
 
 Шаблон движка: `powershell -File tools/build_template.ps1` (~15 мин) → `C:\PROGRAMS\godot-templates\towerdefence_web_release.zip`.

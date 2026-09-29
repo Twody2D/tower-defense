@@ -52,6 +52,10 @@ window/handheld/orientation=6
 
 enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
+[gui]
+
+theme/custom="res://scenes/ui/theme.tres"
+
 [input]
 
 move_left={
