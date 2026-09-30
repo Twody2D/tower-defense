@@ -402,6 +402,55 @@ def trim_portraits() -> None:
         im.save(path)
 
 
+# Tractor bonus (Twody: the wheels turn). The design sheet only puffs smoke, so
+# the two wheels are cut out of frame 0 as round pictures and turned in the
+# scene on top of the drawn ones; tread lugs make the turning visible.
+TRACTOR_WHEELS = {  # name: (centre in the 160 frame (pixel edges), outer radius, tire band, lugs)
+    "big": ((64.0, 120.0), 30.0, (14.0, 26.0), 8),
+    "small": ((124.0, 128.0), 21.0, (9.0, 17.2), 6),
+}
+TIRE = (59, 63, 78, 255)
+TREAD = (88, 94, 114, 255)
+
+
+def make_tractor_wheels() -> None:
+    import math
+    from PIL import ImageChops, ImageDraw
+    sheet = Image.open(DST / "fx" / "fx_tractor_4f.png").convert("RGBA")
+    ss = 4
+    for name, ((cx, cy), r, (t0, t1), lugs) in TRACTOR_WHEELS.items():
+        size = math.ceil(r) * 2 + 2
+        box = (round(cx - size / 2), round(cy - size / 2))
+        wheel = sheet.crop((box[0], box[1], box[0] + size, box[1] + size))
+        c = (cx - box[0]) * ss, (cy - box[1]) * ss
+
+        def ring(rad: float) -> tuple[float, float, float, float]:
+            return c[0] - rad * ss, c[1] - rad * ss, c[0] + rad * ss, c[1] + rad * ss
+
+        # Drawn 4x bigger and scaled down for soft edges: the tire gets one flat
+        # colour (its drawn shade would turn with it) and tread lugs.
+        big = Image.new("RGBA", (size * ss, size * ss), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(big)
+        draw.ellipse(ring(t1), fill=TIRE)
+        draw.ellipse(ring(t0), fill=(0, 0, 0, 0))
+        r0, r1, w = t0 + 1.5, t1 - 0.5, 1.6 * ss
+        for k in range(lugs):
+            a = 2 * math.pi * k / lugs
+            d = math.cos(a), math.sin(a)
+            n = -d[1], d[0]
+            p = [(c[0] + d[0] * rr * ss + n[0] * s * w, c[1] + d[1] * rr * ss + n[1] * s * w)
+                 for rr, s in ((r0, -1), (r1, -1), (r1, 1), (r0, 1))]
+            draw.polygon(p, fill=TREAD)
+        wheel.alpha_composite(big.resize((size, size), Image.Resampling.LANCZOS))
+        # Round cut a pixel inside the outline: only the wheel, not the body
+        # behind it (the drawn outline underneath stays).
+        mask = Image.new("L", (size * ss, size * ss), 0)
+        ImageDraw.Draw(mask).ellipse(ring(r - 1.0), fill=255)
+        mask = mask.resize((size, size), Image.Resampling.LANCZOS)
+        wheel.putalpha(ImageChops.darker(wheel.getchannel("A"), mask))
+        wheel.save(DST / "fx" / f"fx_tractor_wheel_{name}.png", optimize=True)
+
+
 def make_hi() -> dict[str, dict]:
     """Renders the big sheets into art/hi/ (through Godot) and returns their sets."""
     out = DST / "hi"
@@ -451,6 +500,7 @@ def make_hi() -> dict[str, dict]:
 def main() -> int:
     n = copy_files()
     trim_portraits()
+    make_tractor_wheels()
     make_shadow()
     make_small_buttons()
     frames = build_frames()

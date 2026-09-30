@@ -17,9 +17,8 @@ const TIMED: Array[StringName] = [&"rage", &"super_magnet", &"sleepy_rain", &"he
 @export var rain_drops: int = 24
 @export var rain_height: float = 520.0
 @export var rain_fall_time: float = 0.45
-## Tractor look: scale and lift so the wheels are on the road.
-@export var tractor_scale: float = 1.3
-@export var tractor_lift: float = 60.0
+## One tractor per road (body and turning wheels).
+@export var tractor_scene: PackedScene = preload("res://scenes/battle/tractor.tscn")
 ## Sleepy rain clouds along the top of the view: x as a share of the view
 ## width, y in world px below its top edge (under the HUD counters); scale,
 ## see-through so the pests under them stay visible.
@@ -42,7 +41,7 @@ var _icons: Dictionary[StringName, Texture2D] = {}
 var _big_icons: Dictionary[StringName, Texture2D] = {}
 var _left: Dictionary[StringName, float] = {}
 var _total: Dictionary[StringName, float] = {}
-var _tractors: Array[AnimatedSprite2D] = []
+var _tractors: Array[Tractor] = []
 ## Distance along each road of its tractor (< 0: parked).
 var _tractor_d: PackedFloat32Array = PackedFloat32Array()
 var _clouds: Array[AnimatedSprite2D] = []
@@ -59,8 +58,7 @@ func _ready() -> void:
 ## Tractors (one per road) and clouds; call once the level is in place.
 func setup() -> void:
 	for road: Path2D in roads:
-		var t: AnimatedSprite2D = _sprite(&"tractor", tractor_scale)
-		t.offset = Vector2(0, -tractor_lift / tractor_scale)
+		var t: Tractor = tractor_scene.instantiate() as Tractor
 		add_child(t)
 		_tractors.append(t)
 		_tractor_d.append(-1.0)
@@ -221,10 +219,9 @@ func _rain_drop(amount: int, radius: float) -> void:
 func _start_tractors() -> void:
 	for i: int in _tractors.size():
 		_tractor_d[i] = roads[i].curve.get_baked_length()
-		var t: AnimatedSprite2D = _tractors[i]
-		t.visible = true
-		t.modulate.a = 1.0
-		t.play()
+		var road: Path2D = roads[i]
+		_tractors[i].global_position = road.to_global(road.curve.sample_baked(_tractor_d[i]))
+		_tractors[i].start()
 		_move_tractor(i, 0.0)
 
 
@@ -251,12 +248,9 @@ func _process(delta: float) -> void:
 func _move_tractor(i: int, delta: float) -> void:
 	var ads: AdRewards = Game.ADS
 	var road: Path2D = roads[i]
-	var t: AnimatedSprite2D = _tractors[i]
+	var t: Tractor = _tractors[i]
 	var d: float = _tractor_d[i] - ads.tractor_speed * delta
-	var from: Vector2 = t.global_position
-	t.global_position = road.to_global(road.curve.sample_baked(maxf(d, 0.0)))
-	if absf(t.global_position.x - from.x) > 0.5:
-		t.flip_h = t.global_position.x < from.x
+	t.drive_to(road.to_global(road.curve.sample_baked(maxf(d, 0.0))))
 	var ids: PackedInt32Array = PackedInt32Array()
 	for e: int in enemies.find_in_radius(t.global_position, ads.tractor_radius):
 		if not enemies.data_at(e).is_boss:
@@ -265,9 +259,7 @@ func _move_tractor(i: int, delta: float) -> void:
 		enemies.damage(enemies.index_of(id), INF)
 	if d <= 0.0:
 		_tractor_d[i] = -1.0
-		var tw: Tween = t.create_tween()
-		tw.tween_property(t, ^"modulate:a", 0.0, 0.4)
-		tw.tween_callback(t.hide)
+		t.stop()
 	else:
 		_tractor_d[i] = d
 
