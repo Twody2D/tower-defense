@@ -3,7 +3,7 @@ extends GdUnitTestSuite
 ## bed, waves use only existing roads, unlocks follow CODE_PROMPT, the last
 ## wave has the fox.
 
-const UNLOCK: Dictionary[StringName, int] = {&"goose": 1, &"frog": 3, &"beaver": 5, &"hive": 8}
+const UNLOCK: Dictionary[StringName, int] = {&"goose": 1, &"frog": 2, &"beaver": 5, &"hive": 8}
 const ENEMY_FROM: Dictionary[StringName, int] = {&"beetle": 1, &"caterpillar": 2, &"mole": 4, &"crow": 6, &"fox": 1}
 
 

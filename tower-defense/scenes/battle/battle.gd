@@ -20,17 +20,19 @@ signal finished(won: bool, stars: int)
 @export var shake_boss: float = 18.0
 ## Pause between the end of the fight and the result window, s.
 @export var result_delay: float = 1.2
-## Start of the fight: the camera flies to where each road starts, waits and
-## comes back to the hero (fly and hold times, s).
-@export var spawn_fly_time: float = 1.3
-@export var spawn_hold_time: float = 1.6
+## Start of the fight: the camera glides out to the whole level and back
+## (each glide, s); it waits this long after the arrows reach the carrots.
+@export var spawn_fly_time: float = 1.4
+@export var spawn_hold_time: float = 0.8
 ## Road arrows of the tour: frames (env set, "ui_edge_arrow"), step along
-## the road, pop delay between arrows, size, how long they stay after it.
+## the road, size, how long they stay after the tour.
 @export var arrow_frames: SpriteFrames
 @export var arrow_step: float = 90.0
-@export var arrow_delay: float = 0.05
-@export var arrow_size: float = 0.8
+@export var arrow_size: float = 1.3
 @export var arrows_linger: float = 1.0
+## Arrows run from the burrows to the carrots at this speed, px/s (all roads
+## at once).
+@export var arrow_run_speed: float = 1600.0
 ## Edge pointers are updated this often, s.
 @export var edge_check_every: float = 0.2
 ## Level start boost (bought with an ad): the starting defender (level: AdRewards).
@@ -76,6 +78,7 @@ var _parcel_in: int = 0
 @onready var enemy_intro: IntroWindow = $Windows/NewEnemy
 @onready var parcel_window: ParcelWindow = $Windows/ParcelWindow
 @onready var parcel: Parcel = $World/Parcel
+@onready var gift: Parcel = $World/GiftDrop
 @onready var helper: Helper = $World/Helper
 @onready var bonuses: Bonuses = $World/Bonuses
 @onready var tutorial: Tutorial = $Tutorial
@@ -114,6 +117,7 @@ func _ready() -> void:
 	hero.projectiles = projectiles
 	hero.fx = fx
 	hero.bounds = level.bounds()
+	hero.road_check = level.is_road
 	hero.position = level.hero_start()
 
 	coins.hero = hero
@@ -190,6 +194,12 @@ func _wire_parcel() -> void:
 	parcel.blink = ads.parcel_blink
 	parcel.pickup = ads.parcel_pickup
 	parcel.picked.connect(_on_parcel_picked)
+	gift.hero = hero
+	gift.fx = fx
+	gift.lifetime = ads.parcel_lifetime
+	gift.blink = ads.parcel_blink
+	gift.pickup = ads.parcel_pickup
+	gift.picked.connect(_on_gift_picked)
 	parcel_window.picked.connect(_on_bonus_picked)
 	parcel_window.declined.connect(_resume)
 	helper.hero = hero
@@ -210,15 +220,18 @@ func _wire_parcel() -> void:
 	bonuses.setup()
 
 
-## Every 2–3 waves the parcel falls near the hero a few seconds after the wave starts.
+## Every 2–3 waves the ad parcel falls near the hero a few seconds after the
+## wave starts; on the other waves a free gift does.
 func _count_parcel() -> void:
-	_parcel_in -= 1
-	if _parcel_in > 0:
-		return
 	var ads: AdRewards = Game.ADS
-	_parcel_in = randi_range(ads.parcel_every_min, ads.parcel_every_max)
+	_parcel_in -= 1
 	# A pausable timer: it waits while the game is paused.
-	get_tree().create_timer(ads.parcel_delay, false).timeout.connect(_drop_parcel)
+	var timer: SceneTreeTimer = get_tree().create_timer(ads.parcel_delay, false)
+	if _parcel_in > 0:
+		timer.timeout.connect(_drop_gift)
+		return
+	_parcel_in = randi_range(ads.parcel_every_min, ads.parcel_every_max)
+	timer.timeout.connect(_drop_parcel)
 
 
 func _drop_parcel() -> void:
@@ -227,17 +240,36 @@ func _drop_parcel() -> void:
 	parcel.drop(_parcel_spot())
 
 
+func _drop_gift() -> void:
+	if _over or gift.is_out() or not is_inside_tree():
+		return
+	gift.drop(_parcel_spot())
+
+
+## The free gift: a bonus at once, no pause, no ad.
+func _on_gift_picked() -> void:
+	var id: StringName = bonuses.free_pick(Game.ADS.gift_bonuses)
+	if _over or id == &"":
+		return
+	bonuses.apply(id, waves.wave)
+	hud.show_bonus_banner(tr("BONUS_" + String(id).to_upper()), bonuses.big_icon(id))
+
+
 ## A free spot around the hero (not inside the barn, the bed or a built plot).
 func _parcel_spot() -> Vector2:
 	var space: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	# A box-sized circle must be free, not just the point it lands on.
+	var query: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	var circle: CircleShape2D = CircleShape2D.new()
+	circle.radius = 70.0
+	query.shape = circle
 	var b: Rect2 = level.bounds().grow(-120.0)
 	var d: float = Game.ADS.parcel_distance
-	for attempt: int in 12:
+	for attempt: int in 24:
 		var a: float = randf() * TAU
 		var p: Vector2 = (hero.global_position + Vector2(cos(a), sin(a) * 0.8) * d).clamp(b.position, b.end)
-		query.position = p
-		if space.intersect_point(query, 1).is_empty() and p.distance_to(hero.global_position) > Game.ADS.parcel_pickup * 1.5:
+		query.transform = Transform2D(0.0, p + Vector2(0, -30))
+		if space.intersect_shape(query, 1).is_empty() and p.distance_to(hero.global_position) > Game.ADS.parcel_pickup * 1.5:
 			return p
 	return (hero.global_position + Vector2(d, 0)).clamp(b.position, b.end)
 
@@ -299,10 +331,9 @@ func _on_first_of_type(data: EnemyData) -> void:
 		_next_intro()
 
 
-## Camera tour at the start of the fight (once): the camera glides to where
-## each road starts, arrows pop one after another along the road to the
-## carrots and pulse, then the camera glides back to the hero and the arrows
-## fade out.
+## Start of the fight (once, Twody): the camera glides out once until the
+## whole level is in view, arrows run from every burrow to the carrots at the
+## same time, then the camera glides back to the hero. No other moves.
 func _show_spawns() -> void:
 	if _spawns_shown or _over:
 		return
@@ -310,28 +341,46 @@ func _show_spawns() -> void:
 	_arrows = Node2D.new()
 	_arrows.z_index = 5
 	level.add_child(_arrows)
+	var arrows: Array[AnimatedSprite2D] = []
+	for road: Path2D in level.roads():
+		arrows.append_array(_make_arrows(road))
+	var z_play: Vector2 = camera.zoom
+	var screen: Vector2 = get_viewport_rect().size
+	var b: Rect2 = level.bounds()
+	var z_fit: float = minf(screen.x / b.size.x, screen.y / b.size.y)
+	var z_view: Vector2 = Vector2(z_fit, z_fit) if z_fit < z_play.x else z_play
+	var view_at: Vector2 = _reach_at(b.get_center(), z_view)
+	var from: Array[Vector2] = [Vector2.ZERO]
 	var tw: Tween = create_tween()
 	# The camera flies by the view centre it can really reach (the level edges
 	# stop it), without smoothing, so every move is the eased curve itself.
 	tw.tween_callback(func() -> void:
-		var at: Vector2 = camera.get_screen_center_position()
+		from[0] = camera.get_screen_center_position()
 		camera.position_smoothing_enabled = false
 		camera.top_level = true
-		camera.global_position = at)
-	for road: Path2D in level.roads():
-		var start: Vector2 = _camera_reach(road.to_global(road.curve.get_point_position(0)))
-		tw.tween_property(camera, ^"global_position", start, spawn_fly_time) \
-				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		tw.tween_callback(_pop_arrows.bind(road))
-		tw.tween_interval(spawn_hold_time)
-	var back: Array[Vector2] = [Vector2.ZERO]
-	tw.tween_callback(func() -> void: back[0] = camera.global_position)
+		camera.global_position = from[0])
 	tw.tween_method(func(k: float) -> void:
-		camera.global_position = back[0].lerp(_camera_reach(hero.global_position + Vector2(0, -40)), k),
+		camera.zoom = z_play.lerp(z_view, k)
+		camera.global_position = from[0].lerp(view_at, k),
+		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	var run: float = 0.0
+	for a: AnimatedSprite2D in arrows:
+		var at: float = a.get_meta(&"d")
+		run = maxf(run, at / arrow_run_speed)
+	tw.tween_callback(func() -> void:
+		for a: AnimatedSprite2D in arrows:
+			var at: float = a.get_meta(&"d")
+			get_tree().create_timer(at / arrow_run_speed, false).timeout.connect(_pop_arrow.bind(a)))
+	tw.tween_interval(run + spawn_hold_time)
+	tw.tween_method(func(k: float) -> void:
+		var hero_view: Vector2 = _reach_at(hero.global_position + Vector2(0, -40), z_play)
+		camera.zoom = z_view.lerp(z_play, k)
+		camera.global_position = view_at.lerp(hero_view, k),
 		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_callback(func() -> void:
 		camera.top_level = false
 		camera.position = Vector2(0, -40)
+		_update_zoom()
 		camera.reset_smoothing()
 		camera.position_smoothing_enabled = true
 		tutorial.start(level_number))
@@ -341,20 +390,21 @@ func _show_spawns() -> void:
 	tw.tween_callback(_arrows.queue_free)
 
 
-## The view centre nearest to `p` that the camera limits allow.
-func _camera_reach(p: Vector2) -> Vector2:
-	var half: Vector2 = get_viewport_rect().size / camera.zoom * 0.5
+## The view centre nearest to `p` that the camera limits allow at `zoom`.
+func _reach_at(p: Vector2, zoom: Vector2) -> Vector2:
+	var half: Vector2 = get_viewport_rect().size / zoom * 0.5
 	var lo: Vector2 = Vector2(camera.limit_left, camera.limit_top) + half
 	var hi: Vector2 = Vector2(camera.limit_right, camera.limit_bottom) - half
 	return Vector2(clampf(p.x, lo.x, maxf(lo.x, hi.x)), clampf(p.y, lo.y, maxf(lo.y, hi.y)))
 
 
-## Arrows along a road, from its start to the carrots, popping in order.
-func _pop_arrows(road: Path2D) -> void:
+## Arrows along a road from its start to the carrots, hidden until the tour
+## reaches them (meta "d": distance along the road).
+func _make_arrows(road: Path2D) -> Array[AnimatedSprite2D]:
+	var out: Array[AnimatedSprite2D] = []
 	var curve: Curve2D = road.curve
 	var length: float = curve.get_baked_length()
-	var n: int = int(length / arrow_step)
-	for i: int in n:
+	for i: int in int(length / arrow_step):
 		var d: float = (i + 0.5) * arrow_step
 		var p: Vector2 = curve.sample_baked(d)
 		var ahead: Vector2 = curve.sample_baked(minf(d + 8.0, length))
@@ -364,16 +414,22 @@ func _pop_arrows(road: Path2D) -> void:
 		a.position = road.to_global(p) - level.global_position
 		a.rotation = (ahead - p).angle()
 		a.scale = Vector2.ZERO
+		a.visible = false
+		a.set_meta(&"d", d)
 		_arrows.add_child(a)
-		var tw: Tween = a.create_tween()
-		tw.tween_interval(i * arrow_delay)
-		tw.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.2) \
-				.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		# Then a soft pulse while the tour lasts.
-		tw.tween_callback(func() -> void:
-			var pulse: Tween = a.create_tween().set_loops()
-			pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size * 0.85, 0.35).set_trans(Tween.TRANS_SINE)
-			pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.35).set_trans(Tween.TRANS_SINE))
+		out.append(a)
+	return out
+
+
+## Pops in, then a soft pulse while the tour lasts.
+func _pop_arrow(a: AnimatedSprite2D) -> void:
+	a.visible = true
+	var tw: Tween = a.create_tween()
+	tw.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_callback(func() -> void:
+		var pulse: Tween = a.create_tween().set_loops()
+		pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size * 0.85, 0.35).set_trans(Tween.TRANS_SINE)
+		pulse.tween_property(a, ^"scale", Vector2.ONE * arrow_size, 0.35).set_trans(Tween.TRANS_SINE))
 
 
 func _process(_delta: float) -> void:
@@ -421,8 +477,9 @@ func _update_edges() -> void:
 		hud.point_edge(false, to_screen * enemies.position_at(nearest), enemies.data_at(nearest).portrait)
 	else:
 		hud.hide_edge(false)
-	if parcel.is_waiting() and not screen.has_point(to_screen * parcel.global_position):
-		hud.point_parcel(to_screen * parcel.global_position)
+	var box: Parcel = parcel if parcel.is_waiting() else gift
+	if box.is_waiting() and not screen.has_point(to_screen * box.global_position):
+		hud.point_parcel(to_screen * box.global_position, box == gift)
 	else:
 		hud.hide_parcel_edge()
 
@@ -609,6 +666,8 @@ func _finish(s: int) -> bool:
 	tutorial.stop()
 	if parcel.is_waiting():
 		parcel.hide_now()
+	if gift.is_out():
+		gift.hide_now()
 	hud.hide_parcel_edge()
 	hero.finish(won)
 	get_tree().paused = true

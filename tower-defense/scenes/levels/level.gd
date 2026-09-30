@@ -34,6 +34,24 @@ const CORNER_HANDLE := 30.0
 @export_tool_button("Rebuild ground and road", "TileMapLayer") var rebuild_button: Callable = rebuild
 
 
+var _road_cells: Dictionary[Vector2i, bool] = {}
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	var road_tiles: Array[Vector2i] = ROAD_TILES.values()
+	var ground: TileMapLayer = $Ground
+	for cell: Vector2i in ground.get_used_cells():
+		if ground.get_cell_atlas_coords(cell) in road_tiles:
+			_road_cells[cell] = true
+
+
+## A road tile under this world point (the hero runs faster there).
+func is_road(world_pos: Vector2) -> bool:
+	return _road_cells.has(cell_of(world_pos - global_position))
+
+
 func bounds() -> Rect2:
 	return Rect2(Vector2.ZERO, Vector2(size_cells * CELL))
 

@@ -284,7 +284,7 @@ func step(delta: float) -> void:
 		if not data.flying and _hidden[i] == 0:
 			to = _stop_at_fence(i, from, to, data, delta)
 		_progress[i] = to
-		if to >= _lengths[_road[i]]:
+		if to >= _path_length(i):
 			_leave(i)
 			continue
 		if data.is_boss:
@@ -390,6 +390,38 @@ func _rebuild_hash() -> void:
 	if _hash_dirty:
 		_hash.rebuild(_pos, count, _hidden)
 		_hash_dirty = false
+
+
+## Length of this pest's way to the carrots: the road, or straight for flyers.
+func _path_length(i: int) -> float:
+	if _types[i].flying:
+		var curve: Curve2D = _roads[_road[i]]
+		return curve.get_point_position(0).distance_to(curve.get_point_position(curve.point_count - 1))
+	return _lengths[_road[i]]
+
+
+## Way left to the carrots, px.
+func remaining(i: int) -> float:
+	return _path_length(i) - _progress[i]
+
+
+## Index of the targetable pest within `radius` of `pos` that is closest to
+## the carrots (defenders shoot the most dangerous one first), -1 if none.
+func find_first(pos: Vector2, radius: float, include_flying: bool = true) -> int:
+	_rebuild_hash()
+	var best: int = -1
+	var best_left: float = INF
+	var r2: float = radius * radius
+	for i: int in _hash.query(pos, radius):
+		if not include_flying and _types[i].flying:
+			continue
+		if pos.distance_squared_to(_pos[i]) > r2:
+			continue
+		var left: float = remaining(i)
+		if left < best_left:
+			best_left = left
+			best = i
+	return best
 
 
 ## Index of the nearest targetable pest within `radius` of `pos`, -1 if none.

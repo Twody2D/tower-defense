@@ -40,6 +40,7 @@ func _process(_delta: float) -> bool:
 	var hero: Node2D = battle.get("hero")
 	if _frame == 360:
 		battle.call("_drop_parcel")
+		battle.call("_drop_gift")
 	if _frame == 470:
 		hero.global_position = parcel.global_position
 	if _frame == 510:

@@ -29,8 +29,9 @@ signal coin_paid(plot: BuildPlot)
 ## The hero has to stand on the plot this long before coins go in, s.
 @export var start_delay: float = 0.35
 ## A built defender is solid (the hero cannot walk into it), so the hero
-## upgrades it from next to it: the plot area grows by this factor.
-@export var built_reach: float = 1.7
+## upgrades it from next to it: the plot area becomes an ellipse with these
+## half-axes, px (the solid part is only the tower's legs).
+@export var built_reach: Vector2 = Vector2(150, 115)
 @export var pad_normal: Texture2D
 @export var pad_max: Texture2D
 @export var pad_locked: Texture2D
@@ -90,8 +91,10 @@ func next_price() -> int:
 
 func contains(world_pos: Vector2) -> bool:
 	var d: Vector2 = (world_pos - global_position).abs()
-	var k: float = built_reach if level > 0 and not fence_plot else 1.0
-	return d.x / (half_size.x * k) + d.y / (half_size.y * k) <= 1.0
+	if level > 0 and not fence_plot:
+		# Built: the tower stands in the way, so anywhere around it counts.
+		return (d / built_reach).length_squared() <= 1.0
+	return d.x / half_size.x + d.y / half_size.y <= 1.0
 
 
 ## Level start boost: a defender already standing at `at_level`.

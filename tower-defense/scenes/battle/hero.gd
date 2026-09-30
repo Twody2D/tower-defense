@@ -33,6 +33,8 @@ var enemies: EnemyManager
 var projectiles: Projectiles
 var fx: FxPool
 ## Damage and attack speed multipliers (meta upgrades, "Rage" bonus).
+## Tells if a world point is on the road (the level sets it; null: never).
+var road_check: Callable
 var damage_mult: float = 1.0
 var attack_speed_mult: float = 1.0
 
@@ -77,7 +79,12 @@ func _physics_process(delta: float) -> void:
 		dir = joystick
 	if _stun_left > 0.0:
 		dir = Vector2.ZERO
-	velocity = dir.limit_length(1.0) * stats.speed
+	var speed: float = stats.speed
+	if road_check.is_valid():
+		var on_road: bool = road_check.call(global_position)
+		if on_road:
+			speed *= stats.road_speed_mult
+	velocity = dir.limit_length(1.0) * speed
 	if absf(velocity.x) > 1.0:
 		_sprite.flip_h = velocity.x < 0.0
 	move_and_slide()

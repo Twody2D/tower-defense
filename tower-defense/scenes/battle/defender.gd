@@ -121,13 +121,10 @@ func _play_attack() -> void:
 		_sprite.play(attack)
 
 
+## Twody: the pest closest to the carrots first (re-picked every retarget).
 func _pick_target() -> void:
-	var r: float = data.radius_at(level)
-	var idx: int = enemies.index_of(_target_id)
-	if idx >= 0 and enemies.position_at(idx).distance_to(global_position) <= r:
-		return
-	var nearest: int = enemies.find_nearest(global_position, r, data.hits_flying)
-	_target_id = enemies.id_at(nearest) if nearest >= 0 else 0
+	var first: int = enemies.find_first(global_position, data.radius_at(level), data.hits_flying)
+	_target_id = enemies.id_at(first) if first >= 0 else 0
 
 
 func _shoot() -> void:

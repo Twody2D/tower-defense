@@ -69,26 +69,40 @@ position = Vector2(672, 1376)
 y_sort_enabled = true
 
 [node name="Plot1" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(768, 384)
+position = Vector2(512, 1088)
 
 [node name="Plot2" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(1216, 832)
+position = Vector2(960, 1408)
 
 [node name="Plot3" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(768, 832)
+position = Vector2(512, 896)
 
 [node name="Plot4" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(256, 1216)
+position = Vector2(1152, 1216)
 
 [node name="Plot5" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(1280, 1344)
+position = Vector2(512, 640)
+
+[node name="Plot6" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(1408, 1024)
+
+[node name="Plot7" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(1408, 704)
 
 [node name="FencePlot1" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(1248, 224)
+position = Vector2(1376, 608)
 fence_plot = true
 
 [node name="FencePlot2" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(1056, 1312)
+fence_plot = true
+
+[node name="FencePlot3" parent="Plots" instance=ExtResource("5_r")]
 position = Vector2(608, 736)
+fence_plot = true
+
+[node name="FencePlot4" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(416, 1120)
 fence_plot = true
 
 [node name="Decor" type="Node2D" parent="."]

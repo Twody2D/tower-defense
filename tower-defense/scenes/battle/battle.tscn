@@ -29,6 +29,7 @@
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="43_fxframes"]
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="60_envframes"]
 [ext_resource type="PackedScene" path="res://scenes/battle/parcel.tscn" id="61_parcel"]
+[ext_resource type="PackedScene" path="res://scenes/battle/gift_drop.tscn" id="67_gift"]
 [ext_resource type="PackedScene" path="res://scenes/battle/helper.tscn" id="62_helper"]
 [ext_resource type="Script" path="res://scenes/battle/bonuses.gd" id="63_bonuses"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/parcel_window.tscn" id="64_parcelwin"]
@@ -68,6 +69,8 @@ script = ExtResource("7_proj")
 projectile_scene = ExtResource("10_projectile")
 
 [node name="Parcel" parent="World" instance=ExtResource("61_parcel")]
+
+[node name="GiftDrop" parent="World" instance=ExtResource("67_gift")]
 
 [node name="Helper" parent="World" instance=ExtResource("62_helper")]
 

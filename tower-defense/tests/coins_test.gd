@@ -27,7 +27,7 @@ func test_magnet_picks_up() -> void:
 func test_coins_expire() -> void:
 	var c: Coins = _make()
 	c.drop(Vector2(0, 0), 2)
-	c.step(14.9, Vector2(1000, 0), 120.0)
+	c.step(c.lifetime - 0.1, Vector2(1000, 0), 120.0)
 	assert_int(c.count).is_equal(2)
 	c.step(0.2, Vector2(1000, 0), 120.0)
 	assert_int(c.count).is_equal(0)

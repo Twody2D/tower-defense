@@ -10,6 +10,7 @@
 [ext_resource type="Resource" path="res://data/enemies/crow.tres" id="e_crow"]
 [ext_resource type="Resource" path="res://data/enemies/fox.tres" id="e_fox"]
 [ext_resource type="Resource" path="res://data/defenders/goose.tres" id="d_goose"]
+[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="d_frog"]
 
 [sub_resource type="Resource" id="G_1_1"]
 script = ExtResource("3_group")
@@ -117,7 +118,7 @@ script = ExtResource("1_level")
 number = 2
 start_coins = 10
 carrots = 20
-defenders = Array[ExtResource("4_def")]([ExtResource("d_goose")])
+defenders = Array[ExtResource("4_def")]([ExtResource("d_goose"), ExtResource("d_frog")])
 waves = Array[ExtResource("2_wave")]([SubResource("W_1"), SubResource("W_2"), SubResource("W_3"), SubResource("W_4"), SubResource("W_5")])
 wave_pause = 20.0
 first_pause = 10.0

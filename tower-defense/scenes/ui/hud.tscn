@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/edge_arrow.tscn" id="22_edge"]
 [ext_resource type="PackedScene" path="res://scenes/ui/bonus_ring.tscn" id="23_ring"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_parcel.png" id="24_parcel"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="25_gift"]
 [sub_resource type="StyleBoxTexture" id="StyleBox_green"]
 texture = ExtResource("13_green")
 texture_margin_left = 44.0
@@ -38,6 +39,7 @@ texture_margin_bottom = 52.0
 process_mode = 3
 script = ExtResource("1_hud")
 parcel_icon = ExtResource("24_parcel")
+gift_icon = ExtResource("25_gift")
 
 [node name="Joystick" parent="." instance=ExtResource("2_joy")]
 

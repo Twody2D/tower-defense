@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/battle/parcel.gd" id="1_parcel"]
+[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="2_shadow"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui_hi.tres" id="3_hi"]
+
+[node name="GiftDrop" type="Node2D"]
+script = ExtResource("1_parcel")
+fall_time = 1.0
+fall_anim = &"gift"
+land_anim = &""
+idle_anim = &"gift_shake"
+open_anim = &""
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.6)
+texture = ExtResource("2_shadow")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.85, 0.85)
+sprite_frames = ExtResource("3_hi")
+animation = &"gift_shake"
+offset = Vector2(0, -56)

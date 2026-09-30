@@ -8,9 +8,9 @@ extends Node2D
 signal collected(value: int)
 
 @export var coin_scene: PackedScene
-@export var lifetime: float = 15.0
+@export var lifetime: float = 30.0
 ## Blinking before a coin disappears, s.
-@export var blink_time: float = 3.0
+@export var blink_time: float = 5.0
 @export var capacity: int = 150
 ## A coin worth this much or more looks like the big ×5 coin.
 @export var merged_value: int = 5

@@ -100,6 +100,15 @@ func offer(n: int) -> Array[StringName]:
 	return pool.slice(0, n)
 
 
+## A free gift bonus: one of `pool` that is not running now (&"" if none).
+func free_pick(pool: Array[StringName]) -> StringName:
+	var left: Array[StringName] = []
+	for id: StringName in pool:
+		if _can_offer(id):
+			left.append(id)
+	return left[_rng.randi() % left.size()] if not left.is_empty() else &""
+
+
 func _can_offer(id: StringName) -> bool:
 	if is_active(id):
 		return false

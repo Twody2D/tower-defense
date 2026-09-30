@@ -1,4 +1,4 @@
-"""Levels 2–12 (CODE_PROMPT "Уровни"): scenes and data from the plans below.
+"""Levels 1–12 (level 1: scene only, its waves are hand-tuned) (CODE_PROMPT "Уровни"): scenes and data from the plans below.
 
 Writes tower-defense/scenes/levels/level_NN.tscn and data/levels/level_NN.tres
 (level 1 is hand-tuned and left alone). OVERWRITES those files: after hand
@@ -22,7 +22,7 @@ BASE = (416, 1504)          # bed centre, px (level 1)
 BASE_CELLS = {(x, y) for x in range(4, 9) for y in range(22, 26)}
 HERO = (10, 21)             # hero start cell
 
-DEFENDER_UNLOCK = [("goose", 1), ("frog", 3), ("beaver", 5), ("hive", 8)]
+DEFENDER_UNLOCK = [("goose", 1), ("frog", 2), ("beaver", 5), ("hive", 8)]  # Twody: a new tower on level 2
 ENEMY_HP = {"beetle": 16, "caterpillar": 60, "mole": 35, "crow": 20}
 # Type: (first level, share of the wave HP once it is in).
 ENEMY_MIX = {"caterpillar": (2, 0.30), "mole": (4, 0.22), "crow": (6, 0.18)}
@@ -34,50 +34,41 @@ FIRST_WAVE_GROWTH = 0.15    # per level
 LAST_OVER_FIRST = 4.5
 
 PLANS = {
+    1: dict(biome="farm", waves=5, mirror=False, data=False,
+            roads=[[(21, 0), (21, 7), (8, 7), (8, 15), (20, 15), (20, 23), (9, 23)]]),
     2: dict(biome="farm", waves=5, mirror=False,
-            roads=[[(29, 5), (14, 5), (14, 11), (25, 11), (25, 18), (13, 18), (13, 23), (9, 23)]],
-            fences=[(25, 14)], plots=[(17, 9), (23, 15), (11, 16)]),
+            roads=[[(29, 5), (14, 5), (14, 11), (25, 11), (25, 18), (13, 18), (13, 23), (9, 23)]]),
     3: dict(biome="farm", waves=6, mirror=True,
-            roads=[[(18, 0), (18, 4), (26, 4), (26, 10), (11, 10), (11, 16), (24, 16), (24, 23), (9, 23)]],
-            fences=[(26, 7)], plots=[(22, 8), (15, 13), (22, 20), (8, 13)]),
+            roads=[[(18, 0), (18, 4), (26, 4), (26, 10), (11, 10), (11, 16), (24, 16), (24, 23), (9, 23)]]),
     4: dict(biome="farm", waves=6, mirror=False,
             roads=[[(29, 3), (15, 3), (15, 9), (23, 9), (23, 17), (16, 17), (16, 23), (9, 23)],
-                   [(0, 8), (9, 8), (9, 15), (6, 15), (6, 21)]],
-            fences=[(19, 3), (9, 11)], plots=[(12, 6), (19, 13), (12, 13), (4, 19), (20, 21)]),
+                   [(0, 8), (9, 8), (9, 15), (6, 15), (6, 21)]]),
     5: dict(biome="farm", waves=6, mirror=True,
             roads=[[(22, 0), (22, 5), (12, 5), (12, 11), (25, 11), (25, 19), (14, 19), (14, 23), (9, 23)],
-                   [(0, 12), (8, 12), (8, 17), (3, 17), (3, 23)]],
-            fences=[(18, 11), (8, 15)], plots=[(16, 9), (22, 14), (18, 22), (11, 15), (5, 10)]),
+                   [(0, 12), (8, 12), (8, 17), (3, 17), (3, 23)]]),
     6: dict(biome="wheat", waves=7, mirror=False,
             roads=[[(29, 6), (18, 6), (18, 13), (24, 13), (24, 20), (15, 20), (15, 23), (9, 23)],
-                   [(10, 0), (10, 7), (3, 7), (3, 16), (6, 16), (6, 21)]],
-            fences=[(22, 6), (3, 11)], plots=[(15, 10), (21, 17), (13, 19), (7, 11), (20, 3)]),
+                   [(10, 0), (10, 7), (3, 7), (3, 16), (6, 16), (6, 21)]]),
     7: dict(biome="wheat", waves=7, mirror=True,
             roads=[[(20, 0), (20, 4), (27, 4), (27, 12), (16, 12), (16, 17), (22, 17), (22, 23), (9, 23)],
-                   [(0, 5), (9, 5), (9, 13), (6, 13), (6, 21)]],
-            fences=[(27, 8), (9, 9)], plots=[(24, 9), (19, 15), (13, 20), (13, 9), (3, 16), (19, 21)]),
+                   [(0, 5), (9, 5), (9, 13), (6, 13), (6, 21)]]),
     8: dict(biome="wheat", waves=7, mirror=False,
             roads=[[(29, 14), (20, 14), (20, 6), (13, 6), (13, 17), (18, 17), (18, 23), (9, 23)],
-                   [(4, 0), (4, 10), (9, 10), (9, 16), (6, 16), (6, 21)]],
-            fences=[(25, 14), (4, 6)], plots=[(17, 11), (24, 10), (16, 21), (11, 13), (7, 7), (22, 19)]),
+                   [(4, 0), (4, 10), (9, 10), (9, 16), (6, 16), (6, 21)]]),
     9: dict(biome="wheat", waves=7, mirror=True,
             roads=[[(15, 0), (15, 3), (25, 3), (25, 9), (17, 9), (17, 14), (26, 14), (26, 20), (14, 20), (14, 23), (9, 23)],
-                   [(0, 4), (7, 4), (7, 9), (11, 9), (11, 15), (6, 15), (6, 21)]],
-            fences=[(21, 3), (7, 6)], plots=[(21, 7), (22, 12), (20, 18), (14, 12), (9, 19), (5, 13)]),
+                   [(0, 4), (7, 4), (7, 9), (11, 9), (11, 15), (6, 15), (6, 21)]]),
     10: dict(biome="lake", waves=8, mirror=False,
              roads=[[(29, 9), (19, 9), (19, 3), (11, 3), (11, 12), (22, 12), (22, 19), (13, 19), (13, 23), (9, 23)],
-                    [(0, 6), (6, 6), (6, 16), (3, 16), (3, 23)]],
-             fences=[(25, 9), (6, 10)], plots=[(14, 6), (17, 16), (26, 15), (9, 9), (9, 19), (19, 22)]),
+                    [(0, 6), (6, 6), (6, 16), (3, 16), (3, 23)]]),
     11: dict(biome="lake", waves=8, mirror=True,
              roads=[[(29, 4), (20, 4), (20, 10), (27, 10), (27, 18), (17, 18), (17, 23), (9, 23)],
                     [(12, 0), (12, 13), (6, 13), (6, 21)],
-                    [(0, 9), (3, 9), (3, 23)]],
-             fences=[(24, 4), (12, 5), (3, 14)], plots=[(17, 8), (24, 15), (21, 21), (10, 17), (15, 15), (9, 5), (5, 19)]),
+                    [(0, 9), (3, 9), (3, 23)]]),
     12: dict(biome="lake", waves=8, mirror=False,
              roads=[[(29, 17), (23, 17), (23, 5), (16, 5), (16, 12), (19, 12), (19, 20), (13, 20), (13, 23), (9, 23)],
                     [(8, 0), (8, 9), (11, 9), (11, 16), (6, 16), (6, 21)],
-                    [(0, 4), (3, 4), (3, 23)]],
-             fences=[(26, 17), (8, 5), (3, 13)], plots=[(20, 9), (26, 12), (17, 17), (14, 10), (6, 13), (22, 22), (9, 19)]),
+                    [(0, 4), (3, 4), (3, 23)]]),
 }
 
 # Decor: name → (resource kind, path or animation, sprite offset y, footprint cells w, h, block rect or None)
@@ -118,8 +109,6 @@ LANDMARK_SPOTS = [(4, 5), (25, 5), (25, 26), (15, 27), (4, 12), (26, 26), (14, 2
 def mirror_plan(p: dict) -> dict:
     q = dict(p)
     q["roads"] = [[(N - 1 - x, y) for x, y in r] for r in p["roads"]]
-    q["fences"] = [(N - 1 - x, y) for x, y in p["fences"]]
-    q["plots"] = [(N - x, y) for x, y in p["plots"]]
     return q
 
 
@@ -135,6 +124,76 @@ def road_cells(road: list) -> list:
             c = (c[0] + dx, c[1] + dy)
     cells.append(road[-1])
     return cells
+
+
+# Plots: 5 + level/2; fences: 2 per road from level 2 (Twody: towers by the
+# corners and close together, fences next to towers).
+def plot_target(level: int) -> int:
+    return 5 + level // 2
+
+
+def corners(road: list) -> list:
+    """Turn cells with the unit directions to the previous and next corner."""
+    out = []
+    for prev, c, nxt in zip(road, road[1:], road[2:]):
+        a = ((prev[0] > c[0]) - (prev[0] < c[0]), (prev[1] > c[1]) - (prev[1] < c[1]))
+        b = ((nxt[0] > c[0]) - (nxt[0] < c[0]), (nxt[1] > c[1]) - (nxt[1] < c[1]))
+        out.append((c, a, b))
+    return out
+
+
+def layout(level: int, p: dict, mirrored: bool) -> dict:
+    """Plots by road corners (inside the turn first, it covers both legs;
+    then outside), nearest to the carrots first; fences on straight road
+    cells next to plots."""
+    q = dict(p)
+    base_cells = {(N - 1 - x, y) for x, y in BASE_CELLS} if mirrored else BASE_CELLS
+    hero = (N - 1 - HERO[0], HERO[1]) if mirrored else HERO
+    road = set()
+    for r in p["roads"]:
+        road |= set(road_cells(r))
+    busy = road | base_cells | {hero}
+    spots = []
+    for side in (1, -1):
+        for r in p["roads"]:
+            for i, (c, a, b) in enumerate(reversed(corners(r))):
+                d = ((a[0] + b[0]) * side, (a[1] + b[1]) * side)
+                xs = (c[0] + d[0], c[0] + 2 * d[0])
+                ys = (c[1] + d[1], c[1] + 2 * d[1])
+                spots.append((0 if side == 1 else 1, i, (max(xs), max(ys))))
+    spots.sort()
+    plots = []
+    for _, _, (cx, cy) in spots:
+        cover = {(cx - 1, cy - 1), (cx, cy - 1), (cx - 1, cy), (cx, cy)}
+        if not all(1 <= x < N - 1 and 1 <= y < N - 1 for x, y in cover) or cover & busy:
+            continue
+        if any(((cx - px_) ** 2 + (cy - py_) ** 2) ** 0.5 < 2.5 for px_, py_ in plots):
+            continue
+        plots.append((cx, cy))
+        busy |= cover
+        if len(plots) >= plot_target(level):
+            break
+    q["plots"] = plots
+    fences = []
+    if level >= 2:
+        for r in p["roads"]:
+            cells = road_cells(r)
+            turn = {c for c, _, _ in corners(r)}
+            cand = []
+            for k, c in enumerate(cells[3:-3], start=3):
+                if c in turn or any(abs(c[0] - t[0]) + abs(c[1] - t[1]) <= 1 for t in turn):
+                    continue
+                near = min(((c[0] + 0.5 - x) ** 2 + (c[1] + 0.5 - y) ** 2) ** 0.5 for x, y in plots)
+                if near <= 2.6:
+                    cand.append((k / len(cells), c))
+            picked = []
+            for mark in (0.45, 0.8):
+                left = [x for x in cand if all(abs(x[0] - y[0]) > 0.15 for y in picked)]
+                if left:
+                    picked.append(min(left, key=lambda x: abs(x[0] - mark)))
+            fences += [c for _, c in picked]
+    q["fences"] = fences
+    return q
 
 
 def check(level: int, p: dict, mirrored: bool) -> dict:
@@ -394,7 +453,7 @@ def main() -> int:
         bad = 0
         for level in sorted(PLANS):
             plan = PLANS[level]
-            p = mirror_plan(plan) if plan["mirror"] else plan
+            p = layout(level, mirror_plan(plan) if plan["mirror"] else plan, plan["mirror"])
             try:
                 check(level, p, plan["mirror"])
             except AssertionError as e:
@@ -403,10 +462,11 @@ def main() -> int:
         return bad
     for level in only:
         plan = PLANS[level]
-        p = mirror_plan(plan) if plan["mirror"] else plan
+        p = layout(level, mirror_plan(plan) if plan["mirror"] else plan, plan["mirror"])
         occ = check(level, p, plan["mirror"])
         (ROOT / "scenes" / "levels" / f"level_{level:02d}.tscn").write_text(make_scene(level, p, occ, plan["mirror"]), encoding="utf-8", newline="\n")
-        (ROOT / "data" / "levels" / f"level_{level:02d}.tres").write_text(make_data(level, p), encoding="utf-8", newline="\n")
+        if plan.get("data", True):
+            (ROOT / "data" / "levels" / f"level_{level:02d}.tres").write_text(make_data(level, p), encoding="utf-8", newline="\n")
         print(f"level {level:2d}: {p['biome']}, {len(p['roads'])} roads, {len(p['plots'])} plots, {len(p['fences'])} fences")
     return 0
 

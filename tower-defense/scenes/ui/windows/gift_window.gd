@@ -89,4 +89,4 @@ func _take(mult: int) -> void:
 	Save.save()
 	Ui.toast(tr("TOAST_GRAINS") % n)
 	_refresh()
-	UiFx.bump(_tomorrow, 1.2, 0.3)
+	close()

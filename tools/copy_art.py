@@ -388,6 +388,20 @@ def flat_svg(text: str) -> str:
     return head + "<defs>" + "".join(clips) + "</defs>" + body + "</svg>"
 
 
+# The fox portrait is cut out of the whole fox: the tip of its tail pokes into
+# the bottom-left corner and looks like a stray blot in the round slots.
+PORTRAIT_ERASE = {"enemies/ui_enemy_portrait_fox.png": (0, 116, 20, 128)}  # x0, y0, x1, y1
+
+
+def trim_portraits() -> None:
+    from PIL import Image
+    for rel, box in PORTRAIT_ERASE.items():
+        path = DST / rel
+        im = Image.open(path).convert("RGBA")
+        im.paste((0, 0, 0, 0), box)
+        im.save(path)
+
+
 def make_hi() -> dict[str, dict]:
     """Renders the big sheets into art/hi/ (through Godot) and returns their sets."""
     out = DST / "hi"
@@ -436,6 +450,7 @@ def make_hi() -> dict[str, dict]:
 
 def main() -> int:
     n = copy_files()
+    trim_portraits()
     make_shadow()
     make_small_buttons()
     frames = build_frames()

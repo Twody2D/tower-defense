@@ -4,6 +4,8 @@ extends Resource
 
 ## Run speed, px/s.
 @export var speed: float = 220.0
+## On the road the hero runs this much faster (Twody: paths are for running).
+@export var road_speed_mult: float = 1.4
 ## Damage of one thrown apple.
 @export var damage: float = 10.0
 ## Throws per second.

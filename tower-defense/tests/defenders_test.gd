@@ -55,13 +55,14 @@ func _wait(seconds: float) -> void:
 	await await_millis(int(seconds * 1000.0))
 
 
+## One target: the pest closest to the carrots (further along the road).
 func test_goose_hits_one_target() -> void:
-	var near: int = _pest(100)
-	var far: int = _pest(160)
+	var behind: int = _pest(100)
+	var ahead: int = _pest(160)
 	_defender("goose", 1, Vector2(100, -100))
 	await _wait(1.2)
-	assert_float(_hp(near)).is_less(1000.0)
-	assert_float(_hp(far)).is_equal(1000.0)
+	assert_float(_hp(ahead)).is_less(1000.0)
+	assert_float(_hp(behind)).is_equal(1000.0)
 
 
 func test_sprinkler_slows_everyone_in_range() -> void:
@@ -87,7 +88,8 @@ func test_slowed_pest_walks_slower() -> void:
 func test_tomato_splash_hits_the_crowd() -> void:
 	var a: int = _pest(200)
 	var b: int = _pest(230)
-	var out: int = _pest(400)
+	# Out of the cannon's reach (260), else it would be the first target.
+	var out: int = _pest(600)
 	_defender("beaver", 1, Vector2(200, -150))
 	await _wait(1.5)
 	assert_float(_hp(a)).is_less(1000.0)

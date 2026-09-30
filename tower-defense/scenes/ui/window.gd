@@ -5,9 +5,13 @@ extends Control
 ## Windows are inherited scenes of window.tscn: they put their content into
 ## Panel/Content. The panel is `portrait_width` / `landscape_width` wide and
 ## as tall as its content; the ribbon and the close button follow it.
-## Runs while the game is paused.
+## Runs while the game is paused. A closable window also closes on Esc and on
+## a tap outside its panel (only the topmost one).
 
 signal closed
+
+## Open windows, the last one on top.
+static var _stack: Array[UiWindow] = []
 
 @export var title_key: String = ""
 @export var closable: bool = true
@@ -33,6 +37,11 @@ func _ready() -> void:
 	if ribbon_texture != null:
 		_ribbon.texture = ribbon_texture
 	_close.pressed.connect(close)
+	_dim.gui_input.connect(_on_dim_input)
+	visibility_changed.connect(func() -> void:
+		if not visible:
+			_stack.erase(self))
+	tree_exiting.connect(func() -> void: _stack.erase(self))
 	UiFx.press_spring(_close)
 	if title_key != "":
 		set_title(tr(title_key))
@@ -55,6 +64,8 @@ func is_portrait() -> bool:
 ## Shows the window: the panel, its ribbon and close button pop together
 ## from the panel centre, the dim fades in.
 func open() -> void:
+	_stack.erase(self)
+	_stack.append(self)
 	visible = true
 	_layout()
 	var centre: Vector2 = panel.position + panel.size * 0.5
@@ -67,6 +78,37 @@ func open() -> void:
 	_dim.create_tween().tween_property(_dim, ^"modulate:a", 1.0, 0.15)
 	# Wrapped labels know their height only after a layout pass: fit again.
 	_layout.call_deferred()
+
+
+## The window on top of all open ones (null if none).
+static func top() -> UiWindow:
+	for i: int in range(_stack.size() - 1, -1, -1):
+		var w: UiWindow = _stack[i]
+		if is_instance_valid(w) and w.visible and w.is_inside_tree():
+			return w
+	return null
+
+
+## Esc: closes the top window if it may be closed; true if it did.
+static func close_top() -> bool:
+	var w: UiWindow = top()
+	if w == null or not w.closable:
+		return false
+	w.close()
+	return true
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"ui_cancel") and top() == self and closable:
+		get_viewport().set_input_as_handled()
+		close()
+
+
+func _on_dim_input(event: InputEvent) -> void:
+	var tap: bool = (event is InputEventMouseButton and (event as InputEventMouseButton).pressed) 			or (event is InputEventScreenTouch and (event as InputEventScreenTouch).pressed)
+	if tap and closable and top() == self:
+		get_viewport().set_input_as_handled()
+		close()
 
 
 func close() -> void:

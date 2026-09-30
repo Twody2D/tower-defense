@@ -54,19 +54,29 @@ position = Vector2(1248, 1376)
 y_sort_enabled = true
 
 [node name="Plot1" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(512, 512)
+position = Vector2(448, 1408)
 
 [node name="Plot2" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(960, 832)
+position = Vector2(448, 1152)
 
 [node name="Plot3" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(512, 1280)
+position = Vector2(1088, 960)
 
 [node name="Plot4" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(1408, 832)
+position = Vector2(1088, 768)
+
+[node name="Plot5" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(320, 576)
+
+[node name="Plot6" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(320, 384)
 
 [node name="FencePlot1" parent="Plots" instance=ExtResource("5_r")]
-position = Vector2(224, 480)
+position = Vector2(1184, 800)
+fence_plot = true
+
+[node name="FencePlot2" parent="Plots" instance=ExtResource("5_r")]
+position = Vector2(480, 1504)
 fence_plot = true
 
 [node name="Decor" type="Node2D" parent="."]
@@ -98,11 +108,11 @@ frame = 2
 offset = Vector2(0, -70)
 
 [node name="Apple2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(192, 1080)
+position = Vector2(1472, 760)
 sprite_frames = ExtResource("6_r")
 animation = &"env_tree_apple_sway"
 autoplay = "env_tree_apple_sway"
-frame = 2
+frame = 0
 offset = Vector2(0, -70)
 
 [node name="Pine1" type="AnimatedSprite2D" parent="Decor"]
@@ -176,7 +186,7 @@ texture = ExtResource("12_r")
 offset = Vector2(0, -44)
 
 [node name="FenceDecor1" type="Sprite2D" parent="Decor"]
-position = Vector2(1600, 632)
+position = Vector2(832, 952)
 texture = ExtResource("13_r")
 offset = Vector2(0, -30)
 
@@ -186,6 +196,6 @@ texture = ExtResource("8_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks2" type="Sprite2D" parent="Decor"]
-position = Vector2(1504, 1336)
+position = Vector2(928, 1784)
 texture = ExtResource("9_r")
 offset = Vector2(0, -28)

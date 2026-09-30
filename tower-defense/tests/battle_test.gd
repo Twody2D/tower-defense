@@ -93,7 +93,11 @@ func test_hero_kills_pests_and_collects_coins() -> void:
 	var start_coins: int = battle.state.coins
 	# Stand next to the road where the first wave passes.
 	var road: Curve2D = battle.level.road_curve()
-	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-40, 0)
+	# Within reach (160) but out of touch, so the pests do not stun the hero.
+	battle.hero.global_position = road.sample_baked(300.0) + Vector2(-110, 0)
+	# The real hero is weak on purpose (towers do the job); here only the
+	# kill → coins → pick-up chain is checked.
+	battle.hero.stats.damage = 20.0
 	await runner.simulate_frames(2000, 16)
 	assert_int(battle.waves.wave).is_greater_equal(1)
 	# Picked up or still on the ground outside the magnet.

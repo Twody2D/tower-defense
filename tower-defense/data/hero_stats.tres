@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_stats")
 speed = 220.0
+road_speed_mult = 1.4
 damage = 5.0
 attacks_per_second = 1.2
 attack_radius = 160.0

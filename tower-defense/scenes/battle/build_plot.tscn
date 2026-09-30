@@ -14,7 +14,7 @@
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="12_env"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_block"]
-size = Vector2(84, 150)
+size = Vector2(100, 44)
 
 [sub_resource type="LabelSettings" id="LabelSettings_price"]
 font_size = 26
@@ -52,7 +52,7 @@ texture_progress = ExtResource("6_fill")
 [node name="Block" type="StaticBody2D" parent="."]
 
 [node name="Shape" type="CollisionShape2D" parent="Block"]
-position = Vector2(0, -40)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_block")
 disabled = true
 

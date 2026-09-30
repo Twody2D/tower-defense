@@ -39,6 +39,11 @@ extends Resource
 @export var parcel_distance: float = 190.0
 @export var parcel_pickup: float = 80.0
 
+@export_group("Free gift")
+## Twody: not only ad bonuses. A gift box falls on the waves without the ad
+## parcel and gives one of these at once when the hero walks up to it.
+@export var gift_bonuses: Array[StringName] = [&"gold_rain", &"rage", &"super_magnet", &"sleepy_rain"]
+
 @export_group("Bonuses")
 ## Gold rain: base × (wave / divisor) coins around the hero.
 @export var gold_rain_base: int = 50

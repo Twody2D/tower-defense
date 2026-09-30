@@ -17,8 +17,9 @@ signal call_pressed
 ## under the pause button (design H).
 @export var rings_landscape: Vector2 = Vector2(33, 108)
 @export var rings_portrait_top: float = 136.0
-## Parcel pointer icon at the screen edge.
+## Parcel / free gift pointer icons at the screen edge.
 @export var parcel_icon: Texture2D
+@export var gift_icon: Texture2D
 
 @onready var joystick: Joystick = $Joystick
 @onready var radial_menu: RadialMenu = $RadialMenu
@@ -82,7 +83,9 @@ func _layout() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"pause"):
 		get_viewport().set_input_as_handled()
-		pause_pressed.emit()
+		# A closable window on top (a "Sure?" over the pause) goes first.
+		if not UiWindow.close_top():
+			pause_pressed.emit()
 
 
 func bind(state: BattleState) -> void:
@@ -168,9 +171,10 @@ func hide_edge(boss: bool) -> void:
 	(_edge_boss if boss else _edge_pests).visible = false
 
 
-## Pointer to the parcel lying off screen (`target` in screen coordinates).
-func point_parcel(target: Vector2) -> void:
-	_edge_parcel.point(target, get_viewport().get_visible_rect(), parcel_icon)
+## Pointer to the parcel (or the free gift) lying off screen (`target` in
+## screen coordinates).
+func point_parcel(target: Vector2, is_gift: bool = false) -> void:
+	_edge_parcel.point(target, get_viewport().get_visible_rect(), gift_icon if is_gift else parcel_icon)
 
 
 func hide_parcel_edge() -> void:

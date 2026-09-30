@@ -9,6 +9,12 @@ signal picked
 ## Height the parcel falls from and the fall time.
 @export var fall_height: float = 520.0
 @export var fall_time: float = 1.4
+## Animations of the Sprite frames: falling, landing ("" = none), waiting,
+## opening ("" = a puff, then gone). The free gift uses its own.
+@export var fall_anim: StringName = &"parcel_fall"
+@export var land_anim: StringName = &"parcel_land"
+@export var idle_anim: StringName = &"parcel_glow"
+@export var open_anim: StringName = &"parcel_open"
 
 var hero: Node2D
 var fx: FxPool
@@ -51,7 +57,7 @@ func drop(at: Vector2) -> void:
 	_left = lifetime
 	_sprite.process_mode = Node.PROCESS_MODE_INHERIT
 	_sprite.position.y = -fall_height
-	_sprite.play(&"parcel_fall")
+	_sprite.play(fall_anim)
 	_shadow.scale = Vector2(0.3, 0.3)
 	var tw: Tween = create_tween()
 	tw.tween_property(_sprite, ^"position:y", 0.0, fall_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -69,15 +75,15 @@ func hide_now() -> void:
 
 func _land() -> void:
 	_landed = true
-	_sprite.play(&"parcel_land")
+	_sprite.play(land_anim if land_anim != &"" else idle_anim)
 	if fx != null:
 		fx.play(&"dust", global_position, 2.0)
 
 
 func _on_animation_finished() -> void:
-	if _sprite.animation == &"parcel_land":
-		_sprite.play(&"parcel_glow")
-	elif _sprite.animation == &"parcel_open" and _opening:
+	if land_anim != &"" and _sprite.animation == land_anim:
+		_sprite.play(idle_anim)
+	elif open_anim != &"" and _sprite.animation == open_anim and _opening:
 		hide_now()
 
 
@@ -102,6 +108,11 @@ func _open() -> void:
 	_opening = true
 	modulate.a = 1.0
 	set_process(false)
-	_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
-	_sprite.play(&"parcel_open")
+	if open_anim == &"":
+		if fx != null:
+			fx.play(&"poof", global_position + Vector2(0, -40), 1.6)
+		hide_now()
+	else:
+		_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
+		_sprite.play(open_anim)
 	picked.emit()
