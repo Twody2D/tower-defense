@@ -443,6 +443,31 @@ def flat_svg(text: str) -> str:
 PORTRAIT_ERASE = {"enemies/ui_enemy_portrait_fox.png": (0, 116, 20, 128)}  # x0, y0, x1, y1
 
 
+# Portraits whose design drawing runs past the SVG viewBox (the PNG cuts it
+# at the card's edge): rendered again with the viewBox grown by PORTRAIT_PAD
+# on every side, same 128 px picture.
+PORTRAIT_PAD = 0.06
+PADDED_PORTRAITS = {  # picture in art/: svg in assets/
+    "enemies/ui_enemy_portrait_caterpillar.png": "c/ui_enemy_portrait_caterpillar",
+    "enemies/ui_enemy_portrait_beetle.png": "c/ui_enemy_portrait_beetle",
+    "defenders/ui_def_portrait_goose.png": "d/ui_def_portrait_goose",
+    "defenders/ui_def_portrait_goose_locked.png": "d/ui_def_portrait_goose_locked",
+    "defenders/ui_def_portrait_beaver.png": "d/ui_def_portrait_beaver",
+    "defenders/ui_def_portrait_beaver_locked.png": "d/ui_def_portrait_beaver_locked",
+}
+
+
+def padded_svg(text: str) -> str:
+    text = re.sub(r"<metadata>.*?</metadata>", "", text, flags=re.S)
+
+    def grow(m: re.Match) -> str:
+        x, y, w, h = (float(n) for n in m.group(1).split())
+        dx, dy = w * PORTRAIT_PAD, h * PORTRAIT_PAD
+        return f'viewBox="{x - dx:g} {y - dy:g} {w + 2 * dx:g} {h + 2 * dy:g}"'
+
+    return re.sub(r'viewBox="([^"]+)"', grow, text, count=1)
+
+
 def trim_portraits() -> None:
     from PIL import Image
     for rel, box in PORTRAIT_ERASE.items():
@@ -543,6 +568,10 @@ def make_hi() -> dict[str, dict]:
     logo = logo.replace('height="440" viewBox="0 0 960 440"', 'height="480" viewBox="0 -40 960 480"', 1)
     (tmp / "logo_plate.svg").write_text(logo, encoding="utf-8")
     jobs.append({"src": str(tmp / "logo_plate.svg"), "scale": 1.0, "out": str(DST / "ui" / "logo_plate.png")})
+    for rel, base in PADDED_PORTRAITS.items():
+        src = tmp / f"{Path(base).name}.svg"
+        src.write_text(padded_svg((SVG / f"{base}.svg").read_text(encoding="utf-8")), encoding="utf-8")
+        jobs.append({"src": str(src), "scale": 1.0, "out": str(DST / rel)})
     listing = tmp / "jobs.json"
     listing.write_text(json.dumps(jobs), encoding="utf-8")
     subprocess.run([GODOT, "--headless", "--path", str(ROOT / "tower-defense"), "-s", "res://tools/render_svg_cli.gd",
