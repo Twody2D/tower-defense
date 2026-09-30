@@ -37,6 +37,11 @@ def frames_in(name: str) -> int:
     return int(tail[:-1]) if tail.endswith("f") and tail[:-1].isdigit() else 1
 
 
+# Batch K: farm crops (map and menu) and crops in battle.
+CROPS = ["wheat", "apple", "pumpkin", "apiary"]
+BATTLE_CROPS = ["apple_tree", "pumpkin", "raspberry"]
+BATTLE_FRUITS = ["apple", "pumpkin", "raspberry"]
+
 # Static pictures: destination folder -> source files (relative to design export/)
 FILES: dict[str, list[str]] = {
     "hero": [
@@ -96,7 +101,21 @@ FILES: dict[str, list[str]] = {
         "e/env_lake_lake.png",
         "e/env_lake_boat.png",
         "e/env_lake_skep.png",
-    ],
+        "e/env_lake_pier.png",
+        # new main menu (batch L): the farmer's house and the sand yard
+        "l/env_house.png",
+    ] + [f"e/tile_farm_sand_{t}.png" for t in (
+        "fill", "edge_t", "edge_b", "edge_l", "edge_r", "outer_tl", "outer_tr", "outer_bl", "outer_br")],
+    # Farm harvest and battle crops (batch K): static states.
+    "harvest": [
+        f"k/harvest_{c}_ripe_lv{lv}.png" for c in CROPS for lv in (2, 3)
+    ] + ["k/harvest_locked.png", "k/harvest_shadow.png", "k/battle_shadow.png"]
+      + [f"k/battle_{c}_empty.png" for c in BATTLE_CROPS],
+    # New farm map (batch L): level signs, path, bridge, biome strips.
+    "map": [f"l/{n}.png" for n in (
+        "map_bridge", "map_level_done", "map_level_locked", "map_level_open",
+        "map_level_fox_done", "map_level_fox_locked", "map_level_fox_open",
+        "map_path_patch", "map_path_stone", "map_strip_farm_wheat", "map_strip_wheat_lake")],
     "fx": [],
     # The whole UI kit (G) and screen parts (I); animated ones go to UI_ANIMS.
     "ui": sorted(
@@ -124,6 +143,9 @@ FILES: dict[str, list[str]] = {
         "g/ui_btn_green_disabled.png",
         "g/ui_progress_frame.png",
         "g/ui_progress_fill.png",
+        "k/ui_icon_apple.png", "k/ui_icon_apple_128.png", "k/ui_icon_pumpkin.png", "k/ui_icon_pumpkin_128.png",
+        "k/ui_icon_honey.png", "k/ui_icon_honey_128.png",
+        "l/ui_harvest_ready.png", "l/ui_icon_howto.png",
     ],
 }
 
@@ -260,6 +282,30 @@ def build_frames() -> dict[str, dict]:
     for b, (fps, loop) in FX_ANIMS.items():
         folder = "b" if b in ("fx_rage_aura_4f", "proj_splat_3f") else "f"
         sets["fx"][anim_name(b).removeprefix("fx_")] = entry(copy(f"{folder}/{b}.png", "fx"), frames_in(b), fps, loop)
+    # Farm crops: "<crop>_grow" (3 states by code), "_ripe", "_collect".
+    sets["harvest"] = {}
+    for c in CROPS:
+        for a, n, fps, loop in (("grow", 3, 0, False), ("ripe", 4, 6, True), ("collect", 5, 12, False)):
+            sets["harvest"][f"{c}_{a}"] = entry(copy(f"k/harvest_{c}_{a}_{n}f.png", "harvest"), n, fps, loop)
+    # Battle crops: "<crop>_ripe", "_shake", "_regrow" (2 states by code), "_highlight"; "fruit_<f>".
+    sets["crops"] = {}
+    for c in BATTLE_CROPS:
+        for a, n, fps, loop in (("ripe", 3, 6, True), ("shake", 4, 12, False), ("regrow", 2, 0, False),
+                                ("highlight", 3, 6, True)):
+            sets["crops"][f"{c}_{a}"] = entry(copy(f"k/battle_{c}_{a}_{n}f.png", "harvest"), n, fps, loop)
+    for f in BATTLE_FRUITS:
+        sets["crops"][f"fruit_{f}"] = entry(copy(f"k/battle_fruit_{f}_fall_3f.png", "harvest"), 3, 12, False)
+    # Map and menu life: clouds over closed zones, the current level sign, smoke, butterflies.
+    sets["map"] = {
+        "cloud_1_sway": entry(copy("l/map_cloud_1_sway_3f.png", "map"), 3, 3, True),
+        "cloud_2_sway": entry(copy("l/map_cloud_2_sway_3f.png", "map"), 3, 3, True),
+        "cloud_1_clear": entry(copy("l/map_cloud_1_clear_5f.png", "map"), 5, 8, False),
+        "cloud_2_clear": entry(copy("l/map_cloud_2_clear_5f.png", "map"), 5, 8, False),
+        "level_current": entry(copy("l/map_level_current_3f.png", "map"), 3, 6, True),
+        "level_fox_current": entry(copy("l/map_level_fox_current_3f.png", "map"), 3, 6, True),
+        "chimney_smoke": entry(copy("l/fx_chimney_smoke_4f.png", "map"), 4, 6, True),
+        "butterfly": entry(copy("l/fx_butterfly_4f.png", "map"), 4, 12, True),
+    }
     sets["ui"] = {
         anim_name(b).removeprefix("ui_"): entry(copy(f"g/{b}.png", "ui"), frames_in(b), fps, loop)
         for b, (fps, loop) in UI_ANIMS.items()

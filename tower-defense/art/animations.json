@@ -920,6 +920,222 @@
     "loop": false
    }
   },
+  "harvest": {
+   "wheat_grow": {
+    "file": "res://art/harvest/harvest_wheat_grow_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "wheat_ripe": {
+    "file": "res://art/harvest/harvest_wheat_ripe_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "wheat_collect": {
+    "file": "res://art/harvest/harvest_wheat_collect_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "apple_grow": {
+    "file": "res://art/harvest/harvest_apple_grow_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "apple_ripe": {
+    "file": "res://art/harvest/harvest_apple_ripe_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "apple_collect": {
+    "file": "res://art/harvest/harvest_apple_collect_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "pumpkin_grow": {
+    "file": "res://art/harvest/harvest_pumpkin_grow_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "pumpkin_ripe": {
+    "file": "res://art/harvest/harvest_pumpkin_ripe_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "pumpkin_collect": {
+    "file": "res://art/harvest/harvest_pumpkin_collect_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   },
+   "apiary_grow": {
+    "file": "res://art/harvest/harvest_apiary_grow_3f.png",
+    "frames": 3,
+    "fps": 0,
+    "loop": false
+   },
+   "apiary_ripe": {
+    "file": "res://art/harvest/harvest_apiary_ripe_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "apiary_collect": {
+    "file": "res://art/harvest/harvest_apiary_collect_5f.png",
+    "frames": 5,
+    "fps": 12,
+    "loop": false
+   }
+  },
+  "crops": {
+   "apple_tree_ripe": {
+    "file": "res://art/harvest/battle_apple_tree_ripe_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "apple_tree_shake": {
+    "file": "res://art/harvest/battle_apple_tree_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "apple_tree_regrow": {
+    "file": "res://art/harvest/battle_apple_tree_regrow_2f.png",
+    "frames": 2,
+    "fps": 0,
+    "loop": false
+   },
+   "apple_tree_highlight": {
+    "file": "res://art/harvest/battle_apple_tree_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "pumpkin_ripe": {
+    "file": "res://art/harvest/battle_pumpkin_ripe_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "pumpkin_shake": {
+    "file": "res://art/harvest/battle_pumpkin_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "pumpkin_regrow": {
+    "file": "res://art/harvest/battle_pumpkin_regrow_2f.png",
+    "frames": 2,
+    "fps": 0,
+    "loop": false
+   },
+   "pumpkin_highlight": {
+    "file": "res://art/harvest/battle_pumpkin_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "raspberry_ripe": {
+    "file": "res://art/harvest/battle_raspberry_ripe_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "raspberry_shake": {
+    "file": "res://art/harvest/battle_raspberry_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": false
+   },
+   "raspberry_regrow": {
+    "file": "res://art/harvest/battle_raspberry_regrow_2f.png",
+    "frames": 2,
+    "fps": 0,
+    "loop": false
+   },
+   "raspberry_highlight": {
+    "file": "res://art/harvest/battle_raspberry_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "fruit_apple": {
+    "file": "res://art/harvest/battle_fruit_apple_fall_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
+   },
+   "fruit_pumpkin": {
+    "file": "res://art/harvest/battle_fruit_pumpkin_fall_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
+   },
+   "fruit_raspberry": {
+    "file": "res://art/harvest/battle_fruit_raspberry_fall_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
+   }
+  },
+  "map": {
+   "cloud_1_sway": {
+    "file": "res://art/map/map_cloud_1_sway_3f.png",
+    "frames": 3,
+    "fps": 3,
+    "loop": true
+   },
+   "cloud_2_sway": {
+    "file": "res://art/map/map_cloud_2_sway_3f.png",
+    "frames": 3,
+    "fps": 3,
+    "loop": true
+   },
+   "cloud_1_clear": {
+    "file": "res://art/map/map_cloud_1_clear_5f.png",
+    "frames": 5,
+    "fps": 8,
+    "loop": false
+   },
+   "cloud_2_clear": {
+    "file": "res://art/map/map_cloud_2_clear_5f.png",
+    "frames": 5,
+    "fps": 8,
+    "loop": false
+   },
+   "level_current": {
+    "file": "res://art/map/map_level_current_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "level_fox_current": {
+    "file": "res://art/map/map_level_fox_current_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "chimney_smoke": {
+    "file": "res://art/map/fx_chimney_smoke_4f.png",
+    "frames": 4,
+    "fps": 6,
+    "loop": true
+   },
+   "butterfly": {
+    "file": "res://art/map/fx_butterfly_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   }
+  },
   "ui": {
    "btn_ad_glint": {
     "file": "res://art/ui/ui_btn_ad_glint_4f.png",
