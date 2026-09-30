@@ -30,11 +30,12 @@
 [ext_resource type="PackedScene" path="res://scenes/map/map_crop.tscn" id="28_m"]
 [ext_resource type="PackedScene" path="res://scenes/map/map_node.tscn" id="29_m"]
 [ext_resource type="SpriteFrames" path="res://art/frames/map.tres" id="30_m"]
-[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="31_m"]
-[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="32_m"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="33_m"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="34_m"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="35_m"]
+[ext_resource type="Material" path="res://shaders/haze.tres" id="31_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="32_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="33_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="34_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="35_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="36_m"]
 
 [node name="Map" type="Control"]
 script = ExtResource("1_m")
@@ -2080,7 +2081,15 @@ fox = true
 
 [node name="CloudsWheat" type="Node2D" parent="World"]
 
+[node name="Haze" type="ColorRect" parent="World/CloudsWheat"]
+offset_top = 1920.0
+offset_right = 1080.0
+offset_bottom = 3840.0
+mouse_filter = 2
+material = ExtResource("31_m")
+
 [node name="Cloud1" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(260, 3500)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2089,6 +2098,7 @@ autoplay = "cloud_1_sway"
 frame = 0
 
 [node name="Cloud2" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(800, 3280)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2097,6 +2107,7 @@ autoplay = "cloud_2_sway"
 frame = 1
 
 [node name="Cloud3" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(300, 2760)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2105,6 +2116,7 @@ autoplay = "cloud_1_sway"
 frame = 2
 
 [node name="Cloud4" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(780, 2420)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2113,6 +2125,7 @@ autoplay = "cloud_2_sway"
 frame = 0
 
 [node name="Cloud5" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(540, 3040)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2122,7 +2135,15 @@ frame = 1
 
 [node name="CloudsLake" type="Node2D" parent="World"]
 
+[node name="Haze" type="ColorRect" parent="World/CloudsLake"]
+offset_top = 0.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+mouse_filter = 2
+material = ExtResource("31_m")
+
 [node name="Cloud1" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(260, 1650)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2131,6 +2152,7 @@ autoplay = "cloud_1_sway"
 frame = 0
 
 [node name="Cloud2" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(800, 1420)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2139,6 +2161,7 @@ autoplay = "cloud_2_sway"
 frame = 1
 
 [node name="Cloud3" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(300, 1000)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2147,6 +2170,7 @@ autoplay = "cloud_1_sway"
 frame = 2
 
 [node name="Cloud4" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(820, 700)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2155,6 +2179,7 @@ autoplay = "cloud_2_sway"
 frame = 0
 
 [node name="Cloud5" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(240, 360)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2163,6 +2188,7 @@ autoplay = "cloud_1_sway"
 frame = 1
 
 [node name="Cloud6" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(700, 180)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2171,6 +2197,7 @@ autoplay = "cloud_2_sway"
 frame = 2
 
 [node name="Cloud7" type="AnimatedSprite2D" parent="World/CloudsLake"]
+modulate = Color(0.88, 0.9, 0.95, 1)
 position = Vector2(560, 1200)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("30_m")
@@ -2178,7 +2205,7 @@ animation = &"cloud_1_sway"
 autoplay = "cloud_1_sway"
 frame = 0
 
-[node name="Grains" parent="." instance=ExtResource("31_m")]
+[node name="Grains" parent="." instance=ExtResource("32_m")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 44.0
@@ -2186,7 +2213,7 @@ offset_top = 40.0
 offset_right = 304.0
 offset_bottom = 104.0
 
-[node name="Shop" parent="." instance=ExtResource("32_m")]
+[node name="Shop" parent="." instance=ExtResource("33_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -2197,9 +2224,9 @@ offset_top = 30.0
 offset_right = -276.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("33_m")
+icon = ExtResource("34_m")
 
-[node name="Settings" parent="." instance=ExtResource("32_m")]
+[node name="Settings" parent="." instance=ExtResource("33_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -2210,9 +2237,9 @@ offset_top = 30.0
 offset_right = -160.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("34_m")
+icon = ExtResource("35_m")
 
-[node name="Gift" parent="." instance=ExtResource("32_m")]
+[node name="Gift" parent="." instance=ExtResource("33_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -2223,6 +2250,6 @@ offset_top = 30.0
 offset_right = -44.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("35_m")
+icon = ExtResource("36_m")
 icon_anim = &"icon_gift_shake"
 badge = true

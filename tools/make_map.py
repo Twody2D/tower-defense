@@ -44,6 +44,10 @@ CLOUDS = {
                    (1, 560, 1200)],
 }
 CLOUD_SCALE = 1.25
+# Twody: a closed zone is greyer — a haze over its band (shaders/haze.tres)
+# under greyish clouds. Zone band: top, bottom (portrait y).
+ZONE_BANDS = {"CloudsWheat": (1920, 3840), "CloudsLake": (0, 1920)}
+CLOUD_TINT = "Color(0.88, 0.9, 0.95, 1)"
 
 
 class Scene:
@@ -158,10 +162,16 @@ def main() -> int:
             props.append("fox = true")
         s.node(f"Level{i + 1}", None, "World/Nodes", props, instance=node)
     frames = s.res("SpriteFrames", "res://art/frames/map.tres")
+    haze = s.res("Material", "res://shaders/haze.tres")
     for group, clouds in CLOUDS.items():
         s.node(group, "Node2D", "World", [])
+        top, bottom = ZONE_BANDS[group]
+        s.node("Haze", "ColorRect", f"World/{group}", [f"offset_top = {top}.0", "offset_right = 1080.0",
+                                                       f"offset_bottom = {bottom}.0", "mouse_filter = 2",
+                                                       f'material = ExtResource("{haze}")'])
         for i, (var, x, y) in enumerate(clouds):
             s.node(f"Cloud{i + 1}", "AnimatedSprite2D", f"World/{group}", [
+                f"modulate = {CLOUD_TINT}",
                 f"position = {v(x, y)}", f"scale = {v(CLOUD_SCALE, CLOUD_SCALE)}", f'sprite_frames = ExtResource("{frames}")',
                 f'animation = &"cloud_{var}_sway"', f'autoplay = "cloud_{var}_sway"', f"frame = {i % 3}"])
     # HUD (design L: grains; shop, settings, gift on the right).

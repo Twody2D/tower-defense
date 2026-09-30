@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://shaders/haze.gdshader" id="1_h"]
+
+[resource]
+shader = ExtResource("1_h")
+shader_parameter/grey = 0.65
+shader_parameter/tint = Color(0.82, 0.84, 0.9, 1)

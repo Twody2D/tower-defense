@@ -29,13 +29,15 @@ const ZONES: Dictionary[StringName, int] = {&"CloudsWheat": 6, &"CloudsLake": 10
 @export var drag_threshold: float = 14.0
 ## Inertia fade, 1/s.
 @export var friction: float = 5.0
+## A zone's grey haze fades this long when it opens, s.
+@export var haze_clear_time: float = 0.8
 
 var portrait: bool = true
 var scroll: float = 0.0
 
 ## Authored (portrait) centre of every world piece.
 var _home: Dictionary[CanvasItem, Vector2] = {}
-var _bands: Dictionary[TextureRect, Rect2] = {}
+var _bands: Dictionary[Control, Rect2] = {}
 var _turned: Array[Node2D] = []
 var _velocity: float = 0.0
 var _touch: int = -1
@@ -82,11 +84,11 @@ func _remember(n: Node) -> void:
 			if n.name == &"Turned":
 				_turned.append(child as Node2D)
 		return
-	var band: TextureRect = n as TextureRect
 	var c: Control = n as Control
 	var n2: Node2D = n as Node2D
-	if band != null:
-		_bands[band] = Rect2(band.position, band.size)
+	# Bands (grass, a closed zone's haze) turn with the map as rectangles.
+	if n is TextureRect or n is ColorRect:
+		_bands[c] = Rect2(c.position, c.size)
 	elif c != null:
 		_home[c] = c.position + c.size * 0.5
 	elif n2 != null:
@@ -132,7 +134,7 @@ func _layout() -> void:
 			(item as Node2D).position = at
 	for t: Node2D in _turned:
 		t.rotation = 0.0 if portrait else PI * 0.5
-	for band: TextureRect in _bands:
+	for band: Control in _bands:
 		var r: Rect2 = _bands[band]
 		if portrait:
 			band.position = r.position
@@ -228,8 +230,16 @@ func _show_clouds() -> void:
 		var open: bool = Game.is_level_open(ZONES[group])
 		var clouds: Node = $World.get_node(NodePath(String(group)))
 		var first_time: bool = open and Game.first_meet(StringName("zone_" + String(group)))
+		var haze: ColorRect = clouds.get_node(^"Haze")
+		haze.visible = not open or first_time
+		if first_time:
+			var tw: Tween = haze.create_tween()
+			tw.tween_property(haze, ^"modulate:a", 0.0, haze_clear_time)
+			tw.tween_callback(haze.hide)
 		for c: Node in clouds.get_children():
 			var cloud: AnimatedSprite2D = c as AnimatedSprite2D
+			if cloud == null:
+				continue
 			cloud.visible = not open or first_time
 			if first_time:
 				cloud.play(StringName(String(cloud.animation).replace("_sway", "_clear")))
