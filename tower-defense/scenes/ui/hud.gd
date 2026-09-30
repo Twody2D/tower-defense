@@ -52,6 +52,8 @@ var _wave_shown: int = -1
 
 
 func _ready() -> void:
+	# FPS and counts: only in debug builds (editor, stress test), not for players.
+	_debug.visible = OS.is_debug_build()
 	_pause.pressed.connect(pause_pressed.emit)
 	_call.pressed.connect(call_pressed.emit)
 	UiFx.press_spring(_pause)
