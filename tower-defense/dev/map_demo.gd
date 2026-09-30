@@ -2,13 +2,15 @@ extends SceneTree
 ## Map for a visual check: <passed> levels won (3 stars; default 1), the open
 ## crops ripe. Shots at the given frames (scroll with the level at the start).
 ## The real save file is put back at the end.
-## "$G" --path . --resolution 1280x720 -s res://dev/map_demo.gd -- <out_prefix> [passed] [frame,frame,...]
+## "$G" --path . --resolution 1280x720 -s res://dev/map_demo.gd -- <out_prefix> [passed] [frame,frame,...] [window]
+## `window`: a map window export to open at frame 10 (e.g. shop_window).
 
 const SAVE_PATH := "user://save.json"
 
 var _out: String = "user://map"
 var _passed: int = 1
 var _shots: Array[int] = [60]
+var _window: String = ""
 var _frame: int = 0
 var _backup: PackedByteArray = PackedByteArray()
 var _had_save: bool = false
@@ -24,6 +26,8 @@ func _initialize() -> void:
 		_shots.clear()
 		for f: String in args[2].split(","):
 			_shots.append(f.to_int())
+	if args.size() > 3:
+		_window = args[3]
 	_had_save = FileAccess.file_exists(SAVE_PATH)
 	if _had_save:
 		_backup = FileAccess.get_file_as_bytes(SAVE_PATH)
@@ -40,6 +44,9 @@ func _process(_delta: float) -> bool:
 		game.call("start_harvest", int(Time.get_unix_time_from_system()) - 6 * 3600)
 		change_scene_to_file("res://scenes/map/map.tscn")
 		return false
+	if _frame == 10 and _window != "":
+		var map: Node = current_scene
+		map.call("_open", map.get(_window))
 	if _frame in _shots:
 		var path: String = "%s_%d.png" % [_out, _frame]
 		root.get_texture().get_image().save_png(path)

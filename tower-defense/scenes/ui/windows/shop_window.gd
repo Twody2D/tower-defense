@@ -10,8 +10,8 @@ extends UiWindow
 ## Preview card side in landscape / portrait, px.
 @export var preview_side: Vector2 = Vector2(460, 480)
 ## Grain counter position in landscape / portrait (design I), px.
-@export var counter_landscape: Vector2 = Vector2(80, 30)
-@export var counter_portrait: Vector2 = Vector2(60, 90)
+@export var counter_landscape: Vector2 = Vector2(44, 40)
+@export var counter_portrait: Vector2 = Vector2(44, 40)
 
 var _preview_id: StringName = &""
 var _stat_cards: Array[StatCard] = []
