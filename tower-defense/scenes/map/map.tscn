@@ -1,45 +1,48 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/settings_window.tscn" id="90_0"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/level_start_window.tscn" id="90_1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/shop_window.tscn" id="90_2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_window.tscn" id="90_3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/harvest_window.tscn" id="90_4"]
-[ext_resource type="Script" path="res://scenes/map/map.gd" id="1_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_lake_grass_1.png" id="2_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_wheat_grass_1.png" id="3_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="4_r"]
-[ext_resource type="Texture2D" path="res://art/ui/map_path_dot.png" id="5_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="6_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="7_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="8_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="9_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="10_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="11_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="12_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_bed.png" id="13_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_mill.png" id="14_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_sheaf.png" id="15_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_cart.png" id="16_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_lake_lake.png" id="17_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_lake_boat.png" id="18_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_lake_skep.png" id="19_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/ui.tres" id="20_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_badge_dot.png" id="21_r"]
-[ext_resource type="PackedScene" path="res://scenes/map/map_node.tscn" id="22_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="23_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="24_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="25_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="26_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="27_r"]
+[ext_resource type="Script" path="res://scenes/map/map.gd" id="1_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/settings_window.tscn" id="2_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/level_start_window.tscn" id="3_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/shop_window.tscn" id="4_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_window.tscn" id="5_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/harvest_window.tscn" id="6_m"]
+[ext_resource type="Texture2D" path="res://art/env/tile_lake_grass_1.png" id="7_m"]
+[ext_resource type="Texture2D" path="res://art/env/tile_wheat_grass_1.png" id="8_m"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="9_m"]
+[ext_resource type="Texture2D" path="res://art/map/map_strip_wheat_lake.png" id="10_m"]
+[ext_resource type="Texture2D" path="res://art/map/map_strip_farm_wheat.png" id="11_m"]
+[ext_resource type="Texture2D" path="res://art/map/map_bridge.png" id="12_m"]
+[ext_resource type="Texture2D" path="res://art/map/map_path_patch.png" id="13_m"]
+[ext_resource type="Texture2D" path="res://art/map/map_path_stone.png" id="14_m"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="15_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="16_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="17_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_bed.png" id="18_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="19_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="20_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="21_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_mill.png" id="22_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_sheaf.png" id="23_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_cart.png" id="24_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_lake.png" id="25_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_skep.png" id="26_m"]
+[ext_resource type="Texture2D" path="res://art/env/env_lake_pier.png" id="27_m"]
+[ext_resource type="PackedScene" path="res://scenes/map/map_crop.tscn" id="28_m"]
+[ext_resource type="PackedScene" path="res://scenes/map/map_node.tscn" id="29_m"]
+[ext_resource type="SpriteFrames" path="res://art/frames/map.tres" id="30_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="31_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="32_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="33_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="34_m"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="35_m"]
 
 [node name="Map" type="Control"]
-script = ExtResource("1_r")
-settings_window = ExtResource("90_0")
-level_start_window = ExtResource("90_1")
-shop_window = ExtResource("90_2")
-gift_window = ExtResource("90_3")
-harvest_window = ExtResource("90_4")
+script = ExtResource("1_m")
+settings_window = ExtResource("2_m")
+level_start_window = ExtResource("3_m")
+shop_window = ExtResource("4_m")
+gift_window = ExtResource("5_m")
+harvest_window = ExtResource("6_m")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,7 +68,7 @@ offset_top = 0.0
 offset_right = 1080.0
 offset_bottom = 1920.0
 mouse_filter = 2
-texture = ExtResource("2_r")
+texture = ExtResource("7_m")
 stretch_mode = 1
 
 [node name="Wheat" type="TextureRect" parent="World/Bands"]
@@ -73,7 +76,7 @@ offset_top = 1920.0
 offset_right = 1080.0
 offset_bottom = 3840.0
 mouse_filter = 2
-texture = ExtResource("3_r")
+texture = ExtResource("8_m")
 stretch_mode = 1
 
 [node name="Farm" type="TextureRect" parent="World/Bands"]
@@ -81,723 +84,2101 @@ offset_top = 3840.0
 offset_right = 1080.0
 offset_bottom = 5760.0
 mouse_filter = 2
-texture = ExtResource("4_r")
+texture = ExtResource("9_m")
 stretch_mode = 1
+
+[node name="Turned" type="Node2D" parent="World"]
+
+[node name="StripWheatLake" type="Sprite2D" parent="World/Turned"]
+position = Vector2(540, 1920)
+texture = ExtResource("10_m")
+
+[node name="StripFarmWheat" type="Sprite2D" parent="World/Turned"]
+position = Vector2(540, 3840)
+texture = ExtResource("11_m")
+
+[node name="Bridge1" type="Sprite2D" parent="World/Turned"]
+position = Vector2(540, 3846)
+texture = ExtResource("12_m")
+
+[node name="Bridge2" type="Sprite2D" parent="World/Turned"]
+position = Vector2(540, 1926)
+texture = ExtResource("12_m")
 
 [node name="Path" type="Node2D" parent="World"]
 
-[node name="Dot1" type="Sprite2D" parent="World/Path"]
-position = Vector2(350, 5444)
-texture = ExtResource("5_r")
-
-[node name="Dot2" type="Sprite2D" parent="World/Path"]
-position = Vector2(384, 5406)
-texture = ExtResource("5_r")
-
-[node name="Dot3" type="Sprite2D" parent="World/Path"]
-position = Vector2(419, 5367)
-texture = ExtResource("5_r")
-
-[node name="Dot4" type="Sprite2D" parent="World/Path"]
-position = Vector2(453, 5329)
-texture = ExtResource("5_r")
-
-[node name="Dot5" type="Sprite2D" parent="World/Path"]
-position = Vector2(487, 5291)
-texture = ExtResource("5_r")
-
-[node name="Dot6" type="Sprite2D" parent="World/Path"]
-position = Vector2(521, 5253)
-texture = ExtResource("5_r")
-
-[node name="Dot7" type="Sprite2D" parent="World/Path"]
-position = Vector2(556, 5214)
-texture = ExtResource("5_r")
-
-[node name="Dot8" type="Sprite2D" parent="World/Path"]
-position = Vector2(590, 5176)
-texture = ExtResource("5_r")
-
-[node name="Dot9" type="Sprite2D" parent="World/Path"]
-position = Vector2(672, 5052)
-texture = ExtResource("5_r")
-
-[node name="Dot10" type="Sprite2D" parent="World/Path"]
-position = Vector2(695, 5003)
-texture = ExtResource("5_r")
-
-[node name="Dot11" type="Sprite2D" parent="World/Path"]
-position = Vector2(718, 4954)
-texture = ExtResource("5_r")
-
-[node name="Dot12" type="Sprite2D" parent="World/Path"]
-position = Vector2(742, 4906)
-texture = ExtResource("5_r")
-
-[node name="Dot13" type="Sprite2D" parent="World/Path"]
-position = Vector2(765, 4857)
-texture = ExtResource("5_r")
-
-[node name="Dot14" type="Sprite2D" parent="World/Path"]
-position = Vector2(788, 4808)
-texture = ExtResource("5_r")
-
-[node name="Dot15" type="Sprite2D" parent="World/Path"]
-position = Vector2(774, 4681)
-texture = ExtResource("5_r")
-
-[node name="Dot16" type="Sprite2D" parent="World/Path"]
-position = Vector2(744, 4644)
-texture = ExtResource("5_r")
-
-[node name="Dot17" type="Sprite2D" parent="World/Path"]
-position = Vector2(714, 4606)
-texture = ExtResource("5_r")
-
-[node name="Dot18" type="Sprite2D" parent="World/Path"]
-position = Vector2(685, 4569)
-texture = ExtResource("5_r")
-
-[node name="Dot19" type="Sprite2D" parent="World/Path"]
-position = Vector2(655, 4531)
-texture = ExtResource("5_r")
-
-[node name="Dot20" type="Sprite2D" parent="World/Path"]
-position = Vector2(626, 4494)
-texture = ExtResource("5_r")
-
-[node name="Dot21" type="Sprite2D" parent="World/Path"]
-position = Vector2(596, 4456)
-texture = ExtResource("5_r")
-
-[node name="Dot22" type="Sprite2D" parent="World/Path"]
-position = Vector2(566, 4419)
-texture = ExtResource("5_r")
-
-[node name="Dot23" type="Sprite2D" parent="World/Path"]
-position = Vector2(477, 4299)
-texture = ExtResource("5_r")
-
-[node name="Dot24" type="Sprite2D" parent="World/Path"]
-position = Vector2(446, 4256)
-texture = ExtResource("5_r")
-
-[node name="Dot25" type="Sprite2D" parent="World/Path"]
-position = Vector2(416, 4213)
-texture = ExtResource("5_r")
-
-[node name="Dot26" type="Sprite2D" parent="World/Path"]
-position = Vector2(385, 4170)
-texture = ExtResource("5_r")
-
-[node name="Dot27" type="Sprite2D" parent="World/Path"]
-position = Vector2(354, 4127)
-texture = ExtResource("5_r")
-
-[node name="Dot28" type="Sprite2D" parent="World/Path"]
-position = Vector2(324, 4084)
-texture = ExtResource("5_r")
-
-[node name="Dot29" type="Sprite2D" parent="World/Path"]
-position = Vector2(293, 4041)
-texture = ExtResource("5_r")
-
-[node name="Dot30" type="Sprite2D" parent="World/Path"]
-position = Vector2(282, 3912)
-texture = ExtResource("5_r")
-
-[node name="Dot31" type="Sprite2D" parent="World/Path"]
-position = Vector2(303, 3867)
-texture = ExtResource("5_r")
-
-[node name="Dot32" type="Sprite2D" parent="World/Path"]
-position = Vector2(324, 3822)
-texture = ExtResource("5_r")
-
-[node name="Dot33" type="Sprite2D" parent="World/Path"]
-position = Vector2(346, 3778)
-texture = ExtResource("5_r")
-
-[node name="Dot34" type="Sprite2D" parent="World/Path"]
-position = Vector2(367, 3733)
-texture = ExtResource("5_r")
-
-[node name="Dot35" type="Sprite2D" parent="World/Path"]
-position = Vector2(388, 3688)
-texture = ExtResource("5_r")
-
-[node name="Dot36" type="Sprite2D" parent="World/Path"]
-position = Vector2(472, 3566)
-texture = ExtResource("5_r")
-
-[node name="Dot37" type="Sprite2D" parent="World/Path"]
-position = Vector2(506, 3529)
-texture = ExtResource("5_r")
-
-[node name="Dot38" type="Sprite2D" parent="World/Path"]
-position = Vector2(541, 3493)
-texture = ExtResource("5_r")
-
-[node name="Dot39" type="Sprite2D" parent="World/Path"]
-position = Vector2(575, 3456)
-texture = ExtResource("5_r")
-
-[node name="Dot40" type="Sprite2D" parent="World/Path"]
-position = Vector2(610, 3420)
-texture = ExtResource("5_r")
-
-[node name="Dot41" type="Sprite2D" parent="World/Path"]
-position = Vector2(645, 3384)
-texture = ExtResource("5_r")
-
-[node name="Dot42" type="Sprite2D" parent="World/Path"]
-position = Vector2(679, 3347)
-texture = ExtResource("5_r")
-
-[node name="Dot43" type="Sprite2D" parent="World/Path"]
-position = Vector2(714, 3311)
-texture = ExtResource("5_r")
-
-[node name="Dot44" type="Sprite2D" parent="World/Path"]
-position = Vector2(748, 3274)
-texture = ExtResource("5_r")
-
-[node name="Dot45" type="Sprite2D" parent="World/Path"]
-position = Vector2(782, 3147)
-texture = ExtResource("5_r")
-
-[node name="Dot46" type="Sprite2D" parent="World/Path"]
-position = Vector2(769, 3096)
-texture = ExtResource("5_r")
-
-[node name="Dot47" type="Sprite2D" parent="World/Path"]
-position = Vector2(756, 3045)
-texture = ExtResource("5_r")
-
-[node name="Dot48" type="Sprite2D" parent="World/Path"]
-position = Vector2(744, 2995)
-texture = ExtResource("5_r")
-
-[node name="Dot49" type="Sprite2D" parent="World/Path"]
-position = Vector2(731, 2944)
-texture = ExtResource("5_r")
-
-[node name="Dot50" type="Sprite2D" parent="World/Path"]
-position = Vector2(718, 2893)
-texture = ExtResource("5_r")
-
-[node name="Dot51" type="Sprite2D" parent="World/Path"]
-position = Vector2(649, 2765)
-texture = ExtResource("5_r")
-
-[node name="Dot52" type="Sprite2D" parent="World/Path"]
-position = Vector2(616, 2729)
-texture = ExtResource("5_r")
-
-[node name="Dot53" type="Sprite2D" parent="World/Path"]
-position = Vector2(582, 2692)
-texture = ExtResource("5_r")
-
-[node name="Dot54" type="Sprite2D" parent="World/Path"]
-position = Vector2(549, 2656)
-texture = ExtResource("5_r")
-
-[node name="Dot55" type="Sprite2D" parent="World/Path"]
-position = Vector2(515, 2620)
-texture = ExtResource("5_r")
-
-[node name="Dot56" type="Sprite2D" parent="World/Path"]
-position = Vector2(481, 2584)
-texture = ExtResource("5_r")
-
-[node name="Dot57" type="Sprite2D" parent="World/Path"]
-position = Vector2(448, 2548)
-texture = ExtResource("5_r")
-
-[node name="Dot58" type="Sprite2D" parent="World/Path"]
-position = Vector2(414, 2511)
-texture = ExtResource("5_r")
-
-[node name="Dot59" type="Sprite2D" parent="World/Path"]
-position = Vector2(381, 2475)
-texture = ExtResource("5_r")
-
-[node name="Dot60" type="Sprite2D" parent="World/Path"]
-position = Vector2(355, 2349)
-texture = ExtResource("5_r")
-
-[node name="Dot61" type="Sprite2D" parent="World/Path"]
-position = Vector2(372, 2304)
-texture = ExtResource("5_r")
-
-[node name="Dot62" type="Sprite2D" parent="World/Path"]
-position = Vector2(388, 2259)
-texture = ExtResource("5_r")
-
-[node name="Dot63" type="Sprite2D" parent="World/Path"]
-position = Vector2(404, 2213)
-texture = ExtResource("5_r")
-
-[node name="Dot64" type="Sprite2D" parent="World/Path"]
-position = Vector2(421, 2168)
-texture = ExtResource("5_r")
-
-[node name="Dot65" type="Sprite2D" parent="World/Path"]
-position = Vector2(437, 2123)
-texture = ExtResource("5_r")
-
-[node name="Dot66" type="Sprite2D" parent="World/Path"]
-position = Vector2(453, 2077)
-texture = ExtResource("5_r")
-
-[node name="Dot67" type="Sprite2D" parent="World/Path"]
-position = Vector2(469, 2032)
-texture = ExtResource("5_r")
-
-[node name="Dot68" type="Sprite2D" parent="World/Path"]
-position = Vector2(486, 1987)
-texture = ExtResource("5_r")
-
-[node name="Dot69" type="Sprite2D" parent="World/Path"]
-position = Vector2(502, 1941)
-texture = ExtResource("5_r")
-
-[node name="Dot70" type="Sprite2D" parent="World/Path"]
-position = Vector2(518, 1896)
-texture = ExtResource("5_r")
-
-[node name="Dot71" type="Sprite2D" parent="World/Path"]
-position = Vector2(535, 1851)
-texture = ExtResource("5_r")
-
-[node name="Dot72" type="Sprite2D" parent="World/Path"]
-position = Vector2(591, 1712)
-texture = ExtResource("5_r")
-
-[node name="Dot73" type="Sprite2D" parent="World/Path"]
-position = Vector2(611, 1669)
-texture = ExtResource("5_r")
-
-[node name="Dot74" type="Sprite2D" parent="World/Path"]
-position = Vector2(631, 1627)
-texture = ExtResource("5_r")
-
-[node name="Dot75" type="Sprite2D" parent="World/Path"]
-position = Vector2(650, 1584)
-texture = ExtResource("5_r")
-
-[node name="Dot76" type="Sprite2D" parent="World/Path"]
-position = Vector2(670, 1541)
-texture = ExtResource("5_r")
-
-[node name="Dot77" type="Sprite2D" parent="World/Path"]
-position = Vector2(690, 1499)
-texture = ExtResource("5_r")
-
-[node name="Dot78" type="Sprite2D" parent="World/Path"]
-position = Vector2(710, 1456)
-texture = ExtResource("5_r")
-
-[node name="Dot79" type="Sprite2D" parent="World/Path"]
-position = Vector2(729, 1413)
-texture = ExtResource("5_r")
-
-[node name="Dot80" type="Sprite2D" parent="World/Path"]
-position = Vector2(749, 1371)
-texture = ExtResource("5_r")
-
-[node name="Dot81" type="Sprite2D" parent="World/Path"]
-position = Vector2(769, 1328)
-texture = ExtResource("5_r")
-
-[node name="Dot82" type="Sprite2D" parent="World/Path"]
-position = Vector2(761, 1196)
-texture = ExtResource("5_r")
-
-[node name="Dot83" type="Sprite2D" parent="World/Path"]
-position = Vector2(737, 1157)
-texture = ExtResource("5_r")
-
-[node name="Dot84" type="Sprite2D" parent="World/Path"]
-position = Vector2(712, 1118)
-texture = ExtResource("5_r")
-
-[node name="Dot85" type="Sprite2D" parent="World/Path"]
-position = Vector2(688, 1078)
-texture = ExtResource("5_r")
-
-[node name="Dot86" type="Sprite2D" parent="World/Path"]
-position = Vector2(664, 1039)
-texture = ExtResource("5_r")
-
-[node name="Dot87" type="Sprite2D" parent="World/Path"]
-position = Vector2(640, 1000)
-texture = ExtResource("5_r")
-
-[node name="Dot88" type="Sprite2D" parent="World/Path"]
-position = Vector2(616, 961)
-texture = ExtResource("5_r")
-
-[node name="Dot89" type="Sprite2D" parent="World/Path"]
-position = Vector2(592, 922)
-texture = ExtResource("5_r")
-
-[node name="Dot90" type="Sprite2D" parent="World/Path"]
-position = Vector2(568, 882)
-texture = ExtResource("5_r")
-
-[node name="Dot91" type="Sprite2D" parent="World/Path"]
-position = Vector2(543, 843)
-texture = ExtResource("5_r")
-
-[node name="Dot92" type="Sprite2D" parent="World/Path"]
-position = Vector2(519, 804)
-texture = ExtResource("5_r")
+[node name="P1" type="Sprite2D" parent="World/Path"]
+position = Vector2(300, 5480)
+texture = ExtResource("13_m")
+
+[node name="P2" type="Sprite2D" parent="World/Path"]
+position = Vector2(317, 5469)
+texture = ExtResource("13_m")
+
+[node name="P3" type="Sprite2D" parent="World/Path"]
+position = Vector2(333, 5458)
+texture = ExtResource("13_m")
+
+[node name="S3" type="Sprite2D" parent="World/Path"]
+position = Vector2(317, 5458)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P4" type="Sprite2D" parent="World/Path"]
+position = Vector2(350, 5448)
+texture = ExtResource("13_m")
+
+[node name="P5" type="Sprite2D" parent="World/Path"]
+position = Vector2(367, 5437)
+texture = ExtResource("13_m")
+
+[node name="P6" type="Sprite2D" parent="World/Path"]
+position = Vector2(383, 5426)
+texture = ExtResource("13_m")
+
+[node name="P7" type="Sprite2D" parent="World/Path"]
+position = Vector2(400, 5415)
+texture = ExtResource("13_m")
+
+[node name="S7" type="Sprite2D" parent="World/Path"]
+position = Vector2(416, 5415)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P8" type="Sprite2D" parent="World/Path"]
+position = Vector2(417, 5404)
+texture = ExtResource("13_m")
+
+[node name="P9" type="Sprite2D" parent="World/Path"]
+position = Vector2(433, 5393)
+texture = ExtResource("13_m")
+
+[node name="P10" type="Sprite2D" parent="World/Path"]
+position = Vector2(450, 5382)
+texture = ExtResource("13_m")
+
+[node name="P11" type="Sprite2D" parent="World/Path"]
+position = Vector2(467, 5372)
+texture = ExtResource("13_m")
+
+[node name="S11" type="Sprite2D" parent="World/Path"]
+position = Vector2(451, 5372)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P12" type="Sprite2D" parent="World/Path"]
+position = Vector2(483, 5361)
+texture = ExtResource("13_m")
+
+[node name="P13" type="Sprite2D" parent="World/Path"]
+position = Vector2(500, 5350)
+texture = ExtResource("13_m")
+
+[node name="P14" type="Sprite2D" parent="World/Path"]
+position = Vector2(517, 5339)
+texture = ExtResource("13_m")
+
+[node name="P15" type="Sprite2D" parent="World/Path"]
+position = Vector2(533, 5328)
+texture = ExtResource("13_m")
+
+[node name="S15" type="Sprite2D" parent="World/Path"]
+position = Vector2(549, 5328)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P16" type="Sprite2D" parent="World/Path"]
+position = Vector2(550, 5318)
+texture = ExtResource("13_m")
+
+[node name="P17" type="Sprite2D" parent="World/Path"]
+position = Vector2(567, 5307)
+texture = ExtResource("13_m")
+
+[node name="P18" type="Sprite2D" parent="World/Path"]
+position = Vector2(583, 5296)
+texture = ExtResource("13_m")
+
+[node name="P19" type="Sprite2D" parent="World/Path"]
+position = Vector2(600, 5285)
+texture = ExtResource("13_m")
+
+[node name="S19" type="Sprite2D" parent="World/Path"]
+position = Vector2(584, 5285)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P20" type="Sprite2D" parent="World/Path"]
+position = Vector2(617, 5274)
+texture = ExtResource("13_m")
+
+[node name="P21" type="Sprite2D" parent="World/Path"]
+position = Vector2(633, 5263)
+texture = ExtResource("13_m")
+
+[node name="P22" type="Sprite2D" parent="World/Path"]
+position = Vector2(650, 5252)
+texture = ExtResource("13_m")
+
+[node name="P23" type="Sprite2D" parent="World/Path"]
+position = Vector2(667, 5242)
+texture = ExtResource("13_m")
+
+[node name="S23" type="Sprite2D" parent="World/Path"]
+position = Vector2(683, 5242)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P24" type="Sprite2D" parent="World/Path"]
+position = Vector2(683, 5231)
+texture = ExtResource("13_m")
+
+[node name="P25" type="Sprite2D" parent="World/Path"]
+position = Vector2(700, 5220)
+texture = ExtResource("13_m")
+
+[node name="P26" type="Sprite2D" parent="World/Path"]
+position = Vector2(706, 5202)
+texture = ExtResource("13_m")
+
+[node name="P27" type="Sprite2D" parent="World/Path"]
+position = Vector2(713, 5184)
+texture = ExtResource("13_m")
+
+[node name="S27" type="Sprite2D" parent="World/Path"]
+position = Vector2(697, 5184)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P28" type="Sprite2D" parent="World/Path"]
+position = Vector2(719, 5166)
+texture = ExtResource("13_m")
+
+[node name="P29" type="Sprite2D" parent="World/Path"]
+position = Vector2(725, 5148)
+texture = ExtResource("13_m")
+
+[node name="P30" type="Sprite2D" parent="World/Path"]
+position = Vector2(732, 5131)
+texture = ExtResource("13_m")
+
+[node name="P31" type="Sprite2D" parent="World/Path"]
+position = Vector2(738, 5113)
+texture = ExtResource("13_m")
+
+[node name="S31" type="Sprite2D" parent="World/Path"]
+position = Vector2(754, 5113)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P32" type="Sprite2D" parent="World/Path"]
+position = Vector2(744, 5095)
+texture = ExtResource("13_m")
+
+[node name="P33" type="Sprite2D" parent="World/Path"]
+position = Vector2(751, 5077)
+texture = ExtResource("13_m")
+
+[node name="P34" type="Sprite2D" parent="World/Path"]
+position = Vector2(757, 5059)
+texture = ExtResource("13_m")
+
+[node name="P35" type="Sprite2D" parent="World/Path"]
+position = Vector2(763, 5041)
+texture = ExtResource("13_m")
+
+[node name="S35" type="Sprite2D" parent="World/Path"]
+position = Vector2(747, 5041)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P36" type="Sprite2D" parent="World/Path"]
+position = Vector2(769, 5023)
+texture = ExtResource("13_m")
+
+[node name="P37" type="Sprite2D" parent="World/Path"]
+position = Vector2(776, 5005)
+texture = ExtResource("13_m")
+
+[node name="P38" type="Sprite2D" parent="World/Path"]
+position = Vector2(782, 4987)
+texture = ExtResource("13_m")
+
+[node name="P39" type="Sprite2D" parent="World/Path"]
+position = Vector2(788, 4969)
+texture = ExtResource("13_m")
+
+[node name="S39" type="Sprite2D" parent="World/Path"]
+position = Vector2(804, 4969)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P40" type="Sprite2D" parent="World/Path"]
+position = Vector2(795, 4952)
+texture = ExtResource("13_m")
+
+[node name="P41" type="Sprite2D" parent="World/Path"]
+position = Vector2(801, 4934)
+texture = ExtResource("13_m")
+
+[node name="P42" type="Sprite2D" parent="World/Path"]
+position = Vector2(807, 4916)
+texture = ExtResource("13_m")
+
+[node name="P43" type="Sprite2D" parent="World/Path"]
+position = Vector2(814, 4898)
+texture = ExtResource("13_m")
+
+[node name="S43" type="Sprite2D" parent="World/Path"]
+position = Vector2(798, 4898)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P44" type="Sprite2D" parent="World/Path"]
+position = Vector2(820, 4880)
+texture = ExtResource("13_m")
+
+[node name="P45" type="Sprite2D" parent="World/Path"]
+position = Vector2(804, 4869)
+texture = ExtResource("13_m")
+
+[node name="P46" type="Sprite2D" parent="World/Path"]
+position = Vector2(789, 4857)
+texture = ExtResource("13_m")
+
+[node name="S46" type="Sprite2D" parent="World/Path"]
+position = Vector2(773, 4857)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P47" type="Sprite2D" parent="World/Path"]
+position = Vector2(773, 4846)
+texture = ExtResource("13_m")
+
+[node name="P48" type="Sprite2D" parent="World/Path"]
+position = Vector2(757, 4835)
+texture = ExtResource("13_m")
+
+[node name="P49" type="Sprite2D" parent="World/Path"]
+position = Vector2(742, 4823)
+texture = ExtResource("13_m")
+
+[node name="P50" type="Sprite2D" parent="World/Path"]
+position = Vector2(726, 4812)
+texture = ExtResource("13_m")
+
+[node name="S50" type="Sprite2D" parent="World/Path"]
+position = Vector2(742, 4812)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P51" type="Sprite2D" parent="World/Path"]
+position = Vector2(710, 4801)
+texture = ExtResource("13_m")
+
+[node name="P52" type="Sprite2D" parent="World/Path"]
+position = Vector2(695, 4790)
+texture = ExtResource("13_m")
+
+[node name="P53" type="Sprite2D" parent="World/Path"]
+position = Vector2(679, 4778)
+texture = ExtResource("13_m")
+
+[node name="P54" type="Sprite2D" parent="World/Path"]
+position = Vector2(663, 4767)
+texture = ExtResource("13_m")
+
+[node name="S54" type="Sprite2D" parent="World/Path"]
+position = Vector2(647, 4767)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P55" type="Sprite2D" parent="World/Path"]
+position = Vector2(648, 4756)
+texture = ExtResource("13_m")
+
+[node name="P56" type="Sprite2D" parent="World/Path"]
+position = Vector2(632, 4744)
+texture = ExtResource("13_m")
+
+[node name="P57" type="Sprite2D" parent="World/Path"]
+position = Vector2(617, 4733)
+texture = ExtResource("13_m")
+
+[node name="P58" type="Sprite2D" parent="World/Path"]
+position = Vector2(601, 4722)
+texture = ExtResource("13_m")
+
+[node name="S58" type="Sprite2D" parent="World/Path"]
+position = Vector2(617, 4722)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P59" type="Sprite2D" parent="World/Path"]
+position = Vector2(585, 4710)
+texture = ExtResource("13_m")
+
+[node name="P60" type="Sprite2D" parent="World/Path"]
+position = Vector2(570, 4699)
+texture = ExtResource("13_m")
+
+[node name="P61" type="Sprite2D" parent="World/Path"]
+position = Vector2(554, 4688)
+texture = ExtResource("13_m")
+
+[node name="P62" type="Sprite2D" parent="World/Path"]
+position = Vector2(538, 4677)
+texture = ExtResource("13_m")
+
+[node name="S62" type="Sprite2D" parent="World/Path"]
+position = Vector2(522, 4677)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P63" type="Sprite2D" parent="World/Path"]
+position = Vector2(523, 4665)
+texture = ExtResource("13_m")
+
+[node name="P64" type="Sprite2D" parent="World/Path"]
+position = Vector2(507, 4654)
+texture = ExtResource("13_m")
+
+[node name="P65" type="Sprite2D" parent="World/Path"]
+position = Vector2(491, 4643)
+texture = ExtResource("13_m")
+
+[node name="P66" type="Sprite2D" parent="World/Path"]
+position = Vector2(476, 4631)
+texture = ExtResource("13_m")
+
+[node name="S66" type="Sprite2D" parent="World/Path"]
+position = Vector2(492, 4631)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P67" type="Sprite2D" parent="World/Path"]
+position = Vector2(460, 4620)
+texture = ExtResource("13_m")
+
+[node name="P68" type="Sprite2D" parent="World/Path"]
+position = Vector2(452, 4602)
+texture = ExtResource("13_m")
+
+[node name="P69" type="Sprite2D" parent="World/Path"]
+position = Vector2(444, 4584)
+texture = ExtResource("13_m")
+
+[node name="S69" type="Sprite2D" parent="World/Path"]
+position = Vector2(428, 4584)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P70" type="Sprite2D" parent="World/Path"]
+position = Vector2(436, 4566)
+texture = ExtResource("13_m")
+
+[node name="P71" type="Sprite2D" parent="World/Path"]
+position = Vector2(428, 4548)
+texture = ExtResource("13_m")
+
+[node name="P72" type="Sprite2D" parent="World/Path"]
+position = Vector2(420, 4530)
+texture = ExtResource("13_m")
+
+[node name="P73" type="Sprite2D" parent="World/Path"]
+position = Vector2(412, 4512)
+texture = ExtResource("13_m")
+
+[node name="S73" type="Sprite2D" parent="World/Path"]
+position = Vector2(428, 4512)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P74" type="Sprite2D" parent="World/Path"]
+position = Vector2(404, 4494)
+texture = ExtResource("13_m")
+
+[node name="P75" type="Sprite2D" parent="World/Path"]
+position = Vector2(396, 4476)
+texture = ExtResource("13_m")
+
+[node name="P76" type="Sprite2D" parent="World/Path"]
+position = Vector2(388, 4458)
+texture = ExtResource("13_m")
+
+[node name="P77" type="Sprite2D" parent="World/Path"]
+position = Vector2(380, 4440)
+texture = ExtResource("13_m")
+
+[node name="S77" type="Sprite2D" parent="World/Path"]
+position = Vector2(364, 4440)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P78" type="Sprite2D" parent="World/Path"]
+position = Vector2(372, 4422)
+texture = ExtResource("13_m")
+
+[node name="P79" type="Sprite2D" parent="World/Path"]
+position = Vector2(364, 4404)
+texture = ExtResource("13_m")
+
+[node name="P80" type="Sprite2D" parent="World/Path"]
+position = Vector2(356, 4386)
+texture = ExtResource("13_m")
+
+[node name="P81" type="Sprite2D" parent="World/Path"]
+position = Vector2(348, 4368)
+texture = ExtResource("13_m")
+
+[node name="S81" type="Sprite2D" parent="World/Path"]
+position = Vector2(364, 4368)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P82" type="Sprite2D" parent="World/Path"]
+position = Vector2(340, 4350)
+texture = ExtResource("13_m")
+
+[node name="P83" type="Sprite2D" parent="World/Path"]
+position = Vector2(332, 4332)
+texture = ExtResource("13_m")
+
+[node name="P84" type="Sprite2D" parent="World/Path"]
+position = Vector2(324, 4314)
+texture = ExtResource("13_m")
+
+[node name="P85" type="Sprite2D" parent="World/Path"]
+position = Vector2(316, 4296)
+texture = ExtResource("13_m")
+
+[node name="S85" type="Sprite2D" parent="World/Path"]
+position = Vector2(300, 4296)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P86" type="Sprite2D" parent="World/Path"]
+position = Vector2(308, 4278)
+texture = ExtResource("13_m")
+
+[node name="P87" type="Sprite2D" parent="World/Path"]
+position = Vector2(300, 4260)
+texture = ExtResource("13_m")
+
+[node name="P88" type="Sprite2D" parent="World/Path"]
+position = Vector2(310, 4243)
+texture = ExtResource("13_m")
+
+[node name="P89" type="Sprite2D" parent="World/Path"]
+position = Vector2(320, 4226)
+texture = ExtResource("13_m")
+
+[node name="S89" type="Sprite2D" parent="World/Path"]
+position = Vector2(304, 4226)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P90" type="Sprite2D" parent="World/Path"]
+position = Vector2(330, 4208)
+texture = ExtResource("13_m")
+
+[node name="P91" type="Sprite2D" parent="World/Path"]
+position = Vector2(340, 4191)
+texture = ExtResource("13_m")
+
+[node name="P92" type="Sprite2D" parent="World/Path"]
+position = Vector2(350, 4174)
+texture = ExtResource("13_m")
+
+[node name="P93" type="Sprite2D" parent="World/Path"]
+position = Vector2(360, 4156)
+texture = ExtResource("13_m")
+
+[node name="S93" type="Sprite2D" parent="World/Path"]
+position = Vector2(376, 4156)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P94" type="Sprite2D" parent="World/Path"]
+position = Vector2(370, 4139)
+texture = ExtResource("13_m")
+
+[node name="P95" type="Sprite2D" parent="World/Path"]
+position = Vector2(380, 4122)
+texture = ExtResource("13_m")
+
+[node name="P96" type="Sprite2D" parent="World/Path"]
+position = Vector2(390, 4105)
+texture = ExtResource("13_m")
+
+[node name="P97" type="Sprite2D" parent="World/Path"]
+position = Vector2(400, 4088)
+texture = ExtResource("13_m")
+
+[node name="S97" type="Sprite2D" parent="World/Path"]
+position = Vector2(384, 4088)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P98" type="Sprite2D" parent="World/Path"]
+position = Vector2(410, 4070)
+texture = ExtResource("13_m")
+
+[node name="P99" type="Sprite2D" parent="World/Path"]
+position = Vector2(420, 4053)
+texture = ExtResource("13_m")
+
+[node name="P100" type="Sprite2D" parent="World/Path"]
+position = Vector2(430, 4036)
+texture = ExtResource("13_m")
+
+[node name="P101" type="Sprite2D" parent="World/Path"]
+position = Vector2(440, 4018)
+texture = ExtResource("13_m")
+
+[node name="S101" type="Sprite2D" parent="World/Path"]
+position = Vector2(456, 4018)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P102" type="Sprite2D" parent="World/Path"]
+position = Vector2(450, 4001)
+texture = ExtResource("13_m")
+
+[node name="P103" type="Sprite2D" parent="World/Path"]
+position = Vector2(460, 3984)
+texture = ExtResource("13_m")
+
+[node name="P104" type="Sprite2D" parent="World/Path"]
+position = Vector2(470, 3967)
+texture = ExtResource("13_m")
+
+[node name="P105" type="Sprite2D" parent="World/Path"]
+position = Vector2(480, 3950)
+texture = ExtResource("13_m")
+
+[node name="S105" type="Sprite2D" parent="World/Path"]
+position = Vector2(464, 3950)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P106" type="Sprite2D" parent="World/Path"]
+position = Vector2(490, 3932)
+texture = ExtResource("13_m")
+
+[node name="P107" type="Sprite2D" parent="World/Path"]
+position = Vector2(500, 3915)
+texture = ExtResource("13_m")
+
+[node name="P108" type="Sprite2D" parent="World/Path"]
+position = Vector2(510, 3898)
+texture = ExtResource("13_m")
+
+[node name="P109" type="Sprite2D" parent="World/Path"]
+position = Vector2(520, 3880)
+texture = ExtResource("13_m")
+
+[node name="S109" type="Sprite2D" parent="World/Path"]
+position = Vector2(536, 3880)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P110" type="Sprite2D" parent="World/Path"]
+position = Vector2(530, 3863)
+texture = ExtResource("13_m")
+
+[node name="P111" type="Sprite2D" parent="World/Path"]
+position = Vector2(540, 3846)
+texture = ExtResource("13_m")
+
+[node name="P112" type="Sprite2D" parent="World/Path"]
+position = Vector2(552, 3831)
+texture = ExtResource("13_m")
+
+[node name="P113" type="Sprite2D" parent="World/Path"]
+position = Vector2(563, 3816)
+texture = ExtResource("13_m")
+
+[node name="S113" type="Sprite2D" parent="World/Path"]
+position = Vector2(547, 3816)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P114" type="Sprite2D" parent="World/Path"]
+position = Vector2(575, 3801)
+texture = ExtResource("13_m")
+
+[node name="P115" type="Sprite2D" parent="World/Path"]
+position = Vector2(586, 3786)
+texture = ExtResource("13_m")
+
+[node name="P116" type="Sprite2D" parent="World/Path"]
+position = Vector2(598, 3771)
+texture = ExtResource("13_m")
+
+[node name="P117" type="Sprite2D" parent="World/Path"]
+position = Vector2(609, 3756)
+texture = ExtResource("13_m")
+
+[node name="S117" type="Sprite2D" parent="World/Path"]
+position = Vector2(625, 3756)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P118" type="Sprite2D" parent="World/Path"]
+position = Vector2(621, 3741)
+texture = ExtResource("13_m")
+
+[node name="P119" type="Sprite2D" parent="World/Path"]
+position = Vector2(633, 3726)
+texture = ExtResource("13_m")
+
+[node name="P120" type="Sprite2D" parent="World/Path"]
+position = Vector2(644, 3711)
+texture = ExtResource("13_m")
+
+[node name="P121" type="Sprite2D" parent="World/Path"]
+position = Vector2(656, 3695)
+texture = ExtResource("13_m")
+
+[node name="S121" type="Sprite2D" parent="World/Path"]
+position = Vector2(640, 3695)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P122" type="Sprite2D" parent="World/Path"]
+position = Vector2(667, 3680)
+texture = ExtResource("13_m")
+
+[node name="P123" type="Sprite2D" parent="World/Path"]
+position = Vector2(679, 3665)
+texture = ExtResource("13_m")
+
+[node name="P124" type="Sprite2D" parent="World/Path"]
+position = Vector2(691, 3650)
+texture = ExtResource("13_m")
+
+[node name="P125" type="Sprite2D" parent="World/Path"]
+position = Vector2(702, 3635)
+texture = ExtResource("13_m")
+
+[node name="S125" type="Sprite2D" parent="World/Path"]
+position = Vector2(718, 3635)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P126" type="Sprite2D" parent="World/Path"]
+position = Vector2(714, 3620)
+texture = ExtResource("13_m")
+
+[node name="P127" type="Sprite2D" parent="World/Path"]
+position = Vector2(725, 3605)
+texture = ExtResource("13_m")
+
+[node name="P128" type="Sprite2D" parent="World/Path"]
+position = Vector2(737, 3590)
+texture = ExtResource("13_m")
+
+[node name="P129" type="Sprite2D" parent="World/Path"]
+position = Vector2(748, 3575)
+texture = ExtResource("13_m")
+
+[node name="S129" type="Sprite2D" parent="World/Path"]
+position = Vector2(732, 3575)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P130" type="Sprite2D" parent="World/Path"]
+position = Vector2(760, 3560)
+texture = ExtResource("13_m")
+
+[node name="P131" type="Sprite2D" parent="World/Path"]
+position = Vector2(745, 3548)
+texture = ExtResource("13_m")
+
+[node name="P132" type="Sprite2D" parent="World/Path"]
+position = Vector2(730, 3536)
+texture = ExtResource("13_m")
+
+[node name="S132" type="Sprite2D" parent="World/Path"]
+position = Vector2(714, 3536)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P133" type="Sprite2D" parent="World/Path"]
+position = Vector2(716, 3523)
+texture = ExtResource("13_m")
+
+[node name="P134" type="Sprite2D" parent="World/Path"]
+position = Vector2(701, 3511)
+texture = ExtResource("13_m")
+
+[node name="P135" type="Sprite2D" parent="World/Path"]
+position = Vector2(686, 3499)
+texture = ExtResource("13_m")
+
+[node name="P136" type="Sprite2D" parent="World/Path"]
+position = Vector2(671, 3487)
+texture = ExtResource("13_m")
+
+[node name="S136" type="Sprite2D" parent="World/Path"]
+position = Vector2(687, 3487)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P137" type="Sprite2D" parent="World/Path"]
+position = Vector2(657, 3475)
+texture = ExtResource("13_m")
+
+[node name="P138" type="Sprite2D" parent="World/Path"]
+position = Vector2(642, 3463)
+texture = ExtResource("13_m")
+
+[node name="P139" type="Sprite2D" parent="World/Path"]
+position = Vector2(627, 3450)
+texture = ExtResource("13_m")
+
+[node name="P140" type="Sprite2D" parent="World/Path"]
+position = Vector2(612, 3438)
+texture = ExtResource("13_m")
+
+[node name="S140" type="Sprite2D" parent="World/Path"]
+position = Vector2(596, 3438)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P141" type="Sprite2D" parent="World/Path"]
+position = Vector2(597, 3426)
+texture = ExtResource("13_m")
+
+[node name="P142" type="Sprite2D" parent="World/Path"]
+position = Vector2(583, 3414)
+texture = ExtResource("13_m")
+
+[node name="P143" type="Sprite2D" parent="World/Path"]
+position = Vector2(568, 3402)
+texture = ExtResource("13_m")
+
+[node name="P144" type="Sprite2D" parent="World/Path"]
+position = Vector2(553, 3390)
+texture = ExtResource("13_m")
+
+[node name="S144" type="Sprite2D" parent="World/Path"]
+position = Vector2(569, 3390)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P145" type="Sprite2D" parent="World/Path"]
+position = Vector2(538, 3377)
+texture = ExtResource("13_m")
+
+[node name="P146" type="Sprite2D" parent="World/Path"]
+position = Vector2(523, 3365)
+texture = ExtResource("13_m")
+
+[node name="P147" type="Sprite2D" parent="World/Path"]
+position = Vector2(509, 3353)
+texture = ExtResource("13_m")
+
+[node name="P148" type="Sprite2D" parent="World/Path"]
+position = Vector2(494, 3341)
+texture = ExtResource("13_m")
+
+[node name="S148" type="Sprite2D" parent="World/Path"]
+position = Vector2(478, 3341)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P149" type="Sprite2D" parent="World/Path"]
+position = Vector2(479, 3329)
+texture = ExtResource("13_m")
+
+[node name="P150" type="Sprite2D" parent="World/Path"]
+position = Vector2(464, 3317)
+texture = ExtResource("13_m")
+
+[node name="P151" type="Sprite2D" parent="World/Path"]
+position = Vector2(450, 3304)
+texture = ExtResource("13_m")
+
+[node name="P152" type="Sprite2D" parent="World/Path"]
+position = Vector2(435, 3292)
+texture = ExtResource("13_m")
+
+[node name="S152" type="Sprite2D" parent="World/Path"]
+position = Vector2(451, 3292)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P153" type="Sprite2D" parent="World/Path"]
+position = Vector2(420, 3280)
+texture = ExtResource("13_m")
+
+[node name="P154" type="Sprite2D" parent="World/Path"]
+position = Vector2(414, 3261)
+texture = ExtResource("13_m")
+
+[node name="P155" type="Sprite2D" parent="World/Path"]
+position = Vector2(408, 3242)
+texture = ExtResource("13_m")
+
+[node name="S155" type="Sprite2D" parent="World/Path"]
+position = Vector2(392, 3242)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P156" type="Sprite2D" parent="World/Path"]
+position = Vector2(402, 3223)
+texture = ExtResource("13_m")
+
+[node name="P157" type="Sprite2D" parent="World/Path"]
+position = Vector2(396, 3204)
+texture = ExtResource("13_m")
+
+[node name="P158" type="Sprite2D" parent="World/Path"]
+position = Vector2(390, 3185)
+texture = ExtResource("13_m")
+
+[node name="P159" type="Sprite2D" parent="World/Path"]
+position = Vector2(384, 3166)
+texture = ExtResource("13_m")
+
+[node name="S159" type="Sprite2D" parent="World/Path"]
+position = Vector2(400, 3166)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P160" type="Sprite2D" parent="World/Path"]
+position = Vector2(378, 3147)
+texture = ExtResource("13_m")
+
+[node name="P161" type="Sprite2D" parent="World/Path"]
+position = Vector2(372, 3128)
+texture = ExtResource("13_m")
+
+[node name="P162" type="Sprite2D" parent="World/Path"]
+position = Vector2(366, 3109)
+texture = ExtResource("13_m")
+
+[node name="P163" type="Sprite2D" parent="World/Path"]
+position = Vector2(360, 3090)
+texture = ExtResource("13_m")
+
+[node name="S163" type="Sprite2D" parent="World/Path"]
+position = Vector2(344, 3090)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P164" type="Sprite2D" parent="World/Path"]
+position = Vector2(354, 3071)
+texture = ExtResource("13_m")
+
+[node name="P165" type="Sprite2D" parent="World/Path"]
+position = Vector2(348, 3052)
+texture = ExtResource("13_m")
+
+[node name="P166" type="Sprite2D" parent="World/Path"]
+position = Vector2(342, 3033)
+texture = ExtResource("13_m")
+
+[node name="P167" type="Sprite2D" parent="World/Path"]
+position = Vector2(336, 3014)
+texture = ExtResource("13_m")
+
+[node name="S167" type="Sprite2D" parent="World/Path"]
+position = Vector2(352, 3014)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P168" type="Sprite2D" parent="World/Path"]
+position = Vector2(330, 2995)
+texture = ExtResource("13_m")
+
+[node name="P169" type="Sprite2D" parent="World/Path"]
+position = Vector2(324, 2976)
+texture = ExtResource("13_m")
+
+[node name="P170" type="Sprite2D" parent="World/Path"]
+position = Vector2(318, 2957)
+texture = ExtResource("13_m")
+
+[node name="P171" type="Sprite2D" parent="World/Path"]
+position = Vector2(312, 2938)
+texture = ExtResource("13_m")
+
+[node name="S171" type="Sprite2D" parent="World/Path"]
+position = Vector2(296, 2938)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P172" type="Sprite2D" parent="World/Path"]
+position = Vector2(306, 2919)
+texture = ExtResource("13_m")
+
+[node name="P173" type="Sprite2D" parent="World/Path"]
+position = Vector2(300, 2900)
+texture = ExtResource("13_m")
+
+[node name="P174" type="Sprite2D" parent="World/Path"]
+position = Vector2(315, 2888)
+texture = ExtResource("13_m")
+
+[node name="P175" type="Sprite2D" parent="World/Path"]
+position = Vector2(330, 2876)
+texture = ExtResource("13_m")
+
+[node name="S175" type="Sprite2D" parent="World/Path"]
+position = Vector2(314, 2876)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P176" type="Sprite2D" parent="World/Path"]
+position = Vector2(345, 2864)
+texture = ExtResource("13_m")
+
+[node name="P177" type="Sprite2D" parent="World/Path"]
+position = Vector2(360, 2851)
+texture = ExtResource("13_m")
+
+[node name="P178" type="Sprite2D" parent="World/Path"]
+position = Vector2(375, 2839)
+texture = ExtResource("13_m")
+
+[node name="P179" type="Sprite2D" parent="World/Path"]
+position = Vector2(390, 2827)
+texture = ExtResource("13_m")
+
+[node name="S179" type="Sprite2D" parent="World/Path"]
+position = Vector2(406, 2827)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P180" type="Sprite2D" parent="World/Path"]
+position = Vector2(405, 2815)
+texture = ExtResource("13_m")
+
+[node name="P181" type="Sprite2D" parent="World/Path"]
+position = Vector2(420, 2803)
+texture = ExtResource("13_m")
+
+[node name="P182" type="Sprite2D" parent="World/Path"]
+position = Vector2(435, 2791)
+texture = ExtResource("13_m")
+
+[node name="P183" type="Sprite2D" parent="World/Path"]
+position = Vector2(450, 2779)
+texture = ExtResource("13_m")
+
+[node name="S183" type="Sprite2D" parent="World/Path"]
+position = Vector2(434, 2779)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P184" type="Sprite2D" parent="World/Path"]
+position = Vector2(465, 2766)
+texture = ExtResource("13_m")
+
+[node name="P185" type="Sprite2D" parent="World/Path"]
+position = Vector2(480, 2754)
+texture = ExtResource("13_m")
+
+[node name="P186" type="Sprite2D" parent="World/Path"]
+position = Vector2(495, 2742)
+texture = ExtResource("13_m")
+
+[node name="P187" type="Sprite2D" parent="World/Path"]
+position = Vector2(510, 2730)
+texture = ExtResource("13_m")
+
+[node name="S187" type="Sprite2D" parent="World/Path"]
+position = Vector2(526, 2730)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P188" type="Sprite2D" parent="World/Path"]
+position = Vector2(525, 2718)
+texture = ExtResource("13_m")
+
+[node name="P189" type="Sprite2D" parent="World/Path"]
+position = Vector2(540, 2706)
+texture = ExtResource("13_m")
+
+[node name="P190" type="Sprite2D" parent="World/Path"]
+position = Vector2(555, 2694)
+texture = ExtResource("13_m")
+
+[node name="P191" type="Sprite2D" parent="World/Path"]
+position = Vector2(570, 2681)
+texture = ExtResource("13_m")
+
+[node name="S191" type="Sprite2D" parent="World/Path"]
+position = Vector2(554, 2681)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P192" type="Sprite2D" parent="World/Path"]
+position = Vector2(585, 2669)
+texture = ExtResource("13_m")
+
+[node name="P193" type="Sprite2D" parent="World/Path"]
+position = Vector2(600, 2657)
+texture = ExtResource("13_m")
+
+[node name="P194" type="Sprite2D" parent="World/Path"]
+position = Vector2(615, 2645)
+texture = ExtResource("13_m")
+
+[node name="P195" type="Sprite2D" parent="World/Path"]
+position = Vector2(630, 2633)
+texture = ExtResource("13_m")
+
+[node name="S195" type="Sprite2D" parent="World/Path"]
+position = Vector2(646, 2633)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P196" type="Sprite2D" parent="World/Path"]
+position = Vector2(645, 2621)
+texture = ExtResource("13_m")
+
+[node name="P197" type="Sprite2D" parent="World/Path"]
+position = Vector2(660, 2609)
+texture = ExtResource("13_m")
+
+[node name="P198" type="Sprite2D" parent="World/Path"]
+position = Vector2(675, 2596)
+texture = ExtResource("13_m")
+
+[node name="P199" type="Sprite2D" parent="World/Path"]
+position = Vector2(690, 2584)
+texture = ExtResource("13_m")
+
+[node name="S199" type="Sprite2D" parent="World/Path"]
+position = Vector2(674, 2584)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P200" type="Sprite2D" parent="World/Path"]
+position = Vector2(705, 2572)
+texture = ExtResource("13_m")
+
+[node name="P201" type="Sprite2D" parent="World/Path"]
+position = Vector2(720, 2560)
+texture = ExtResource("13_m")
+
+[node name="P202" type="Sprite2D" parent="World/Path"]
+position = Vector2(715, 2541)
+texture = ExtResource("13_m")
+
+[node name="P203" type="Sprite2D" parent="World/Path"]
+position = Vector2(709, 2522)
+texture = ExtResource("13_m")
+
+[node name="S203" type="Sprite2D" parent="World/Path"]
+position = Vector2(693, 2522)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P204" type="Sprite2D" parent="World/Path"]
+position = Vector2(704, 2502)
+texture = ExtResource("13_m")
+
+[node name="P205" type="Sprite2D" parent="World/Path"]
+position = Vector2(698, 2483)
+texture = ExtResource("13_m")
+
+[node name="P206" type="Sprite2D" parent="World/Path"]
+position = Vector2(693, 2464)
+texture = ExtResource("13_m")
+
+[node name="P207" type="Sprite2D" parent="World/Path"]
+position = Vector2(687, 2445)
+texture = ExtResource("13_m")
+
+[node name="S207" type="Sprite2D" parent="World/Path"]
+position = Vector2(703, 2445)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P208" type="Sprite2D" parent="World/Path"]
+position = Vector2(682, 2426)
+texture = ExtResource("13_m")
+
+[node name="P209" type="Sprite2D" parent="World/Path"]
+position = Vector2(676, 2406)
+texture = ExtResource("13_m")
+
+[node name="P210" type="Sprite2D" parent="World/Path"]
+position = Vector2(671, 2387)
+texture = ExtResource("13_m")
+
+[node name="P211" type="Sprite2D" parent="World/Path"]
+position = Vector2(665, 2368)
+texture = ExtResource("13_m")
+
+[node name="S211" type="Sprite2D" parent="World/Path"]
+position = Vector2(649, 2368)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P212" type="Sprite2D" parent="World/Path"]
+position = Vector2(660, 2349)
+texture = ExtResource("13_m")
+
+[node name="P213" type="Sprite2D" parent="World/Path"]
+position = Vector2(655, 2329)
+texture = ExtResource("13_m")
+
+[node name="P214" type="Sprite2D" parent="World/Path"]
+position = Vector2(649, 2310)
+texture = ExtResource("13_m")
+
+[node name="P215" type="Sprite2D" parent="World/Path"]
+position = Vector2(644, 2291)
+texture = ExtResource("13_m")
+
+[node name="S215" type="Sprite2D" parent="World/Path"]
+position = Vector2(660, 2291)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P216" type="Sprite2D" parent="World/Path"]
+position = Vector2(638, 2272)
+texture = ExtResource("13_m")
+
+[node name="P217" type="Sprite2D" parent="World/Path"]
+position = Vector2(633, 2253)
+texture = ExtResource("13_m")
+
+[node name="P218" type="Sprite2D" parent="World/Path"]
+position = Vector2(627, 2233)
+texture = ExtResource("13_m")
+
+[node name="P219" type="Sprite2D" parent="World/Path"]
+position = Vector2(622, 2214)
+texture = ExtResource("13_m")
+
+[node name="S219" type="Sprite2D" parent="World/Path"]
+position = Vector2(606, 2214)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P220" type="Sprite2D" parent="World/Path"]
+position = Vector2(616, 2195)
+texture = ExtResource("13_m")
+
+[node name="P221" type="Sprite2D" parent="World/Path"]
+position = Vector2(611, 2176)
+texture = ExtResource("13_m")
+
+[node name="P222" type="Sprite2D" parent="World/Path"]
+position = Vector2(605, 2157)
+texture = ExtResource("13_m")
+
+[node name="P223" type="Sprite2D" parent="World/Path"]
+position = Vector2(600, 2137)
+texture = ExtResource("13_m")
+
+[node name="S223" type="Sprite2D" parent="World/Path"]
+position = Vector2(616, 2137)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P224" type="Sprite2D" parent="World/Path"]
+position = Vector2(595, 2118)
+texture = ExtResource("13_m")
+
+[node name="P225" type="Sprite2D" parent="World/Path"]
+position = Vector2(589, 2099)
+texture = ExtResource("13_m")
+
+[node name="P226" type="Sprite2D" parent="World/Path"]
+position = Vector2(584, 2080)
+texture = ExtResource("13_m")
+
+[node name="P227" type="Sprite2D" parent="World/Path"]
+position = Vector2(578, 2060)
+texture = ExtResource("13_m")
+
+[node name="S227" type="Sprite2D" parent="World/Path"]
+position = Vector2(562, 2060)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P228" type="Sprite2D" parent="World/Path"]
+position = Vector2(573, 2041)
+texture = ExtResource("13_m")
+
+[node name="P229" type="Sprite2D" parent="World/Path"]
+position = Vector2(567, 2022)
+texture = ExtResource("13_m")
+
+[node name="P230" type="Sprite2D" parent="World/Path"]
+position = Vector2(562, 2003)
+texture = ExtResource("13_m")
+
+[node name="P231" type="Sprite2D" parent="World/Path"]
+position = Vector2(556, 1984)
+texture = ExtResource("13_m")
+
+[node name="S231" type="Sprite2D" parent="World/Path"]
+position = Vector2(572, 1984)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P232" type="Sprite2D" parent="World/Path"]
+position = Vector2(551, 1964)
+texture = ExtResource("13_m")
+
+[node name="P233" type="Sprite2D" parent="World/Path"]
+position = Vector2(545, 1945)
+texture = ExtResource("13_m")
+
+[node name="P234" type="Sprite2D" parent="World/Path"]
+position = Vector2(540, 1926)
+texture = ExtResource("13_m")
+
+[node name="P235" type="Sprite2D" parent="World/Path"]
+position = Vector2(531, 1909)
+texture = ExtResource("13_m")
+
+[node name="P236" type="Sprite2D" parent="World/Path"]
+position = Vector2(523, 1891)
+texture = ExtResource("13_m")
+
+[node name="S236" type="Sprite2D" parent="World/Path"]
+position = Vector2(507, 1891)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P237" type="Sprite2D" parent="World/Path"]
+position = Vector2(514, 1874)
+texture = ExtResource("13_m")
+
+[node name="P238" type="Sprite2D" parent="World/Path"]
+position = Vector2(506, 1856)
+texture = ExtResource("13_m")
+
+[node name="P239" type="Sprite2D" parent="World/Path"]
+position = Vector2(497, 1839)
+texture = ExtResource("13_m")
+
+[node name="P240" type="Sprite2D" parent="World/Path"]
+position = Vector2(489, 1821)
+texture = ExtResource("13_m")
+
+[node name="S240" type="Sprite2D" parent="World/Path"]
+position = Vector2(505, 1821)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P241" type="Sprite2D" parent="World/Path"]
+position = Vector2(480, 1804)
+texture = ExtResource("13_m")
+
+[node name="P242" type="Sprite2D" parent="World/Path"]
+position = Vector2(471, 1787)
+texture = ExtResource("13_m")
+
+[node name="P243" type="Sprite2D" parent="World/Path"]
+position = Vector2(463, 1769)
+texture = ExtResource("13_m")
+
+[node name="P244" type="Sprite2D" parent="World/Path"]
+position = Vector2(454, 1752)
+texture = ExtResource("13_m")
+
+[node name="S244" type="Sprite2D" parent="World/Path"]
+position = Vector2(438, 1752)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P245" type="Sprite2D" parent="World/Path"]
+position = Vector2(446, 1734)
+texture = ExtResource("13_m")
+
+[node name="P246" type="Sprite2D" parent="World/Path"]
+position = Vector2(437, 1717)
+texture = ExtResource("13_m")
+
+[node name="P247" type="Sprite2D" parent="World/Path"]
+position = Vector2(429, 1699)
+texture = ExtResource("13_m")
+
+[node name="P248" type="Sprite2D" parent="World/Path"]
+position = Vector2(420, 1682)
+texture = ExtResource("13_m")
+
+[node name="S248" type="Sprite2D" parent="World/Path"]
+position = Vector2(436, 1682)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P249" type="Sprite2D" parent="World/Path"]
+position = Vector2(411, 1665)
+texture = ExtResource("13_m")
+
+[node name="P250" type="Sprite2D" parent="World/Path"]
+position = Vector2(403, 1647)
+texture = ExtResource("13_m")
+
+[node name="P251" type="Sprite2D" parent="World/Path"]
+position = Vector2(394, 1630)
+texture = ExtResource("13_m")
+
+[node name="P252" type="Sprite2D" parent="World/Path"]
+position = Vector2(386, 1612)
+texture = ExtResource("13_m")
+
+[node name="S252" type="Sprite2D" parent="World/Path"]
+position = Vector2(370, 1612)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P253" type="Sprite2D" parent="World/Path"]
+position = Vector2(377, 1595)
+texture = ExtResource("13_m")
+
+[node name="P254" type="Sprite2D" parent="World/Path"]
+position = Vector2(369, 1577)
+texture = ExtResource("13_m")
+
+[node name="P255" type="Sprite2D" parent="World/Path"]
+position = Vector2(360, 1560)
+texture = ExtResource("13_m")
+
+[node name="P256" type="Sprite2D" parent="World/Path"]
+position = Vector2(373, 1545)
+texture = ExtResource("13_m")
+
+[node name="P257" type="Sprite2D" parent="World/Path"]
+position = Vector2(385, 1531)
+texture = ExtResource("13_m")
+
+[node name="S257" type="Sprite2D" parent="World/Path"]
+position = Vector2(369, 1531)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P258" type="Sprite2D" parent="World/Path"]
+position = Vector2(398, 1516)
+texture = ExtResource("13_m")
+
+[node name="P259" type="Sprite2D" parent="World/Path"]
+position = Vector2(411, 1501)
+texture = ExtResource("13_m")
+
+[node name="P260" type="Sprite2D" parent="World/Path"]
+position = Vector2(423, 1487)
+texture = ExtResource("13_m")
+
+[node name="P261" type="Sprite2D" parent="World/Path"]
+position = Vector2(436, 1472)
+texture = ExtResource("13_m")
+
+[node name="S261" type="Sprite2D" parent="World/Path"]
+position = Vector2(452, 1472)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P262" type="Sprite2D" parent="World/Path"]
+position = Vector2(449, 1457)
+texture = ExtResource("13_m")
+
+[node name="P263" type="Sprite2D" parent="World/Path"]
+position = Vector2(461, 1443)
+texture = ExtResource("13_m")
+
+[node name="P264" type="Sprite2D" parent="World/Path"]
+position = Vector2(474, 1428)
+texture = ExtResource("13_m")
+
+[node name="P265" type="Sprite2D" parent="World/Path"]
+position = Vector2(487, 1413)
+texture = ExtResource("13_m")
+
+[node name="S265" type="Sprite2D" parent="World/Path"]
+position = Vector2(471, 1413)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P266" type="Sprite2D" parent="World/Path"]
+position = Vector2(499, 1399)
+texture = ExtResource("13_m")
+
+[node name="P267" type="Sprite2D" parent="World/Path"]
+position = Vector2(512, 1384)
+texture = ExtResource("13_m")
+
+[node name="P268" type="Sprite2D" parent="World/Path"]
+position = Vector2(525, 1369)
+texture = ExtResource("13_m")
+
+[node name="P269" type="Sprite2D" parent="World/Path"]
+position = Vector2(537, 1355)
+texture = ExtResource("13_m")
+
+[node name="S269" type="Sprite2D" parent="World/Path"]
+position = Vector2(553, 1355)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P270" type="Sprite2D" parent="World/Path"]
+position = Vector2(550, 1340)
+texture = ExtResource("13_m")
+
+[node name="P271" type="Sprite2D" parent="World/Path"]
+position = Vector2(563, 1325)
+texture = ExtResource("13_m")
+
+[node name="P272" type="Sprite2D" parent="World/Path"]
+position = Vector2(575, 1311)
+texture = ExtResource("13_m")
+
+[node name="P273" type="Sprite2D" parent="World/Path"]
+position = Vector2(588, 1296)
+texture = ExtResource("13_m")
+
+[node name="S273" type="Sprite2D" parent="World/Path"]
+position = Vector2(572, 1296)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P274" type="Sprite2D" parent="World/Path"]
+position = Vector2(601, 1281)
+texture = ExtResource("13_m")
+
+[node name="P275" type="Sprite2D" parent="World/Path"]
+position = Vector2(613, 1267)
+texture = ExtResource("13_m")
+
+[node name="P276" type="Sprite2D" parent="World/Path"]
+position = Vector2(626, 1252)
+texture = ExtResource("13_m")
+
+[node name="P277" type="Sprite2D" parent="World/Path"]
+position = Vector2(639, 1237)
+texture = ExtResource("13_m")
+
+[node name="S277" type="Sprite2D" parent="World/Path"]
+position = Vector2(655, 1237)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P278" type="Sprite2D" parent="World/Path"]
+position = Vector2(651, 1223)
+texture = ExtResource("13_m")
+
+[node name="P279" type="Sprite2D" parent="World/Path"]
+position = Vector2(664, 1208)
+texture = ExtResource("13_m")
+
+[node name="P280" type="Sprite2D" parent="World/Path"]
+position = Vector2(677, 1193)
+texture = ExtResource("13_m")
+
+[node name="P281" type="Sprite2D" parent="World/Path"]
+position = Vector2(689, 1179)
+texture = ExtResource("13_m")
+
+[node name="S281" type="Sprite2D" parent="World/Path"]
+position = Vector2(673, 1179)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P282" type="Sprite2D" parent="World/Path"]
+position = Vector2(702, 1164)
+texture = ExtResource("13_m")
+
+[node name="P283" type="Sprite2D" parent="World/Path"]
+position = Vector2(715, 1149)
+texture = ExtResource("13_m")
+
+[node name="P284" type="Sprite2D" parent="World/Path"]
+position = Vector2(727, 1135)
+texture = ExtResource("13_m")
+
+[node name="P285" type="Sprite2D" parent="World/Path"]
+position = Vector2(740, 1120)
+texture = ExtResource("13_m")
+
+[node name="P286" type="Sprite2D" parent="World/Path"]
+position = Vector2(732, 1102)
+texture = ExtResource("13_m")
+
+[node name="P287" type="Sprite2D" parent="World/Path"]
+position = Vector2(723, 1084)
+texture = ExtResource("13_m")
+
+[node name="S287" type="Sprite2D" parent="World/Path"]
+position = Vector2(707, 1084)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P288" type="Sprite2D" parent="World/Path"]
+position = Vector2(715, 1066)
+texture = ExtResource("13_m")
+
+[node name="P289" type="Sprite2D" parent="World/Path"]
+position = Vector2(707, 1048)
+texture = ExtResource("13_m")
+
+[node name="P290" type="Sprite2D" parent="World/Path"]
+position = Vector2(699, 1030)
+texture = ExtResource("13_m")
+
+[node name="P291" type="Sprite2D" parent="World/Path"]
+position = Vector2(690, 1012)
+texture = ExtResource("13_m")
+
+[node name="S291" type="Sprite2D" parent="World/Path"]
+position = Vector2(706, 1012)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P292" type="Sprite2D" parent="World/Path"]
+position = Vector2(682, 994)
+texture = ExtResource("13_m")
+
+[node name="P293" type="Sprite2D" parent="World/Path"]
+position = Vector2(674, 977)
+texture = ExtResource("13_m")
+
+[node name="P294" type="Sprite2D" parent="World/Path"]
+position = Vector2(666, 959)
+texture = ExtResource("13_m")
+
+[node name="P295" type="Sprite2D" parent="World/Path"]
+position = Vector2(657, 941)
+texture = ExtResource("13_m")
+
+[node name="S295" type="Sprite2D" parent="World/Path"]
+position = Vector2(641, 941)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P296" type="Sprite2D" parent="World/Path"]
+position = Vector2(649, 923)
+texture = ExtResource("13_m")
+
+[node name="P297" type="Sprite2D" parent="World/Path"]
+position = Vector2(641, 905)
+texture = ExtResource("13_m")
+
+[node name="P298" type="Sprite2D" parent="World/Path"]
+position = Vector2(632, 887)
+texture = ExtResource("13_m")
+
+[node name="P299" type="Sprite2D" parent="World/Path"]
+position = Vector2(624, 869)
+texture = ExtResource("13_m")
+
+[node name="S299" type="Sprite2D" parent="World/Path"]
+position = Vector2(640, 869)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P300" type="Sprite2D" parent="World/Path"]
+position = Vector2(616, 851)
+texture = ExtResource("13_m")
+
+[node name="P301" type="Sprite2D" parent="World/Path"]
+position = Vector2(608, 833)
+texture = ExtResource("13_m")
+
+[node name="P302" type="Sprite2D" parent="World/Path"]
+position = Vector2(599, 815)
+texture = ExtResource("13_m")
+
+[node name="P303" type="Sprite2D" parent="World/Path"]
+position = Vector2(591, 797)
+texture = ExtResource("13_m")
+
+[node name="S303" type="Sprite2D" parent="World/Path"]
+position = Vector2(575, 797)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P304" type="Sprite2D" parent="World/Path"]
+position = Vector2(583, 779)
+texture = ExtResource("13_m")
+
+[node name="P305" type="Sprite2D" parent="World/Path"]
+position = Vector2(574, 761)
+texture = ExtResource("13_m")
+
+[node name="P306" type="Sprite2D" parent="World/Path"]
+position = Vector2(566, 743)
+texture = ExtResource("13_m")
+
+[node name="P307" type="Sprite2D" parent="World/Path"]
+position = Vector2(558, 726)
+texture = ExtResource("13_m")
+
+[node name="S307" type="Sprite2D" parent="World/Path"]
+position = Vector2(574, 726)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P308" type="Sprite2D" parent="World/Path"]
+position = Vector2(550, 708)
+texture = ExtResource("13_m")
+
+[node name="P309" type="Sprite2D" parent="World/Path"]
+position = Vector2(541, 690)
+texture = ExtResource("13_m")
+
+[node name="P310" type="Sprite2D" parent="World/Path"]
+position = Vector2(533, 672)
+texture = ExtResource("13_m")
+
+[node name="P311" type="Sprite2D" parent="World/Path"]
+position = Vector2(525, 654)
+texture = ExtResource("13_m")
+
+[node name="S311" type="Sprite2D" parent="World/Path"]
+position = Vector2(509, 654)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("14_m")
+
+[node name="P312" type="Sprite2D" parent="World/Path"]
+position = Vector2(517, 636)
+texture = ExtResource("13_m")
+
+[node name="P313" type="Sprite2D" parent="World/Path"]
+position = Vector2(508, 618)
+texture = ExtResource("13_m")
+
+[node name="P314" type="Sprite2D" parent="World/Path"]
+position = Vector2(500, 600)
+texture = ExtResource("13_m")
 
 [node name="Decor" type="Node2D" parent="World"]
 
-[node name="Bush1" type="Sprite2D" parent="World/Decor"]
-position = Vector2(60, 1920)
+[node name="D1" type="Sprite2D" parent="World/Decor"]
+position = Vector2(900, 5580)
 scale = Vector2(1, 1)
-texture = ExtResource("6_r")
+texture = ExtResource("16_m")
 
-[node name="Fence2" type="Sprite2D" parent="World/Decor"]
-position = Vector2(300, 1920)
+[node name="D2" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(900, 5580)
 scale = Vector2(1, 1)
-texture = ExtResource("7_r")
-
-[node name="Bush3" type="Sprite2D" parent="World/Decor"]
-position = Vector2(780, 1920)
-scale = Vector2(1, 1)
-texture = ExtResource("6_r")
-
-[node name="Fence4" type="Sprite2D" parent="World/Decor"]
-position = Vector2(1020, 1920)
-scale = Vector2(1, 1)
-texture = ExtResource("7_r")
-
-[node name="Bush5" type="Sprite2D" parent="World/Decor"]
-position = Vector2(60, 3840)
-scale = Vector2(1, 1)
-texture = ExtResource("6_r")
-
-[node name="Fence6" type="Sprite2D" parent="World/Decor"]
-position = Vector2(300, 3840)
-scale = Vector2(1, 1)
-texture = ExtResource("7_r")
-
-[node name="Bush7" type="Sprite2D" parent="World/Decor"]
-position = Vector2(780, 3840)
-scale = Vector2(1, 1)
-texture = ExtResource("6_r")
-
-[node name="Fence8" type="Sprite2D" parent="World/Decor"]
-position = Vector2(1020, 3840)
-scale = Vector2(1, 1)
-texture = ExtResource("7_r")
-
-[node name="FarmBarn1" type="Sprite2D" parent="World/Decor"]
-position = Vector2(840, 5520)
-scale = Vector2(1, 1)
-texture = ExtResource("8_r")
-
-[node name="FarmBarnFlag2" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(840, 5520)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_farm_barn_flag"
 autoplay = "env_farm_barn_flag"
 frame = 1
 
-[node name="FarmScarecrowSway3" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(120, 5160)
+[node name="D3" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(560, 5560)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_farm_scarecrow_sway"
 autoplay = "env_farm_scarecrow_sway"
 frame = 2
 
-[node name="FarmHaystack4" type="Sprite2D" parent="World/Decor"]
-position = Vector2(950, 4260)
+[node name="D4" type="Sprite2D" parent="World/Decor"]
+position = Vector2(960, 5000)
 scale = Vector2(1, 1)
-texture = ExtResource("10_r")
+texture = ExtResource("17_m")
 
-[node name="TreeAppleSway5" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(160, 4600)
+[node name="D5" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(110, 4880)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
-animation = &"env_tree_apple_sway"
-autoplay = "env_tree_apple_sway"
+sprite_frames = ExtResource("15_m")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
 frame = 1
 
-[node name="FarmWheelbarrow6" type="Sprite2D" parent="World/Decor"]
-position = Vector2(80, 4040)
+[node name="D6" type="Sprite2D" parent="World/Decor"]
+position = Vector2(620, 4400)
 scale = Vector2(1, 1)
-texture = ExtResource("11_r")
+texture = ExtResource("18_m")
 
-[node name="Bush7" type="Sprite2D" parent="World/Decor"]
-position = Vector2(900, 5000)
+[node name="D7" type="Sprite2D" parent="World/Decor"]
+position = Vector2(940, 4460)
 scale = Vector2(1, 1)
-texture = ExtResource("6_r")
+texture = ExtResource("19_m")
 
-[node name="Rocks8" type="Sprite2D" parent="World/Decor"]
-position = Vector2(420, 4700)
+[node name="D8" type="Sprite2D" parent="World/Decor"]
+position = Vector2(160, 5700)
 scale = Vector2(1, 1)
-texture = ExtResource("12_r")
+texture = ExtResource("20_m")
 
-[node name="SunflowerSway9" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(960, 4480)
+[node name="D9" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(70, 4130)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 2
 
-[node name="FarmBed10" type="Sprite2D" parent="World/Decor"]
-position = Vector2(600, 5640)
+[node name="D10" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(130, 4150)
 scale = Vector2(1, 1)
-texture = ExtResource("13_r")
+sprite_frames = ExtResource("15_m")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 0
 
-[node name="WheatMill11" type="Sprite2D" parent="World/Decor"]
-position = Vector2(170, 3060)
+[node name="D11" type="Sprite2D" parent="World/Decor"]
+position = Vector2(900, 4150)
 scale = Vector2(1, 1)
-texture = ExtResource("14_r")
+texture = ExtResource("21_m")
 
-[node name="WheatMillBlades12" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(170, 3060)
+[node name="D12" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(980, 5260)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 2
+
+[node name="D13" type="Sprite2D" parent="World/Decor"]
+position = Vector2(200, 3620)
+scale = Vector2(1, 1)
+texture = ExtResource("22_m")
+
+[node name="D14" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(200, 3620)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("15_m")
 animation = &"env_wheat_mill_blades"
 autoplay = "env_wheat_mill_blades"
-frame = 2
+frame = 1
 
-[node name="WheatSheaf13" type="Sprite2D" parent="World/Decor"]
-position = Vector2(600, 3440)
+[node name="D15" type="Sprite2D" parent="World/Decor"]
+position = Vector2(620, 3120)
 scale = Vector2(1, 1)
-texture = ExtResource("15_r")
+texture = ExtResource("23_m")
 
-[node name="WheatCart14" type="Sprite2D" parent="World/Decor"]
-position = Vector2(920, 2240)
+[node name="D16" type="Sprite2D" parent="World/Decor"]
+position = Vector2(940, 2820)
 scale = Vector2(1, 1)
-texture = ExtResource("16_r")
+texture = ExtResource("24_m")
 
-[node name="WheatEarsSway15" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(900, 3600)
+[node name="D17" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(900, 3300)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
-animation = &"env_wheat_ears_sway"
-autoplay = "env_wheat_ears_sway"
-frame = 2
-
-[node name="WheatEarsSway16" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(960, 3660)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
-animation = &"env_wheat_ears_sway"
-autoplay = "env_wheat_ears_sway"
-frame = 0
-
-[node name="WheatEarsSway17" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(120, 2240)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
 frame = 1
 
-[node name="WheatEarsSway18" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(180, 2300)
+[node name="D18" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(960, 3350)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
 frame = 2
 
-[node name="WheatEarsSway19" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(520, 2620)
+[node name="D19" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(120, 2380)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
 frame = 0
 
-[node name="SunflowerSway20" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(980, 2900)
+[node name="D20" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(180, 2420)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 1
+
+[node name="D21" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(540, 2760)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("15_m")
+animation = &"env_wheat_ears_sway"
+autoplay = "env_wheat_ears_sway"
+frame = 2
+
+[node name="D22" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(980, 2300)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("15_m")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
-frame = 1
+frame = 0
 
-[node name="LakeLake21" type="Sprite2D" parent="World/Decor"]
-position = Vector2(300, 1250)
+[node name="D23" type="Sprite2D" parent="World/Decor"]
+position = Vector2(700, 1560)
 scale = Vector2(1, 1)
-texture = ExtResource("17_r")
+texture = ExtResource("25_m")
 
-[node name="LakeRipple22" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(300, 1250)
+[node name="D24" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(700, 1560)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_lake_ripple"
 autoplay = "env_lake_ripple"
-frame = 0
-
-[node name="LakeBoat23" type="Sprite2D" parent="World/Decor"]
-position = Vector2(320, 1230)
-scale = Vector2(1, 1)
-texture = ExtResource("18_r")
-
-[node name="LakeReedsSway24" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(110, 1110)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
-animation = &"env_lake_reeds_sway"
-autoplay = "env_lake_reeds_sway"
 frame = 2
 
-[node name="LakeReedsSway25" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(500, 1370)
+[node name="D25" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(520, 1440)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_lake_reeds_sway"
 autoplay = "env_lake_reeds_sway"
 frame = 0
 
-[node name="LakeSkep26" type="Sprite2D" parent="World/Decor"]
-position = Vector2(880, 620)
+[node name="D26" type="Sprite2D" parent="World/Decor"]
+position = Vector2(150, 1000)
 scale = Vector2(1, 1)
-texture = ExtResource("19_r")
+texture = ExtResource("26_m")
 
-[node name="LakeSkepBees27" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(880, 620)
+[node name="D27" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(150, 1000)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_lake_skep_bees"
 autoplay = "env_lake_skep_bees"
 frame = 2
 
-[node name="LakeSkep28" type="Sprite2D" parent="World/Decor"]
-position = Vector2(970, 720)
+[node name="D28" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(900, 420)
 scale = Vector2(1, 1)
-texture = ExtResource("19_r")
+sprite_frames = ExtResource("15_m")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 0
 
-[node name="TreePineSway29" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(160, 420)
+[node name="D29" type="AnimatedSprite2D" parent="World/Decor"]
+position = Vector2(160, 300)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
+sprite_frames = ExtResource("15_m")
 animation = &"env_tree_pine_sway"
 autoplay = "env_tree_pine_sway"
 frame = 1
 
-[node name="TreePineSway30" type="AnimatedSprite2D" parent="World/Decor"]
-position = Vector2(900, 1600)
+[node name="D30" type="Sprite2D" parent="World/Decor"]
+position = Vector2(880, 1720)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("9_r")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
-frame = 2
+texture = ExtResource("27_m")
 
-[node name="HarvestBed" type="Node2D" parent="World"]
-position = Vector2(600, 5540)
+[node name="Crops" type="Node2D" parent="World"]
 
-[node name="Icon" type="AnimatedSprite2D" parent="World/HarvestBed"]
-scale = Vector2(1.25, 1.25)
-sprite_frames = ExtResource("20_r")
-animation = &"icon_harvest_ripe"
-autoplay = "icon_harvest_ripe"
+[node name="Wheat" parent="World/Crops" instance=ExtResource("28_m")]
+offset_left = 34.0
+offset_top = 5164.0
+offset_right = 226.0
+offset_bottom = 5356.0
+crop_id = &"wheat"
 
-[node name="Badge" type="Sprite2D" parent="World/HarvestBed"]
-position = Vector2(31, -31)
-scale = Vector2(0.9375, 0.9375)
-texture = ExtResource("21_r")
+[node name="Apple" parent="World/Crops" instance=ExtResource("28_m")]
+offset_left = 464.0
+offset_top = 4764.0
+offset_right = 656.0
+offset_bottom = 4956.0
+crop_id = &"apple"
+
+[node name="Pumpkin" parent="World/Crops" instance=ExtResource("28_m")]
+offset_left = 74.0
+offset_top = 3104.0
+offset_right = 266.0
+offset_bottom = 3296.0
+crop_id = &"pumpkin"
+
+[node name="Apiary" parent="World/Crops" instance=ExtResource("28_m")]
+offset_left = 724.0
+offset_top = 724.0
+offset_right = 916.0
+offset_bottom = 916.0
+crop_id = &"apiary"
 
 [node name="Nodes" type="Node2D" parent="World"]
 
-[node name="Level1" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 236.0
-offset_top = 5436.0
-offset_right = 364.0
-offset_bottom = 5564.0
+[node name="Level1" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 220.0
+offset_top = 5360.0
+offset_right = 380.0
+offset_bottom = 5520.0
 level = 1
 
-[node name="Level2" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 576.0
-offset_top = 5056.0
-offset_right = 704.0
-offset_bottom = 5184.0
+[node name="Level2" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 620.0
+offset_top = 5100.0
+offset_right = 780.0
+offset_bottom = 5260.0
 level = 2
 
-[node name="Level3" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 756.0
-offset_top = 4676.0
-offset_right = 884.0
-offset_bottom = 4804.0
+[node name="Level3" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 740.0
+offset_top = 4760.0
+offset_right = 900.0
+offset_bottom = 4920.0
 level = 3
 
-[node name="Level4" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 456.0
-offset_top = 4296.0
-offset_right = 584.0
-offset_bottom = 4424.0
+[node name="Level4" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 380.0
+offset_top = 4500.0
+offset_right = 540.0
+offset_bottom = 4660.0
 level = 4
 
-[node name="Level5" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 186.0
-offset_top = 3916.0
-offset_right = 314.0
-offset_bottom = 4044.0
+[node name="Level5" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 220.0
+offset_top = 4140.0
+offset_right = 380.0
+offset_bottom = 4300.0
 level = 5
+fox = true
 
-[node name="Level6" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 356.0
-offset_top = 3556.0
-offset_right = 484.0
-offset_bottom = 3684.0
+[node name="Level6" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 680.0
+offset_top = 3440.0
+offset_right = 840.0
+offset_bottom = 3600.0
 level = 6
 
-[node name="Level7" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 736.0
-offset_top = 3156.0
-offset_right = 864.0
-offset_bottom = 3284.0
+[node name="Level7" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 340.0
+offset_top = 3160.0
+offset_right = 500.0
+offset_bottom = 3320.0
 level = 7
 
-[node name="Level8" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 636.0
-offset_top = 2756.0
-offset_right = 764.0
-offset_bottom = 2884.0
+[node name="Level8" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 220.0
+offset_top = 2780.0
+offset_right = 380.0
+offset_bottom = 2940.0
 level = 8
 
-[node name="Level9" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 266.0
-offset_top = 2356.0
-offset_right = 394.0
-offset_bottom = 2484.0
+[node name="Level9" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 640.0
+offset_top = 2440.0
+offset_right = 800.0
+offset_bottom = 2600.0
 level = 9
 
-[node name="Level10" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 496.0
-offset_top = 1716.0
-offset_right = 624.0
-offset_bottom = 1844.0
+[node name="Level10" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 280.0
+offset_top = 1440.0
+offset_right = 440.0
+offset_bottom = 1600.0
 level = 10
+fox = true
 
-[node name="Level11" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 736.0
-offset_top = 1196.0
-offset_right = 864.0
-offset_bottom = 1324.0
+[node name="Level11" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 660.0
+offset_top = 1000.0
+offset_right = 820.0
+offset_bottom = 1160.0
 level = 11
 
-[node name="Level12" parent="World/Nodes" instance=ExtResource("22_r")]
-offset_left = 416.0
-offset_top = 676.0
-offset_right = 544.0
-offset_bottom = 804.0
+[node name="Level12" parent="World/Nodes" instance=ExtResource("29_m")]
+offset_left = 420.0
+offset_top = 480.0
+offset_right = 580.0
+offset_bottom = 640.0
 level = 12
+fox = true
 
-[node name="Grains" parent="." instance=ExtResource("23_r")]
+[node name="CloudsWheat" type="Node2D" parent="World"]
+
+[node name="Cloud1" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+position = Vector2(260, 3500)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 0
+
+[node name="Cloud2" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+position = Vector2(800, 3280)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_2_sway"
+autoplay = "cloud_2_sway"
+frame = 1
+
+[node name="Cloud3" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+position = Vector2(300, 2760)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 2
+
+[node name="Cloud4" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+position = Vector2(780, 2420)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_2_sway"
+autoplay = "cloud_2_sway"
+frame = 0
+
+[node name="Cloud5" type="AnimatedSprite2D" parent="World/CloudsWheat"]
+position = Vector2(540, 3040)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 1
+
+[node name="CloudsLake" type="Node2D" parent="World"]
+
+[node name="Cloud1" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(260, 1650)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 0
+
+[node name="Cloud2" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(800, 1420)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_2_sway"
+autoplay = "cloud_2_sway"
+frame = 1
+
+[node name="Cloud3" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(300, 1000)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 2
+
+[node name="Cloud4" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(820, 700)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_2_sway"
+autoplay = "cloud_2_sway"
+frame = 0
+
+[node name="Cloud5" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(240, 360)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 1
+
+[node name="Cloud6" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(700, 180)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_2_sway"
+autoplay = "cloud_2_sway"
+frame = 2
+
+[node name="Cloud7" type="AnimatedSprite2D" parent="World/CloudsLake"]
+position = Vector2(560, 1200)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("30_m")
+animation = &"cloud_1_sway"
+autoplay = "cloud_1_sway"
+frame = 0
+
+[node name="Grains" parent="." instance=ExtResource("31_m")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 44.0
@@ -805,7 +2186,7 @@ offset_top = 40.0
 offset_right = 304.0
 offset_bottom = 104.0
 
-[node name="Shop" parent="." instance=ExtResource("25_r")]
+[node name="Shop" parent="." instance=ExtResource("32_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -816,9 +2197,9 @@ offset_top = 30.0
 offset_right = -276.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("24_r")
+icon = ExtResource("33_m")
 
-[node name="Settings" parent="." instance=ExtResource("25_r")]
+[node name="Settings" parent="." instance=ExtResource("32_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -829,9 +2210,9 @@ offset_top = 30.0
 offset_right = -160.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("26_r")
+icon = ExtResource("34_m")
 
-[node name="Gift" parent="." instance=ExtResource("25_r")]
+[node name="Gift" parent="." instance=ExtResource("32_m")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -842,24 +2223,6 @@ offset_top = 30.0
 offset_right = -44.0
 offset_bottom = 126.0
 grow_horizontal = 0
-icon = ExtResource("27_r")
+icon = ExtResource("35_m")
 icon_anim = &"icon_gift_shake"
 badge = true
-
-[node name="Harvest" parent="." instance=ExtResource("25_r")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -164.0
-offset_top = -196.0
-offset_right = -44.0
-offset_bottom = -76.0
-grow_horizontal = 0
-grow_vertical = 0
-icon = ExtResource("27_r")
-icon_anim = &"icon_harvest_ripe"
-label_key = "BTN_HARVEST"

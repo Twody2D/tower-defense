@@ -1,16 +1,24 @@
 class_name FarmMap
 extends Control
-## Farm map (design I, screen 4): three biomes along a 5760 px strip, a dotted
-## path through 12 level points, decor, the offline harvest bed. The world is
-## authored in portrait mockup coordinates (1080 × 5760, level 1 at the
-## bottom); in landscape every piece moves by the mockup rule
-## (x, y) → (5760 − y, x), so level 1 is on the left.
-## Drag (finger or mouse) or the wheel scrolls with inertia. A level point
-## opens the level start window; a drag never presses a point.
+## Farm map (design L, scene made by tools/make_map.py): three biomes along a
+## 5760 px strip with river strips and bridges between them, a trodden path
+## through 12 level signs, decor, the farm crops, clouds over closed zones.
+## The world is authored in portrait mockup coordinates (1080 × 5760, level
+## 1 at the bottom); in landscape every piece moves by the mockup rule
+## (x, y) → (5760 − y, x), so level 1 is on the left, and the pieces under
+## Turned (rivers, bridges) turn 90°.
+## Drag (finger or mouse) or the wheel scrolls with inertia. A level sign
+## opens the level start window, a ripe crop is collected (its products fly
+## to the grains counter), an unripe one opens the harvest window; a drag
+## never presses anything.
 
 const LENGTH: float = 5760.0
 const WIDTH: float = 1080.0
-const GROUPS: Array[StringName] = [&"World", &"Bands", &"Path", &"Decor", &"Nodes"]
+const GROUPS: Array[StringName] = [&"World", &"Bands", &"Turned", &"Path", &"Decor", &"Crops", &"Nodes",
+	&"CloudsWheat", &"CloudsLake"]
+## A closed zone opens with its first level: clouds cover it until then.
+const ZONES: Dictionary[StringName, int] = {&"CloudsWheat": 6, &"CloudsLake": 10}
+const GRAIN: Texture2D = preload("res://art/ui/ui_icon_grain.png")
 
 @export var level_start_window: PackedScene
 @export var shop_window: PackedScene
@@ -29,6 +37,7 @@ var scroll: float = 0.0
 ## Authored (portrait) centre of every world piece.
 var _home: Dictionary[CanvasItem, Vector2] = {}
 var _bands: Dictionary[TextureRect, Rect2] = {}
+var _turned: Array[Node2D] = []
 var _velocity: float = 0.0
 var _touch: int = -1
 var _touch_start: Vector2 = Vector2.ZERO
@@ -40,8 +49,6 @@ var _dragged: bool = false
 @onready var _shop: RoundButton = %Shop
 @onready var _settings: RoundButton = %Settings
 @onready var _gift: RoundButton = %Gift
-@onready var _harvest: RoundButton = %Harvest
-@onready var _harvest_bed: Node2D = $World/HarvestBed
 
 
 func _ready() -> void:
@@ -54,10 +61,14 @@ func _ready() -> void:
 	_shop.pressed.connect(_open.bind(shop_window))
 	_settings.pressed.connect(_open.bind(settings_window))
 	_gift.pressed.connect(_open.bind(gift_window))
-	_harvest.pressed.connect(_open.bind(harvest_window))
+	for n: Node in $World/Crops.get_children():
+		var crop: MapCrop = n as MapCrop
+		if crop != null:
+			crop.pressed.connect(_on_crop.bind(crop))
 	Game.grains_changed.connect(func(g: int) -> void: _grains.value = g)
 	Game.progress_changed.connect(_refresh)
 	Game.start_harvest(Game.now())
+	_show_clouds()
 	get_viewport().size_changed.connect(_layout)
 	_refresh()
 	_layout()
@@ -69,6 +80,8 @@ func _remember(n: Node) -> void:
 	if n.name in GROUPS:
 		for child: Node in n.get_children():
 			_remember(child)
+			if n.name == &"Turned":
+				_turned.append(child as Node2D)
 		return
 	var band: TextureRect = n as TextureRect
 	var c: Control = n as Control
@@ -86,9 +99,8 @@ func _refresh() -> void:
 	var gift_ready: bool = Game.can_claim_gift(Game.today())
 	_gift.badge = gift_ready
 	_gift.icon_anim = &"icon_gift_shake" if gift_ready else &""
-	var ripe: bool = Game.harvest_ready(Game.now()) > 0
-	_harvest.badge = ripe
-	_harvest_bed.get_node(^"Badge").set(&"visible", ripe)
+	for n: Node in $World/Crops.get_children():
+		(n as MapCrop).refresh()
 	var skin: SkinData = Game.META.skin(Game.skin)
 	var current: int = Game.last_open_level()
 	for n: Node in _nodes.get_children():
@@ -119,6 +131,8 @@ func _layout() -> void:
 			c.position = at - c.size * 0.5
 		else:
 			(item as Node2D).position = at
+	for t: Node2D in _turned:
+		t.rotation = 0.0 if portrait else PI * 0.5
 	for band: TextureRect in _bands:
 		var r: Rect2 = _bands[band]
 		if portrait:
@@ -206,6 +220,42 @@ func _on_level(level: int) -> void:
 		get_tree().change_scene_to_file(battle_scene)
 		return
 	_open(level_start_window)
+
+
+## Clouds over a zone whose first level is still closed; the first visit
+## after it opens blows them away once.
+func _show_clouds() -> void:
+	for group: StringName in ZONES:
+		var open: bool = Game.is_level_open(ZONES[group])
+		var clouds: Node = $World.get_node(NodePath(String(group)))
+		var first_time: bool = open and Game.first_meet(StringName("zone_" + String(group)))
+		for c: Node in clouds.get_children():
+			var cloud: AnimatedSprite2D = c as AnimatedSprite2D
+			cloud.visible = not open or first_time
+			if first_time:
+				cloud.play(StringName(String(cloud.animation).replace("_sway", "_clear")))
+				cloud.animation_finished.connect(cloud.hide)
+		if first_time:
+			Save.save()
+
+
+## A ripe crop: collected here, its products fly to the counter as grains.
+## An unripe or closed one opens the harvest window.
+func _on_crop(crop: MapCrop) -> void:
+	if _dragged:
+		return
+	if not crop.is_ripe():
+		_open(harvest_window)
+		return
+	var n: int = Game.collect_crop(crop.crop, Game.now())
+	if n <= 0:
+		return
+	crop.play_collect()
+	Audio.sfx(&"coin", false)
+	Save.save()
+	var to: Vector2 = _grains.global_position + Vector2(32, 32)
+	UiFx.fly_icons(self, crop.product_point(), to, crop.crop.icon_big, GRAIN, 5, 72.0,
+			func() -> void: UiFx.bump(_grains, 1.15, 0.25))
 
 
 func _open(scene: PackedScene) -> void:
