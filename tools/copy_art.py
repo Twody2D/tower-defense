@@ -408,6 +408,10 @@ HI_UI = {  # name in ui_hi: (svg base, frames, fps, scale) — gift and harvest 
 HI_FX = {"parcel_glow": ("fx_parcel_glow_4f", 4, 8, 2.0)}  # name in ui_hi: (svg base in f/, frames, fps, scale)
 HI_ICONS = [f"ui_icon_bonus_{b}" for b in ("gold_rain", "rage", "super_magnet", "upgrade", "tractor", "sleepy_rain", "helper")]
 HI_ICON_SCALE = 2.0
+# Main menu yard (design L): the pine and the fence are drawn 1.5–1.7 times
+# bigger than their 128 / 96 px sheets.
+HI_ENV = {"pine_sway": ("env_tree_pine_sway_3f", 3, 3, 2.0)}  # name in ui_hi: (svg base in e/, frames, fps, scale)
+HI_ENV_PICTURES = ["env_fence_decor"]
 
 
 def flat_svg(text: str) -> str:
@@ -527,8 +531,12 @@ def make_hi() -> dict[str, dict]:
     }
     for name, (base, n, fps, k) in HI_FX.items():
         sets["ui_hi"][name] = entry(job("f", base, k), n, fps, True)
+    for name, (base, n, fps, k) in HI_ENV.items():
+        sets["ui_hi"][name] = entry(job("e", base, k), n, fps, True)
     for base in HI_ICONS:
         job("g", base, HI_ICON_SCALE)
+    for base in HI_ENV_PICTURES:
+        job("e", base, 2.0)
     # The logo carrot's leaves stick out above the plate's box (the PNG cuts
     # them): the plate is rendered with 40 px more on top, 960×480.
     logo = re.sub(r"<metadata>.*?</metadata>", "", (SVG / "i" / "logo_plate.svg").read_text(encoding="utf-8"), flags=re.S)

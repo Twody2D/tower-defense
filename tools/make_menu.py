@@ -23,7 +23,7 @@ YARD = {
         props=[("env_farm_haystack", 900, 1250, 130, 130), ("env_farm_wheelbarrow", 640, 1260, 110, 110)],
         sunflowers=[(40, 1270), (100, 1290)], flies=[(760, 900, 120, 40, 0.8, 0.0), (220, 1180, 90, 30, 1.1, 2.0)]),
     "Landscape": dict(
-        sand=(12, 8, 29, 16), fences=[(740, 380), (1740, 380)],
+        sand=(12, 8, 29, 16), fences=[(700, 380), (844, 380), (1516, 380), (1660, 380)],
         house=(1060, 110, 1.75), trees=[(790, 262, 216, 900, 460, 80), (1760, 320, 160, 1830, 470, 64)],
         crops=[("wheat", 760, 610, 1.1), ("apple", 1680, 560, 1.1)],
         props=[("env_farm_haystack", 1560, 860, 130, 130), ("env_rocks", 700, 960, 64, 64)],
@@ -106,11 +106,13 @@ def yard(s: Scene, group: str, d: dict) -> None:
                                                                f'texture = ExtResource("{tex}")'])
     env = s.res("SpriteFrames", "res://art/frames/env.tres")
     frames = s.res("SpriteFrames", "res://art/frames/map.tres")
-    fence = s.res("Texture2D", "res://art/env/env_fence_decor.png")
-    fw, fh = frame_size(ART / "env" / "env_fence_decor.png")
+    # Fences and pines stand on their bottom edge (position = base, the
+    # picture above it): the y-sort puts a tree in front of a fence behind it.
+    fence = s.res("Texture2D", "res://art/hi/env_fence_decor.png")
+    fw, fh = frame_size(ART / "hi" / "env_fence_decor.png")
     for i, (x, y) in enumerate(d["fences"]):
-        s.node(f"Fence{i + 1}", "Sprite2D", parent, [f"position = {v(x + 72, y + 48)}", f"scale = {v(144 / fw, 96 / fh)}",
-                                                     f'texture = ExtResource("{fence}")'])
+        s.node(f"Fence{i + 1}", "Sprite2D", parent, [f"position = {v(x + 72, y + 96)}", f"scale = {v(144 / fw, 96 / fh)}",
+                                                     f'texture = ExtResource("{fence}")', f"offset = {v(0, -fh / 2)}"])
     shadow = s.res("Texture2D", "res://art/ui/shadow.png")
     hx, hy, k = d["house"]
     s.node("HouseShadow", "Sprite2D", parent, [f"position = {v(hx + 128 * k, hy + 232 * k)}",
@@ -121,13 +123,14 @@ def yard(s: Scene, group: str, d: dict) -> None:
     s.node("Smoke", "AnimatedSprite2D", parent, [
         f"position = {v(hx + 181 * k, hy + 28 * k - 112 + 57)}", f"scale = {v(76 / 64, 114 / 96)}",
         f'sprite_frames = ExtResource("{frames}")', 'animation = &"chimney_smoke"', 'autoplay = "chimney_smoke"'])
-    pw, _ = frame_size(ART / "env" / "env_tree_pine_sway_3f.png", 3)
+    hi = s.res("SpriteFrames", "res://art/frames/ui_hi.tres")
+    pw, _ = frame_size(ART / "hi" / "env_tree_pine_sway_3f.png", 3)
     for i, (x, y, size, sx, sy, sw) in enumerate(d["trees"]):
         s.node(f"TreeShadow{i + 1}", "Sprite2D", parent, [f"position = {v(sx, sy)}", f"scale = {v(sw / 128, sw * 0.24 / 32)}",
                                                           f'texture = ExtResource("{shadow}")'])
         s.node(f"Pine{i + 1}", "AnimatedSprite2D", parent, [
-            f"position = {v(x + size / 2, y + size / 2)}", f"scale = {v(size / pw, size / pw)}",
-            f'sprite_frames = ExtResource("{env}")', 'animation = &"env_tree_pine_sway"', 'autoplay = "env_tree_pine_sway"',
+            f"position = {v(x + size / 2, y + size)}", f"scale = {v(size / pw, size / pw)}", f"offset = {v(0, -pw / 2)}",
+            f'sprite_frames = ExtResource("{hi}")', 'animation = &"pine_sway"', 'autoplay = "pine_sway"',
             f"frame = {i}"])
     for name, x, y, w, h in d["props"]:
         tex = s.res("Texture2D", f"res://art/env/{name}.png")

@@ -1344,6 +1344,12 @@
     "frames": 4,
     "fps": 8,
     "loop": true
+   },
+   "pine_sway": {
+    "file": "res://art/hi/env_tree_pine_sway_3f.png",
+    "frames": 3,
+    "fps": 3,
+    "loop": true
    }
   }
  },

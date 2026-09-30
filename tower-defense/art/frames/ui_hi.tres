@@ -4,69 +4,79 @@
 [ext_resource type="Texture2D" path="res://art/hi/ui_icon_gift_shake_4f.png" id="2_3usx1"]
 [ext_resource type="Texture2D" path="res://art/hi/ui_icon_harvest_ripe_3f.png" id="3_x0yfx"]
 [ext_resource type="Texture2D" path="res://art/hi/fx_parcel_glow_4f.png" id="4_3usx1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x0yfx"]
-atlas = ExtResource("1_mp1mo")
-region = Rect2(0, 0, 128, 128)
+[ext_resource type="Texture2D" path="res://art/hi/env_tree_pine_sway_3f.png" id="5_x0yfx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cemtb"]
-atlas = ExtResource("2_3usx1")
+atlas = ExtResource("1_mp1mo")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_veqf8"]
 atlas = ExtResource("2_3usx1")
-region = Rect2(128, 0, 128, 128)
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_72w8h"]
 atlas = ExtResource("2_3usx1")
-region = Rect2(256, 0, 128, 128)
+region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fale0"]
 atlas = ExtResource("2_3usx1")
-region = Rect2(384, 0, 128, 128)
+region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_25tb2"]
-atlas = ExtResource("3_x0yfx")
-region = Rect2(0, 0, 256, 256)
+atlas = ExtResource("2_3usx1")
+region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x2l06"]
 atlas = ExtResource("3_x0yfx")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tbohq"]
 atlas = ExtResource("3_x0yfx")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(256, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0tp8s"]
-atlas = ExtResource("4_3usx1")
-region = Rect2(0, 0, 192, 192)
+atlas = ExtResource("3_x0yfx")
+region = Rect2(512, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k5e3x"]
 atlas = ExtResource("4_3usx1")
-region = Rect2(192, 0, 192, 192)
+region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xipfl"]
 atlas = ExtResource("4_3usx1")
-region = Rect2(384, 0, 192, 192)
+region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwj3l"]
 atlas = ExtResource("4_3usx1")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agwa0"]
+atlas = ExtResource("4_3usx1")
 region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w806"]
+atlas = ExtResource("5_x0yfx")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwe21"]
+atlas = ExtResource("5_x0yfx")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46qc1"]
+atlas = ExtResource("5_x0yfx")
+region = Rect2(512, 0, 256, 256)
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x0yfx")
+"texture": SubResource("AtlasTexture_cemtb")
 }],
 "loop": 1,
 "name": &"gift",
 "speed": 1.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cemtb")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_veqf8")
 }, {
@@ -75,6 +85,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fale0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25tb2")
 }],
 "loop": 1,
 "name": &"gift_shake",
@@ -82,22 +95,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_25tb2")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_x2l06")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tbohq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tp8s")
 }],
 "loop": 1,
 "name": &"harvest_ripe",
 "speed": 6.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0tp8s")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k5e3x")
 }, {
@@ -106,8 +116,25 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lwj3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agwa0")
 }],
 "loop": 1,
 "name": &"parcel_glow",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w806")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwe21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46qc1")
+}],
+"loop": 1,
+"name": &"pine_sway",
+"speed": 3.0
 }]

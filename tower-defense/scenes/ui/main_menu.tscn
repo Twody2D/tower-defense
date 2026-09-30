@@ -19,22 +19,23 @@
 [ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_outer_tl.png" id="17_u"]
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="18_u"]
 [ext_resource type="SpriteFrames" path="res://art/frames/map.tres" id="19_u"]
-[ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="20_u"]
+[ext_resource type="Texture2D" path="res://art/hi/env_fence_decor.png" id="20_u"]
 [ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="21_u"]
 [ext_resource type="Texture2D" path="res://art/env/env_house.png" id="22_u"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="23_u"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="24_u"]
-[ext_resource type="PackedScene" path="res://scenes/map/map_crop.tscn" id="25_u"]
-[ext_resource type="Script" path="res://scenes/ui/butterfly.gd" id="26_u"]
-[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="27_u"]
-[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="28_u"]
-[ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="29_u"]
-[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="30_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="31_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="32_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="33_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_howto.png" id="34_u"]
-[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="35_u"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui_hi.tres" id="23_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="24_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="25_u"]
+[ext_resource type="PackedScene" path="res://scenes/map/map_crop.tscn" id="26_u"]
+[ext_resource type="Script" path="res://scenes/ui/butterfly.gd" id="27_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="28_u"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="29_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="30_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="31_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="32_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="33_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="34_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_howto.png" id="35_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="36_u"]
 
 [node name="MainMenu" type="Control"]
 script = ExtResource("1_u")
@@ -491,24 +492,28 @@ position = Vector2(928, 1312)
 texture = ExtResource("17_u")
 
 [node name="Fence1" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(92, 748)
-scale = Vector2(1.5, 1.5)
+position = Vector2(92, 796)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="Fence2" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(232, 748)
-scale = Vector2(1.5, 1.5)
+position = Vector2(232, 796)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="Fence3" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(848, 748)
-scale = Vector2(1.5, 1.5)
+position = Vector2(848, 796)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="Fence4" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(988, 748)
-scale = Vector2(1.5, 1.5)
+position = Vector2(988, 796)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="HouseShadow" type="Sprite2D" parent="Stage/Portrait"]
 position = Vector2(539.6, 972.4)
@@ -533,11 +538,12 @@ scale = Vector2(0.625, 0.6)
 texture = ExtResource("21_u")
 
 [node name="Pine1" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(98, 748)
-scale = Vector2(1.6875, 1.6875)
-sprite_frames = ExtResource("18_u")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
+position = Vector2(98, 856)
+scale = Vector2(0.84375, 0.84375)
+offset = Vector2(0, -128)
+sprite_frames = ExtResource("23_u")
+animation = &"pine_sway"
+autoplay = "pine_sway"
 frame = 0
 
 [node name="TreeShadow2" type="Sprite2D" parent="Stage/Portrait"]
@@ -546,22 +552,23 @@ scale = Vector2(0.5, 0.48)
 texture = ExtResource("21_u")
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(1000, 740)
-scale = Vector2(1.25, 1.25)
-sprite_frames = ExtResource("18_u")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
+position = Vector2(1000, 820)
+scale = Vector2(0.625, 0.625)
+offset = Vector2(0, -128)
+sprite_frames = ExtResource("23_u")
+animation = &"pine_sway"
+autoplay = "pine_sway"
 frame = 1
 
 [node name="FarmHaystack" type="Sprite2D" parent="Stage/Portrait"]
 position = Vector2(965, 1315)
 scale = Vector2(1.35417, 1.35417)
-texture = ExtResource("23_u")
+texture = ExtResource("24_u")
 
 [node name="FarmWheelbarrow" type="Sprite2D" parent="Stage/Portrait"]
 position = Vector2(695, 1315)
 scale = Vector2(1.14583, 1.14583)
-texture = ExtResource("24_u")
+texture = ExtResource("25_u")
 
 [node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Portrait"]
 position = Vector2(72, 1318)
@@ -579,7 +586,7 @@ animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 2
 
-[node name="CropWheat" parent="Stage/Portrait" instance=ExtResource("25_u")]
+[node name="CropWheat" parent="Stage/Portrait" instance=ExtResource("26_u")]
 offset_left = 30.0
 offset_top = 1020.0
 offset_right = 222.0
@@ -587,7 +594,7 @@ offset_bottom = 1212.0
 scale = Vector2(1.15, 1.15)
 crop_id = &"wheat"
 
-[node name="CropApple" parent="Stage/Portrait" instance=ExtResource("25_u")]
+[node name="CropApple" parent="Stage/Portrait" instance=ExtResource("26_u")]
 offset_left = 820.0
 offset_top = 960.0
 offset_right = 1012.0
@@ -598,7 +605,7 @@ crop_id = &"apple"
 [node name="Butterfly1" type="AnimatedSprite2D" parent="Stage/Portrait"]
 sprite_frames = ExtResource("19_u")
 animation = &"butterfly"
-script = ExtResource("26_u")
+script = ExtResource("27_u")
 centre = Vector2(760, 900)
 radius = Vector2(120, 40)
 speed = 0.8
@@ -607,7 +614,7 @@ phase = 0.0
 [node name="Butterfly2" type="AnimatedSprite2D" parent="Stage/Portrait"]
 sprite_frames = ExtResource("19_u")
 animation = &"butterfly"
-script = ExtResource("26_u")
+script = ExtResource("27_u")
 centre = Vector2(220, 1180)
 radius = Vector2(90, 30)
 speed = 1.1
@@ -1268,14 +1275,28 @@ position = Vector2(1888, 1056)
 texture = ExtResource("17_u")
 
 [node name="Fence1" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(812, 428)
-scale = Vector2(1.5, 1.5)
+position = Vector2(772, 476)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="Fence2" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1812, 428)
-scale = Vector2(1.5, 1.5)
+position = Vector2(916, 476)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
+offset = Vector2(0, -64)
+
+[node name="Fence3" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1588, 476)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("20_u")
+offset = Vector2(0, -64)
+
+[node name="Fence4" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1732, 476)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("20_u")
+offset = Vector2(0, -64)
 
 [node name="HouseShadow" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(1284, 516)
@@ -1300,11 +1321,12 @@ scale = Vector2(0.625, 0.6)
 texture = ExtResource("21_u")
 
 [node name="Pine1" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(898, 370)
-scale = Vector2(1.6875, 1.6875)
-sprite_frames = ExtResource("18_u")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
+position = Vector2(898, 478)
+scale = Vector2(0.84375, 0.84375)
+offset = Vector2(0, -128)
+sprite_frames = ExtResource("23_u")
+animation = &"pine_sway"
+autoplay = "pine_sway"
 frame = 0
 
 [node name="TreeShadow2" type="Sprite2D" parent="Stage/Landscape"]
@@ -1313,22 +1335,23 @@ scale = Vector2(0.5, 0.48)
 texture = ExtResource("21_u")
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(1840, 400)
-scale = Vector2(1.25, 1.25)
-sprite_frames = ExtResource("18_u")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
+position = Vector2(1840, 480)
+scale = Vector2(0.625, 0.625)
+offset = Vector2(0, -128)
+sprite_frames = ExtResource("23_u")
+animation = &"pine_sway"
+autoplay = "pine_sway"
 frame = 1
 
 [node name="FarmHaystack" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(1625, 925)
 scale = Vector2(1.35417, 1.35417)
-texture = ExtResource("23_u")
+texture = ExtResource("24_u")
 
 [node name="Rocks" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(732, 992)
 scale = Vector2(1, 1)
-texture = ExtResource("27_u")
+texture = ExtResource("28_u")
 
 [node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Landscape"]
 position = Vector2(72, 948)
@@ -1346,7 +1369,7 @@ animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 2
 
-[node name="CropWheat" parent="Stage/Landscape" instance=ExtResource("25_u")]
+[node name="CropWheat" parent="Stage/Landscape" instance=ExtResource("26_u")]
 offset_left = 760.0
 offset_top = 610.0
 offset_right = 952.0
@@ -1354,7 +1377,7 @@ offset_bottom = 802.0
 scale = Vector2(1.1, 1.1)
 crop_id = &"wheat"
 
-[node name="CropApple" parent="Stage/Landscape" instance=ExtResource("25_u")]
+[node name="CropApple" parent="Stage/Landscape" instance=ExtResource("26_u")]
 offset_left = 1680.0
 offset_top = 560.0
 offset_right = 1872.0
@@ -1365,7 +1388,7 @@ crop_id = &"apple"
 [node name="Butterfly1" type="AnimatedSprite2D" parent="Stage/Landscape"]
 sprite_frames = ExtResource("19_u")
 animation = &"butterfly"
-script = ExtResource("26_u")
+script = ExtResource("27_u")
 centre = Vector2(1500, 520)
 radius = Vector2(120, 40)
 speed = 0.8
@@ -1374,7 +1397,7 @@ phase = 0.0
 [node name="Butterfly2" type="AnimatedSprite2D" parent="Stage/Landscape"]
 sprite_frames = ExtResource("19_u")
 animation = &"butterfly"
-script = ExtResource("26_u")
+script = ExtResource("27_u")
 centre = Vector2(980, 840)
 radius = Vector2(90, 30)
 speed = 1.1
@@ -1391,11 +1414,11 @@ texture = ExtResource("21_u")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero"]
 scale = Vector2(0.8594, 0.8594)
-sprite_frames = ExtResource("28_u")
+sprite_frames = ExtResource("29_u")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Logo" parent="Stage" instance=ExtResource("29_u")]
+[node name="Logo" parent="Stage" instance=ExtResource("30_u")]
 layout_mode = 0
 offset_left = 60
 offset_top = 40
@@ -1417,7 +1440,7 @@ theme_override_font_sizes/font_size = 56
 text = "BTN_PLAY"
 metadata/portrait = Rect2(300, 1430, 480, 128)
 
-[node name="Shop" parent="Stage" instance=ExtResource("30_u")]
+[node name="Shop" parent="Stage" instance=ExtResource("31_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 60
@@ -1425,12 +1448,12 @@ offset_top = 620
 offset_right = 172
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("31_u")
+icon = ExtResource("32_u")
 label_key = "BTN_SHOP"
 metadata/portrait = Rect2(40, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 
-[node name="Gift" parent="Stage" instance=ExtResource("30_u")]
+[node name="Gift" parent="Stage" instance=ExtResource("31_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 212
@@ -1438,13 +1461,13 @@ offset_top = 620
 offset_right = 324
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("32_u")
+icon = ExtResource("33_u")
 label_key = "BTN_GIFT"
 metadata/portrait = Rect2(250, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 icon_anim = &"icon_gift_shake"
 
-[node name="Harvest" parent="Stage" instance=ExtResource("30_u")]
+[node name="Harvest" parent="Stage" instance=ExtResource("31_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 364
@@ -1452,13 +1475,13 @@ offset_top = 620
 offset_right = 476
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("32_u")
+icon = ExtResource("33_u")
 label_key = "BTN_HARVEST"
 metadata/portrait = Rect2(460, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 icon_anim = &"icon_harvest_ripe"
 
-[node name="Settings" parent="Stage" instance=ExtResource("30_u")]
+[node name="Settings" parent="Stage" instance=ExtResource("31_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 516
@@ -1466,12 +1489,12 @@ offset_top = 620
 offset_right = 628
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("33_u")
+icon = ExtResource("34_u")
 label_key = "BTN_SETTINGS"
 metadata/portrait = Rect2(670, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 
-[node name="HowTo" parent="Stage" instance=ExtResource("30_u")]
+[node name="HowTo" parent="Stage" instance=ExtResource("31_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 668
@@ -1479,12 +1502,12 @@ offset_top = 620
 offset_right = 780
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("34_u")
+icon = ExtResource("35_u")
 label_key = "BTN_HOW_TO"
 metadata/portrait = Rect2(880, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 
-[node name="Grains" parent="Stage" instance=ExtResource("35_u")]
+[node name="Grains" parent="Stage" instance=ExtResource("36_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1620
