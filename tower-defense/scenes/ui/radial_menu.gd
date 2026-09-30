@@ -42,6 +42,17 @@ func open(for_plot: BuildPlot, catalog: Array[DefenderData], allowed: Array[Defe
 	UiFx.pop(_anchor, 0.4, 0.2)
 
 
+## Screen centre of the slot with this defender (the tutorial points at it);
+## Vector2.INF when the menu is shut or has no such slot.
+func slot_centre(d: DefenderData) -> Vector2:
+	if not visible:
+		return Vector2.INF
+	for slot: RadialSlot in _slots:
+		if slot.visible and slot.data == d:
+			return slot.get_global_rect().get_center()
+	return Vector2.INF
+
+
 func close() -> void:
 	if not visible:
 		return

@@ -87,6 +87,11 @@ func step(delta: float, hero_pos: Vector2, magnet: float) -> void:
 		i += 1
 
 
+## World position of a coin on the field (0 ≤ i < count).
+func position_of(i: int) -> Vector2:
+	return _pool[i].global_position
+
+
 func clear() -> void:
 	for i: int in count:
 		_pool[i].visible = false

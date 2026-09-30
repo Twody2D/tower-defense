@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/tutorial_layer.gd" id="1_tut"]
+[ext_resource type="Shader" path="res://shaders/spotlight.gdshader" id="2_shader"]
+[ext_resource type="SpriteFrames" path="res://art/frames/ui.tres" id="3_ui"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_bubble.png" id="4_bubble"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_bubble_tail.png" id="5_tail"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dim"]
+shader = ExtResource("2_shader")
+shader_parameter/size = Vector2(1080, 1080)
+shader_parameter/centre = Vector2(540, 540)
+shader_parameter/radius = 120.0
+shader_parameter/tint = Color(0.169, 0.169, 0.227, 0.5)
+
+[node name="TutorialLayer" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_tut")
+
+[node name="Dim" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_dim")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Highlight" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = ExtResource("3_ui")
+animation = &"tut_highlight"
+
+[node name="Arrow" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("3_ui")
+animation = &"tut_arrow"
+
+[node name="Hand" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("3_ui")
+animation = &"tut_hand_tap"
+
+[node name="Bubble" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(640, 130)
+offset_right = 640.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture = ExtResource("4_bubble")
+patch_margin_left = 36
+patch_margin_top = 36
+patch_margin_right = 36
+patch_margin_bottom = 36
+
+[node name="Text" type="Label" parent="Bubble"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 10.0
+offset_right = -28.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 34
+text = "TUT_MOVE_TOUCH"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Tail" type="TextureRect" parent="Bubble"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 120.0
+offset_top = 125.0
+offset_right = 168.0
+offset_bottom = 165.0
+mouse_filter = 2
+texture = ExtResource("5_tail")

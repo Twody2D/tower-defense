@@ -143,3 +143,11 @@ BONUS_SLEEPY_RAIN,Сонный дождь,Sleepy rain
 BONUS_SLEEPY_RAIN_DESC,Все вредители ползут медленнее,All pests crawl slower
 BONUS_HELPER,Помощник,Helper
 BONUS_HELPER_DESC,Второй герой бегает рядом и помогает,A second hero runs along and helps
+TUT_MOVE_TOUCH,Веди пальцем — герой побежит,Drag your finger to run
+TUT_MOVE_KEYS,Жми WASD или стрелки — герой побежит,Press WASD or the arrows to run
+TUT_PLOT,"Встань на площадку, чтобы построить",Stand on a plot to build
+TUT_PICK,Выбери гуся-стрелка,Pick the Goose Archer
+TUT_BUILD,Постой на площадке — монеты уйдут в постройку,Stay on the plot — your coins build it
+TUT_COINS,Собирай монеты — на них строят защитников,Collect coins — they pay for defenders
+TUT_FENCE,Забор задерживает вредителей — встань на его площадку,A fence holds pests back — stand on its plot
+TUT_UPGRADE,Встань к защитнику ещё раз — он станет сильнее,Stand by a defender again to make it stronger

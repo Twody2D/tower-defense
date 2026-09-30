@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3]
+[gd_scene load_steps=34 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/pause_window.tscn" id="50_0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/win_window.tscn" id="50_1"]
@@ -32,6 +32,8 @@
 [ext_resource type="PackedScene" path="res://scenes/battle/helper.tscn" id="62_helper"]
 [ext_resource type="Script" path="res://scenes/battle/bonuses.gd" id="63_bonuses"]
 [ext_resource type="PackedScene" path="res://scenes/ui/windows/parcel_window.tscn" id="64_parcelwin"]
+[ext_resource type="Script" path="res://scenes/battle/tutorial.gd" id="65_tutorial"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tutorial_layer.tscn" id="66_tutlayer"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
@@ -83,6 +85,11 @@ frames = ExtResource("43_fxframes")
 script = ExtResource("17_waves")
 
 [node name="Hud" parent="." instance=ExtResource("8_hud")]
+
+[node name="Tutorial" type="Node" parent="."]
+script = ExtResource("65_tutorial")
+
+[node name="TutorialLayer" parent="Tutorial" instance=ExtResource("66_tutlayer")]
 
 [node name="Windows" type="CanvasLayer" parent="."]
 layer = 10

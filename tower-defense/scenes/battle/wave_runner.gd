@@ -14,6 +14,9 @@ var enemies: EnemyManager
 var wave: int = 0
 ## Seconds left in the break (0 while a wave is spawning).
 var break_left: float = 0.0
+## The break does not run down while this is on (the level 1 tutorial waits
+## for the first defender).
+var hold: bool = false
 
 var _spawning: bool = false
 var _done: bool = false
@@ -59,6 +62,8 @@ func _process(delta: float) -> void:
 	if _done or level == null:
 		return
 	if not _spawning:
+		if hold:
+			return
 		break_left -= delta
 		if break_left <= 0.0:
 			break_left = 0.0

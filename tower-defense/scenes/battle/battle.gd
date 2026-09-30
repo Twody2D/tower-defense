@@ -78,6 +78,7 @@ var _parcel_in: int = 0
 @onready var parcel: Parcel = $World/Parcel
 @onready var helper: Helper = $World/Helper
 @onready var bonuses: Bonuses = $World/Bonuses
+@onready var tutorial: Tutorial = $Tutorial
 
 
 func _ready() -> void:
@@ -153,6 +154,9 @@ func _ready() -> void:
 	hud.set_wave(0, waves.total())
 	_wire_windows()
 	_wire_parcel()
+	tutorial.battle = self
+	# Level 1 tutorial: the first wave waits for the first defender.
+	waves.hold = level_number == 1 and not Game.tutorial_done
 	_apply_boosts()
 	YandexSdk.gameplay_start()
 	YandexSdk.paused.connect(_on_sdk_paused)
@@ -329,7 +333,8 @@ func _show_spawns() -> void:
 		camera.top_level = false
 		camera.position = Vector2(0, -40)
 		camera.reset_smoothing()
-		camera.position_smoothing_enabled = true)
+		camera.position_smoothing_enabled = true
+		tutorial.start(level_number))
 	tw.tween_interval(arrows_linger)
 	tw.tween_property(_arrows, ^"modulate:a", 0.0, 0.5)
 	# Made once at the start, so freed once (not a battle-time pool object).
@@ -601,6 +606,7 @@ func _finish(s: int) -> bool:
 	YandexSdk.gameplay_stop()
 	_release_input()
 	hud.radial_menu.close()
+	tutorial.stop()
 	if parcel.is_waiting():
 		parcel.hide_now()
 	hud.hide_parcel_edge()

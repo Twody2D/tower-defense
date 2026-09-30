@@ -6,6 +6,7 @@ extends GdUnitTestSuite
 ## Every defender and pest already met: no newcomer windows pause the fight.
 func before_test() -> void:
 	Game.reset()
+	Game.tutorial_done = true
 	for id: StringName in [&"goose", &"frog", &"hive", &"beaver", &"fence",
 			&"beetle", &"caterpillar", &"mole", &"crow", &"fox"]:
 		Game.first_meet(id)
