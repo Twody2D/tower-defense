@@ -168,3 +168,27 @@ func test_hero_builds_one_plot_at_a_time() -> void:
 	assert_int(tower.level).is_equal(1)
 	assert_int(tower.paid).is_equal(0)
 	assert_object(battle.hero.plot).is_same(fence)
+
+
+func test_upgrade_pauses_between_levels() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://dev/battle_sandbox.tscn")
+	var battle: Battle = runner.scene() as Battle
+	var tower: BuildPlot = null
+	for p: BuildPlot in battle.level.plots():
+		if not p.fence_plot and not p.locked and tower == null:
+			tower = p
+	tower.prebuild(_goose(battle), 1)
+	battle.state.coins = 1000
+	battle.hero.global_position = tower.global_position + Vector2(100, 0)
+	for i: int in 600:
+		await runner.simulate_frames(1, 16)
+		if tower.level == 2:
+			break
+	assert_int(tower.level).is_equal(2)
+	# Level 2 done: no coins go into level 3 for a moment (time to step off).
+	await runner.simulate_frames(45, 16)
+	assert_int(tower.level).is_equal(2)
+	assert_int(tower.paid).is_equal(0)
+	# Still standing: the next level starts.
+	await runner.simulate_frames(40, 16)
+	assert_bool(tower.paid > 0 or tower.level == 3).is_true()

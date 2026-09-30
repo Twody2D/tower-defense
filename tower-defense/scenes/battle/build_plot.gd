@@ -5,10 +5,11 @@ extends Node2D
 ## radial menu, the game goes on; stepping off → `hero_left` closes it) → a
 ## defender is chosen → after `start_delay` on the plot coins go in one by
 ## one (`coin_interval`) up to its price → it is built. Standing again
-## upgrades it up to level 3. Coins only start going in when the hero can pay
-## the whole level; stepping off before it is done gives them back (Twody:
-## running past must not spend anything). The choice can change while
-## nothing is paid.
+## upgrades it up to level 3, with a `next_level_delay` pause after each
+## level (Twody: time to step off after one upgrade). Coins only start going
+## in when the hero can pay the whole level; stepping off before it is done
+## gives them back (Twody: running past must not spend anything). The choice
+## can change while nothing is paid.
 ## Fence plot (on the road): only the fence; a damaged fence is repaired for
 ## coins (a full repair = `repair_price_share` of the level price).
 
@@ -28,6 +29,9 @@ signal coin_paid(plot: BuildPlot)
 @export var coin_interval: float = 0.05
 ## The hero has to stand on the plot this long before coins go in, s.
 @export var start_delay: float = 0.35
+## After a level is done the hero has to stand this much longer before coins
+## go into the next one, s.
+@export var next_level_delay: float = 1.0
 ## A built defender is solid (the hero cannot walk into it), so the hero
 ## upgrades it from next to it: the plot area becomes an ellipse with these
 ## half-axes, px (the solid part is only the tower's legs).
@@ -187,6 +191,9 @@ func _process(delta: float) -> void:
 			_timer = coin_interval
 			break
 		hero.mark_building()
+		if _on_time < start_delay:
+			_timer = coin_interval
+			break
 
 
 ## One coin into the plot: towards the next level or a fence repair.
@@ -210,6 +217,8 @@ func _pay_one() -> bool:
 		else:
 			defender.set_level(level)
 		built.emit(self, level)
+		# The start gate again, `next_level_delay` long.
+		_on_time = start_delay - next_level_delay
 	_refresh()
 	return true
 
