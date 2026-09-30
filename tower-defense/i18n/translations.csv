@@ -118,7 +118,7 @@ TOAST_TRIAL,Примерка — на следующий бой,Trying on — fo
 TOAST_SKIN_OPEN,Новый скин открыт!,New skin unlocked!
 GIFT_HINT,Заходи каждый день — подарки растут!,Come every day — the gifts grow!
 GIFT_STREAK,"Неделя %d подряд: подарки +%d%%","Week %d in a row: gifts +%d%%"
-GIFT_TOMORROW,Приходи завтра за +%d зёрен!,Come back tomorrow for +%d grains!
+GIFT_TOMORROW,Приходи завтра и получи %d зёрен!,Come back tomorrow and get %d grains!
 TOAST_GRAINS,+%d зёрен,+%d grains
 ENEMY_FOX_COMING,Идёт Лис!,The Fox is coming!
 HOW_TO_BOSS,"В конце уровня приходит Лис: сильный, ломает заборы и оглушает героя. Готовь защитников заранее!","At the end of a level the Fox comes: strong, breaks fences and stuns the hero. Get your defenders ready!"
