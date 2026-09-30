@@ -110,6 +110,14 @@ func _skin_cards_now() -> Array[SkinCard]:
 	return _skin_cards
 
 
+## What the shop tutorial points at: the first upgrade's buy button, or
+## the upgrades tab while the skins are shown.
+func tutorial_target() -> Control:
+	if _skins.visible:
+		return _tab_up
+	return (_stats.get_child(0) as StatCard).buy_button()
+
+
 func _show_tab(skins: bool) -> void:
 	_stats.visible = not skins
 	_skins.visible = skins

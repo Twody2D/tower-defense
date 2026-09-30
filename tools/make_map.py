@@ -196,6 +196,13 @@ def main() -> int:
                                  "anchor_left = 1.0", "anchor_right = 1.0", f"offset_left = {left}.0",
                                  "offset_top = 30.0", f"offset_right = {left + 96}.0", "offset_bottom = 126.0",
                                  "grow_horizontal = 0", f'icon = ExtResource("{tex}")'] + extra, instance=rb)
+    # After level 1: the shop tutorial (hand on Shop, then on a buy button).
+    tut = s.res("PackedScene", "res://scenes/ui/tutorial_layer.tscn")
+    s.node("Tutorial", None, ".", [], instance=tut)
+    shop_tut = s.res("Script", "res://scenes/map/shop_tutorial.gd")
+    s.node("ShopTutorial", "Node", ".", [f'script = ExtResource("{shop_tut}")', 'layer = NodePath("../Tutorial")',
+                                         'shop_button = NodePath("../Shop")'])
+    s.nodes[-1] = s.nodes[-1].replace('parent="."]', 'parent="." node_paths=PackedStringArray("layer", "shop_button")]', 1)
     out = ROOT / "scenes" / "map" / "map.tscn"
     out.write_text(s.text(), encoding="utf-8", newline="\n")
     print(f"map: {len(s.nodes)} nodes, {k} path patches")

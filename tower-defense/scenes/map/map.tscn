@@ -36,6 +36,8 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="34_m"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="35_m"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="36_m"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tutorial_layer.tscn" id="37_m"]
+[ext_resource type="Script" path="res://scenes/map/shop_tutorial.gd" id="38_m"]
 
 [node name="Map" type="Control"]
 script = ExtResource("1_m")
@@ -2165,3 +2167,10 @@ grow_horizontal = 0
 icon = ExtResource("36_m")
 icon_anim = &"icon_gift_shake"
 badge = true
+
+[node name="Tutorial" parent="." instance=ExtResource("37_m")]
+
+[node name="ShopTutorial" type="Node" parent="." node_paths=PackedStringArray("layer", "shop_button")]
+script = ExtResource("38_m")
+layer = NodePath("../Tutorial")
+shop_button = NodePath("../Shop")

@@ -147,6 +147,8 @@ TUT_BUILD,Постой на площадке — монеты уйдут в по
 TUT_COINS,Собирай монеты — на них строят защитников,Collect coins — they pay for defenders
 TUT_FENCE,Забор задерживает вредителей — встань на его площадку,A fence holds pests back — stand on its plot
 TUT_UPGRADE,Встань к защитнику ещё раз — он станет сильнее,Stand by a defender again to make it stronger
+TUT_SHOP,Загляни в магазин — там прокачка героя!,Visit the shop to upgrade your hero!
+TUT_SHOP_BUY,Купи улучшение за зёрна — герой станет сильнее,Buy an upgrade with grains to make your hero stronger
 CROP_WHEAT,Пшеница,Wheat
 CROP_APPLE,Яблоня,Apple Tree
 CROP_PUMPKIN,Тыквы,Pumpkins

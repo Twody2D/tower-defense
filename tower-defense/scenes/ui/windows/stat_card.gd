@@ -58,6 +58,10 @@ func set_portrait(portrait: bool) -> void:
 	_discount.custom_minimum_size.x = ad_width.y if portrait else ad_width.x
 
 
+func buy_button() -> Button:
+	return _buy
+
+
 func refresh() -> void:
 	var lv: int = Game.stat_level(stat)
 	var top: int = Game.META.stat_max_level
