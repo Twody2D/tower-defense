@@ -1,37 +1,40 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene format=3 uid="uid://j05awyjdca2q"]
 
-[ext_resource type="Script" path="res://scenes/boot/boot.gd" id="1_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
-[ext_resource type="Script" path="res://scenes/ui/stage.gd" id="3_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_farm_road_straight_rl.png" id="4_r"]
+[ext_resource type="Script" uid="uid://dfe2jex34vc73" path="res://scenes/boot/boot.gd" id="1_r"]
+[ext_resource type="Texture2D" uid="uid://8fxuwpyop267" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
+[ext_resource type="Script" uid="uid://duiwsukn5y72w" path="res://scenes/ui/stage.gd" id="3_r"]
+[ext_resource type="Texture2D" uid="uid://bs5jlvnvspy1i" path="res://art/env/tile_farm_road_straight_rl.png" id="4_r"]
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="5_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="6_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="7_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="8_r"]
-[ext_resource type="Texture2D" path="res://art/env/base_bed.png" id="9_r"]
-[ext_resource type="Texture2D" path="res://art/env/base_hole.png" id="10_r"]
-[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="11_r"]
-[ext_resource type="Script" path="res://scenes/ui/sheet_sprite.gd" id="12_r"]
+[ext_resource type="Texture2D" uid="uid://5v703ogvieb1" path="res://art/env/env_farm_barn.png" id="6_r"]
+[ext_resource type="Texture2D" uid="uid://p76s442eixbp" path="res://art/env/env_bush.png" id="7_r"]
+[ext_resource type="Texture2D" uid="uid://c74ld4s5ge2br" path="res://art/env/env_farm_haystack.png" id="8_r"]
+[ext_resource type="Texture2D" uid="uid://dlc25xtjj27ng" path="res://art/env/base_bed.png" id="9_r"]
+[ext_resource type="Texture2D" uid="uid://bqf8rjt8d83si" path="res://art/env/base_hole.png" id="10_r"]
+[ext_resource type="Texture2D" uid="uid://b0tt30dnixwl0" path="res://art/ui/shadow.png" id="11_r"]
+[ext_resource type="Texture2D" uid="uid://manaw663vwit" path="res://art/enemies/atlas_fox.png" id="12_dqf0b"]
+[ext_resource type="Script" uid="uid://d0es3ac37r8ld" path="res://scenes/ui/sheet_sprite.gd" id="12_r"]
 [ext_resource type="Resource" path="res://art/enemies/atlas_fox.tres" id="13_r"]
 [ext_resource type="Resource" path="res://art/enemies/atlas_beetle.tres" id="14_r"]
+[ext_resource type="Texture2D" uid="uid://bu6qplg3revo2" path="res://art/enemies/atlas_beetle.png" id="15_iu5xy"]
 [ext_resource type="Resource" path="res://art/enemies/atlas_caterpillar.tres" id="15_r"]
 [ext_resource type="SpriteFrames" path="res://art/frames/fx.tres" id="16_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="17_r"]
+[ext_resource type="Texture2D" uid="uid://dehh5hbrqibev" path="res://art/enemies/atlas_caterpillar.png" id="17_aqfwq"]
+[ext_resource type="Texture2D" uid="uid://cigkrtmbss4ck" path="res://art/env/env_rocks.png" id="17_r"]
 [ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="18_r"]
 [ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="19_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="20_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="21_r"]
+[ext_resource type="Texture2D" uid="uid://cftcxjb00kj85" path="res://art/ui/ui_progress_frame.png" id="20_r"]
+[ext_resource type="Texture2D" uid="uid://cy25igmn7857h" path="res://art/ui/ui_progress_fill.png" id="21_r"]
 
-[node name="Boot" type="Control"]
-script = ExtResource("1_r")
+[node name="Boot" type="Control" unique_id=220678700]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_r")
 
-[node name="Grass" type="TextureRect" parent="."]
+[node name="Grass" type="TextureRect" parent="." unique_id=1836004751]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,656 +45,606 @@ mouse_filter = 2
 texture = ExtResource("2_r")
 stretch_mode = 1
 
-[node name="Stage" type="Control" parent="."]
-layout_mode = 0
+[node name="Stage" type="Control" parent="." unique_id=170697231]
+anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 script = ExtResource("3_r")
 
-[node name="Landscape" type="Control" parent="Stage"]
-layout_mode = 0
+[node name="Landscape" type="Control" parent="Stage" unique_id=1241190671]
+anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
 metadata/only = "landscape"
 
-[node name="Road" type="TextureRect" parent="Stage/Landscape"]
+[node name="Road" type="TextureRect" parent="Stage/Landscape" unique_id=1730499040]
 layout_mode = 0
-offset_left = 0
-offset_top = 640
-offset_right = 900
-offset_bottom = 704
+offset_top = 640.0
+offset_right = 900.0
+offset_bottom = 704.0
 mouse_filter = 2
 texture = ExtResource("4_r")
 stretch_mode = 1
 
-[node name="Decor" type="Node2D" parent="Stage/Landscape"]
+[node name="Decor" type="Node2D" parent="Stage/Landscape" unique_id=345309030]
 y_sort_enabled = true
 
-[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Landscape/Decor" unique_id=1471378001]
 position = Vector2(126, 126)
 scale = Vector2(1.2, 1.2)
 sprite_frames = ExtResource("5_r")
 animation = &"env_tree_apple_sway"
 autoplay = "env_tree_apple_sway"
-frame = 0
 
-[node name="Barn" type="Sprite2D" parent="Stage/Landscape/Decor"]
+[node name="Barn" type="Sprite2D" parent="Stage/Landscape/Decor" unique_id=25887607]
 position = Vector2(1730, 490)
 scale = Vector2(1.172, 1.172)
 texture = ExtResource("6_r")
 
-[node name="BarnFlag" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+[node name="BarnFlag" type="AnimatedSprite2D" parent="Stage/Landscape/Decor" unique_id=1797881698]
 position = Vector2(1730, 490)
 scale = Vector2(1.172, 1.172)
 sprite_frames = ExtResource("5_r")
 animation = &"env_farm_barn_flag"
 autoplay = "env_farm_barn_flag"
-frame = 0
 
-[node name="Bush" type="Sprite2D" parent="Stage/Landscape/Decor"]
+[node name="Bush" type="Sprite2D" parent="Stage/Landscape/Decor" unique_id=1682588310]
 position = Vector2(1518, 888)
-scale = Vector2(1, 1)
 texture = ExtResource("7_r")
 
-[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Landscape/Decor" unique_id=414643133]
 position = Vector2(72, 908)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
-frame = 0
 
-[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Landscape/Decor"]
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Landscape/Decor" unique_id=502760317]
 position = Vector2(132, 928)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 1
 
-[node name="Haystack" type="Sprite2D" parent="Stage/Landscape/Decor"]
+[node name="Haystack" type="Sprite2D" parent="Stage/Landscape/Decor" unique_id=597616832]
 position = Vector2(1837.5, 817.5)
 scale = Vector2(1.198, 1.198)
 texture = ExtResource("8_r")
 
-[node name="Base" type="Node2D" parent="Stage/Landscape"]
+[node name="Base" type="Node2D" parent="Stage/Landscape" unique_id=445761397]
 
-[node name="Bed" type="Sprite2D" parent="Stage/Landscape/Base"]
+[node name="Bed" type="Sprite2D" parent="Stage/Landscape/Base" unique_id=1780516]
 position = Vector2(1028, 648)
-scale = Vector2(1, 1)
 texture = ExtResource("9_r")
 
-[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1679688426]
 position = Vector2(950, 590)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1790599367]
 position = Vector2(989, 590)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1412636166]
 position = Vector2(1028, 590)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Hole3" type="Sprite2D" parent="Stage/Landscape/Base"]
+[node name="Hole3" type="Sprite2D" parent="Stage/Landscape/Base" unique_id=2055450926]
 position = Vector2(1067, 590)
-scale = Vector2(1, 1)
 texture = ExtResource("10_r")
 
-[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=74378818]
 position = Vector2(1106, 590)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=397186989]
 position = Vector2(950, 626)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=944576793]
 position = Vector2(989, 626)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1677176200]
 position = Vector2(1028, 626)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=22129524]
 position = Vector2(1067, 626)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1676471493]
 position = Vector2(1106, 626)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=207922118]
 position = Vector2(950, 662)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=101480124]
 position = Vector2(989, 662)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Hole12" type="Sprite2D" parent="Stage/Landscape/Base"]
+[node name="Hole12" type="Sprite2D" parent="Stage/Landscape/Base" unique_id=293382018]
 position = Vector2(1028, 662)
-scale = Vector2(1, 1)
 texture = ExtResource("10_r")
 
-[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=465214559]
 position = Vector2(1067, 662)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=538949486]
 position = Vector2(1106, 662)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1738702096]
 position = Vector2(950, 698)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1202809131]
 position = Vector2(989, 698)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=1116414094]
 position = Vector2(1028, 698)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=954398425]
 position = Vector2(1067, 698)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Landscape/Base"]
+[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Landscape/Base" unique_id=305734591]
 position = Vector2(1106, 698)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="FoxShadow" type="Sprite2D" parent="Stage/Landscape"]
+[node name="FoxShadow" type="Sprite2D" parent="Stage/Landscape" unique_id=395108963]
 position = Vector2(170, 668)
 scale = Vector2(0.9375, 0.9)
 texture = ExtResource("11_r")
 
-[node name="Fox" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Fox" type="Sprite2D" parent="Stage/Landscape" unique_id=909034228]
 position = Vector2(165, 575)
 scale = Vector2(1.198, 1.198)
+texture = ExtResource("12_dqf0b")
+region_enabled = true
+region_rect = Rect2(576, 0, 192, 192)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("13_r")
-anim = &"walk"
-phase = 0
 
-[node name="Pest1" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest1" type="Sprite2D" parent="Stage/Landscape" unique_id=1466466552]
 position = Vector2(368.5, 638.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(96, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
-phase = 0
 
-[node name="Pest2" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest2" type="Sprite2D" parent="Stage/Landscape" unique_id=134811515]
 position = Vector2(458.5, 648.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(144, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
 phase = 0.13
 
-[node name="Pest3" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest3" type="Sprite2D" parent="Stage/Landscape" unique_id=1203530627]
 position = Vector2(550, 636)
 scale = Vector2(1.562, 1.562)
+texture = ExtResource("17_aqfwq")
+region_enabled = true
+region_rect = Rect2(128, 0, 64, 64)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("15_r")
-anim = &"walk"
 phase = 0.06
 
-[node name="Pest4" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest4" type="Sprite2D" parent="Stage/Landscape" unique_id=492440951]
 position = Vector2(648.5, 644.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(0, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
 phase = 0.21
 
-[node name="Pest5" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest5" type="Sprite2D" parent="Stage/Landscape" unique_id=1395490421]
 position = Vector2(740, 636)
 scale = Vector2(1.562, 1.562)
+texture = ExtResource("17_aqfwq")
+region_enabled = true
+region_rect = Rect2(192, 0, 64, 64)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("15_r")
-anim = &"walk"
 phase = 0.15
 
-[node name="Pest6" type="Sprite2D" parent="Stage/Landscape"]
+[node name="Pest6" type="Sprite2D" parent="Stage/Landscape" unique_id=1525469605]
 position = Vector2(838.5, 644.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(96, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
 phase = 0.03
 
-[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Landscape"]
+[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Landscape" unique_id=40264428]
 position = Vector2(1226, 846)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
-frame = 0
 
-[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Landscape"]
+[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Landscape" unique_id=848962132]
 position = Vector2(1296, 876)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
 frame = 2
 
-[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Landscape"]
+[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Landscape" unique_id=2089038633]
 position = Vector2(1366, 836)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
 frame = 4
 
-[node name="Portrait" type="Control" parent="Stage"]
+[node name="Portrait" type="Control" parent="Stage" unique_id=768217395]
 visible = false
-layout_mode = 0
+anchors_preset = 0
 offset_right = 1080.0
 offset_bottom = 1920.0
 mouse_filter = 2
 metadata/only = "portrait"
 
-[node name="Road" type="TextureRect" parent="Stage/Portrait"]
+[node name="Road" type="TextureRect" parent="Stage/Portrait" unique_id=364170553]
 layout_mode = 0
-offset_left = 0
-offset_top = 1100
-offset_right = 480
-offset_bottom = 1164
+offset_top = 1100.0
+offset_right = 480.0
+offset_bottom = 1164.0
 mouse_filter = 2
 texture = ExtResource("4_r")
 stretch_mode = 1
 
-[node name="Decor" type="Node2D" parent="Stage/Portrait"]
+[node name="Decor" type="Node2D" parent="Stage/Portrait" unique_id=775142204]
 y_sort_enabled = true
 
-[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+[node name="AppleTree" type="AnimatedSprite2D" parent="Stage/Portrait/Decor" unique_id=1954123337]
 position = Vector2(106, 696)
 scale = Vector2(1.2, 1.2)
 sprite_frames = ExtResource("5_r")
 animation = &"env_tree_apple_sway"
 autoplay = "env_tree_apple_sway"
-frame = 0
 
-[node name="Bush" type="Sprite2D" parent="Stage/Portrait/Decor"]
+[node name="Bush" type="Sprite2D" parent="Stage/Portrait/Decor" unique_id=345927798]
 position = Vector2(948, 808)
-scale = Vector2(1, 1)
 texture = ExtResource("7_r")
 
-[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Portrait/Decor" unique_id=998503166]
 position = Vector2(912, 1388)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
-frame = 0
 
-[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Portrait/Decor"]
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Portrait/Decor" unique_id=1937855929]
 position = Vector2(972, 1408)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 1
 
-[node name="Rocks" type="Sprite2D" parent="Stage/Portrait/Decor"]
+[node name="Rocks" type="Sprite2D" parent="Stage/Portrait/Decor" unique_id=813496057]
 position = Vector2(172, 1392)
-scale = Vector2(1, 1)
 texture = ExtResource("17_r")
 
-[node name="Base" type="Node2D" parent="Stage/Portrait"]
+[node name="Base" type="Node2D" parent="Stage/Portrait" unique_id=1274044346]
 
-[node name="Bed" type="Sprite2D" parent="Stage/Portrait/Base"]
+[node name="Bed" type="Sprite2D" parent="Stage/Portrait/Base" unique_id=679849809]
 position = Vector2(608, 1088)
-scale = Vector2(1, 1)
 texture = ExtResource("9_r")
 
-[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot0" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1807675971]
 position = Vector2(530, 1030)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot1" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=2000545225]
 position = Vector2(569, 1030)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot2" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1028226301]
 position = Vector2(608, 1030)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Hole3" type="Sprite2D" parent="Stage/Portrait/Base"]
+[node name="Hole3" type="Sprite2D" parent="Stage/Portrait/Base" unique_id=344871848]
 position = Vector2(647, 1030)
-scale = Vector2(1, 1)
 texture = ExtResource("10_r")
 
-[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot4" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=636017428]
 position = Vector2(686, 1030)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot5" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=2119695041]
 position = Vector2(530, 1066)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot6" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=133077983]
 position = Vector2(569, 1066)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot7" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=2066074579]
 position = Vector2(608, 1066)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot8" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=660990212]
 position = Vector2(647, 1066)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot9" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=615542901]
 position = Vector2(686, 1066)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot10" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1710233174]
 position = Vector2(530, 1102)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot11" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=123645762]
 position = Vector2(569, 1102)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Hole12" type="Sprite2D" parent="Stage/Portrait/Base"]
+[node name="Hole12" type="Sprite2D" parent="Stage/Portrait/Base" unique_id=1249486375]
 position = Vector2(608, 1102)
-scale = Vector2(1, 1)
 texture = ExtResource("10_r")
 
-[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot13" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=678278089]
 position = Vector2(647, 1102)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot14" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=143234128]
 position = Vector2(686, 1102)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot15" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1304487934]
 position = Vector2(530, 1138)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot16" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=769506107]
 position = Vector2(569, 1138)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot17" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1349824634]
 position = Vector2(608, 1138)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot18" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=1990076874]
 position = Vector2(647, 1138)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
-frame = 0
 
-[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Portrait/Base"]
+[node name="Carrot19" type="AnimatedSprite2D" parent="Stage/Portrait/Base" unique_id=386050806]
 position = Vector2(686, 1138)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("5_r")
 animation = &"base_carrot_idle"
 autoplay = "base_carrot_idle"
 frame = 1
 
-[node name="FoxShadow" type="Sprite2D" parent="Stage/Portrait"]
+[node name="FoxShadow" type="Sprite2D" parent="Stage/Portrait" unique_id=981546401]
 position = Vector2(90, 1100)
 scale = Vector2(0.9375, 0.9)
 texture = ExtResource("11_r")
 
-[node name="Fox" type="Sprite2D" parent="Stage/Portrait"]
+[node name="Fox" type="Sprite2D" parent="Stage/Portrait" unique_id=1111683010]
 position = Vector2(85, 995)
 scale = Vector2(1.198, 1.198)
+texture = ExtResource("12_dqf0b")
+region_enabled = true
+region_rect = Rect2(576, 0, 192, 192)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("13_r")
-anim = &"walk"
-phase = 0
 
-[node name="Pest1" type="Sprite2D" parent="Stage/Portrait"]
+[node name="Pest1" type="Sprite2D" parent="Stage/Portrait" unique_id=2087141302]
 position = Vector2(238.5, 1098.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(96, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
-phase = 0
 
-[node name="Pest2" type="Sprite2D" parent="Stage/Portrait"]
+[node name="Pest2" type="Sprite2D" parent="Stage/Portrait" unique_id=2036941318]
 position = Vector2(308.5, 1108.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(144, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
 phase = 0.13
 
-[node name="Pest3" type="Sprite2D" parent="Stage/Portrait"]
+[node name="Pest3" type="Sprite2D" parent="Stage/Portrait" unique_id=2059687837]
 position = Vector2(380, 1096)
 scale = Vector2(1.562, 1.562)
+texture = ExtResource("17_aqfwq")
+region_enabled = true
+region_rect = Rect2(128, 0, 64, 64)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("15_r")
-anim = &"walk"
 phase = 0.06
 
-[node name="Pest4" type="Sprite2D" parent="Stage/Portrait"]
+[node name="Pest4" type="Sprite2D" parent="Stage/Portrait" unique_id=535655544]
 position = Vector2(448.5, 1104.5)
 scale = Vector2(1.604, 1.604)
+texture = ExtResource("15_iu5xy")
+region_enabled = true
+region_rect = Rect2(0, 0, 48, 48)
+region_filter_clip_enabled = true
 script = ExtResource("12_r")
 atlas = ExtResource("14_r")
-anim = &"walk"
 phase = 0.21
 
-[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Portrait"]
+[node name="Coin1" type="AnimatedSprite2D" parent="Stage/Portrait" unique_id=454942445]
 position = Vector2(816, 1276)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
-frame = 0
 
-[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Portrait"]
+[node name="Coin2" type="AnimatedSprite2D" parent="Stage/Portrait" unique_id=697952520]
 position = Vector2(876, 1306)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
 frame = 2
 
-[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Portrait"]
+[node name="Coin3" type="AnimatedSprite2D" parent="Stage/Portrait" unique_id=1539111514]
 position = Vector2(936, 1266)
-scale = Vector2(1, 1)
 sprite_frames = ExtResource("16_r")
 animation = &"coin_spin"
 autoplay = "coin_spin"
 frame = 4
 
-[node name="Hero" type="Node2D" parent="Stage"]
+[node name="Hero" type="Node2D" parent="Stage" unique_id=1892645770]
 position = Vector2(1300, 670)
 metadata/portrait = Vector2(890, 1110)
 
-[node name="Shadow" type="Sprite2D" parent="Stage/Hero"]
+[node name="Shadow" type="Sprite2D" parent="Stage/Hero" unique_id=769488131]
 position = Vector2(0, 101.4)
 scale = Vector2(1.016, 0.975)
 texture = ExtResource("11_r")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero"]
+[node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero" unique_id=1922904472]
 scale = Vector2(0.677, 0.677)
 sprite_frames = ExtResource("18_r")
 animation = &"joy"
 autoplay = "joy"
 
-[node name="Logo" parent="Stage" instance=ExtResource("19_r")]
+[node name="Logo" parent="Stage" unique_id=908916725 instance=ExtResource("19_r")]
 layout_mode = 0
-offset_left = 560
-offset_top = 24
-offset_right = 1520
-offset_bottom = 464
+offset_left = 560.0
+offset_top = 24.0
+offset_right = 1520.0
+offset_bottom = 464.0
 scale = Vector2(0.8333, 0.8333)
 metadata/portrait = Rect2(90, 170, 960, 440)
 metadata/portrait_scale = Vector2(0.9375, 0.9375)
 
-[node name="Status" type="Label" parent="Stage"]
+[node name="Status" type="Label" parent="Stage" unique_id=189464789]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 560
-offset_top = 910
-offset_right = 1360
-offset_bottom = 966
+offset_left = 560.0
+offset_top = 910.0
+offset_right = 1360.0
+offset_bottom = 966.0
 theme_override_font_sizes/font_size = 40
 text = "Загрузка… 64%"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/portrait = Rect2(140, 1570, 800, 56)
 
-[node name="Bar" type="TextureProgressBar" parent="Stage"]
+[node name="Bar" type="TextureProgressBar" parent="Stage" unique_id=993599157]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 560
-offset_top = 974
-offset_right = 1360
-offset_bottom = 1022
+offset_left = 560.0
+offset_top = 974.0
+offset_right = 1360.0
+offset_bottom = 1022.0
 mouse_filter = 2
 max_value = 1.0
 step = 0.001
@@ -704,14 +657,14 @@ texture_progress = ExtResource("21_r")
 texture_progress_offset = Vector2(8, 8)
 metadata/portrait = Rect2(140, 1640, 800, 48)
 
-[node name="Tip" type="Label" parent="Stage"]
+[node name="Tip" type="Label" parent="Stage" unique_id=1238001289]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
-offset_left = 60
-offset_top = 1730
-offset_right = 1020
-offset_bottom = 1780
+offset_left = 60.0
+offset_top = 1730.0
+offset_right = 1020.0
+offset_bottom = 1780.0
 theme_override_font_sizes/font_size = 30
 text = "Совет"
 horizontal_alignment = 1
