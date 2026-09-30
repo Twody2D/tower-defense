@@ -6,6 +6,8 @@ extends TextureButton
 ## bubble over it. A tap is handled by the screen: collect when ripe,
 ## otherwise the harvest window.
 
+const GRAIN: Texture2D = preload("res://art/ui/ui_icon_grain.png")
+
 @export var crop_id: StringName = &"wheat"
 ## The bubble bobs this much, px, and this fast, rad/s.
 @export var bob_height: float = 5.0
@@ -34,6 +36,21 @@ func _ready() -> void:
 
 func is_ripe() -> bool:
 	return Game.crop_ready(crop, Game.now())
+
+
+## Collects a ripe crop: the collect animation, the products fly from the
+## bubble to `counter` (added to `layer`) and turn into grains. 0 if not ripe.
+func collect(layer: Control, counter: Control) -> int:
+	var n: int = Game.collect_crop(crop, Game.now())
+	if n <= 0:
+		return 0
+	var from: Vector2 = product_point()
+	play_collect()
+	Audio.sfx(&"coin", false)
+	Save.save()
+	UiFx.fly_icons(layer, from, counter.global_position + Vector2(32, 32), crop.icon_big, GRAIN, 5, 72.0,
+			func() -> void: UiFx.bump(counter, 1.15, 0.25))
+	return n
 
 
 ## Global point the product icons fly from.

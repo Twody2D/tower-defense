@@ -1,33 +1,48 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/settings_window.tscn" id="90_0"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/shop_window.tscn" id="90_2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_window.tscn" id="90_3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/windows/how_to_window.tscn" id="90_4"]
-[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_r"]
-[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
-[ext_resource type="Script" path="res://scenes/ui/stage.gd" id="3_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_barn.png" id="4_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="5_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_bed.png" id="6_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="7_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="8_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="9_r"]
-[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="10_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="11_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="12_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="13_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="14_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="15_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="16_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="17_r"]
+[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/settings_window.tscn" id="2_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/shop_window.tscn" id="3_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/gift_window.tscn" id="4_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/how_to_window.tscn" id="5_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/harvest_window.tscn" id="6_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="7_u"]
+[ext_resource type="Script" path="res://scenes/ui/stage.gd" id="8_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_outer_br.png" id="9_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_edge_b.png" id="10_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_outer_bl.png" id="11_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_edge_r.png" id="12_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_fill.png" id="13_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_edge_l.png" id="14_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_outer_tr.png" id="15_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_edge_t.png" id="16_u"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_sand_outer_tl.png" id="17_u"]
+[ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="18_u"]
+[ext_resource type="SpriteFrames" path="res://art/frames/map.tres" id="19_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="20_u"]
+[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="21_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_house.png" id="22_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="23_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="24_u"]
+[ext_resource type="PackedScene" path="res://scenes/map/map_crop.tscn" id="25_u"]
+[ext_resource type="Script" path="res://scenes/ui/butterfly.gd" id="26_u"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="27_u"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="28_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/logo.tscn" id="29_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="30_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="31_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="32_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="33_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_howto.png" id="34_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="35_u"]
 
 [node name="MainMenu" type="Control"]
-script = ExtResource("1_r")
-settings_window = ExtResource("90_0")
-shop_window = ExtResource("90_2")
-gift_window = ExtResource("90_3")
-how_to_window = ExtResource("90_4")
+script = ExtResource("1_u")
+settings_window = ExtResource("2_u")
+shop_window = ExtResource("3_u")
+gift_window = ExtResource("4_u")
+how_to_window = ExtResource("5_u")
+harvest_window = ExtResource("6_u")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +58,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_r")
+texture = ExtResource("7_u")
 stretch_mode = 1
 
 [node name="Stage" type="Control" parent="."]
@@ -51,244 +66,1425 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-script = ExtResource("3_r")
+script = ExtResource("8_u")
+
+[node name="Portrait" type="Node2D" parent="Stage"]
+y_sort_enabled = true
+metadata/only = "portrait"
+
+[node name="Sand" type="Node2D" parent="Stage/Portrait"]
+
+[node name="T2_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 864)
+texture = ExtResource("9_u")
+
+[node name="T3_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 864)
+texture = ExtResource("10_u")
+
+[node name="T4_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 864)
+texture = ExtResource("10_u")
+
+[node name="T5_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 864)
+texture = ExtResource("10_u")
+
+[node name="T6_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 864)
+texture = ExtResource("10_u")
+
+[node name="T7_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 864)
+texture = ExtResource("10_u")
+
+[node name="T8_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 864)
+texture = ExtResource("10_u")
+
+[node name="T9_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 864)
+texture = ExtResource("10_u")
+
+[node name="T10_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 864)
+texture = ExtResource("10_u")
+
+[node name="T11_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 864)
+texture = ExtResource("10_u")
+
+[node name="T12_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 864)
+texture = ExtResource("10_u")
+
+[node name="T13_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 864)
+texture = ExtResource("10_u")
+
+[node name="T14_13" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 864)
+texture = ExtResource("11_u")
+
+[node name="T2_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 928)
+texture = ExtResource("12_u")
+
+[node name="T3_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 928)
+texture = ExtResource("13_u")
+
+[node name="T4_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 928)
+texture = ExtResource("13_u")
+
+[node name="T5_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 928)
+texture = ExtResource("13_u")
+
+[node name="T6_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 928)
+texture = ExtResource("13_u")
+
+[node name="T7_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 928)
+texture = ExtResource("13_u")
+
+[node name="T8_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 928)
+texture = ExtResource("13_u")
+
+[node name="T9_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 928)
+texture = ExtResource("13_u")
+
+[node name="T10_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 928)
+texture = ExtResource("13_u")
+
+[node name="T11_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 928)
+texture = ExtResource("13_u")
+
+[node name="T12_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 928)
+texture = ExtResource("13_u")
+
+[node name="T13_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 928)
+texture = ExtResource("13_u")
+
+[node name="T14_14" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 928)
+texture = ExtResource("14_u")
+
+[node name="T2_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 992)
+texture = ExtResource("12_u")
+
+[node name="T3_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 992)
+texture = ExtResource("13_u")
+
+[node name="T4_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 992)
+texture = ExtResource("13_u")
+
+[node name="T5_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 992)
+texture = ExtResource("13_u")
+
+[node name="T6_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 992)
+texture = ExtResource("13_u")
+
+[node name="T7_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 992)
+texture = ExtResource("13_u")
+
+[node name="T8_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 992)
+texture = ExtResource("13_u")
+
+[node name="T9_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 992)
+texture = ExtResource("13_u")
+
+[node name="T10_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 992)
+texture = ExtResource("13_u")
+
+[node name="T11_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 992)
+texture = ExtResource("13_u")
+
+[node name="T12_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 992)
+texture = ExtResource("13_u")
+
+[node name="T13_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 992)
+texture = ExtResource("13_u")
+
+[node name="T14_15" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 992)
+texture = ExtResource("14_u")
+
+[node name="T2_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 1056)
+texture = ExtResource("12_u")
+
+[node name="T3_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 1056)
+texture = ExtResource("13_u")
+
+[node name="T4_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 1056)
+texture = ExtResource("13_u")
+
+[node name="T5_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 1056)
+texture = ExtResource("13_u")
+
+[node name="T6_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 1056)
+texture = ExtResource("13_u")
+
+[node name="T7_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 1056)
+texture = ExtResource("13_u")
+
+[node name="T8_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 1056)
+texture = ExtResource("13_u")
+
+[node name="T9_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 1056)
+texture = ExtResource("13_u")
+
+[node name="T10_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 1056)
+texture = ExtResource("13_u")
+
+[node name="T11_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 1056)
+texture = ExtResource("13_u")
+
+[node name="T12_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 1056)
+texture = ExtResource("13_u")
+
+[node name="T13_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 1056)
+texture = ExtResource("13_u")
+
+[node name="T14_16" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 1056)
+texture = ExtResource("14_u")
+
+[node name="T2_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 1120)
+texture = ExtResource("12_u")
+
+[node name="T3_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 1120)
+texture = ExtResource("13_u")
+
+[node name="T4_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 1120)
+texture = ExtResource("13_u")
+
+[node name="T5_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 1120)
+texture = ExtResource("13_u")
+
+[node name="T6_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 1120)
+texture = ExtResource("13_u")
+
+[node name="T7_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 1120)
+texture = ExtResource("13_u")
+
+[node name="T8_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 1120)
+texture = ExtResource("13_u")
+
+[node name="T9_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 1120)
+texture = ExtResource("13_u")
+
+[node name="T10_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 1120)
+texture = ExtResource("13_u")
+
+[node name="T11_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 1120)
+texture = ExtResource("13_u")
+
+[node name="T12_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 1120)
+texture = ExtResource("13_u")
+
+[node name="T13_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 1120)
+texture = ExtResource("13_u")
+
+[node name="T14_17" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 1120)
+texture = ExtResource("14_u")
+
+[node name="T2_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 1184)
+texture = ExtResource("12_u")
+
+[node name="T3_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 1184)
+texture = ExtResource("13_u")
+
+[node name="T4_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 1184)
+texture = ExtResource("13_u")
+
+[node name="T5_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 1184)
+texture = ExtResource("13_u")
+
+[node name="T6_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 1184)
+texture = ExtResource("13_u")
+
+[node name="T7_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 1184)
+texture = ExtResource("13_u")
+
+[node name="T8_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 1184)
+texture = ExtResource("13_u")
+
+[node name="T9_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 1184)
+texture = ExtResource("13_u")
+
+[node name="T10_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 1184)
+texture = ExtResource("13_u")
+
+[node name="T11_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 1184)
+texture = ExtResource("13_u")
+
+[node name="T12_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 1184)
+texture = ExtResource("13_u")
+
+[node name="T13_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 1184)
+texture = ExtResource("13_u")
+
+[node name="T14_18" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 1184)
+texture = ExtResource("14_u")
+
+[node name="T2_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 1248)
+texture = ExtResource("12_u")
+
+[node name="T3_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 1248)
+texture = ExtResource("13_u")
+
+[node name="T4_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 1248)
+texture = ExtResource("13_u")
+
+[node name="T5_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 1248)
+texture = ExtResource("13_u")
+
+[node name="T6_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 1248)
+texture = ExtResource("13_u")
+
+[node name="T7_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 1248)
+texture = ExtResource("13_u")
+
+[node name="T8_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 1248)
+texture = ExtResource("13_u")
+
+[node name="T9_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 1248)
+texture = ExtResource("13_u")
+
+[node name="T10_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 1248)
+texture = ExtResource("13_u")
+
+[node name="T11_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 1248)
+texture = ExtResource("13_u")
+
+[node name="T12_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 1248)
+texture = ExtResource("13_u")
+
+[node name="T13_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 1248)
+texture = ExtResource("13_u")
+
+[node name="T14_19" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 1248)
+texture = ExtResource("14_u")
+
+[node name="T2_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(160, 1312)
+texture = ExtResource("15_u")
+
+[node name="T3_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(224, 1312)
+texture = ExtResource("16_u")
+
+[node name="T4_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(288, 1312)
+texture = ExtResource("16_u")
+
+[node name="T5_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(352, 1312)
+texture = ExtResource("16_u")
+
+[node name="T6_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(416, 1312)
+texture = ExtResource("16_u")
+
+[node name="T7_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(480, 1312)
+texture = ExtResource("16_u")
+
+[node name="T8_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(544, 1312)
+texture = ExtResource("16_u")
+
+[node name="T9_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(608, 1312)
+texture = ExtResource("16_u")
+
+[node name="T10_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(672, 1312)
+texture = ExtResource("16_u")
+
+[node name="T11_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(736, 1312)
+texture = ExtResource("16_u")
+
+[node name="T12_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(800, 1312)
+texture = ExtResource("16_u")
+
+[node name="T13_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(864, 1312)
+texture = ExtResource("16_u")
+
+[node name="T14_20" type="Sprite2D" parent="Stage/Portrait/Sand"]
+position = Vector2(928, 1312)
+texture = ExtResource("17_u")
+
+[node name="Fence1" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(92, 748)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="Fence2" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(232, 748)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="Fence3" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(848, 748)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="Fence4" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(988, 748)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="HouseShadow" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(539.6, 972.4)
+scale = Vector2(3.04688, 2.925)
+texture = ExtResource("21_u")
+
+[node name="House" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(539.6, 769.6)
+scale = Vector2(1.95, 1.95)
+texture = ExtResource("22_u")
+
+[node name="Smoke" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(642.95, 519.6)
+scale = Vector2(1.1875, 1.1875)
+sprite_frames = ExtResource("19_u")
+animation = &"chimney_smoke"
+autoplay = "chimney_smoke"
+
+[node name="TreeShadow1" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(98, 836)
+scale = Vector2(0.625, 0.6)
+texture = ExtResource("21_u")
+
+[node name="Pine1" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(98, 748)
+scale = Vector2(1.6875, 1.6875)
+sprite_frames = ExtResource("18_u")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 0
+
+[node name="TreeShadow2" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(1000, 810)
+scale = Vector2(0.5, 0.48)
+texture = ExtResource("21_u")
+
+[node name="Pine2" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(1000, 740)
+scale = Vector2(1.25, 1.25)
+sprite_frames = ExtResource("18_u")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 1
+
+[node name="FarmHaystack" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(965, 1315)
+scale = Vector2(1.35417, 1.35417)
+texture = ExtResource("23_u")
+
+[node name="FarmWheelbarrow" type="Sprite2D" parent="Stage/Portrait"]
+position = Vector2(695, 1315)
+scale = Vector2(1.14583, 1.14583)
+texture = ExtResource("24_u")
+
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(72, 1318)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("18_u")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 0
+
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Portrait"]
+position = Vector2(132, 1338)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("18_u")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 2
+
+[node name="CropWheat" parent="Stage/Portrait" instance=ExtResource("25_u")]
+offset_left = 30.0
+offset_top = 1020.0
+offset_right = 222.0
+offset_bottom = 1212.0
+scale = Vector2(1.15, 1.15)
+crop_id = &"wheat"
+
+[node name="CropApple" parent="Stage/Portrait" instance=ExtResource("25_u")]
+offset_left = 820.0
+offset_top = 960.0
+offset_right = 1012.0
+offset_bottom = 1152.0
+scale = Vector2(1.15, 1.15)
+crop_id = &"apple"
+
+[node name="Butterfly1" type="AnimatedSprite2D" parent="Stage/Portrait"]
+sprite_frames = ExtResource("19_u")
+animation = &"butterfly"
+script = ExtResource("26_u")
+centre = Vector2(760, 900)
+radius = Vector2(120, 40)
+speed = 0.8
+phase = 0.0
+
+[node name="Butterfly2" type="AnimatedSprite2D" parent="Stage/Portrait"]
+sprite_frames = ExtResource("19_u")
+animation = &"butterfly"
+script = ExtResource("26_u")
+centre = Vector2(220, 1180)
+radius = Vector2(90, 30)
+speed = 1.1
+phase = 2.0
 
 [node name="Landscape" type="Node2D" parent="Stage"]
 y_sort_enabled = true
 metadata/only = "landscape"
 
-[node name="Barn0" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1630, 310)
-scale = Vector2(1.484, 1.484)
-texture = ExtResource("4_r")
+[node name="Sand" type="Node2D" parent="Stage/Landscape"]
 
-[node name="BarnFlag1" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(1630, 310)
-scale = Vector2(1.484, 1.484)
-sprite_frames = ExtResource("5_r")
-animation = &"env_farm_barn_flag"
-autoplay = "env_farm_barn_flag"
-frame = 1
+[node name="T12_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 544)
+texture = ExtResource("9_u")
 
-[node name="TreeAppleSway2" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(1776, 656)
-scale = Vector2(1.2, 1.2)
-sprite_frames = ExtResource("5_r")
-animation = &"env_tree_apple_sway"
-autoplay = "env_tree_apple_sway"
-frame = 2
+[node name="T13_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 544)
+texture = ExtResource("10_u")
 
-[node name="Bed3" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1317, 877.5)
-scale = Vector2(1.203, 1.198)
-texture = ExtResource("6_r")
+[node name="T14_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 544)
+texture = ExtResource("10_u")
 
-[node name="ScarecrowSway4" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(1527.5, 797)
-scale = Vector2(1.198, 1.203)
-sprite_frames = ExtResource("5_r")
-animation = &"env_farm_scarecrow_sway"
-autoplay = "env_farm_scarecrow_sway"
-frame = 0
+[node name="T15_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 544)
+texture = ExtResource("10_u")
 
-[node name="SunflowerSway5" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(932, 908)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("5_r")
-animation = &"env_sunflower_sway"
-autoplay = "env_sunflower_sway"
-frame = 2
+[node name="T16_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 544)
+texture = ExtResource("10_u")
 
-[node name="SunflowerSway6" type="AnimatedSprite2D" parent="Stage/Landscape"]
+[node name="T17_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 544)
+texture = ExtResource("10_u")
+
+[node name="T18_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 544)
+texture = ExtResource("10_u")
+
+[node name="T19_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 544)
+texture = ExtResource("10_u")
+
+[node name="T20_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 544)
+texture = ExtResource("10_u")
+
+[node name="T21_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 544)
+texture = ExtResource("10_u")
+
+[node name="T22_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 544)
+texture = ExtResource("10_u")
+
+[node name="T23_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 544)
+texture = ExtResource("10_u")
+
+[node name="T24_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 544)
+texture = ExtResource("10_u")
+
+[node name="T25_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 544)
+texture = ExtResource("10_u")
+
+[node name="T26_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 544)
+texture = ExtResource("10_u")
+
+[node name="T27_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 544)
+texture = ExtResource("10_u")
+
+[node name="T28_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 544)
+texture = ExtResource("10_u")
+
+[node name="T29_8" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 544)
+texture = ExtResource("11_u")
+
+[node name="T12_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 608)
+texture = ExtResource("12_u")
+
+[node name="T13_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 608)
+texture = ExtResource("13_u")
+
+[node name="T14_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 608)
+texture = ExtResource("13_u")
+
+[node name="T15_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 608)
+texture = ExtResource("13_u")
+
+[node name="T16_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 608)
+texture = ExtResource("13_u")
+
+[node name="T17_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 608)
+texture = ExtResource("13_u")
+
+[node name="T18_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 608)
+texture = ExtResource("13_u")
+
+[node name="T19_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 608)
+texture = ExtResource("13_u")
+
+[node name="T20_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 608)
+texture = ExtResource("13_u")
+
+[node name="T21_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 608)
+texture = ExtResource("13_u")
+
+[node name="T22_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 608)
+texture = ExtResource("13_u")
+
+[node name="T23_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 608)
+texture = ExtResource("13_u")
+
+[node name="T24_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 608)
+texture = ExtResource("13_u")
+
+[node name="T25_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 608)
+texture = ExtResource("13_u")
+
+[node name="T26_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 608)
+texture = ExtResource("13_u")
+
+[node name="T27_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 608)
+texture = ExtResource("13_u")
+
+[node name="T28_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 608)
+texture = ExtResource("13_u")
+
+[node name="T29_9" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 608)
+texture = ExtResource("14_u")
+
+[node name="T12_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 672)
+texture = ExtResource("12_u")
+
+[node name="T13_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 672)
+texture = ExtResource("13_u")
+
+[node name="T14_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 672)
+texture = ExtResource("13_u")
+
+[node name="T15_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 672)
+texture = ExtResource("13_u")
+
+[node name="T16_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 672)
+texture = ExtResource("13_u")
+
+[node name="T17_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 672)
+texture = ExtResource("13_u")
+
+[node name="T18_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 672)
+texture = ExtResource("13_u")
+
+[node name="T19_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 672)
+texture = ExtResource("13_u")
+
+[node name="T20_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 672)
+texture = ExtResource("13_u")
+
+[node name="T21_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 672)
+texture = ExtResource("13_u")
+
+[node name="T22_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 672)
+texture = ExtResource("13_u")
+
+[node name="T23_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 672)
+texture = ExtResource("13_u")
+
+[node name="T24_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 672)
+texture = ExtResource("13_u")
+
+[node name="T25_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 672)
+texture = ExtResource("13_u")
+
+[node name="T26_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 672)
+texture = ExtResource("13_u")
+
+[node name="T27_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 672)
+texture = ExtResource("13_u")
+
+[node name="T28_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 672)
+texture = ExtResource("13_u")
+
+[node name="T29_10" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 672)
+texture = ExtResource("14_u")
+
+[node name="T12_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 736)
+texture = ExtResource("12_u")
+
+[node name="T13_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 736)
+texture = ExtResource("13_u")
+
+[node name="T14_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 736)
+texture = ExtResource("13_u")
+
+[node name="T15_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 736)
+texture = ExtResource("13_u")
+
+[node name="T16_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 736)
+texture = ExtResource("13_u")
+
+[node name="T17_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 736)
+texture = ExtResource("13_u")
+
+[node name="T18_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 736)
+texture = ExtResource("13_u")
+
+[node name="T19_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 736)
+texture = ExtResource("13_u")
+
+[node name="T20_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 736)
+texture = ExtResource("13_u")
+
+[node name="T21_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 736)
+texture = ExtResource("13_u")
+
+[node name="T22_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 736)
+texture = ExtResource("13_u")
+
+[node name="T23_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 736)
+texture = ExtResource("13_u")
+
+[node name="T24_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 736)
+texture = ExtResource("13_u")
+
+[node name="T25_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 736)
+texture = ExtResource("13_u")
+
+[node name="T26_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 736)
+texture = ExtResource("13_u")
+
+[node name="T27_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 736)
+texture = ExtResource("13_u")
+
+[node name="T28_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 736)
+texture = ExtResource("13_u")
+
+[node name="T29_11" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 736)
+texture = ExtResource("14_u")
+
+[node name="T12_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 800)
+texture = ExtResource("12_u")
+
+[node name="T13_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 800)
+texture = ExtResource("13_u")
+
+[node name="T14_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 800)
+texture = ExtResource("13_u")
+
+[node name="T15_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 800)
+texture = ExtResource("13_u")
+
+[node name="T16_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 800)
+texture = ExtResource("13_u")
+
+[node name="T17_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 800)
+texture = ExtResource("13_u")
+
+[node name="T18_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 800)
+texture = ExtResource("13_u")
+
+[node name="T19_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 800)
+texture = ExtResource("13_u")
+
+[node name="T20_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 800)
+texture = ExtResource("13_u")
+
+[node name="T21_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 800)
+texture = ExtResource("13_u")
+
+[node name="T22_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 800)
+texture = ExtResource("13_u")
+
+[node name="T23_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 800)
+texture = ExtResource("13_u")
+
+[node name="T24_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 800)
+texture = ExtResource("13_u")
+
+[node name="T25_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 800)
+texture = ExtResource("13_u")
+
+[node name="T26_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 800)
+texture = ExtResource("13_u")
+
+[node name="T27_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 800)
+texture = ExtResource("13_u")
+
+[node name="T28_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 800)
+texture = ExtResource("13_u")
+
+[node name="T29_12" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 800)
+texture = ExtResource("14_u")
+
+[node name="T12_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 864)
+texture = ExtResource("12_u")
+
+[node name="T13_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 864)
+texture = ExtResource("13_u")
+
+[node name="T14_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 864)
+texture = ExtResource("13_u")
+
+[node name="T15_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 864)
+texture = ExtResource("13_u")
+
+[node name="T16_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 864)
+texture = ExtResource("13_u")
+
+[node name="T17_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 864)
+texture = ExtResource("13_u")
+
+[node name="T18_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 864)
+texture = ExtResource("13_u")
+
+[node name="T19_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 864)
+texture = ExtResource("13_u")
+
+[node name="T20_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 864)
+texture = ExtResource("13_u")
+
+[node name="T21_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 864)
+texture = ExtResource("13_u")
+
+[node name="T22_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 864)
+texture = ExtResource("13_u")
+
+[node name="T23_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 864)
+texture = ExtResource("13_u")
+
+[node name="T24_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 864)
+texture = ExtResource("13_u")
+
+[node name="T25_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 864)
+texture = ExtResource("13_u")
+
+[node name="T26_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 864)
+texture = ExtResource("13_u")
+
+[node name="T27_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 864)
+texture = ExtResource("13_u")
+
+[node name="T28_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 864)
+texture = ExtResource("13_u")
+
+[node name="T29_13" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 864)
+texture = ExtResource("14_u")
+
+[node name="T12_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 928)
+texture = ExtResource("12_u")
+
+[node name="T13_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 928)
+texture = ExtResource("13_u")
+
+[node name="T14_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 928)
+texture = ExtResource("13_u")
+
+[node name="T15_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
 position = Vector2(992, 928)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("5_r")
-animation = &"env_sunflower_sway"
-autoplay = "env_sunflower_sway"
+texture = ExtResource("13_u")
+
+[node name="T16_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 928)
+texture = ExtResource("13_u")
+
+[node name="T17_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 928)
+texture = ExtResource("13_u")
+
+[node name="T18_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 928)
+texture = ExtResource("13_u")
+
+[node name="T19_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 928)
+texture = ExtResource("13_u")
+
+[node name="T20_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 928)
+texture = ExtResource("13_u")
+
+[node name="T21_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 928)
+texture = ExtResource("13_u")
+
+[node name="T22_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 928)
+texture = ExtResource("13_u")
+
+[node name="T23_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 928)
+texture = ExtResource("13_u")
+
+[node name="T24_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 928)
+texture = ExtResource("13_u")
+
+[node name="T25_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 928)
+texture = ExtResource("13_u")
+
+[node name="T26_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 928)
+texture = ExtResource("13_u")
+
+[node name="T27_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 928)
+texture = ExtResource("13_u")
+
+[node name="T28_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 928)
+texture = ExtResource("13_u")
+
+[node name="T29_14" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 928)
+texture = ExtResource("14_u")
+
+[node name="T12_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 992)
+texture = ExtResource("12_u")
+
+[node name="T13_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 992)
+texture = ExtResource("13_u")
+
+[node name="T14_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 992)
+texture = ExtResource("13_u")
+
+[node name="T15_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 992)
+texture = ExtResource("13_u")
+
+[node name="T16_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 992)
+texture = ExtResource("13_u")
+
+[node name="T17_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 992)
+texture = ExtResource("13_u")
+
+[node name="T18_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 992)
+texture = ExtResource("13_u")
+
+[node name="T19_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 992)
+texture = ExtResource("13_u")
+
+[node name="T20_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 992)
+texture = ExtResource("13_u")
+
+[node name="T21_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 992)
+texture = ExtResource("13_u")
+
+[node name="T22_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 992)
+texture = ExtResource("13_u")
+
+[node name="T23_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 992)
+texture = ExtResource("13_u")
+
+[node name="T24_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 992)
+texture = ExtResource("13_u")
+
+[node name="T25_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 992)
+texture = ExtResource("13_u")
+
+[node name="T26_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 992)
+texture = ExtResource("13_u")
+
+[node name="T27_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 992)
+texture = ExtResource("13_u")
+
+[node name="T28_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 992)
+texture = ExtResource("13_u")
+
+[node name="T29_15" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 992)
+texture = ExtResource("14_u")
+
+[node name="T12_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(800, 1056)
+texture = ExtResource("15_u")
+
+[node name="T13_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(864, 1056)
+texture = ExtResource("16_u")
+
+[node name="T14_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(928, 1056)
+texture = ExtResource("16_u")
+
+[node name="T15_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(992, 1056)
+texture = ExtResource("16_u")
+
+[node name="T16_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1056, 1056)
+texture = ExtResource("16_u")
+
+[node name="T17_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1120, 1056)
+texture = ExtResource("16_u")
+
+[node name="T18_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1184, 1056)
+texture = ExtResource("16_u")
+
+[node name="T19_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1248, 1056)
+texture = ExtResource("16_u")
+
+[node name="T20_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1312, 1056)
+texture = ExtResource("16_u")
+
+[node name="T21_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1376, 1056)
+texture = ExtResource("16_u")
+
+[node name="T22_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1440, 1056)
+texture = ExtResource("16_u")
+
+[node name="T23_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1504, 1056)
+texture = ExtResource("16_u")
+
+[node name="T24_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1568, 1056)
+texture = ExtResource("16_u")
+
+[node name="T25_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1632, 1056)
+texture = ExtResource("16_u")
+
+[node name="T26_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1696, 1056)
+texture = ExtResource("16_u")
+
+[node name="T27_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1760, 1056)
+texture = ExtResource("16_u")
+
+[node name="T28_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1824, 1056)
+texture = ExtResource("16_u")
+
+[node name="T29_16" type="Sprite2D" parent="Stage/Landscape/Sand"]
+position = Vector2(1888, 1056)
+texture = ExtResource("17_u")
+
+[node name="Fence1" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(812, 428)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="Fence2" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1812, 428)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("20_u")
+
+[node name="HouseShadow" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1284, 516)
+scale = Vector2(2.73438, 2.625)
+texture = ExtResource("21_u")
+
+[node name="House" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1284, 334)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("22_u")
+
+[node name="Smoke" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(1376.75, 104)
+scale = Vector2(1.1875, 1.1875)
+sprite_frames = ExtResource("19_u")
+animation = &"chimney_smoke"
+autoplay = "chimney_smoke"
+
+[node name="TreeShadow1" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(900, 460)
+scale = Vector2(0.625, 0.6)
+texture = ExtResource("21_u")
+
+[node name="Pine1" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(898, 370)
+scale = Vector2(1.6875, 1.6875)
+sprite_frames = ExtResource("18_u")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
 frame = 0
 
-[node name="Haystack7" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1817.5, 957.5)
-scale = Vector2(1.198, 1.198)
-texture = ExtResource("7_r")
+[node name="TreeShadow2" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1830, 470)
+scale = Vector2(0.5, 0.48)
+texture = ExtResource("21_u")
 
-[node name="Bush8" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(88, 948)
-scale = Vector2(1, 1)
-texture = ExtResource("8_r")
-
-[node name="Rocks9" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(772, 972)
-scale = Vector2(1, 1)
-texture = ExtResource("9_r")
-
-[node name="Portrait" type="Node2D" parent="Stage"]
-visible = false
-y_sort_enabled = true
-metadata/only = "portrait"
-
-[node name="TreeAppleSway0" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(106, 756)
-scale = Vector2(1.2, 1.2)
-sprite_frames = ExtResource("5_r")
-animation = &"env_tree_apple_sway"
-autoplay = "env_tree_apple_sway"
-frame = 0
-
-[node name="Bush1" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(948, 848)
-scale = Vector2(1, 1)
-texture = ExtResource("8_r")
-
-[node name="Rocks2" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(892, 962)
-scale = Vector2(1, 1)
-texture = ExtResource("9_r")
-
-[node name="Barn3" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(860, 1600)
+[node name="Pine2" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(1840, 400)
 scale = Vector2(1.25, 1.25)
-texture = ExtResource("4_r")
-
-[node name="BarnFlag4" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(860, 1600)
-scale = Vector2(1.25, 1.25)
-sprite_frames = ExtResource("5_r")
-animation = &"env_farm_barn_flag"
-autoplay = "env_farm_barn_flag"
-frame = 0
-
-[node name="Bed5" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(137, 1617.5)
-scale = Vector2(1.203, 1.198)
-texture = ExtResource("6_r")
-
-[node name="ScarecrowSway6" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(387.5, 1557)
-scale = Vector2(1.198, 1.203)
-sprite_frames = ExtResource("5_r")
-animation = &"env_farm_scarecrow_sway"
-autoplay = "env_farm_scarecrow_sway"
-frame = 2
-
-[node name="SunflowerSway7" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(552, 1788)
-scale = Vector2(1, 1)
-sprite_frames = ExtResource("5_r")
-animation = &"env_sunflower_sway"
-autoplay = "env_sunflower_sway"
+sprite_frames = ExtResource("18_u")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
 frame = 1
 
-[node name="SunflowerSway8" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(612, 1808)
+[node name="FarmHaystack" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(1625, 925)
+scale = Vector2(1.35417, 1.35417)
+texture = ExtResource("23_u")
+
+[node name="Rocks" type="Sprite2D" parent="Stage/Landscape"]
+position = Vector2(732, 992)
 scale = Vector2(1, 1)
-sprite_frames = ExtResource("5_r")
+texture = ExtResource("27_u")
+
+[node name="Sunflower1" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(72, 948)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("18_u")
+animation = &"env_sunflower_sway"
+autoplay = "env_sunflower_sway"
+frame = 0
+
+[node name="Sunflower2" type="AnimatedSprite2D" parent="Stage/Landscape"]
+position = Vector2(142, 968)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("18_u")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
 frame = 2
 
-[node name="Haystack9" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(97.5, 1837.5)
-scale = Vector2(1.198, 1.198)
-texture = ExtResource("7_r")
+[node name="CropWheat" parent="Stage/Landscape" instance=ExtResource("25_u")]
+offset_left = 760.0
+offset_top = 610.0
+offset_right = 952.0
+offset_bottom = 802.0
+scale = Vector2(1.1, 1.1)
+crop_id = &"wheat"
+
+[node name="CropApple" parent="Stage/Landscape" instance=ExtResource("25_u")]
+offset_left = 1680.0
+offset_top = 560.0
+offset_right = 1872.0
+offset_bottom = 752.0
+scale = Vector2(1.1, 1.1)
+crop_id = &"apple"
+
+[node name="Butterfly1" type="AnimatedSprite2D" parent="Stage/Landscape"]
+sprite_frames = ExtResource("19_u")
+animation = &"butterfly"
+script = ExtResource("26_u")
+centre = Vector2(1500, 520)
+radius = Vector2(120, 40)
+speed = 0.8
+phase = 0.0
+
+[node name="Butterfly2" type="AnimatedSprite2D" parent="Stage/Landscape"]
+sprite_frames = ExtResource("19_u")
+animation = &"butterfly"
+script = ExtResource("26_u")
+centre = Vector2(980, 840)
+radius = Vector2(90, 30)
+speed = 1.1
+phase = 2.0
 
 [node name="Hero" type="Node2D" parent="Stage"]
-position = Vector2(1190, 490)
-metadata/portrait = Vector2(565, 820)
-metadata/portrait_scale = Vector2(0.868421, 0.868421)
+position = Vector2(1330, 691)
+metadata/portrait = Vector2(540, 1075)
 
 [node name="Shadow" type="Sprite2D" parent="Stage/Hero"]
-position = Vector2(0, 148.2)
-scale = Vector2(1.484, 1.425)
-texture = ExtResource("10_r")
+position = Vector2(0, 169)
+scale = Vector2(1.32812, 1.275)
+texture = ExtResource("21_u")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Stage/Hero"]
-scale = Vector2(0.99, 0.99)
-sprite_frames = ExtResource("11_r")
+scale = Vector2(0.8594, 0.8594)
+sprite_frames = ExtResource("28_u")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Logo" parent="Stage" instance=ExtResource("12_r")]
+[node name="Logo" parent="Stage" instance=ExtResource("29_u")]
 layout_mode = 0
-offset_left = 80
-offset_top = 50
-offset_right = 1040
-offset_bottom = 490
-scale = Vector2(0.7917, 0.7917)
-metadata/portrait = Rect2(90, 140, 960, 440)
+offset_left = 60
+offset_top = 40
+offset_right = 1020
+offset_bottom = 480
+scale = Vector2(0.7292, 0.7292)
+metadata/portrait = Rect2(90, 130, 960, 440)
 metadata/portrait_scale = Vector2(0.9375, 0.9375)
 
 [node name="Play" type="Button" parent="Stage"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 220
-offset_top = 470
-offset_right = 700
-offset_bottom = 582
+offset_left = 150
+offset_top = 400
+offset_right = 670
+offset_bottom = 528
 focus_mode = 0
-theme_override_font_sizes/font_size = 52
-text = "Играть"
-metadata/portrait = Rect2(280, 1050, 520, 112)
+theme_override_font_sizes/font_size = 56
+text = "BTN_PLAY"
+metadata/portrait = Rect2(300, 1430, 480, 128)
 
-[node name="Shop" parent="Stage" instance=ExtResource("14_r")]
+[node name="Shop" parent="Stage" instance=ExtResource("30_u")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 92
-offset_top = 640
-offset_right = 204
-offset_bottom = 752
-icon = ExtResource("13_r")
+offset_left = 60
+offset_top = 620
+offset_right = 172
+offset_bottom = 732
+scale = Vector2(0.9286, 0.9286)
+icon = ExtResource("31_u")
 label_key = "BTN_SHOP"
-metadata/portrait = Rect2(169, 1240, 112, 112)
+metadata/portrait = Rect2(40, 1640, 112, 112)
+metadata/portrait_scale = Vector2(1, 1)
 
-[node name="Settings" parent="Stage" instance=ExtResource("14_r")]
+[node name="Gift" parent="Stage" instance=ExtResource("30_u")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 300
-offset_top = 640
-offset_right = 412
-offset_bottom = 752
-icon = ExtResource("15_r")
-label_key = "BTN_SETTINGS"
-metadata/portrait = Rect2(379, 1240, 112, 112)
-
-[node name="Gift" parent="Stage" instance=ExtResource("14_r")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 508
-offset_top = 640
-offset_right = 620
-offset_bottom = 752
-icon = ExtResource("16_r")
+offset_left = 212
+offset_top = 620
+offset_right = 324
+offset_bottom = 732
+scale = Vector2(0.9286, 0.9286)
+icon = ExtResource("32_u")
 label_key = "BTN_GIFT"
+metadata/portrait = Rect2(250, 1640, 112, 112)
+metadata/portrait_scale = Vector2(1, 1)
 icon_anim = &"icon_gift_shake"
-badge = true
-metadata/portrait = Rect2(589, 1240, 112, 112)
 
-[node name="HowTo" parent="Stage" instance=ExtResource("14_r")]
+[node name="Harvest" parent="Stage" instance=ExtResource("30_u")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 716
-offset_top = 640
-offset_right = 828
-offset_bottom = 752
+offset_left = 364
+offset_top = 620
+offset_right = 476
+offset_bottom = 732
+scale = Vector2(0.9286, 0.9286)
+icon = ExtResource("32_u")
+label_key = "BTN_HARVEST"
+metadata/portrait = Rect2(460, 1640, 112, 112)
+metadata/portrait_scale = Vector2(1, 1)
+icon_anim = &"icon_harvest_ripe"
+
+[node name="Settings" parent="Stage" instance=ExtResource("30_u")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 516
+offset_top = 620
+offset_right = 628
+offset_bottom = 732
+scale = Vector2(0.9286, 0.9286)
+icon = ExtResource("33_u")
+label_key = "BTN_SETTINGS"
+metadata/portrait = Rect2(670, 1640, 112, 112)
+metadata/portrait_scale = Vector2(1, 1)
+
+[node name="HowTo" parent="Stage" instance=ExtResource("30_u")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 668
+offset_top = 620
+offset_right = 780
+offset_bottom = 732
+scale = Vector2(0.9286, 0.9286)
+icon = ExtResource("34_u")
 label_key = "BTN_HOW_TO"
-metadata/portrait = Rect2(799, 1240, 112, 112)
+metadata/portrait = Rect2(880, 1640, 112, 112)
+metadata/portrait_scale = Vector2(1, 1)
 
-[node name="Mark" type="Label" parent="Stage/HowTo"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -12.0
-mouse_filter = 2
-theme_type_variation = &"LabelDark"
-theme_override_font_sizes/font_size = 64
-text = "?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Grains" parent="Stage" instance=ExtResource("17_r")]
+[node name="Grains" parent="Stage" instance=ExtResource("35_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1620
@@ -296,4 +1492,4 @@ offset_top = 30
 offset_right = 1880
 offset_bottom = 94
 value = 0
-metadata/portrait = Rect2(44, 44, 260, 64)
+metadata/portrait = Rect2(60, 44, 260, 64)

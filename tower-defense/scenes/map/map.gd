@@ -18,7 +18,6 @@ const GROUPS: Array[StringName] = [&"World", &"Bands", &"Turned", &"Path", &"Dec
 	&"CloudsWheat", &"CloudsLake"]
 ## A closed zone opens with its first level: clouds cover it until then.
 const ZONES: Dictionary[StringName, int] = {&"CloudsWheat": 6, &"CloudsLake": 10}
-const GRAIN: Texture2D = preload("res://art/ui/ui_icon_grain.png")
 
 @export var level_start_window: PackedScene
 @export var shop_window: PackedScene
@@ -247,15 +246,7 @@ func _on_crop(crop: MapCrop) -> void:
 	if not crop.is_ripe():
 		_open(harvest_window)
 		return
-	var n: int = Game.collect_crop(crop.crop, Game.now())
-	if n <= 0:
-		return
-	crop.play_collect()
-	Audio.sfx(&"coin", false)
-	Save.save()
-	var to: Vector2 = _grains.global_position + Vector2(32, 32)
-	UiFx.fly_icons(self, crop.product_point(), to, crop.crop.icon_big, GRAIN, 5, 72.0,
-			func() -> void: UiFx.bump(_grains, 1.15, 0.25))
+	crop.collect(self, _grains)
 
 
 func _open(scene: PackedScene) -> void:
