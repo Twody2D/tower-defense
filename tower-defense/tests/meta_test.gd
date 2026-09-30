@@ -89,14 +89,37 @@ func test_gift_weeks_in_a_row_grow() -> void:
 	assert_int(Game.gift_week).is_equal(0)
 
 
-func test_offline_harvest() -> void:
-	assert_int(Game.harvest_amount(1000)).is_equal(0)
+func test_farm_crops_grow_collect_upgrade() -> void:
+	var wheat: CropData = Game.META.crop(&"wheat")
+	var apple: CropData = Game.META.crop(&"apple")
+	# Only the wheat is open at the start; the apple tree after level 1.
+	assert_bool(Game.crop_open(wheat)).is_true()
+	assert_bool(Game.crop_open(apple)).is_false()
 	Game.start_harvest(1000)
-	# 8 per hour, 12 hours max.
-	assert_int(Game.harvest_amount(1000 + 3600 * 2)).is_equal(16)
-	assert_int(Game.harvest_amount(1000 + 3600 * 20)).is_equal(96)
-	assert_int(Game.collect_harvest(1000 + 3600 * 3, 3)).is_equal(72)
-	assert_int(Game.harvest_amount(1000 + 3600 * 3)).is_equal(0)
+	assert_float(Game.crop_progress(wheat, 1000 + 1800)).is_equal_approx(0.5, 0.001)
+	assert_int(Game.collect_crop(wheat, 1000 + 1800)).is_equal(0)
+	var ripe: int = 1000 + int(wheat.grow_hours * 3600.0)
+	assert_int(Game.harvest_ready(ripe)).is_equal(wheat.yields[0])
+	# Collected: grains in, a new harvest starts growing.
+	assert_int(Game.collect_crop(wheat, ripe, 3)).is_equal(wheat.yields[0] * 3)
+	assert_int(Game.grains).is_equal(wheat.yields[0] * 3)
+	assert_bool(Game.crop_ready(wheat, ripe)).is_false()
+	# Level 2 for grains: a bigger harvest.
+	Game.add_grains(1000)
+	assert_bool(Game.upgrade_crop(wheat)).is_true()
+	assert_int(Game.crop_level(wheat)).is_equal(2)
+	assert_int(Game.crop_yield(wheat)).is_equal(wheat.yields[1])
+	# Level 1 passed: the apple tree is planted on the next visit.
+	Game.finish_level(1, 3)
+	Game.start_harvest(ripe)
+	assert_bool(Game.crop_open(apple)).is_true()
+	var both: int = ripe + int(apple.grow_hours * 3600.0)
+	assert_int(Game.collect_all(both)).is_equal(wheat.yields[1] + apple.yields[0])
+
+
+func test_old_harvest_bed_goes_to_wheat() -> void:
+	Game.from_dict({"harvest_time": 5000})
+	assert_int(Game.crop_planted[&"wheat"]).is_equal(5000)
 
 
 func test_ad_limits_reset_daily() -> void:
@@ -119,6 +142,8 @@ func test_meta_round_trip() -> void:
 	Game.add_skin_ad(&"rabbit")
 	Game.claim_gift("2026-09-01")
 	Game.start_harvest(12345)
+	Game.add_grains(500)
+	Game.upgrade_crop(Game.META.crop(&"wheat"))
 	Game.use_ad(&"gift_x2", "2026-09-01")
 	Game.first_meet(&"mole")
 	Game.tutorial_done = true
@@ -129,7 +154,8 @@ func test_meta_round_trip() -> void:
 	assert_str(String(Game.skin)).is_equal("corgi")
 	assert_int(Game.skin_ad_views(&"rabbit")).is_equal(1)
 	assert_str(Game.gift_date).is_equal("2026-09-01")
-	assert_int(Game.harvest_time).is_equal(12345)
+	assert_int(Game.crop_planted[&"wheat"]).is_equal(12345)
+	assert_int(Game.crop_level(Game.META.crop(&"wheat"))).is_equal(2)
 	assert_int(Game.ads_used(&"gift_x2", "2026-09-01")).is_equal(1)
 	assert_bool(&"mole" in Game.seen).is_true()
 	assert_bool(Game.tutorial_done).is_true()

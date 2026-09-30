@@ -2,108 +2,70 @@
 
 [ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
 [ext_resource type="Script" path="res://scenes/ui/windows/harvest_window.gd" id="2_r"]
-[ext_resource type="SpriteFrames" path="res://art/frames/ui_hi.tres" id="3_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/windows/crop_row.tscn" id="3_r"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="4_r"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="5_r"]
 
 [node name="HarvestWindow" instance=ExtResource("1_r")]
 script = ExtResource("2_r")
+crop_row = ExtResource("3_r")
 title_key = "TITLE_HARVEST"
 portrait_width = 860.0
-landscape_width = 1200.0
-ribbon_min_width = 640.0
+landscape_width = 1640.0
+ribbon_min_width = 520.0
 
-[node name="Columns" type="BoxContainer" parent="Panel/Content"]
+[node name="Grid" type="GridContainer" parent="Panel/Content"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 40
-alignment = 1
-metadata/portrait_vertical = true
-
-[node name="Card" type="PanelContainer" parent="Panel/Content/Columns"]
-layout_mode = 2
-custom_minimum_size = Vector2(340, 340)
 size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_type_variation = &"CardHighlight"
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 18
 
-[node name="Holder" type="Control" parent="Panel/Content/Columns/Card"]
+[node name="TotalRow" type="HBoxContainer" parent="Panel/Content"]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="Bed" type="AnimatedSprite2D" parent="Panel/Content/Columns/Card/Holder"]
-unique_name_in_owner = true
-position = Vector2(150, 150)
-scale = Vector2(0.94, 0.94)
-sprite_frames = ExtResource("3_r")
-animation = &"harvest_ripe"
-autoplay = "harvest_ripe"
-
-[node name="Right" type="VBoxContainer" parent="Panel/Content/Columns"]
-layout_mode = 2
-custom_minimum_size = Vector2(640, 0)
-theme_override_constants/separation = 18
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Text" type="Label" parent="Panel/Content/Columns/Right"]
-unique_name_in_owner = true
+[node name="Caption" type="Label" parent="Panel/Content/TotalRow"]
 layout_mode = 2
-theme_type_variation = &"LabelSmall"
-theme_override_font_sizes/font_size = 32
-text = "HARVEST_TEXT"
-horizontal_alignment = 1
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 34
+text = "HARVEST_TOTAL"
 vertical_alignment = 1
-custom_minimum_size = Vector2(600, 0)
-autowrap_mode = 3
 
-[node name="Amount" type="HBoxContainer" parent="Panel/Content/Columns/Right"]
+[node name="Grain" type="TextureRect" parent="Panel/Content/TotalRow"]
 layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Grain" type="TextureRect" parent="Panel/Content/Columns/Right/Amount"]
-layout_mode = 2
-custom_minimum_size = Vector2(96, 96)
-size_flags_horizontal = 4
+custom_minimum_size = Vector2(56, 56)
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("4_r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Value" type="Label" parent="Panel/Content/Columns/Right/Amount"]
+[node name="Total" type="Label" parent="Panel/Content/TotalRow"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"LabelGold"
-theme_override_font_sizes/font_size = 72
-text = "+120"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 48
+text = "+130"
 vertical_alignment = 1
 
-[node name="Full" type="Label" parent="Panel/Content/Columns/Right"]
-unique_name_in_owner = true
+[node name="Buttons" type="HBoxContainer" parent="Panel/Content"]
 layout_mode = 2
-theme_type_variation = &"LabelSmall"
-theme_override_font_sizes/font_size = 28
-text = "HARVEST_FULL_IN"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Buttons" type="HBoxContainer" parent="Panel/Content/Columns/Right"]
-layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Claim" type="Button" parent="Panel/Content/Columns/Right/Buttons"]
+[node name="Claim" type="Button" parent="Panel/Content/Buttons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 112)
+custom_minimum_size = Vector2(340, 112)
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ButtonGreen"
-text = "BTN_CLAIM"
+text = "BTN_COLLECT_ALL"
 
-[node name="ClaimX3" parent="Panel/Content/Columns/Right/Buttons" instance=ExtResource("5_r")]
+[node name="ClaimX3" parent="Panel/Content/Buttons" instance=ExtResource("5_r")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 112)
+custom_minimum_size = Vector2(340, 112)
 layout_mode = 2
-text = "BTN_CLAIM_MULT"
+text = "BTN_COLLECT_MULT"
 tag = &"harvest_x3"

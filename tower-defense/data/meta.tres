@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MetaData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="MetaData" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://data/types/meta_data.gd" id="1_script"]
 [ext_resource type="Resource" path="res://data/skins/raccoon.tres" id="2_raccoon"]
@@ -7,7 +7,13 @@
 [ext_resource type="Resource" path="res://data/skins/rabbit.tres" id="5_rabbit"]
 [ext_resource type="Resource" path="res://data/skins/chicken.tres" id="6_chicken"]
 [ext_resource type="Script" path="res://data/types/skin_data.gd" id="7_skin"]
+[ext_resource type="Script" path="res://data/types/crop_data.gd" id="8_crop"]
+[ext_resource type="Resource" path="res://data/crops/wheat.tres" id="9_wheat"]
+[ext_resource type="Resource" path="res://data/crops/apple.tres" id="10_apple"]
+[ext_resource type="Resource" path="res://data/crops/pumpkin.tres" id="11_pumpkin"]
+[ext_resource type="Resource" path="res://data/crops/apiary.tres" id="12_apiary"]
 
 [resource]
 script = ExtResource("1_script")
 skins = Array[ExtResource("7_skin")]([ExtResource("2_raccoon"), ExtResource("3_corgi"), ExtResource("4_pig"), ExtResource("5_rabbit"), ExtResource("6_chicken")])
+crops = Array[ExtResource("8_crop")]([ExtResource("9_wheat"), ExtResource("10_apple"), ExtResource("11_pumpkin"), ExtResource("12_apiary")])

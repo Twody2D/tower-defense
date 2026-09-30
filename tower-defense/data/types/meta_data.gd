@@ -1,7 +1,7 @@
 class_name MetaData
 extends Resource
 ## Meta balance (CODE_PROMPT "Мета"): grains per level, hero upgrades, skins,
-## daily gift, offline harvest. The one copy is data/meta.tres.
+## daily gift, farm crops. The one copy is data/meta.tres.
 
 @export_group("Grains per level")
 @export var grains_base: int = 30
@@ -29,13 +29,20 @@ extends Resource
 @export var gift_week_bonus: float = 0.25
 @export var gift_week_max: int = 4
 
-@export_group("Offline harvest")
-@export var harvest_per_hour: float = 8.0
-@export var harvest_max_hours: float = 12.0
+@export_group("Farm harvest")
+## Crops in map order (CODE_PROMPT "Урожай фермы"): wheat, apple, pumpkin, apiary.
+@export var crops: Array[CropData] = []
 
 
 func level_reward(stars: int) -> int:
 	return grains_base + grains_per_star * stars
+
+
+func crop(crop_id: StringName) -> CropData:
+	for c: CropData in crops:
+		if c.id == crop_id:
+			return c
+	return null
 
 
 func skin(skin_id: StringName) -> SkinData:

@@ -84,13 +84,18 @@ func _show(step: int) -> void:
 		owned.append(&"corgi")
 		var ads: Dictionary = game.get("skin_ads")
 		ads[&"rabbit"] = 3
-		# Gift: day 2 taken yesterday (today is day 3); the bed grew 6 hours.
+		# Gift: day 2 taken yesterday (today is day 3).
 		var now: int = int(Time.get_unix_time_from_system())
 		var bias: int = Time.get_time_zone_from_system()["bias"]
 		var local: int = now + bias * 60
 		game.set("gift_date", Time.get_date_string_from_unix_time(local - 86400))
 		game.set("gift_day", 1)
-		game.set("harvest_time", now - 6 * 3600)
+		# Crops: wheat ripe, the apple tree half grown, the rest closed.
+		var stars: Array[int] = game.get("level_stars")
+		stars[0] = 3
+		var planted: Dictionary[StringName, int] = game.get("crop_planted")
+		planted[&"wheat"] = now - 6 * 3600
+		planted[&"apple"] = now - 3600
 	var name: String = _name(step)
 	match name:
 		"pause":

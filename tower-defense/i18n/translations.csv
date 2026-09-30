@@ -43,7 +43,7 @@ TITLE_NEW_DEFENDER,Новый защитник!,New defender!
 TITLE_NEW_ENEMY,Новый враг!,New pest!
 TITLE_SHOP,Магазин,Shop
 TITLE_GIFT,Ежедневный подарок,Daily gift
-TITLE_HARVEST,Урожай созрел!,The harvest is ripe!
+TITLE_HARVEST,Урожай,Harvest
 TITLE_HOW_TO,Как играть,How to play
 CONFIRM_TITLE,Точно?,Are you sure?
 CONFIRM_TO_MAP,Выйти на карту? Прогресс уровня пропадёт.,Leave to the map? The level progress will be lost.
@@ -79,8 +79,6 @@ SKIN_BY_GRAINS,Купи за золотые зёрна,Buy for golden grains
 SKIN_LEVEL_SHORT,Ур. %d,Lv. %d
 LBL_DAY,День %d,Day %d
 LBL_TODAY,Сегодня,Today
-HARVEST_TEXT,"Пока тебя не было, на грядке выросло:","While you were away, the bed grew:"
-HARVEST_EMPTY,Пока ничего не выросло — загляни позже,Nothing has grown yet — come back later
 HUD_WAVE,Волна %d/%d,Wave %d/%d
 HUD_WAVE_BANNER,Волна %d!,Wave %d!
 HUD_CALL_NOW,Вызвать сейчас,Call now
@@ -118,8 +116,6 @@ HOW_TO_PLOT,Встань на площадку и выбери защитник�
 HOW_TO_CARROTS,Не дай унести морковки: чем меньше потерял — тем больше звёзд.,Keep the carrots safe: the fewer you lose — the more stars you get.
 TOAST_TRIAL,Примерка — на следующий бой,Trying on — for the next fight
 TOAST_SKIN_OPEN,Новый скин открыт!,New skin unlocked!
-HARVEST_FULL_IN,Грядка заполнится через %d ч,The bed will be full in %d h
-HARVEST_FULL,Грядка полная — забирай урожай!,The bed is full — take the harvest!
 GIFT_HINT,Заходи каждый день — подарки растут!,Come every day — the gifts grow!
 GIFT_STREAK,"Неделя %d подряд: подарки +%d%%","Week %d in a row: gifts +%d%%"
 GIFT_TOMORROW,Приходи завтра за +%d зёрен!,Come back tomorrow for +%d grains!
@@ -151,3 +147,17 @@ TUT_BUILD,Постой на площадке — монеты уйдут в по
 TUT_COINS,Собирай монеты — на них строят защитников,Collect coins — they pay for defenders
 TUT_FENCE,Забор задерживает вредителей — встань на его площадку,A fence holds pests back — stand on its plot
 TUT_UPGRADE,Встань к защитнику ещё раз — он станет сильнее,Stand by a defender again to make it stronger
+CROP_WHEAT,Пшеница,Wheat
+CROP_APPLE,Яблоня,Apple Tree
+CROP_PUMPKIN,Тыквы,Pumpkins
+CROP_APIARY,Пасека,Apiary
+CROP_LEVEL,Ур. %d,Lv. %d
+HARVEST_RIPE,Созрело!,Ripe!
+HARVEST_IN,Созреет через %s,Ripe in %s
+HARVEST_LOCKED,Откроется после уровня %d,Opens after level %d
+HARVEST_UPGRADE,Улучшить,Upgrade
+HARVEST_TOTAL,Всего:,Total:
+BTN_COLLECT_ALL,Собрать всё,Collect all
+BTN_COLLECT_MULT,Собрать ×%d,Collect ×%d
+TIME_HOURS,%d ч,%d h
+TIME_MINUTES,%d мин,%d min

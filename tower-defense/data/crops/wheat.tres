@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/types/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="2_icon"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="3_big"]
+[ext_resource type="Texture2D" path="res://art/harvest/harvest_wheat_ripe_lv2.png" id="4_lv2"]
+[ext_resource type="Texture2D" path="res://art/harvest/harvest_wheat_ripe_lv3.png" id="5_lv3"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"wheat"
+name_key = "CROP_WHEAT"
+unlock_after = 0
+grow_hours = 1.0
+yields = PackedInt32Array(25, 40, 60)
+upgrade_prices = PackedInt32Array(80, 120)
+icon = ExtResource("2_icon")
+icon_big = ExtResource("3_big")
+ripe_levels = Array[Texture2D]([ExtResource("4_lv2"), ExtResource("5_lv3")])

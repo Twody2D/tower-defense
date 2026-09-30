@@ -86,7 +86,7 @@ func _refresh() -> void:
 	var gift_ready: bool = Game.can_claim_gift(Game.today())
 	_gift.badge = gift_ready
 	_gift.icon_anim = &"icon_gift_shake" if gift_ready else &""
-	var ripe: bool = Game.harvest_amount(Game.now()) > 0
+	var ripe: bool = Game.harvest_ready(Game.now()) > 0
 	_harvest.badge = ripe
 	_harvest_bed.get_node(^"Badge").set(&"visible", ripe)
 	var skin: SkinData = Game.META.skin(Game.skin)

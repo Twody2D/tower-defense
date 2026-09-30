@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/types/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_pumpkin.png" id="2_icon"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_pumpkin_128.png" id="3_big"]
+[ext_resource type="Texture2D" path="res://art/harvest/harvest_pumpkin_ripe_lv2.png" id="4_lv2"]
+[ext_resource type="Texture2D" path="res://art/harvest/harvest_pumpkin_ripe_lv3.png" id="5_lv3"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"pumpkin"
+name_key = "CROP_PUMPKIN"
+unlock_after = 4
+grow_hours = 3.0
+yields = PackedInt32Array(90, 135, 200)
+upgrade_prices = PackedInt32Array(300, 600)
+icon = ExtResource("2_icon")
+icon_big = ExtResource("3_big")
+ripe_levels = Array[Texture2D]([ExtResource("4_lv2"), ExtResource("5_lv3")])

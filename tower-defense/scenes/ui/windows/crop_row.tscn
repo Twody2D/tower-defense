@@ -1,0 +1,159 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/windows/crop_row.gd" id="1_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_radial_slot.png" id="2_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_grain.png" id="3_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_frame.png" id="4_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_progress_fill.png" id="5_r"]
+
+[node name="CropRow" type="PanelContainer"]
+custom_minimum_size = Vector2(760, 0)
+theme_type_variation = &"CardTight"
+script = ExtResource("1_r")
+
+[node name="Body" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="IconSlot" type="Control" parent="Body"]
+layout_mode = 2
+custom_minimum_size = Vector2(136, 136)
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Slot" type="TextureRect" parent="Body/IconSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_r")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="Body/IconSlot"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 112.0
+offset_bottom = 106.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Top" type="HBoxContainer" parent="Body/Info"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Name" type="Label" parent="Body/Info/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 34
+text = "CROP_WHEAT"
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="Body/Info/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 26
+text = "CROP_LEVEL"
+vertical_alignment = 1
+
+[node name="Grain" type="TextureRect" parent="Body/Info/Top"]
+layout_mode = 2
+custom_minimum_size = Vector2(44, 44)
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Yield" type="Label" parent="Body/Info/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelGold"
+theme_override_font_sizes/font_size = 38
+text = "+40"
+vertical_alignment = 1
+
+[node name="Bar" type="TextureProgressBar" parent="Body/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_right = 24
+texture_under = ExtResource("4_r")
+texture_progress = ExtResource("5_r")
+texture_progress_offset = Vector2(8, 8)
+
+[node name="Status" type="Label" parent="Body/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 28
+text = "HARVEST_RIPE"
+
+[node name="UpgradeBox" type="VBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 4
+
+[node name="Caption" type="Label" parent="Body/UpgradeBox"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 24
+text = "HARVEST_UPGRADE"
+horizontal_alignment = 1
+
+[node name="Upgrade" type="Button" parent="Body/UpgradeBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(200, 80)
+focus_mode = 0
+theme_type_variation = &"ButtonGreenSmall"
+
+[node name="Row" type="HBoxContainer" parent="Body/UpgradeBox/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Body/UpgradeBox/Upgrade/Row"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 40)
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Price" type="Label" parent="Body/UpgradeBox/Upgrade/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "120"
+vertical_alignment = 1

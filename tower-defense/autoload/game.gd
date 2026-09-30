@@ -36,8 +36,10 @@ var gift_day: int = 0
 var gift_date: String = ""
 ## Full gift weeks in a row (a missed day sets it back to 0).
 var gift_week: int = 0
-## Offline harvest: last collection time.
-var harvest_time: int = 0
+## Farm crops: level (1..3) and when the current harvest was planted (unix
+## s; 0 = not planted yet: closed or never seen).
+var crop_levels: Dictionary[StringName, int] = {}
+var crop_planted: Dictionary[StringName, int] = {}
 ## Rewarded uses today by kind ("upgrade_discount", "gift_x2", ...).
 var ad_date: String = ""
 var ad_used: Dictionary[StringName, int] = {}
@@ -77,7 +79,8 @@ func reset() -> void:
 	gift_day = 0
 	gift_date = ""
 	gift_week = 0
-	harvest_time = 0
+	crop_levels.clear()
+	crop_planted.clear()
 	ad_date = ""
 	ad_used.clear()
 	seen.clear()
@@ -294,28 +297,86 @@ static func _days_between(a: String, b: String) -> int:
 	return roundi((tb - ta) / 86400.0)
 
 
-# --- Offline harvest ----------------------------------------------------------
+# --- Farm harvest -------------------------------------------------------------
 
-## Grains grown since the last collection (8 per hour, up to 12 hours).
-func harvest_amount(at: int) -> int:
-	if harvest_time <= 0:
-		return 0
-	var hours: float = clampf((at - harvest_time) / 3600.0, 0.0, META.harvest_max_hours)
-	return floori(hours * META.harvest_per_hour)
+func crop_open(c: CropData) -> bool:
+	return c.unlock_after <= 0 or (c.unlock_after <= LEVEL_COUNT and level_stars[c.unlock_after - 1] > 0)
 
 
-## Starts the bed growing on the first launch.
+func crop_level(c: CropData) -> int:
+	return crop_levels.get(c.id, 1)
+
+
+## Share of the current harvest grown (0 before the crop is planted).
+func crop_progress(c: CropData, at: int) -> float:
+	var planted: int = crop_planted.get(c.id, 0)
+	if planted <= 0 or not crop_open(c):
+		return 0.0
+	return clampf((at - planted) / (c.grow_hours * 3600.0), 0.0, 1.0)
+
+
+func crop_ready(c: CropData, at: int) -> bool:
+	return crop_progress(c, at) >= 1.0
+
+
+## Seconds until the crop is ripe.
+func crop_left(c: CropData, at: int) -> int:
+	return ceili((1.0 - crop_progress(c, at)) * c.grow_hours * 3600.0)
+
+
+func crop_yield(c: CropData) -> int:
+	return c.yield_at(crop_level(c))
+
+
+## Plants every open crop that is not growing yet (a crop starts when it
+## opens; the old single bed carries its time over to the wheat).
 func start_harvest(at: int) -> void:
-	if harvest_time <= 0:
-		harvest_time = at
+	for c: CropData in META.crops:
+		if crop_open(c) and crop_planted.get(c.id, 0) <= 0:
+			crop_planted[c.id] = at
 
 
-func collect_harvest(at: int, mult: int = 1) -> int:
-	var n: int = harvest_amount(at) * mult
-	harvest_time = at
+## Grains waiting in all ripe crops.
+func harvest_ready(at: int) -> int:
+	var n: int = 0
+	for c: CropData in META.crops:
+		if crop_ready(c, at):
+			n += crop_yield(c)
+	return n
+
+
+## Takes one ripe crop (× mult for an ad) and plants it again; 0 if not ripe.
+func collect_crop(c: CropData, at: int, mult: int = 1) -> int:
+	if not crop_ready(c, at):
+		return 0
+	var n: int = crop_yield(c) * mult
+	crop_planted[c.id] = at
 	add_grains(n)
 	progress_changed.emit()
 	return n
+
+
+func collect_all(at: int, mult: int = 1) -> int:
+	var n: int = 0
+	for c: CropData in META.crops:
+		if crop_ready(c, at):
+			n += crop_yield(c) * mult
+			crop_planted[c.id] = at
+	if n > 0:
+		add_grains(n)
+		progress_changed.emit()
+	return n
+
+
+## Next crop level for grains (the growing harvest keeps its time).
+func upgrade_crop(c: CropData) -> bool:
+	var level: int = crop_level(c)
+	var price: int = c.upgrade_price(level)
+	if price <= 0 or not crop_open(c) or not spend_grains(price):
+		return false
+	crop_levels[c.id] = level + 1
+	progress_changed.emit()
+	return true
 
 
 # --- Daily ad limits ----------------------------------------------------------
@@ -378,7 +439,8 @@ func to_dict() -> Dictionary:
 		"gift_day": gift_day,
 		"gift_date": gift_date,
 		"gift_week": gift_week,
-		"harvest_time": harvest_time,
+		"crop_levels": _names_to_dict(crop_levels),
+		"crop_planted": _names_to_dict(crop_planted),
 		"ad_date": ad_date,
 		"ad_used": _names_to_dict(ad_used),
 		"seen": _names_to_strings(seen),
@@ -401,7 +463,16 @@ func from_dict(d: Dictionary) -> void:
 	gift_day = clampi(_int(d, "gift_day", 0), 0, META.daily_gifts.size() - 1)
 	gift_date = _str(d, "gift_date")
 	gift_week = maxi(_int(d, "gift_week", 0), 0)
-	harvest_time = maxi(_int(d, "harvest_time", 0), 0)
+	crop_planted = _dict_to_names(d.get("crop_planted"))
+	var levels_c: Dictionary[StringName, int] = _dict_to_names(d.get("crop_levels"))
+	for id: StringName in levels_c:
+		var c: CropData = META.crop(id)
+		if c != null:
+			crop_levels[id] = clampi(levels_c[id], 1, c.max_level())
+	# Saves before the farm crops had one harvest bed: its time goes to the wheat.
+	var old_bed: int = _int(d, "harvest_time", 0)
+	if old_bed > 0 and not crop_planted.has(&"wheat"):
+		crop_planted[&"wheat"] = old_bed
 	ad_date = _str(d, "ad_date")
 	var stars: Variant = d.get("level_stars", [])
 	if stars is Array:
