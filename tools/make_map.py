@@ -16,6 +16,8 @@ ART = ROOT / "art"
 NODES = [(300, 5480), (700, 5220), (820, 4880), (460, 4620), (300, 4260), (760, 3560), (420, 3280), (300, 2900),
          (720, 2560), (360, 1560), (740, 1120), (500, 600)]
 BRIDGES = [(540, 3846), (540, 1926)]
+# No path within this half-size (x, y) around a bridge centre: the bridge and the water.
+BRIDGE_SKIP = (120, 70)
 ROUTE = NODES[:5] + [BRIDGES[0]] + NODES[5:9] + [BRIDGES[1]] + NODES[9:]
 FOX = {5, 10, 12}
 # (picture: env texture or env.tres animation, centre x, y, drawn w, h, animated)
@@ -46,7 +48,10 @@ CLOUDS = {
 CLOUD_SCALE = 1.25
 # Twody: a closed zone is greyer — a haze over its band (shaders/haze.tres)
 # under greyish clouds. Zone band: top, bottom (portrait y).
-ZONE_BANDS = {"CloudsWheat": (1920, 3840), "CloudsLake": (0, 1920)}
+# Twody: no haze over the river and bridge of the open side — the bands stop
+# at the river strips (strip y 1792–2048, 3712–3968); map.gd stretches the
+# wheat haze over the strip between two closed zones.
+ZONE_BANDS = {"CloudsWheat": (2048, 3712), "CloudsLake": (0, 1792)}
 CLOUD_TINT = "Color(0.88, 0.9, 0.95, 1)"
 
 
@@ -117,22 +122,27 @@ def main() -> int:
     bridge = s.res("Texture2D", "res://art/map/map_bridge.png")
     for i, (x, y) in enumerate(BRIDGES):
         s.node(f"Bridge{i + 1}", "Sprite2D", "World/Turned", [f"position = {v(x, y)}", f'texture = ExtResource("{bridge}")'])
-    # The trodden path: soft patches every 20 px, a stepping stone every 4th.
+    # The trodden path: soft patches every 20 px, a stepping stone every 4th
+    # (Twody: stones on top of the path, nothing on the bridges and the water).
     s.node("Path", "Node2D", "World", [])
     patch = s.res("Texture2D", "res://art/map/map_path_patch.png")
     stone = s.res("Texture2D", "res://art/map/map_path_stone.png")
     k = 0
+    stones: list[tuple[int, float, float]] = []
     for (ax, ay), (bx, by) in zip(ROUTE, ROUTE[1:]):
         n = math.ceil(math.hypot(bx - ax, by - ay) / 20)
         for j in range(n + (1 if (bx, by) == ROUTE[-1] else 0)):
             q = j / n
             cx, cy = ax + (bx - ax) * q, ay + (by - ay) * q
+            if any(abs(cx - x) < BRIDGE_SKIP[0] and abs(cy - y) < BRIDGE_SKIP[1] for x, y in BRIDGES):
+                continue
             k += 1
             s.node(f"P{k}", "Sprite2D", "World/Path", [f"position = {v(round(cx), round(cy))}", f'texture = ExtResource("{patch}")'])
             if j % 4 == 2:
-                dx = 16 if (j // 4) % 2 else -16
-                s.node(f"S{k}", "Sprite2D", "World/Path", [f"position = {v(round(cx + dx), round(cy))}",
-                                                            "scale = Vector2(0.75, 0.75)", f'texture = ExtResource("{stone}")'])
+                stones.append((k, cx + (16 if (j // 4) % 2 else -16), cy))
+    for k_, x, y in stones:
+        s.node(f"S{k_}", "Sprite2D", "World/Path", [f"position = {v(round(x), round(y))}",
+                                                     "scale = Vector2(0.75, 0.75)", f'texture = ExtResource("{stone}")'])
     s.node("Decor", "Node2D", "World", [])
     env = s.res("SpriteFrames", "res://art/frames/env.tres")
     for i, (pic, x, y, w, h, anim) in enumerate(DEC):

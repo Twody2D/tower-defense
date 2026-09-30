@@ -246,6 +246,12 @@ func _show_clouds() -> void:
 				cloud.animation_finished.connect(cloud.hide)
 		if first_time:
 			Save.save()
+	# Wheat closed means the lake too: the river between them is under the haze.
+	if not Game.is_level_open(ZONES[&"CloudsWheat"]):
+		var wheat: ColorRect = $World/CloudsWheat/Haze
+		var lake: Rect2 = _bands[$World/CloudsLake/Haze as Control]
+		var r: Rect2 = _bands[wheat]
+		_bands[wheat] = Rect2(r.position.x, lake.end.y, r.size.x, r.end.y - lake.end.y)
 
 
 ## A ripe crop: collected here, its products fly to the counter as grains.
