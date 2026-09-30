@@ -73,8 +73,9 @@ PLANS = {
 
 # Decor: name → (resource kind, path or animation, sprite offset y, footprint cells w, h, block rect or None)
 # kind "tex" = Sprite2D, "anim" = AnimatedSprite2D from env.tres.
+# No apple trees in the decor (Twody: an apple tree with apples you cannot
+# pick looks broken) — apple trees are only the crops (place_crops).
 DECOR = {
-    "apple": ("anim", "env_tree_apple_sway", -70, 2, 2),
     "pine": ("anim", "env_tree_pine_sway", -62, 2, 2),
     "bush": ("tex", "env_bush", -38, 1, 1),
     "rocks": ("tex", "env_rocks", -28, 1, 1),
@@ -90,11 +91,11 @@ DECOR = {
     "reeds": ("anim", "env_lake_reeds_sway", -40, 1, 1),
 }
 BIOME_DECOR = {
-    "farm": ["apple", "apple", "pine", "pine", "bush", "bush", "rocks", "haystack", "scarecrow", "sunflower",
+    "farm": ["pine", "bush", "pine", "pine", "bush", "bush", "rocks", "haystack", "scarecrow", "sunflower",
              "sunflower", "stump", "barrow", "fence_decor", "bush", "rocks"],
     "wheat": ["ears", "ears", "ears", "ears", "ears", "sheaf", "sheaf", "cart", "scarecrow", "pine", "bush",
               "rocks", "stump", "sunflower", "sunflower", "ears"],
-    "lake": ["reeds", "reeds", "reeds", "pine", "pine", "apple", "bush", "bush", "rocks", "stump", "sunflower",
+    "lake": ["reeds", "reeds", "reeds", "pine", "pine", "pine", "bush", "bush", "rocks", "stump", "sunflower",
              "reeds", "pine", "bush"],
 }
 # Landmark footprints (cells around the node cell: x0, y0, x1, y1 inclusive) and spots to try.
@@ -313,6 +314,47 @@ def landmark(s: Scene, biome: str, cell: tuple) -> None:
                                                   f'texture = ExtResource("{s.res("Texture2D", "res://art/env/env_lake_boat.png")}")'])
 
 
+# Crops by the road (CODE_PROMPT "Урожай фермы"): biome → (kind, fruit).
+CROP_KIND = {"farm": ("apple_tree", "apple"), "wheat": ("pumpkin", "pumpkin"), "lake": ("raspberry", "raspberry")}
+
+
+def crop_count(level: int) -> int:
+    """From level 1 (Twody: something to find at once): 1, 2 from level 3, 3 from level 7."""
+    return 1 if level <= 2 else 2 if level <= 6 else 3
+
+
+def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
+    """1–3 crops a step or two off the road, the first one close to the hero
+    start so it is on the first screen. Marks their cells busy for the decor."""
+    rng = random.Random(500 + level)
+    kind, fruit = CROP_KIND[biome]
+    scene = s.res("PackedScene", "res://scenes/battle/battle_crop.tscn")
+    empty = s.res("Texture2D", f"res://art/harvest/battle_{kind}_empty.png")
+    s.node("Crops", "Node2D", ".", ["y_sort_enabled = true"])
+    busy = occ["busy"]
+    hx, hy = occ["hero"]
+    for i in range(crop_count(level)):
+        cells = [(x, y) for y in range(2, N - 1) for x in range(1, N - 1)]
+        rng.shuffle(cells)
+        # Closest to the hero first for the first crop; any spot by a road after.
+        if i == 0:
+            cells.sort(key=lambda c: (c[0] - hx) ** 2 + (c[1] - hy) ** 2)
+        for c in cells:
+            cover = {(c[0] + dx, c[1] + dy) for dx in (-1, 0) for dy in (-1, 0)}
+            if cover & busy:
+                continue
+            near = min(((a - c[0]) ** 2 + (b - c[1]) ** 2) ** 0.5 for a, b in occ["road"])
+            if not 2.0 <= near <= 3.2:
+                continue
+            s.node(f"Crop{i + 1}", None, "Crops", [f"position = {v((c[0] * CELL, c[1] * CELL + 20))}",
+                                                   f'kind = &"{kind}"', f'fruit = &"{fruit}"',
+                                                   f'empty_texture = ExtResource("{empty}")'], instance=scene)
+            busy |= {(x + dx, y + dy) for x, y in cover for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
+            break
+        else:
+            raise AssertionError(f"L{level}: no room for crop {i + 1}")
+
+
 def place_decor(s: Scene, level: int, biome: str, occ: dict) -> None:
     rng = random.Random(1000 + level)
     busy = set(occ["busy"])
@@ -385,6 +427,7 @@ def make_scene(level: int, p: dict, occ: dict, mirrored: bool) -> str:
         s.node(f"Plot{i + 1}", None, "Plots", [f"position = {v((cx * CELL, cy * CELL))}"], instance=plot)
     for i, f in enumerate(p["fences"]):
         s.node(f"FencePlot{i + 1}", None, "Plots", [f"position = {v(px(f))}", "fence_plot = true"], instance=plot)
+    place_crops(s, level, p["biome"], occ)
     s.node("Decor", "Node2D", ".", ["y_sort_enabled = true"])
     place_decor(s, level, p["biome"], occ)
     return s.text()

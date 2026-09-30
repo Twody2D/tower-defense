@@ -140,6 +140,10 @@ func _ready() -> void:
 		plot.coin_paid.connect(_on_coin_paid)
 		plot.hero_left.connect(_on_hero_left_plot)
 
+	for crop: BattleCrop in level.crops():
+		crop.hero = hero
+		crop.coin_drop.connect(coins.drop)
+
 	hud.bind(state)
 	hud.joystick.changed.connect(_on_joystick)
 	hud.pause_pressed.connect(_toggle_pause)

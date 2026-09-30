@@ -52,6 +52,17 @@ func is_road(world_pos: Vector2) -> bool:
 	return _road_cells.has(cell_of(world_pos - global_position))
 
 
+## Crops by the road (apple trees and co.) under Crops; none on older scenes.
+func crops() -> Array[BattleCrop]:
+	var out: Array[BattleCrop] = []
+	var holder: Node = get_node_or_null(^"Crops")
+	if holder != null:
+		for child: Node in holder.get_children():
+			if child is BattleCrop:
+				out.append(child as BattleCrop)
+	return out
+
+
 func bounds() -> Rect2:
 	return Rect2(Vector2.ZERO, Vector2(size_cells * CELL))
 

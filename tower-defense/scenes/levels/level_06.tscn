@@ -6,12 +6,14 @@
 [ext_resource type="PackedScene" path="res://scenes/battle/base.tscn" id="4_r"]
 [ext_resource type="PackedScene" path="res://scenes/battle/build_plot.tscn" id="5_r"]
 [ext_resource type="SpriteFrames" path="res://art/frames/env.tres" id="6_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_mill.png" id="7_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_sheaf.png" id="8_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_wheat_cart.png" id="9_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="10_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="11_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_stump.png" id="12_r"]
+[ext_resource type="PackedScene" path="res://scenes/battle/battle_crop.tscn" id="7_r"]
+[ext_resource type="Texture2D" path="res://art/harvest/battle_pumpkin_empty.png" id="8_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_mill.png" id="9_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_sheaf.png" id="10_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_wheat_cart.png" id="11_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_bush.png" id="12_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_rocks.png" id="13_r"]
+[ext_resource type="Texture2D" path="res://art/env/env_stump.png" id="14_r"]
 
 [sub_resource type="Curve2D" id="Curve2D_road1"]
 _data = {
@@ -107,12 +109,27 @@ fence_plot = true
 position = Vector2(416, 1184)
 fence_plot = true
 
+[node name="Crops" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Crop1" parent="Crops" instance=ExtResource("7_r")]
+position = Vector2(576, 1236)
+kind = &"pumpkin"
+fruit = &"pumpkin"
+empty_texture = ExtResource("8_r")
+
+[node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
+position = Vector2(832, 468)
+kind = &"pumpkin"
+fruit = &"pumpkin"
+empty_texture = ExtResource("8_r")
+
 [node name="Decor" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Mill" type="Sprite2D" parent="Decor"]
 position = Vector2(288, 352)
-texture = ExtResource("7_r")
+texture = ExtResource("9_r")
 offset = Vector2(0, -108)
 
 [node name="Block" type="StaticBody2D" parent="Decor/Mill"]
@@ -169,17 +186,17 @@ offset = Vector2(0, -26)
 
 [node name="Sheaf1" type="Sprite2D" parent="Decor"]
 position = Vector2(32, 632)
-texture = ExtResource("8_r")
+texture = ExtResource("10_r")
 offset = Vector2(0, -40)
 
 [node name="Sheaf2" type="Sprite2D" parent="Decor"]
 position = Vector2(1568, 1656)
-texture = ExtResource("8_r")
+texture = ExtResource("10_r")
 offset = Vector2(0, -40)
 
 [node name="Cart1" type="Sprite2D" parent="Decor"]
 position = Vector2(64, 184)
-texture = ExtResource("9_r")
+texture = ExtResource("11_r")
 offset = Vector2(0, -54)
 
 [node name="Scarecrow1" type="AnimatedSprite2D" parent="Decor"]
@@ -200,17 +217,17 @@ offset = Vector2(0, -62)
 
 [node name="Bush1" type="Sprite2D" parent="Decor"]
 position = Vector2(800, 1080)
-texture = ExtResource("10_r")
+texture = ExtResource("12_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks1" type="Sprite2D" parent="Decor"]
 position = Vector2(672, 888)
-texture = ExtResource("11_r")
+texture = ExtResource("13_r")
 offset = Vector2(0, -28)
 
 [node name="Stump1" type="Sprite2D" parent="Decor"]
 position = Vector2(1056, 1656)
-texture = ExtResource("12_r")
+texture = ExtResource("14_r")
 offset = Vector2(0, -30)
 
 [node name="Sunflower1" type="AnimatedSprite2D" parent="Decor"]
@@ -230,9 +247,9 @@ frame = 1
 offset = Vector2(0, -48)
 
 [node name="Ears6" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(544, 1208)
+position = Vector2(1248, 1144)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
-frame = 2
+frame = 1
 offset = Vector2(0, -26)
