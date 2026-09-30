@@ -17,14 +17,14 @@ ART = ROOT / "art"
 # Twody: no apple trees with apples just for looks — the yard's apple tree is the crop.
 YARD = {
     "Portrait": dict(
-        sand=(2, 13, 14, 20), fences=[(20, 700), (160, 700), (776, 700), (916, 700)],
-        house=(290, 520, 1.95), trees=[(-10, 640, 216, 98, 836, 80), (920, 660, 160, 1000, 810, 64)],
+        sand=(2, 13, 14, 20), fences=[(150, 700), (790, 700)],
+        house=(290, 520, 1.95), trees=[(-24, 640, 176), (936, 660, 150)],
         crops=[("wheat", 30, 1020, 1.15), ("apple", 820, 960, 1.15)],
         props=[("env_farm_haystack", 900, 1250, 130, 130), ("env_farm_wheelbarrow", 640, 1260, 110, 110)],
         sunflowers=[(40, 1270), (100, 1290)], flies=[(760, 900, 120, 40, 0.8, 0.0), (220, 1180, 90, 30, 1.1, 2.0)]),
     "Landscape": dict(
-        sand=(12, 8, 29, 16), fences=[(700, 380), (844, 380), (1516, 380), (1660, 380)],
-        house=(1060, 110, 1.75), trees=[(790, 262, 216, 900, 460, 80), (1760, 320, 160, 1830, 470, 64)],
+        sand=(12, 8, 29, 16), fences=[(866, 380), (1516, 380)],
+        house=(1060, 110, 1.75), trees=[(700, 290, 180), (1676, 320, 160)],
         crops=[("wheat", 760, 610, 1.1), ("apple", 1680, 560, 1.1)],
         props=[("env_farm_haystack", 1560, 860, 130, 130), ("env_rocks", 700, 960, 64, 64)],
         sunflowers=[(40, 900), (110, 920)], flies=[(1500, 520, 120, 40, 0.8, 0.0), (980, 840, 90, 30, 1.1, 2.0)]),
@@ -32,6 +32,10 @@ YARD = {
 # Hero (330 drawn, frames 384) and its shadow: landscape / portrait top-left.
 HERO = {"Landscape": (1165, 526), "Portrait": (375, 910)}
 HERO_SIZE = 330
+# Lowest drawn pixel of the pictures (frame 384 / 256 / 256): shadows go there.
+HERO_FEET = 359
+HOUSE_BASE = 240
+PINE_BASE = 251
 LOGO = {"Landscape": (60, 40, 700), "Portrait": (90, 130, 900)}
 PLAY = {"Landscape": (150, 400, 520), "Portrait": (300, 1430, 480)}
 BUTTONS = [("Shop", "ui_icon_shop", "BTN_SHOP", ""), ("Gift", "ui_icon_gift", "BTN_GIFT", "icon_gift_shake"),
@@ -115,23 +119,25 @@ def yard(s: Scene, group: str, d: dict) -> None:
                                                      f'texture = ExtResource("{fence}")', f"offset = {v(0, -fh / 2)}"])
     shadow = s.res("Texture2D", "res://art/ui/shadow.png")
     hx, hy, k = d["house"]
-    s.node("HouseShadow", "Sprite2D", parent, [f"position = {v(hx + 128 * k, hy + 232 * k)}",
-                                               f"scale = {v(200 * k / 128, 200 * k * 0.24 / 32)}", f'texture = ExtResource("{shadow}")'])
     house = s.res("Texture2D", "res://art/env/env_house.png")
     s.node("House", "Sprite2D", parent, [f"position = {v(hx + 128 * k, hy + 128 * k)}", f"scale = {v(k, k)}",
                                          f'texture = ExtResource("{house}")'])
+    # Shadows are children drawn behind their picture (a sibling shadow sorts
+    # by its own y and covers the bottom of the house); they sit on the base.
+    s.node("Shadow", "Sprite2D", f"{parent}/House", ["show_behind_parent = true", f"position = {v(0, HOUSE_BASE - 128 - 4)}",
+                                                    f"scale = {v(220 / 128, 220 * 0.18 / 32)}", f'texture = ExtResource("{shadow}")'])
     s.node("Smoke", "AnimatedSprite2D", parent, [
         f"position = {v(hx + 181 * k, hy + 28 * k - 112 + 57)}", f"scale = {v(76 / 64, 114 / 96)}",
         f'sprite_frames = ExtResource("{frames}")', 'animation = &"chimney_smoke"', 'autoplay = "chimney_smoke"'])
     hi = s.res("SpriteFrames", "res://art/frames/ui_hi.tres")
     pw, _ = frame_size(ART / "hi" / "env_tree_pine_sway_3f.png", 3)
-    for i, (x, y, size, sx, sy, sw) in enumerate(d["trees"]):
-        s.node(f"TreeShadow{i + 1}", "Sprite2D", parent, [f"position = {v(sx, sy)}", f"scale = {v(sw / 128, sw * 0.24 / 32)}",
-                                                          f'texture = ExtResource("{shadow}")'])
+    for i, (x, y, size) in enumerate(d["trees"]):
         s.node(f"Pine{i + 1}", "AnimatedSprite2D", parent, [
             f"position = {v(x + size / 2, y + size)}", f"scale = {v(size / pw, size / pw)}", f"offset = {v(0, -pw / 2)}",
             f'sprite_frames = ExtResource("{hi}")', 'animation = &"pine_sway"', 'autoplay = "pine_sway"',
             f"frame = {i}"])
+        s.node("Shadow", "Sprite2D", f"{parent}/Pine{i + 1}", ["show_behind_parent = true", f"position = {v(0, PINE_BASE - pw - 4)}",
+                                                              f"scale = {v(140 / 128, 140 * 0.24 / 32)}", f'texture = ExtResource("{shadow}")'])
     for name, x, y, w, h in d["props"]:
         tex = s.res("Texture2D", f"res://art/env/{name}.png")
         tw, th = frame_size(ART / "env" / f"{name}.png")
@@ -179,7 +185,7 @@ def main() -> int:
     s.node("Hero", "Node2D", "Stage", [f"position = {v(lx + half, ly + half)}",
                                        f"metadata/portrait = {v(px_ + half, py_ + half)}"])
     shadow = s.res("Texture2D", "res://art/ui/shadow.png")
-    s.node("Shadow", "Sprite2D", "Stage/Hero", [f"position = {v(0, 1244 - (py_ + half))}", f"scale = {v(170 / 128, 170 * 0.24 / 32)}",
+    s.node("Shadow", "Sprite2D", "Stage/Hero", [f"position = {v(0, round((HERO_FEET - 192) * HERO_SIZE / 384) - 6)}", f"scale = {v(170 / 128, 170 * 0.24 / 32)}",
                                                 f'texture = ExtResource("{shadow}")'])
     hero = s.res("SpriteFrames", "res://art/frames/hero_raccoon_ui.tres")
     k = HERO_SIZE / 384

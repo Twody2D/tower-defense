@@ -492,38 +492,27 @@ position = Vector2(928, 1312)
 texture = ExtResource("17_u")
 
 [node name="Fence1" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(92, 796)
+position = Vector2(222, 796)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
 offset = Vector2(0, -64)
 
 [node name="Fence2" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(232, 796)
+position = Vector2(862, 796)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
 offset = Vector2(0, -64)
-
-[node name="Fence3" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(848, 796)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("20_u")
-offset = Vector2(0, -64)
-
-[node name="Fence4" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(988, 796)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("20_u")
-offset = Vector2(0, -64)
-
-[node name="HouseShadow" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(539.6, 972.4)
-scale = Vector2(3.04688, 2.925)
-texture = ExtResource("21_u")
 
 [node name="House" type="Sprite2D" parent="Stage/Portrait"]
 position = Vector2(539.6, 769.6)
 scale = Vector2(1.95, 1.95)
 texture = ExtResource("22_u")
+
+[node name="Shadow" type="Sprite2D" parent="Stage/Portrait/House"]
+show_behind_parent = true
+position = Vector2(0, 108)
+scale = Vector2(1.71875, 1.2375)
+texture = ExtResource("21_u")
 
 [node name="Smoke" type="AnimatedSprite2D" parent="Stage/Portrait"]
 position = Vector2(642.95, 519.6)
@@ -532,33 +521,35 @@ sprite_frames = ExtResource("19_u")
 animation = &"chimney_smoke"
 autoplay = "chimney_smoke"
 
-[node name="TreeShadow1" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(98, 836)
-scale = Vector2(0.625, 0.6)
-texture = ExtResource("21_u")
-
 [node name="Pine1" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(98, 856)
-scale = Vector2(0.84375, 0.84375)
+position = Vector2(64, 816)
+scale = Vector2(0.6875, 0.6875)
 offset = Vector2(0, -128)
 sprite_frames = ExtResource("23_u")
 animation = &"pine_sway"
 autoplay = "pine_sway"
 frame = 0
 
-[node name="TreeShadow2" type="Sprite2D" parent="Stage/Portrait"]
-position = Vector2(1000, 810)
-scale = Vector2(0.5, 0.48)
+[node name="Shadow" type="Sprite2D" parent="Stage/Portrait/Pine1"]
+show_behind_parent = true
+position = Vector2(0, -9)
+scale = Vector2(1.09375, 1.05)
 texture = ExtResource("21_u")
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Stage/Portrait"]
-position = Vector2(1000, 820)
-scale = Vector2(0.625, 0.625)
+position = Vector2(1011, 810)
+scale = Vector2(0.585938, 0.585938)
 offset = Vector2(0, -128)
 sprite_frames = ExtResource("23_u")
 animation = &"pine_sway"
 autoplay = "pine_sway"
 frame = 1
+
+[node name="Shadow" type="Sprite2D" parent="Stage/Portrait/Pine2"]
+show_behind_parent = true
+position = Vector2(0, -9)
+scale = Vector2(1.09375, 1.05)
+texture = ExtResource("21_u")
 
 [node name="FarmHaystack" type="Sprite2D" parent="Stage/Portrait"]
 position = Vector2(965, 1315)
@@ -1275,38 +1266,27 @@ position = Vector2(1888, 1056)
 texture = ExtResource("17_u")
 
 [node name="Fence1" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(772, 476)
+position = Vector2(938, 476)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
 offset = Vector2(0, -64)
 
 [node name="Fence2" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(916, 476)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("20_u")
-offset = Vector2(0, -64)
-
-[node name="Fence3" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(1588, 476)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("20_u")
 offset = Vector2(0, -64)
 
-[node name="Fence4" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1732, 476)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("20_u")
-offset = Vector2(0, -64)
-
-[node name="HouseShadow" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1284, 516)
-scale = Vector2(2.73438, 2.625)
-texture = ExtResource("21_u")
-
 [node name="House" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(1284, 334)
 scale = Vector2(1.75, 1.75)
 texture = ExtResource("22_u")
+
+[node name="Shadow" type="Sprite2D" parent="Stage/Landscape/House"]
+show_behind_parent = true
+position = Vector2(0, 108)
+scale = Vector2(1.71875, 1.2375)
+texture = ExtResource("21_u")
 
 [node name="Smoke" type="AnimatedSprite2D" parent="Stage/Landscape"]
 position = Vector2(1376.75, 104)
@@ -1315,33 +1295,35 @@ sprite_frames = ExtResource("19_u")
 animation = &"chimney_smoke"
 autoplay = "chimney_smoke"
 
-[node name="TreeShadow1" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(900, 460)
-scale = Vector2(0.625, 0.6)
-texture = ExtResource("21_u")
-
 [node name="Pine1" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(898, 478)
-scale = Vector2(0.84375, 0.84375)
+position = Vector2(790, 470)
+scale = Vector2(0.703125, 0.703125)
 offset = Vector2(0, -128)
 sprite_frames = ExtResource("23_u")
 animation = &"pine_sway"
 autoplay = "pine_sway"
 frame = 0
 
-[node name="TreeShadow2" type="Sprite2D" parent="Stage/Landscape"]
-position = Vector2(1830, 470)
-scale = Vector2(0.5, 0.48)
+[node name="Shadow" type="Sprite2D" parent="Stage/Landscape/Pine1"]
+show_behind_parent = true
+position = Vector2(0, -9)
+scale = Vector2(1.09375, 1.05)
 texture = ExtResource("21_u")
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Stage/Landscape"]
-position = Vector2(1840, 480)
+position = Vector2(1756, 480)
 scale = Vector2(0.625, 0.625)
 offset = Vector2(0, -128)
 sprite_frames = ExtResource("23_u")
 animation = &"pine_sway"
 autoplay = "pine_sway"
 frame = 1
+
+[node name="Shadow" type="Sprite2D" parent="Stage/Landscape/Pine2"]
+show_behind_parent = true
+position = Vector2(0, -9)
+scale = Vector2(1.09375, 1.05)
+texture = ExtResource("21_u")
 
 [node name="FarmHaystack" type="Sprite2D" parent="Stage/Landscape"]
 position = Vector2(1625, 925)
@@ -1408,7 +1390,7 @@ position = Vector2(1330, 691)
 metadata/portrait = Vector2(540, 1075)
 
 [node name="Shadow" type="Sprite2D" parent="Stage/Hero"]
-position = Vector2(0, 169)
+position = Vector2(0, 138)
 scale = Vector2(1.32812, 1.275)
 texture = ExtResource("21_u")
 
