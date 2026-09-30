@@ -122,19 +122,19 @@ fruit = &"pumpkin"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(192, 1492)
+position = Vector2(1088, 212)
 kind = &"pumpkin"
 fruit = &"pumpkin"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(640, 468)
+position = Vector2(448, 788)
 kind = &"pumpkin"
 fruit = &"pumpkin"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop4" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(832, 1748)
+position = Vector2(1728, 532)
 kind = &"pumpkin"
 fruit = &"pumpkin"
 empty_texture = ExtResource("8_r")
@@ -168,15 +168,15 @@ frame = 1
 offset = Vector2(0, -26)
 
 [node name="Ears2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(1056, 1080)
+position = Vector2(160, 1592)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
-frame = 0
+frame = 2
 offset = Vector2(0, -26)
 
 [node name="Ears3" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(1056, 1656)
+position = Vector2(992, 1848)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
@@ -184,7 +184,7 @@ frame = 0
 offset = Vector2(0, -26)
 
 [node name="Ears4" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(160, 184)
+position = Vector2(1056, 1656)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
@@ -192,38 +192,38 @@ frame = 0
 offset = Vector2(0, -26)
 
 [node name="Ears5" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(992, 440)
+position = Vector2(160, 184)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"
-frame = 2
+frame = 0
 offset = Vector2(0, -26)
 
 [node name="Sheaf1" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 1336)
+position = Vector2(160, 1464)
 texture = ExtResource("10_r")
 offset = Vector2(0, -40)
 
 [node name="Sheaf2" type="Sprite2D" parent="Decor"]
-position = Vector2(1312, 376)
+position = Vector2(1056, 376)
 texture = ExtResource("10_r")
 offset = Vector2(0, -40)
 
 [node name="Cart1" type="Sprite2D" parent="Decor"]
-position = Vector2(1600, 504)
+position = Vector2(960, 1016)
 texture = ExtResource("11_r")
 offset = Vector2(0, -54)
 
 [node name="Scarecrow1" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(32, 1720)
+position = Vector2(736, 1912)
 sprite_frames = ExtResource("6_r")
 animation = &"env_farm_scarecrow_sway"
 autoplay = "env_farm_scarecrow_sway"
-frame = 0
+frame = 1
 offset = Vector2(0, -62)
 
 [node name="Pine1" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(1472, 1912)
+position = Vector2(960, 1208)
 sprite_frames = ExtResource("6_r")
 animation = &"env_tree_pine_sway"
 autoplay = "env_tree_pine_sway"
@@ -231,22 +231,22 @@ frame = 1
 offset = Vector2(0, -62)
 
 [node name="Bush1" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 1592)
+position = Vector2(672, 504)
 texture = ExtResource("12_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks1" type="Sprite2D" parent="Decor"]
-position = Vector2(1120, 120)
+position = Vector2(288, 1656)
 texture = ExtResource("13_r")
 offset = Vector2(0, -28)
 
 [node name="Stump1" type="Sprite2D" parent="Decor"]
-position = Vector2(608, 1784)
+position = Vector2(672, 1528)
 texture = ExtResource("14_r")
 offset = Vector2(0, -30)
 
 [node name="Sunflower1" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(672, 1656)
+position = Vector2(1760, 1592)
 sprite_frames = ExtResource("6_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
@@ -254,7 +254,7 @@ frame = 2
 offset = Vector2(0, -48)
 
 [node name="Sunflower2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(480, 1656)
+position = Vector2(1568, 1848)
 sprite_frames = ExtResource("6_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
@@ -262,7 +262,7 @@ frame = 0
 offset = Vector2(0, -48)
 
 [node name="Ears6" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(544, 760)
+position = Vector2(864, 1720)
 sprite_frames = ExtResource("6_r")
 animation = &"env_wheat_ears_sway"
 autoplay = "env_wheat_ears_sway"

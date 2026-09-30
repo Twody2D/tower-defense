@@ -91,13 +91,13 @@ fruit = &"apple"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(256, 916)
+position = Vector2(320, 1748)
 kind = &"apple_tree"
 fruit = &"apple"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(1664, 212)
+position = Vector2(896, 212)
 kind = &"apple_tree"
 fruit = &"apple"
 empty_texture = ExtResource("8_r")
@@ -106,7 +106,7 @@ empty_texture = ExtResource("8_r")
 y_sort_enabled = true
 
 [node name="Barn" type="Sprite2D" parent="Decor"]
-position = Vector2(1696, 992)
+position = Vector2(1632, 352)
 texture = ExtResource("9_r")
 offset = Vector2(0, -108)
 
@@ -136,7 +136,7 @@ texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(192, 1912)
+position = Vector2(640, 1848)
 sprite_frames = ExtResource("6_r")
 animation = &"env_tree_pine_sway"
 autoplay = "env_tree_pine_sway"
@@ -211,11 +211,11 @@ texture = ExtResource("15_r")
 offset = Vector2(0, -30)
 
 [node name="Bush4" type="Sprite2D" parent="Decor"]
-position = Vector2(416, 1656)
+position = Vector2(1376, 376)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks2" type="Sprite2D" parent="Decor"]
-position = Vector2(928, 1784)
+position = Vector2(544, 440)
 texture = ExtResource("11_r")
 offset = Vector2(0, -28)

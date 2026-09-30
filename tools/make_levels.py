@@ -318,6 +318,10 @@ def landmark(s: Scene, biome: str, cell: tuple) -> None:
 CROP_KIND = {"farm": ("apple_tree", "apple"), "wheat": ("pumpkin", "pumpkin"), "lake": ("raspberry", "raspberry")}
 
 
+# Crop distance from the nearest road cell, cells: min, max.
+CROP_ROAD = (2.0, 5.0)
+
+
 def crop_count(level: int) -> int:
     """From level 1 (Twody: something to find at once, several trees on
     different sides of the map): 3, 4 from level 7."""
@@ -325,8 +329,8 @@ def crop_count(level: int) -> int:
 
 
 def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
-    """3–4 crops on free grass (Twody: not only by the road), at least two
-    cells off the road and the map edge: the first one close to the hero
+    """3–4 crops on free grass, CROP_ROAD cells off the road (Twody: not
+    only by it, but not far away either), three cells off the map edge: the first one close to the hero
     start so it is on the first screen, each next one among the free spots
     farthest from those already placed (different sides of the map). Marks
     their cells busy for the decor."""
@@ -347,7 +351,7 @@ def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
             if cover & busy:
                 continue
             near = min(((a - c[0]) ** 2 + (b - c[1]) ** 2) ** 0.5 for a, b in occ["road"])
-            if near >= 2.0:
+            if CROP_ROAD[0] <= near <= CROP_ROAD[1]:
                 free.append(c)
         if not free:
             raise AssertionError(f"L{level}: no room for crop {i + 1}")

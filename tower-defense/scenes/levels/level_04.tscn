@@ -123,7 +123,7 @@ fruit = &"apple"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(704, 276)
+position = Vector2(192, 404)
 kind = &"apple_tree"
 fruit = &"apple"
 empty_texture = ExtResource("8_r")
@@ -132,7 +132,7 @@ empty_texture = ExtResource("8_r")
 y_sort_enabled = true
 
 [node name="Barn" type="Sprite2D" parent="Decor"]
-position = Vector2(288, 352)
+position = Vector2(1632, 1696)
 texture = ExtResource("9_r")
 offset = Vector2(0, -108)
 
@@ -157,19 +157,11 @@ frame = 2
 offset = Vector2(0, -62)
 
 [node name="Bush1" type="Sprite2D" parent="Decor"]
-position = Vector2(1440, 1464)
+position = Vector2(1696, 1848)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Pine2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(1344, 504)
-sprite_frames = ExtResource("6_r")
-animation = &"env_tree_pine_sway"
-autoplay = "env_tree_pine_sway"
-frame = 0
-offset = Vector2(0, -62)
-
-[node name="Pine3" type="AnimatedSprite2D" parent="Decor"]
 position = Vector2(128, 1528)
 sprite_frames = ExtResource("6_r")
 animation = &"env_tree_pine_sway"
@@ -177,71 +169,79 @@ autoplay = "env_tree_pine_sway"
 frame = 2
 offset = Vector2(0, -62)
 
+[node name="Pine3" type="AnimatedSprite2D" parent="Decor"]
+position = Vector2(320, 1848)
+sprite_frames = ExtResource("6_r")
+animation = &"env_tree_pine_sway"
+autoplay = "env_tree_pine_sway"
+frame = 2
+offset = Vector2(0, -62)
+
 [node name="Bush2" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 1720)
+position = Vector2(736, 248)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Bush3" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 1336)
+position = Vector2(32, 376)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks1" type="Sprite2D" parent="Decor"]
-position = Vector2(160, 1144)
+position = Vector2(288, 248)
 texture = ExtResource("11_r")
 offset = Vector2(0, -28)
 
 [node name="Haystack1" type="Sprite2D" parent="Decor"]
-position = Vector2(1504, 120)
+position = Vector2(608, 120)
 texture = ExtResource("12_r")
 offset = Vector2(0, -46)
 
 [node name="Scarecrow1" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(160, 1784)
+position = Vector2(864, 312)
 sprite_frames = ExtResource("6_r")
 animation = &"env_farm_scarecrow_sway"
 autoplay = "env_farm_scarecrow_sway"
-frame = 2
+frame = 1
 offset = Vector2(0, -62)
 
 [node name="Sunflower1" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(608, 120)
+position = Vector2(1760, 696)
 sprite_frames = ExtResource("6_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
-frame = 0
+frame = 2
 offset = Vector2(0, -48)
 
 [node name="Sunflower2" type="AnimatedSprite2D" parent="Decor"]
-position = Vector2(864, 312)
+position = Vector2(1824, 120)
 sprite_frames = ExtResource("6_r")
 animation = &"env_sunflower_sway"
 autoplay = "env_sunflower_sway"
-frame = 1
+frame = 2
 offset = Vector2(0, -48)
 
 [node name="Stump1" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 696)
+position = Vector2(800, 696)
 texture = ExtResource("13_r")
 offset = Vector2(0, -30)
 
 [node name="Barrow1" type="Sprite2D" parent="Decor"]
-position = Vector2(1824, 120)
+position = Vector2(1632, 952)
 texture = ExtResource("14_r")
 offset = Vector2(0, -44)
 
 [node name="FenceDecor1" type="Sprite2D" parent="Decor"]
-position = Vector2(832, 696)
+position = Vector2(832, 1016)
 texture = ExtResource("15_r")
 offset = Vector2(0, -30)
 
 [node name="Bush4" type="Sprite2D" parent="Decor"]
-position = Vector2(1632, 952)
+position = Vector2(1504, 440)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks2" type="Sprite2D" parent="Decor"]
-position = Vector2(1632, 1528)
+position = Vector2(1888, 1656)
 texture = ExtResource("11_r")
 offset = Vector2(0, -28)
