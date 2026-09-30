@@ -17,7 +17,7 @@ func test_hero_shakes_a_crop_for_coins() -> void:
 	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
 	var battle: Battle = runner.scene() as Battle
 	var crops: Array[BattleCrop] = battle.level.crops()
-	assert_int(crops.size()).is_equal(1)
+	assert_int(crops.size()).is_equal(3)
 	var crop: BattleCrop = crops[0]
 	crop.regrow_time = 1.0
 	# Too short a stop does nothing.
@@ -44,5 +44,5 @@ func test_every_level_has_crops() -> void:
 	for n: int in range(1, 13):
 		var level: Level = (load("res://scenes/levels/level_%02d.tscn" % n) as PackedScene).instantiate() as Level
 		var count: int = level.crops().size()
-		assert_int(count).override_failure_message("L%d: %d crops" % [n, count]).is_between(1, 3)
+		assert_int(count).override_failure_message("L%d: %d crops" % [n, count]).is_between(3, 4)
 		level.free()

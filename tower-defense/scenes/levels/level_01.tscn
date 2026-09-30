@@ -74,7 +74,19 @@ position = Vector2(1280, 384)
 y_sort_enabled = true
 
 [node name="Crop1" parent="Crops" instance=ExtResource("7_r")]
-position = Vector2(512, 1300)
+position = Vector2(640, 1236)
+kind = &"apple_tree"
+fruit = &"apple"
+empty_texture = ExtResource("8_r")
+
+[node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
+position = Vector2(1728, 1044)
+kind = &"apple_tree"
+fruit = &"apple"
+empty_texture = ExtResource("8_r")
+
+[node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
+position = Vector2(512, 276)
 kind = &"apple_tree"
 fruit = &"apple"
 empty_texture = ExtResource("8_r")
@@ -183,16 +195,16 @@ texture = ExtResource("14_r")
 offset = Vector2(0, -44)
 
 [node name="FenceDecor1" type="Sprite2D" parent="Decor"]
-position = Vector2(1856, 952)
+position = Vector2(256, 1848)
 texture = ExtResource("15_r")
 offset = Vector2(0, -30)
 
 [node name="Bush4" type="Sprite2D" parent="Decor"]
-position = Vector2(1760, 1912)
+position = Vector2(864, 1272)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)
 
 [node name="Rocks2" type="Sprite2D" parent="Decor"]
-position = Vector2(864, 1272)
+position = Vector2(160, 696)
 texture = ExtResource("11_r")
 offset = Vector2(0, -28)
