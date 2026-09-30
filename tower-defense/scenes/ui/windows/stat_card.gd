@@ -32,6 +32,8 @@ var stat: StringName = &"damage"
 
 func _ready() -> void:
 	_buy.pressed.connect(_on_buy)
+	# Its own sound: bought or not enough grains.
+	_buy.set_meta(&"no_click", true)
 	_discount.text = tr("BTN_DISCOUNT") % roundi(Game.ADS.discount_share * 100.0)
 	_discount.rewarded.connect(_on_discount)
 	UiFx.press_spring(_buy)
@@ -81,6 +83,7 @@ func _on_buy() -> void:
 	if Game.buy_stat(stat):
 		_bought()
 	else:
+		Audio.sfx(&"deny", false)
 		Ui.toast(tr("TOAST_NO_GRAINS"))
 
 
@@ -92,6 +95,7 @@ func _on_discount() -> void:
 
 
 func _bought() -> void:
+	Audio.sfx(&"buy", false)
 	Save.save()
 	UiFx.bump(_segs, 1.15, 0.25)
 	changed.emit()

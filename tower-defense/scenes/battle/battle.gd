@@ -107,6 +107,7 @@ func _ready() -> void:
 	enemies.reached_base.connect(_on_enemy_reached_base)
 	enemies.hero_struck.connect(hero.stun)
 	enemies.hero_struck.connect(shake.bind(shake_boss, 0.35))
+	enemies.hero_struck.connect(Audio.sfx.bind(&"stun", true))
 	enemies.boss_spawned.connect(_on_boss_spawned)
 	enemies.first_of_type.connect(_on_first_of_type)
 	enemies.fx = fx
@@ -168,6 +169,7 @@ func _ready() -> void:
 	_apply_boosts()
 	YandexSdk.gameplay_start()
 	YandexSdk.paused.connect(_on_sdk_paused)
+	Audio.music(&"battle")
 	for d: DefenderData in data.defenders:
 		if Game.first_meet(d.id):
 			_intros.append(d)
@@ -255,8 +257,21 @@ func _on_gift_picked() -> void:
 	var id: StringName = bonuses.free_pick(Game.ADS.gift_bonuses)
 	if _over or id == &"":
 		return
+	Audio.sfx(&"parcel_open")
+	_bonus_sound(id)
 	bonuses.apply(id, waves.wave)
 	hud.show_bonus_banner(tr("BONUS_" + String(id).to_upper()), bonuses.big_icon(id))
+
+
+## Bonuses with a voice of their own; the rest chime.
+func _bonus_sound(id: StringName) -> void:
+	match id:
+		&"tractor":
+			Audio.sfx(&"tractor")
+		&"sleepy_rain":
+			Audio.sfx(&"snore")
+		_:
+			Audio.sfx(&"unlock")
 
 
 ## A free spot around the hero (not inside the barn, the bed or a built plot).
@@ -286,12 +301,14 @@ func _on_parcel_picked() -> void:
 	var icons: Array[Texture2D] = []
 	for id: StringName in ids:
 		icons.append(bonuses.big_icon(id))
+	Audio.sfx(&"parcel_open")
 	_pause_game()
 	parcel_window.show_bonuses(ids, icons)
 
 
 func _on_bonus_picked(id: StringName) -> void:
 	_resume()
+	_bonus_sound(id)
 	bonuses.apply(id, waves.wave)
 	hud.show_bonus_banner(tr("BONUS_" + String(id).to_upper()), bonuses.big_icon(id))
 
@@ -517,6 +534,7 @@ func _update_edges() -> void:
 func _on_coins_collected(n: int) -> void:
 	var at: Vector2 = get_viewport().get_canvas_transform() * (hero.global_position + Vector2(0, -110))
 	hud.popup(at, "+%d" % n)
+	Audio.sfx(&"coin")
 
 
 func stars() -> int:
@@ -537,6 +555,7 @@ func _on_wave_started(number: int, total: int) -> void:
 	hud.set_wave(number, total)
 	if number >= 1:
 		hud.show_wave_banner(number)
+		Audio.sfx(&"wave", false)
 		_count_parcel()
 
 
@@ -549,6 +568,7 @@ func _on_call_now() -> void:
 
 func _on_enemy_defeated(pos: Vector2, data: EnemyData) -> void:
 	coins.drop(pos, data.coins)
+	Audio.sfx(&"pop")
 
 
 ## Camera shake: a few random offsets, then back to rest.
@@ -564,6 +584,7 @@ func shake(strength: float, time: float) -> void:
 
 func _on_enemy_reached_base(data: EnemyData) -> void:
 	shake(shake_carrot * minf(data.carrots, 3), 0.25)
+	Audio.sfx(&"carrot")
 	var before: int = state.carrots
 	state.take_carrots(data.carrots)
 	carrots_lost += before - state.carrots
@@ -573,6 +594,7 @@ func _on_enemy_reached_base(data: EnemyData) -> void:
 func _on_boss_spawned(id: int, data: EnemyData) -> void:
 	_boss_id = id
 	hud.show_boss(data)
+	Audio.sfx(&"boss", false)
 
 
 ## Hero stepped on an empty plot: the defender pick, the game goes on.
@@ -585,11 +607,13 @@ func _on_menu_requested(plot: BuildPlot) -> void:
 ## Build flash for a new defender / fence, sparks for an upgrade.
 func _on_plot_built(plot: BuildPlot, new_level: int) -> void:
 	fx.play(&"build_flash" if new_level == 1 else &"upgrade", plot.global_position + Vector2(0, -48), 1.5)
+	Audio.sfx(&"build")
 
 
 ## A coin flies from the hero's paws into the plot.
 func _on_coin_paid(plot: BuildPlot) -> void:
 	fx.fly(&"coin_trail", hero.global_position + Vector2(0, -60), plot.global_position, 0.2, 1.5)
+	Audio.sfx(&"pay")
 
 
 func _on_hero_left_plot(plot: BuildPlot) -> void:
@@ -663,6 +687,7 @@ func _on_second_chance() -> void:
 	_over = false
 	hero.revive()
 	state.give_carrots(Game.ADS.second_chance_carrots)
+	Audio.fade_music(true)
 	_resume()
 
 
@@ -672,11 +697,14 @@ func _on_won() -> void:
 	reward = Game.finish_level(level_number, s)
 	Save.save()
 	fx.play(&"confetti", hero.global_position + Vector2(0, -120), 2.0, true)
+	Audio.sfx(&"win", false)
 	if await _finish(s):
 		win_window.show_result(s, reward)
 
 
 func _on_lost() -> void:
+	if not _over:
+		Audio.sfx(&"lose", false)
 	if await _finish(0):
 		lose_window.show_result(not _chance_used)
 
@@ -691,6 +719,7 @@ func _finish(s: int) -> bool:
 	if won:
 		Game.trial_skin = &""
 	YandexSdk.gameplay_stop()
+	Audio.fade_music(false)
 	_release_input()
 	hud.radial_menu.close()
 	tutorial.stop()

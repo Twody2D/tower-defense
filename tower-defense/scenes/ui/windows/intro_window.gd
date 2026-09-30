@@ -34,6 +34,7 @@ func show_defender(data: DefenderData) -> void:
 	_defender.scale = Vector2(k, k)
 	_name.text = tr(data.name_key)
 	_text.text = tr("DESC_" + String(data.id).to_upper())
+	Audio.sfx(&"unlock", false)
 	open()
 
 

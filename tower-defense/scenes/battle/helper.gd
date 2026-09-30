@@ -102,6 +102,7 @@ func _process(delta: float) -> void:
 			_shot.damage = stats.damage
 			_shot.speed = stats.projectile_speed
 			projectiles.fire(global_position + throw_offset, target, _shot)
+			Audio.sfx(&"throw")
 			if not _running:
 				_sprite.play(&"throw")
 				_sprite.flip_h = enemies.position_at(target).x < global_position.x

@@ -82,6 +82,8 @@ func repair(hp: float) -> void:
 func _on_hp_changed(hp: float) -> void:
 	var hurt: bool = hp < _last_hp
 	_last_hp = hp
+	if hurt and hp > 0.0:
+		Audio.sfx(&"fence_hit")
 	if level <= 0 or _sprite.is_playing():
 		return
 	if hurt and _hit_cd <= 0.0:
@@ -111,5 +113,6 @@ func _on_broken() -> void:
 	_destroying = true
 	_stars.visible = false
 	_sprite.play(data.anim_at(level, "destroy"))
+	Audio.sfx(&"fence_break", false)
 	set_level(0)
 	destroyed.emit()

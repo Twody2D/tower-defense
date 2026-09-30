@@ -46,6 +46,7 @@ var _dragged: bool = false
 
 func _ready() -> void:
 	_remember(_world)
+	Audio.music(&"menu")
 	for n: Node in _nodes.get_children():
 		var node: MapNode = n as MapNode
 		if node != null:

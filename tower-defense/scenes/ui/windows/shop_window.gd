@@ -54,6 +54,8 @@ func _ready() -> void:
 	_tab_skins.pressed.connect(_show_tab.bind(true))
 	_select_skin.pressed.connect(_on_select)
 	_buy_skin.pressed.connect(_on_buy)
+	# Its own sound: a new skin or not enough grains.
+	_buy_skin.set_meta(&"no_click", true)
 	_open_ad.rewarded.connect(_on_open_ad)
 	_try.rewarded.connect(_on_try)
 	for b: Button in [_select_skin, _buy_skin]:
@@ -191,15 +193,18 @@ func _on_buy() -> void:
 	if Game.buy_skin(_preview_id):
 		Game.select_skin(_preview_id)
 		Save.save()
+		Audio.sfx(&"unlock", false)
 		Ui.toast(tr("TOAST_SKIN_OPEN"))
 		UiFx.pop(_hero_card, 0.85, 0.3)
 		_refresh()
 	else:
+		Audio.sfx(&"deny", false)
 		Ui.toast(tr("TOAST_NO_GRAINS"))
 
 
 func _on_open_ad() -> void:
 	if Game.add_skin_ad(_preview_id):
+		Audio.sfx(&"unlock", false)
 		Ui.toast(tr("TOAST_SKIN_OPEN"))
 		UiFx.pop(_hero_card, 0.85, 0.3)
 	Save.save()

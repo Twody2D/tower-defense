@@ -209,6 +209,7 @@ func _attack(delta: float) -> void:
 	_shot.damage = stats.damage * damage_mult
 	_shot.speed = stats.projectile_speed
 	projectiles.fire(global_position + throw_offset, target, _shot)
+	Audio.sfx(&"throw")
 	if not is_moving() and _build_left <= 0.0:
 		_sprite.play(&"throw")
 		_sprite.flip_h = enemies.position_at(target).x < global_position.x

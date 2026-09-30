@@ -76,6 +76,7 @@ func clear() -> void:
 
 func _hit(p: Projectile, idx: int) -> void:
 	var shot: Shot = p.shot
+	Audio.sfx(&"hit")
 	if fx != null and shot.hit_fx != &"":
 		fx.play(shot.hit_fx, p.global_position, shot.hit_fx_size)
 	if shot.splash_radius > 0.0:

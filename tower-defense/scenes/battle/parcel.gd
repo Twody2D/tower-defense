@@ -76,6 +76,7 @@ func hide_now() -> void:
 func _land() -> void:
 	_landed = true
 	_sprite.play(land_anim if land_anim != &"" else idle_anim)
+	Audio.sfx(&"parcel_land")
 	if fx != null:
 		fx.play(&"dust", global_position, 2.0)
 

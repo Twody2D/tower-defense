@@ -25,6 +25,7 @@ static var _gift_auto_shown: bool = false
 
 func _ready() -> void:
 	_play.text = tr("BTN_PLAY")
+	Audio.music(&"menu")
 	UiFx.press_spring(_play)
 	_play.pressed.connect(func() -> void: get_tree().change_scene_to_file(map_scene))
 	_shop.pressed.connect(_open.bind(shop_window))
