@@ -20,19 +20,23 @@ signal finished(won: bool, stars: int)
 @export var shake_boss: float = 18.0
 ## Pause between the end of the fight and the result window, s.
 @export var result_delay: float = 1.2
-## Start of the fight: the camera glides out to the whole level and back
-## (each glide, s); it waits this long after the arrows reach the carrots.
-@export var spawn_fly_time: float = 1.4
-@export var spawn_hold_time: float = 0.8
+## Start of the fight (Twody): the camera glides to each burrow at the play
+## zoom (speed px/s, each glide within min..max s), waits there, then glides
+## back to the hero together with the arrows of the last road.
+@export var tour_speed: float = 1200.0
+@export var tour_glide_min: float = 1.2
+@export var tour_glide_max: float = 2.0
+@export var tour_return_max: float = 3.5
+@export var spawn_hold_time: float = 0.5
 ## Road arrows of the tour: frames (env set, "ui_edge_arrow"), step along
 ## the road, size, how long they stay after the tour.
 @export var arrow_frames: SpriteFrames
 @export var arrow_step: float = 90.0
 @export var arrow_size: float = 1.3
 @export var arrows_linger: float = 1.0
-## Arrows run from the burrows to the carrots at this speed, px/s (all roads
-## at once).
-@export var arrow_run_speed: float = 1600.0
+## Arrows run from a burrow to the carrots at this speed once the camera is
+## there, px/s; the camera glides back about as fast.
+@export var arrow_run_speed: float = 1100.0
 ## Edge pointers are updated this often, s.
 @export var edge_check_every: float = 0.2
 ## Level start boost (bought with an ad): the starting defender (level: AdRewards).
@@ -331,63 +335,89 @@ func _on_first_of_type(data: EnemyData) -> void:
 		_next_intro()
 
 
-## Start of the fight (once, Twody): the camera glides out once until the
-## whole level is in view, arrows run from every burrow to the carrots at the
-## same time, then the camera glides back to the hero. No other moves.
+## Start of the fight (once, Twody): the camera glides from the hero to each
+## burrow in turn at the play zoom; at a burrow the arrows start running from
+## it to the carrots; from the last one the camera glides back to the hero
+## along with its arrows. The first wave countdown waits for the end.
 func _show_spawns() -> void:
 	if _spawns_shown or _over:
 		return
 	_spawns_shown = true
+	waves.wait = true
 	_arrows = Node2D.new()
 	_arrows.z_index = 5
 	level.add_child(_arrows)
-	var arrows: Array[AnimatedSprite2D] = []
-	for road: Path2D in level.roads():
-		arrows.append_array(_make_arrows(road))
-	var z_play: Vector2 = camera.zoom
-	var screen: Vector2 = get_viewport_rect().size
-	var b: Rect2 = level.bounds()
-	var z_fit: float = minf(screen.x / b.size.x, screen.y / b.size.y)
-	var z_view: Vector2 = Vector2(z_fit, z_fit) if z_fit < z_play.x else z_play
-	var view_at: Vector2 = _reach_at(b.get_center(), z_view)
-	var from: Array[Vector2] = [Vector2.ZERO]
+	var z: Vector2 = camera.zoom
+	# The camera may not have caught up with the hero yet (the tour can start
+	# in _ready), so the tour starts from where it will look.
+	var from: Vector2 = _reach_at(hero.global_position + Vector2(0, -40), z)
 	var tw: Tween = create_tween()
 	# The camera flies by the view centre it can really reach (the level edges
 	# stop it), without smoothing, so every move is the eased curve itself.
 	tw.tween_callback(func() -> void:
-		from[0] = camera.get_screen_center_position()
 		camera.position_smoothing_enabled = false
 		camera.top_level = true
-		camera.global_position = from[0])
+		camera.global_position = from)
+	var last_run: float = 0.0
+	for road: Path2D in _tour_order(hero.global_position):
+		var arrows: Array[AnimatedSprite2D] = _make_arrows(road)
+		var view: Vector2 = _reach_at(road.to_global(road.curve.sample_baked(0.0)), z)
+		# A burrow already in view (a wide screen shows the whole width): no glide.
+		if from.distance_to(view) > 1.0:
+			var glide: float = clampf(from.distance_to(view) / tour_speed, tour_glide_min, tour_glide_max)
+			tw.tween_method(_glide.bind(from, view), 0.0, 1.0, glide).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_callback(_run_arrows.bind(arrows))
+		tw.tween_interval(spawn_hold_time)
+		from = view
+		last_run = road.curve.get_baked_length() / arrow_run_speed
+	var back: float = clampf(last_run - spawn_hold_time, tour_glide_min, tour_return_max)
+	var start: Vector2 = from
 	tw.tween_method(func(k: float) -> void:
-		camera.zoom = z_play.lerp(z_view, k)
-		camera.global_position = from[0].lerp(view_at, k),
-		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	var run: float = 0.0
-	for a: AnimatedSprite2D in arrows:
-		var at: float = a.get_meta(&"d")
-		run = maxf(run, at / arrow_run_speed)
-	tw.tween_callback(func() -> void:
-		for a: AnimatedSprite2D in arrows:
-			var at: float = a.get_meta(&"d")
-			get_tree().create_timer(at / arrow_run_speed, false).timeout.connect(_pop_arrow.bind(a)))
-	tw.tween_interval(run + spawn_hold_time)
-	tw.tween_method(func(k: float) -> void:
-		var hero_view: Vector2 = _reach_at(hero.global_position + Vector2(0, -40), z_play)
-		camera.zoom = z_view.lerp(z_play, k)
-		camera.global_position = view_at.lerp(hero_view, k),
-		0.0, 1.0, spawn_fly_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		var hero_view: Vector2 = _reach_at(hero.global_position + Vector2(0, -40), z)
+		camera.global_position = start.lerp(hero_view, k),
+		0.0, 1.0, back).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_callback(func() -> void:
 		camera.top_level = false
 		camera.position = Vector2(0, -40)
-		_update_zoom()
 		camera.reset_smoothing()
 		camera.position_smoothing_enabled = true
+		waves.wait = false
 		tutorial.start(level_number))
 	tw.tween_interval(arrows_linger)
 	tw.tween_property(_arrows, ^"modulate:a", 0.0, 0.5)
 	# Made once at the start, so freed once (not a battle-time pool object).
 	tw.tween_callback(_arrows.queue_free)
+
+
+func _glide(k: float, a: Vector2, b: Vector2) -> void:
+	camera.global_position = a.lerp(b, k)
+
+
+## Roads by their burrows: the nearest to `p` first, then the nearest to it…
+func _tour_order(p: Vector2) -> Array[Path2D]:
+	var left: Array[Path2D] = level.roads()
+	var out: Array[Path2D] = []
+	var at: Vector2 = p
+	while not left.is_empty():
+		var best: int = 0
+		for i: int in left.size():
+			if _burrow(left[i]).distance_to(at) < _burrow(left[best]).distance_to(at):
+				best = i
+		at = _burrow(left[best])
+		out.append(left[best])
+		left.remove_at(best)
+	return out
+
+
+func _burrow(road: Path2D) -> Vector2:
+	return road.to_global(road.curve.sample_baked(0.0))
+
+
+## Each arrow pops when the run from the burrow reaches it.
+func _run_arrows(arrows: Array[AnimatedSprite2D]) -> void:
+	for a: AnimatedSprite2D in arrows:
+		var at: float = a.get_meta(&"d")
+		get_tree().create_timer(maxf(at / arrow_run_speed, 0.01), false).timeout.connect(_pop_arrow.bind(a))
 
 
 ## The view centre nearest to `p` that the camera limits allow at `zoom`.

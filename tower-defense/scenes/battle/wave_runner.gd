@@ -17,6 +17,9 @@ var break_left: float = 0.0
 ## The break does not run down while this is on (the level 1 tutorial waits
 ## for the first defender).
 var hold: bool = false
+## The same for the start camera tour (Twody: the countdown starts once the
+## camera is back at the hero).
+var wait: bool = false
 
 var _spawning: bool = false
 var _done: bool = false
@@ -62,7 +65,7 @@ func _process(delta: float) -> void:
 	if _done or level == null:
 		return
 	if not _spawning:
-		if hold:
+		if hold or wait:
 			return
 		break_left -= delta
 		if break_left <= 0.0:

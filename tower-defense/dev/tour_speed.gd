@@ -25,6 +25,9 @@ func _process(_delta: float) -> bool:
 	if _last != Vector2.INF:
 		_speeds.append(p.distance_to(_last))
 	_last = p
+	var runner: Node = battle.get("waves")
+	if _frame % 30 == 0 and _frame <= 900:
+		print("frame %d: view %v, waves wait %s" % [_frame, p.round(), runner.get("wait")])
 	if _frame >= 1500:
 		var worst: float = 0.0
 		var at: int = 0
