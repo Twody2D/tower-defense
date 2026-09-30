@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="L Меню и карта" style="width:3112px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ L · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Главное меню и карта фермы — переделка</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1700px;text-wrap:pretty">Меню — уютный двор тем же набором объектов, что на карте. Карта — полоса 1080×5760 из тайлов, полос-переходов и отдельных объектов; ландшафт получен той же формулой, что в игре: (x, y) → (5760 − y, x). Текущий уровень — 5 (Лис): поле открывается (облака разлетаются), пасека ещё под облаками.</div>
+</div>
+<div onClick="{{ toggle }}" style="cursor:pointer;height:56px;padding:0 24px;display:flex;align-items:center;border-radius:28px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 22px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+</div>
+
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font:900 38px/1 Nunito;color:#2B2B3A">{{ g.name }}</div>
+<div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap">
+<sc-for list="{{ g.boards }}" as="b" hint-placeholder-count="2">
+<div data-screen-label="{{ b.label }}" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:12px"><div style="font:900 28px/1 Nunito;color:#2B2B3A">{{ b.name }}</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">{{ b.note }}</div></div>
+<div style="position:relative;width:{{ b.ow }};height:{{ b.oh }};overflow:hidden;border-radius:22px;box-shadow:0 0 0 5px #2B2B3A;background:#4CAF50">
+<div style="position:absolute;left:0;top:0;width:{{ b.w }};height:{{ b.h }};transform:{{ b.tf }};transform-origin:0 0">
+<sc-for list="{{ b.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-radius:{{ l.br }};opacity:{{ l.op }};transform:{{ l.tf }};transform-origin:0 0;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Nunito;font-weight:900;font-size:{{ l.fs }};line-height:1.1;color:{{ l.tc }};text-shadow:{{ l.ts }};white-space:nowrap">{{ l.text }}</div></sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+
+<div style="display:flex;flex-direction:column;gap:16px;padding:24px 28px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 30px/1 Nunito;color:#2B2B3A">Новые ассеты</div><div style="font:700 13px 'JetBrains Mono',monospace;color:#6B6878">export/l/ · номера уровней — шрифтом в белом круге таблички</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end">
+<sc-for list="{{ assets }}" as="a" hint-placeholder-count="16">
+<div style="display:flex;flex-direction:column;gap:6px;align-items:center;max-width:280px">
+<div style="position:relative;width:{{ a.w }};height:{{ a.h }};border-radius:14px;background:#4CAF50;box-shadow:0 0 0 2px #2B2B3A;overflow:hidden"><div style="position:absolute;inset:8px;background-image:{{ a.src }};background-size:{{ a.size }};background-position:{{ a.pos }};background-repeat:no-repeat"></div></div>
+<div style="font:800 14px/1.2 Nunito;color:#2B2B3A;text-align:center">{{ a.name }}</div>
+<div style="font:700 10px/1.3 'JetBrains Mono',monospace;color:#6B6878;text-align:center">{{ a.id }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1400px;text-wrap:pretty">Экраны 03 и 04 в партии I остаются как старая версия для сравнения. Дальше — партия J: иконка и обложка.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += now - last;
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 90) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const t = this.state.t, px = v => Math.round(v * 10) / 10 + 'px';
+    const L = o => ({ l: '0px', t: '0px', w: '0px', h: '0px', bg: 'none', size: '100% 100%', pos: '0 0', rep: 'no-repeat', bgc: 'transparent', br: '0', op: '1', tf: 'none', fs: '0px', tc: '#FFFFFF', ts: 'none', text: '', ...o });
+    const fi = (n, fps, loop, off = 0) => { const k = Math.floor((t + off) * fps / 1000); return loop ? k % n : Math.min(k % (n + Math.ceil(fps * .9)), n - 1); };
+    const img = (src, x, y, w, h, o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), bg: `url('assets/${src}.svg')`, ...o });
+    const frame = (src, n, i, x, y, w, h, o = {}) => img(src, x, y, w, h, { size: `${n * 100}% 100%`, pos: n > 1 ? `${i / (n - 1) * 100}% 0%` : '0 0', ...o });
+    const spr = (src, n, fps, x, y, w, h, off = 0, loop = true, o = {}) => frame(src, n, fi(n, fps, loop, off), x, y, w, h, o);
+    const tile = (src, x, y, w, h, o = {}) => img(src, x, y, w, h, { size: '64px 64px', rep: 'repeat', ...o });
+    const shadow = (cx, cy, w) => L({ l: px(cx - w / 2), t: px(cy - w * .12), w: px(w), h: px(w * .24), bgc: 'rgba(43,43,58,.22)', br: '50%' });
+    const SZ = { ui_counter_plate: [192, 64] };
+    const q4 = s => { const a = String(s).trim().split(/\s+/).map(v => parseFloat(v) || 0); return a.length === 1 ? [a[0], a[0], a[0], a[0]] : a.length === 2 ? [a[0], a[1], a[0], a[1]] : a; };
+    const nine = (src, sl, bw, x, y, w, h) => { const k = src.split('/').pop(), [SW, SH] = SZ[k] || [192, 112], [st, sr, sb, sl2] = q4(sl), [dt, dr, db, dl] = q4(bw), url = `url('assets/${src}.svg')`, out = [];
+      const sc = [[0, sl2], [sl2, SW - sl2 - sr], [SW - sr, sr]], sy = [[0, st], [st, SH - st - sb], [SH - sb, sb]], dc = [[0, dl], [dl, w - dl - dr], [w - dr, dr]], dy = [[0, dt], [dt, h - dt - db], [h - db, db]];
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) { const [sx0, sw] = sc[i], [sy0, sh] = sy[j], [dx0, dw] = dc[i], [dy0, dh] = dy[j]; if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) continue; const kx = dw / sw, ky = dh / sh;
+        out.push(L({ l: px(x + dx0), t: px(y + dy0), w: px(dw + (i < 2 ? .6 : 0)), h: px(dh + (j < 2 ? .6 : 0)), bg: url, size: `${SW * kx}px ${SH * ky}px`, pos: `${-sx0 * kx}px ${-sy0 * ky}px` })); }
+      return out; };
+    const ol = (a, d, dc = '#2B2B3A') => { a = Math.max(2, Math.round(a)); const b = Math.max(1, Math.round(a * .7)), c = '#2B2B3A'; return `${a}px 0 0 ${c},-${a}px 0 0 ${c},0 ${a}px 0 ${c},0 -${a}px 0 ${c},${b}px ${b}px 0 ${c},-${b}px ${b}px 0 ${c},${b}px -${b}px 0 ${c},-${b}px -${b}px 0 ${c},0 ${Math.round(d)}px 0 ${dc}`; };
+    const txt = (text, x, y, w, h, fs, kind = 'hud', o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), text, fs: fs + 'px', tc: kind === 'gold' ? '#FFC933' : kind === 'dark' ? '#2B2B3A' : '#FFFFFF', ts: kind === 'dark' ? 'none' : kind === 'gold' ? ol(3, 5, '#B06A12') : ol(3, 5), ...o });
+    const btnBig = (x, y, w, label) => [...nine('g/ui_btn_orange_normal', '44 44 52 44', '44 44 52 44', x, y, w, 128), txt(label, x, y + 2, w, 110, 58, 'hud', { ts: ol(4, 7) })];
+    const rb = (x, y, icon, z, label, o = {}) => [img('g/ui_btn_round_normal', x, y, z, z), o.n ? spr(icon, o.n, o.fps || 8, x + z * .21, y + z * .14, z * .58, z * .58) : img(icon, x + z * .21, y + z * .14, z * .58, z * .58), ...(o.badge ? [img('g/ui_badge_dot', x + z - 30, y - 4, 34, 34)] : []), txt(label, x - 60, y + z + 2, z + 120, 38, 25)];
+    const plate = (x, y, w, icon, text) => [...nine('g/ui_counter_plate', '0 32 0 32', '0 32', x, y, w, 64), img(icon, x - 14, y, 64, 64), txt(text, x + 56, y, w - 66, 58, 34, 'hud', { l: px(x + 56) })];
+    const logo = (x, y, w) => { const k = w / 960; return [img('i/logo_plate', x, y, w, w * 440 / 960), txt('Защити', x + 60 * k, y + 118 * k, w - 120 * k, 110 * k, 112 * k, 'hud', { ts: ol(6 * k, 12 * k) }), txt('огород!', x + 60 * k, y + 214 * k, w - 120 * k, 150 * k, 140 * k, 'gold', { ts: ol(7 * k, 13 * k, '#B06A12') })]; };
+    const yard = (c0, r0, c1, r1) => { const o = []; for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) { const T = r === r0, B = r === r1, Lf = c === c0, R = c === c1; const n = T && Lf ? 'sand_outer_br' : T && R ? 'sand_outer_bl' : B && Lf ? 'sand_outer_tr' : B && R ? 'sand_outer_tl' : T ? 'sand_edge_b' : B ? 'sand_edge_t' : Lf ? 'sand_edge_r' : R ? 'sand_edge_l' : 'sand_fill'; o.push(img(`e/tile_farm_${n}`, c * 64, r * 64, 64, 64)); } return o; };
+    const crop = (id, x, y, k = 1, prod) => [img('k/harvest_shadow', x, y, 192 * k, 192 * k), spr(`k/harvest_${id}_ripe_4f`, 4, 6, x, y, 192 * k, 192 * k, x * 3), ...(prod ? [img('l/ui_harvest_ready', x + 96 * k - 44, y - 58 + Math.sin(t / 300 + x) * 5, 88, 88), img(prod, x + 96 * k - 30, y - 50 + Math.sin(t / 300 + x) * 5, 60, 60), spr('f/fx_coin_trail_3f', 3, 10, x + 96 * k + 14, y - 64 + Math.sin(t / 300 + x) * 5, 32, 32)] : [])];
+    const fly = (cx, cy, rx, ry, sp, off) => { const a = t / 1000 * sp + off; return spr('l/fx_butterfly_4f', 4, 12, cx + Math.cos(a) * rx - 24, cy + Math.sin(a * 2) * ry - 24, 48, 48, off * 100); };
+    const house = (x, y, k) => [shadow(x + 128 * k, y + 232 * k, 200 * k), img('l/env_house', x, y, 256 * k, 256 * k), spr('l/fx_chimney_smoke_4f', 4, 6, x + 181 * k - 38, y + 28 * k - 112, 76, 114)];
+    const menu = P => { const R = [tile('e/tile_farm_grass_1', 0, 0, P ? 1080 : 1920, P ? 1920 : 1080)];
+      if (P) { R.push(...yard(2, 13, 14, 20), img('e/env_fence_decor', 20, 700, 144, 96), img('e/env_fence_decor', 160, 700, 144, 96), img('e/env_fence_decor', 776, 700, 144, 96), img('e/env_fence_decor', 916, 700, 144, 96),
+        ...house(290, 520, 1.95), shadow(98, 836, 80), spr('e/env_tree_apple_sway_3f', 3, 3, -10, 640, 216, 216), shadow(1000, 810, 64), spr('e/env_tree_pine_sway_3f', 3, 3, 920, 660, 160, 160, 300),
+        ...crop('wheat', 30, 1020, 1.15, 'g/ui_icon_grain'), ...crop('apple', 820, 960, 1.15, 'k/ui_icon_apple_128'), img('e/env_farm_haystack', 900, 1250, 130, 130), spr('e/env_sunflower_sway_3f', 3, 4, 40, 1270, 64, 96), spr('e/env_sunflower_sway_3f', 3, 4, 100, 1290, 64, 96, 200), img('e/env_farm_wheelbarrow', 640, 1260, 110, 110),
+        shadow(540, 1244, 170), spr('b/hero_raccoon_idle_4f', 4, 6, 375, 910, 330, 330), fly(760, 900, 120, 40, .8, 0), fly(220, 1180, 90, 30, 1.1, 2),
+        ...logo(90, 130, 900), ...btnBig(300, 1430, 480, 'Играть'),
+        ...rb(40, 1640, 'g/ui_icon_shop', 112, 'Магазин'), ...rb(250, 1640, 'g/ui_icon_gift_shake_4f', 112, 'Подарок', { n: 4, fps: 10, badge: 1 }), ...rb(460, 1640, 'g/ui_icon_harvest_ripe_3f', 112, 'Урожай', { n: 3, fps: 6, badge: 1 }), ...rb(670, 1640, 'g/ui_icon_settings', 112, 'Настройки'), ...rb(880, 1640, 'l/ui_icon_howto', 112, 'Как играть'),
+        ...plate(60, 44, 260, 'g/ui_icon_grain', '1 240')); }
+      else { R.push(...yard(12, 8, 29, 16), img('e/env_fence_decor', 740, 380, 144, 96), img('e/env_fence_decor', 1740, 380, 144, 96), ...house(1060, 110, 1.75), shadow(900, 460, 80), spr('e/env_tree_apple_sway_3f', 3, 3, 790, 262, 216, 216), shadow(1830, 470, 64), spr('e/env_tree_pine_sway_3f', 3, 3, 1760, 320, 160, 160, 300),
+        ...crop('wheat', 760, 610, 1.1, 'g/ui_icon_grain'), ...crop('apple', 1680, 560, 1.1, 'k/ui_icon_apple_128'), img('e/env_farm_haystack', 1560, 860, 130, 130), spr('e/env_sunflower_sway_3f', 3, 4, 40, 900, 64, 96), spr('e/env_sunflower_sway_3f', 3, 4, 110, 920, 64, 96, 200), img('e/env_rocks', 700, 960, 64, 64),
+        shadow(1330, 860, 170), spr('b/hero_raccoon_idle_4f', 4, 6, 1165, 526, 330, 330), fly(1500, 520, 120, 40, .8, 0), fly(980, 840, 90, 30, 1.1, 2),
+        ...logo(60, 40, 700), ...btnBig(150, 400, 520, 'Играть'),
+        ...rb(60, 620, 'g/ui_icon_shop', 104, 'Магазин'), ...rb(212, 620, 'g/ui_icon_gift_shake_4f', 104, 'Подарок', { n: 4, fps: 10, badge: 1 }), ...rb(364, 620, 'g/ui_icon_harvest_ripe_3f', 104, 'Урожай', { n: 3, fps: 6, badge: 1 }), ...rb(516, 620, 'g/ui_icon_settings', 104, 'Настройки'), ...rb(668, 620, 'l/ui_icon_howto', 104, 'Как играть'),
+        ...plate(1620, 30, 260, 'g/ui_icon_grain', '1 240')); }
+      return R.flat(Infinity); };
+    // ---------- карта ----------
+    const NODES = [[300, 5480], [700, 5220], [820, 4880], [460, 4620], [300, 4260], [760, 3560], [420, 3280], [300, 2900], [720, 2560], [360, 1560], [740, 1120], [500, 600]];
+    const ROUTE = [...NODES.slice(0, 5), [540, 3846], ...NODES.slice(5, 9), [540, 1926], ...NODES.slice(9)], FOX = [4, 9, 11], CUR = 4, STARS = [3, 2, 3, 1];
+    const DEC = [['e/env_farm_barn', 900, 5580, 256, 256], ['e/env_farm_barn_flag_4f', 900, 5580, 256, 256, 4, 8], ['e/env_farm_scarecrow_sway_4f', 560, 5560, 96, 128, 4, 4], ['e/env_farm_haystack', 960, 5000, 96, 96], ['e/env_tree_apple_sway_3f', 110, 4880, 160, 160, 3, 3], ['e/env_farm_bed', 620, 4400, 128, 96], ['e/env_bush', 940, 4460, 96, 96], ['e/env_rocks', 160, 5700, 64, 64], ['e/env_sunflower_sway_3f', 70, 4130, 64, 96, 3, 4], ['e/env_sunflower_sway_3f', 130, 4150, 64, 96, 3, 4], ['e/env_farm_wheelbarrow', 900, 4150, 96, 96], ['e/env_tree_pine_sway_3f', 980, 5260, 128, 128, 3, 3],
+      ['e/env_wheat_mill', 200, 3620, 256, 256], ['e/env_wheat_mill_blades_4f', 200, 3620, 256, 256, 4, 8], ['e/env_wheat_sheaf', 620, 3120, 96, 96], ['e/env_wheat_cart', 940, 2820, 128, 128], ['e/env_wheat_ears_sway_3f', 900, 3300, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 960, 3350, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 120, 2380, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 180, 2420, 64, 64, 3, 4], ['e/env_wheat_ears_sway_3f', 540, 2760, 64, 64, 3, 4], ['e/env_sunflower_sway_3f', 980, 2300, 64, 96, 3, 4],
+      ['e/env_lake_lake', 700, 1560, 384, 256], ['e/env_lake_ripple_4f', 700, 1560, 384, 256, 4, 4], ['e/env_lake_reeds_sway_3f', 520, 1440, 64, 96, 3, 4], ['e/env_lake_skep', 150, 1000, 96, 96], ['e/env_lake_skep_bees_4f', 150, 1000, 96, 96, 4, 10], ['e/env_tree_pine_sway_3f', 900, 420, 128, 128, 3, 3], ['e/env_tree_pine_sway_3f', 160, 300, 128, 128, 3, 3], ['e/env_lake_pier', 880, 1720, 128, 96]];
+    const CROPS = [['wheat', 130, 5260, 1], ['apple', 560, 4860, 1], ['pumpkin', 900, 3860 - 360, 1], ['apiary', 820, 820, 0]];
+    const world = (P, ox, oy, inView) => { const R = [], at = (cx, cy, w, h) => { const [X, Y] = P ? [cx, cy] : [5760 - cy, cx]; return [X - w / 2 + ox, Y - h / 2 + oy]; },
+      rect = (src, x, y, w, h, isTile) => P ? (isTile ? tile(src, x + ox, y + oy, w, h) : img(src, x + ox, y + oy, w, h)) : (isTile ? tile(src, 5760 - y - h + ox, x + oy, h, w) : img(src, 5760 - y + ox, x + oy, w, h, { tf: 'rotate(90deg)' })),
+      vis = (cx, cy, r = 300) => !inView || inView(cx, cy, r);
+      [['lake', 0, 1920], ['wheat', 1920, 3840], ['farm', 3840, 5760]].forEach(([b, a, c]) => R.push(rect(`e/tile_${b}_grass_1`, 0, a, 1080, c - a, true)));
+      R.push(rect('l/map_strip_wheat_lake', 0, 1792, 1080, 256), rect('l/map_strip_farm_wheat', 0, 3712, 1080, 256));
+      for (let i = 0; i < ROUTE.length - 1; i++) { const [a, b] = [ROUTE[i], ROUTE[i + 1]], d = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.ceil(d / 20);
+        for (let j = 0; j <= n; j++) { const q = j / n, cx = a[0] + (b[0] - a[0]) * q, cy = a[1] + (b[1] - a[1]) * q; if (!vis(cx, cy, 60)) continue; const [X, Y] = at(cx, cy, 48, 32); R.push(img('l/map_path_patch', X, Y, 48, 32)); if (j % 4 === 2) { const [X2, Y2] = at(cx + ((j / 4) % 2 ? 16 : -16), cy, 36, 24); R.push(img('l/map_path_stone', X2, Y2, 36, 24)); } } }
+      [[540, 3846], [540, 1926]].forEach(([cx, cy]) => { if (!vis(cx, cy)) return; const [X, Y] = at(cx, cy, 224, 160); R.push(P ? img('l/map_bridge', X, Y, 224, 160) : img('l/map_bridge', X + 192, Y - 32, 224, 160, { tf: 'rotate(90deg)' })); });
+      DEC.forEach(([src, cx, cy, w, h, n, fps]) => { if (!vis(cx, cy)) return; const [X, Y] = at(cx, cy, w, h); R.push(n ? spr(src, n, fps, X, Y, w, h, cx) : img(src, X, Y, w, h)); });
+      CROPS.forEach(([id, cx, cy, open]) => { if (!vis(cx, cy)) return; const [X, Y] = at(cx, cy, 192, 192); if (open) R.push(img('k/harvest_shadow', X, Y, 192, 192), spr(`k/harvest_${id}_ripe_4f`, 4, 6, X, Y, 192, 192, cx)); else R.push(img('k/harvest_locked', X, Y, 192, 192), txt('8', X + 100, Y + 80, 38, 32, 26, 'dark')); });
+      NODES.forEach(([cx, cy], i) => { if (!vis(cx, cy)) return; const [X, Y] = at(cx, cy - 40, 160, 160), fx = FOX.includes(i) ? 'fox_' : '', st = i < CUR ? 'done' : i === CUR ? 'current' : 'locked';
+        R.push(st === 'current' ? spr(`l/map_level_${fx}current_3f`, 3, 6, X, Y, 160, 160) : img(`l/map_level_${fx}${st}`, X, Y, 160, 160));
+        if (st !== 'locked') R.push(txt(String(i + 1), X + 50, Y + 44, 60, 52, 38, 'dark'));
+        if (st === 'done') [0, 1, 2].forEach(j => R.push(img(`g/ui_star_${j < STARS[i] ? 'full' : 'empty'}_32`, X + 28 + j * 36, Y - (fx ? 30 : 6) - (j === 1 ? 8 : 0), 36, 36)));
+        if (st === 'current') { const bob = Math.round(Math.sin(t / 220) * 6); R.push(img('h/ui_radial_slot', X + 24, Y - 130 + bob, 112, 112), img('b/ui_avatar_raccoon', X + 36, Y - 120 + bob, 88, 88)); } });
+      const cl = (v, anim, cx, cy, off) => { if (!vis(cx, cy, 500)) return; const [X, Y] = at(cx, cy, 640, 320); R.push(anim === 'clear' ? spr(`l/map_cloud_${v}_clear_5f`, 5, 8, X, Y, 640, 320, off, false) : spr(`l/map_cloud_${v}_sway_3f`, 3, 3, X, Y, 640, 320, off)); };
+      [[1, 260, 3500], [2, 800, 3280], [1, 300, 2760], [2, 780, 2420], [1, 540, 3040]].forEach(([v, x, y], i) => cl(v, 'clear', x, y, i * 180));
+      [[1, 260, 1650], [2, 800, 1420], [1, 300, 1000], [2, 820, 700], [1, 240, 360], [2, 700, 180], [1, 560, 1200]].forEach(([v, x, y], i) => cl(v, 'sway', x, y, i * 300));
+      return R.flat(Infinity); };
+    const B = (name, note, w, h, sc, layers, label) => ({ name, note, w: px(w), h: px(h), ow: px(w * sc), oh: px(h * sc), tf: `scale(${sc})`, layers, label });
+    const HUDp = [...plate(60, 44, 260, 'g/ui_icon_grain', '1 240'), img('g/ui_btn_round_normal', 708, 36, 96, 96), img('g/ui_icon_shop', 728, 50, 56, 56), img('g/ui_btn_round_normal', 824, 36, 96, 96), img('g/ui_icon_settings', 844, 50, 56, 56), img('g/ui_btn_round_normal', 940, 36, 96, 96), spr('g/ui_icon_gift_shake_4f', 4, 10, 960, 50, 56, 56), img('g/ui_badge_dot', 1006, 32, 34, 34)].flat(Infinity);
+    const HUDl = [...plate(60, 30, 260, 'g/ui_icon_grain', '1 240'), img('g/ui_btn_round_normal', 1548, 24, 96, 96), img('g/ui_icon_shop', 1568, 38, 56, 56), img('g/ui_btn_round_normal', 1664, 24, 96, 96), img('g/ui_icon_settings', 1684, 38, 56, 56), img('g/ui_btn_round_normal', 1780, 24, 96, 96), spr('g/ui_icon_gift_shake_4f', 4, 10, 1800, 38, 56, 56), img('g/ui_badge_dot', 1846, 20, 34, 34)].flat(Infinity);
+    const inP = (y0, y1) => (cx, cy, r) => cy + r > y0 && cy - r < y1;
+    const groups = [
+      { name: '3. Главное меню', boards: [B('Портрет 1080×1920', 'двор фермы · урожай созрел — иконка над культурой', 1080, 1920, 1, menu(true), 'L Меню · портрет'), B('Ландшафт 1920×1080', 'та же сцена, перестановка для ширины', 1920, 1080, 1, menu(false), 'L Меню · ландшафт')] },
+      { name: '4. Карта фермы', boards: [
+        B('Фрагмент · портрет 1080×1920', 'огород, уровни 1–5, начало поля', 1080, 1920, 1, [...world(true, 0, -3540, inP(3440, 5560)), ...HUDp], 'L Карта · портрет'),
+        B('Фрагмент · ландшафт 1920×1080', 'та же зона: x = 5760 − y', 1920, 1080, 1, [...world(false, -300, 0, inP(3440, 5560)), ...HUDl], 'L Карта · ландшафт'),
+        B('Вся полоса · портрет', '1080×5760 · ×0.25', 1080, 5760, .25, world(true, 0, 0), 'L Карта целиком · портрет'),
+        B('Вся полоса · ландшафт', '5760×1080 · ×0.25', 5760, 1080, .25, world(false, 0, 0), 'L Карта целиком · ландшафт')] }
+    ];
+    const A = (id, name, w, h, n = 1) => ({ id: `${id}${n > 1 ? '' : ''}`, name, src: `url('assets/l/${id}.svg')`, size: `${n * 100}% 100%`, pos: n > 1 ? `${fi(n, 6, true) / (n - 1) * 100}% 0%` : '0 0', w: px(w + 16), h: px(h + 16) });
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', toggle: () => this.setState(s => ({ playing: !s.playing })), groups,
+      assets: [A('env_house', 'Домик фермера 256', 192, 192), A('fx_chimney_smoke_4f', 'Дым из трубы 64×96 · 4f · 6 FPS · loop', 64, 96, 4), A('fx_butterfly_4f', 'Бабочка 48 · 4f · 12 FPS · loop', 96, 96, 4), A('ui_icon_howto', 'Иконка «Как играть» 64', 64, 64),
+        A('map_level_locked', 'Табличка: закрыта', 120, 120), A('map_level_open', 'Табличка: открыта', 120, 120), A('map_level_current_3f', 'Текущая · 3f · loop', 120, 120, 3), A('map_level_done', 'Пройдена (звёзды — отдельно)', 120, 120), A('map_level_fox_open', 'Уровень с Лисом (5, 10, 12) — 4 состояния', 120, 120), A('map_level_fox_current_3f', 'Лис · текущая', 120, 120, 3),
+        A('map_path_patch', 'Натоптанная дорожка 48×32', 96, 64), A('map_path_stone', 'Камень-ступенька 48×32', 96, 64), A('map_strip_farm_wheat', 'Переход огород → поле 1080×256', 540, 128), A('map_strip_wheat_lake', 'Переход поле → пасека', 540, 128), A('map_bridge', 'Мостик 224×160', 168, 120),
+        A('map_cloud_1_sway_3f', 'Облако 1 · 512×256 · 3f loop', 256, 128, 3), A('map_cloud_2_sway_3f', 'Облако 2', 256, 128, 3), A('map_cloud_1_clear_5f', 'Облака разлетаются · 5f once', 256, 128, 5), A('ui_harvest_ready', 'Облачко «созрело» 96', 72, 72)]
+    };
+  }
+}
+</script>
+</body>
+</html>

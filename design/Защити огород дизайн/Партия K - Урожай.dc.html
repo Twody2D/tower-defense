@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="K Урожай" style="width:3112px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ K · СТИЛЬ 1a</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Урожай</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1600px;text-wrap:pretty">Урожай фермы (карта и меню) и урожай в бою. Всё собранное превращается в золотые зёрна — продукт летит к счётчику, по пути становится зерном (код). Тень — отдельный файл harvest_shadow / battle_shadow. Улучшение культуры проигрывает готовую вспышку fx_upgrade_5f поверх смены кадра.</div>
+</div>
+<div onClick="{{ toggle }}" style="cursor:pointer;height:56px;padding:0 24px;display:flex;align-items:center;border-radius:28px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -6px 0 #E0662A;font:900 22px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A" style-active="transform:scale(.95)">{{ playLabel }}</div>
+</div>
+
+<sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 38px/1 Nunito;color:#2B2B3A">{{ sec.name }}</div><div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">{{ sec.note }}</div></div>
+<sc-for list="{{ sec.rows }}" as="row" hint-placeholder-count="3">
+<div style="display:flex;gap:18px;align-items:flex-start;padding:18px 20px;border-radius:22px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="flex:none;width:190px;display:flex;flex-direction:column;gap:6px;padding-top:6px"><div style="font:900 24px/1.1 Nunito;color:#2B2B3A">{{ row.name }}</div><div style="font:600 14px/1.35 Nunito;color:#6B6878">{{ row.desc }}</div></div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ row.cells }}" as="b" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;gap:5px;width:{{ b.ow }}">
+<div style="position:relative;width:{{ b.ow }};height:{{ b.oh }};overflow:hidden;border-radius:14px;box-shadow:0 0 0 3px #2B2B3A;background:{{ b.bgc }}">
+<div style="position:absolute;left:0;top:0;width:{{ b.w }};height:{{ b.h }};transform:{{ b.tf }};transform-origin:0 0">
+<sc-for list="{{ b.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-radius:{{ l.br }};opacity:{{ l.op }}"></div></sc-for>
+</div>
+<sc-if value="{{ b.fr }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:6px;top:6px;font:700 11px 'JetBrains Mono',monospace;color:#fff;background:rgba(43,43,58,.72);padding:2px 5px;border-radius:6px">{{ b.fr }}</div></sc-if>
+</div>
+<div style="font:900 16px/1.15 Nunito;color:#2B2B3A">{{ b.name }}</div>
+<div style="font:700 10.5px/1.35 'JetBrains Mono',monospace;color:#6B6878">{{ b.note }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:14px"><div style="font:900 38px/1 Nunito;color:#2B2B3A">Кадр боя 1920×1080</div><div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">1:1 · Енот трясёт яблоню у дороги, вторая яблоня спелая — проверка, что объект читается в толпе</div></div>
+<div style="position:relative;width:1920px;height:1080px;overflow:hidden;border-radius:24px;box-shadow:0 0 0 5px #2B2B3A;background:#4CAF50">
+<sc-for list="{{ battle }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-radius:{{ l.br }};opacity:{{ l.op }};display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;font-size:{{ l.fs }};color:{{ l.tc }};text-shadow:{{ l.ts }};white-space:nowrap">{{ l.text }}</div></sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+<div style="font:900 38px/1 Nunito;color:#2B2B3A">Окно «Урожай»</div>
+<div style="font:700 14px 'JetBrains Mono',monospace;color:#6B6878">заменяет экран 15 «Офлайн-урожай»</div>
+<div style="display:flex;gap:10px">
+<sc-for list="{{ wtabs }}" as="tb" hint-placeholder-count="3">
+<sc-if value="{{ tb.on }}" hint-placeholder-val="{{ false }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:50px;padding:0 20px;display:flex;align-items:center;white-space:nowrap;border-radius:25px;background:#FF8A3D;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #E0662A;font:900 20px Nunito;color:#fff;text-shadow:0 2px 0 #2B2B3A,0 -1px 0 #2B2B3A,2px 0 0 #2B2B3A,-2px 0 0 #2B2B3A">{{ tb.name }}</div></sc-if>
+<sc-if value="{{ tb.off }}" hint-placeholder-val="{{ true }}"><div onClick="{{ tb.pick }}" style="cursor:pointer;height:50px;padding:0 20px;display:flex;align-items:center;white-space:nowrap;border-radius:25px;background:#FFF4DC;box-shadow:0 0 0 3px #2B2B3A,inset 0 -5px 0 #EAD6AE;font:900 20px Nunito;color:#2B2B3A" style-hover="background:#FFFFFF">{{ tb.name }}</div></sc-if>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:40px;align-items:flex-start">
+<sc-for list="{{ boards }}" as="b" hint-placeholder-count="2">
+<div data-screen-label="{{ b.label }}" style="display:flex;flex-direction:column;gap:12px">
+<div style="font:900 30px/1 Nunito;color:#2B2B3A">{{ b.name }}</div>
+<div style="position:relative;width:{{ b.w }};height:{{ b.h }};overflow:hidden;border-radius:24px;box-shadow:0 0 0 5px #2B2B3A;background:#4CAF50">
+<sc-for list="{{ b.layers }}" as="l" hint-placeholder-count="0"><div style="position:absolute;left:{{ l.l }};top:{{ l.t }};width:{{ l.w }};height:{{ l.h }};box-sizing:border-box;background-image:{{ l.bg }};background-size:{{ l.size }};background-position:{{ l.pos }};background-repeat:{{ l.rep }};background-color:{{ l.bgc }};border-radius:{{ l.br }};opacity:{{ l.op }};display:flex;align-items:center;justify-content:{{ l.jc }};text-align:center;font-family:Nunito;font-weight:{{ l.fw }};font-size:{{ l.fs }};line-height:1.15;color:{{ l.tc }};text-shadow:{{ l.ts }};white-space:{{ l.ws }}">{{ l.text }}</div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1400px;text-wrap:pretty">PNG — export/k/, без C2PA-метаданных. Дальше в этой же задаче: главное меню и карта (партия L), иконка и обложка (партия J).</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { t: 0, playing: true, ws: 'part' };
+  acc = 0;
+  componentDidMount() {
+    let last = performance.now();
+    const loop = now => {
+      if (this.state.playing) this.acc += now - last;
+      last = now;
+      if (this.acc !== this.state.t && now - (this.lr || 0) > 80) { this.lr = now; this.setState({ t: this.acc }); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const t = this.state.t, px = v => Math.round(v * 10) / 10 + 'px';
+    const L = o => ({ l: '0px', t: '0px', w: '0px', h: '0px', bg: 'none', size: '100% 100%', pos: '0 0', rep: 'no-repeat', bgc: 'transparent', br: '0', op: '1', jc: 'center', fs: '0px', fw: '900', tc: '#FFFFFF', ts: 'none', text: '', ws: 'nowrap', ...o });
+    const fi = (n, fps, loop, off = 0) => { const k = Math.floor((t + off) * fps / 1000); return loop ? k % n : Math.min(k % (n + Math.ceil(fps * .9)), n - 1); };
+    const img = (src, x, y, w, h, o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), bg: `url('assets/${src}.svg')`, ...o });
+    const frame = (src, n, i, x, y, w, h, o = {}) => img(src, x, y, w, h, { size: `${n * 100}% 100%`, pos: n > 1 ? `${i / (n - 1) * 100}% 0%` : '0 0', ...o });
+    const spr = (src, n, fps, x, y, w, h, off = 0, loop = true, o = {}) => frame(src, n, fi(n, fps, loop, off), x, y, w, h, o);
+    const tile = (src, x, y, w, h) => img(src, x, y, w, h, { size: '64px 64px', rep: 'repeat' });
+    const shadow = (cx, cy, w) => L({ l: px(cx - w / 2), t: px(cy - w * .12), w: px(w), h: px(w * .24), bgc: 'rgba(43,43,58,.22)', br: '50%' });
+    const SZ = { ui_panel_main: [192, 192], ui_card: [128, 128], ui_card_highlight: [128, 128], ui_ribbon: [384, 112], ui_counter_plate: [192, 64], ui_progress_frame: [256, 48], ui_progress_fill: [240, 32], ui_price_tag: [128, 44] };
+    const q4 = s => { const a = String(s).trim().split(/\s+/).map(v => parseFloat(v) || 0); return a.length === 1 ? [a[0], a[0], a[0], a[0]] : a.length === 2 ? [a[0], a[1], a[0], a[1]] : a; };
+    const nine = (src, sl, bw, x, y, w, h) => { const k = src.split('/').pop(), [SW, SH] = SZ[k] || (k.includes('_ad_') ? [256, 112] : [192, 112]), [st, sr, sb, sl2] = q4(sl), [dt, dr, db, dl] = q4(bw), url = `url('assets/${src}.svg')`, out = [];
+      const sc = [[0, sl2], [sl2, SW - sl2 - sr], [SW - sr, sr]], sy = [[0, st], [st, SH - st - sb], [SH - sb, sb]], dc = [[0, dl], [dl, w - dl - dr], [w - dr, dr]], dy = [[0, dt], [dt, h - dt - db], [h - db, db]];
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) { const [sx0, sw] = sc[i], [sy0, sh] = sy[j], [dx0, dw] = dc[i], [dy0, dh] = dy[j]; if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) continue; const kx = dw / sw, ky = dh / sh;
+        out.push(L({ l: px(x + dx0), t: px(y + dy0), w: px(dw + (i < 2 ? .6 : 0)), h: px(dh + (j < 2 ? .6 : 0)), bg: url, size: `${SW * kx}px ${SH * ky}px`, pos: `${-sx0 * kx}px ${-sy0 * ky}px` })); }
+      return out; };
+    const ol = (a, d, dc = '#2B2B3A') => { const b = Math.max(1, Math.round(a * .7)), c = '#2B2B3A'; return `${a}px 0 0 ${c},-${a}px 0 0 ${c},0 ${a}px 0 ${c},0 -${a}px 0 ${c},${b}px ${b}px 0 ${c},-${b}px ${b}px 0 ${c},${b}px -${b}px 0 ${c},-${b}px -${b}px 0 ${c},0 ${d}px 0 ${dc}`; };
+    const TK = { hud: ['#FFFFFF', ol(3, 5)], gold: ['#FFC933', ol(3, 5, '#B06A12')], title: ['#FFFFFF', ol(4, 8)], dark: ['#2B2B3A', 'none'], soft: ['#5A5668', 'none'], green: ['#3F8A22', 'none'] };
+    const txt = (text, x, y, w, h, fs, kind = 'hud', jc = 'center', o = {}) => L({ l: px(x), t: px(y), w: px(w), h: px(h), text, fs: fs + 'px', tc: TK[kind][0], ts: TK[kind][1], fw: kind === 'soft' ? '800' : '900', jc, ...o });
+    const btn = (k, x, y, w, label, o = {}) => { const ad = k === 'ad', sm = o.sm, hh = sm ? 80 : 112, R = [nine(`g/ui_btn_${k}_normal`, ad ? '44 44 52 84' : '44 44 52 44', sm ? (ad ? '31 31 36 59' : '31 31 36 31') : (ad ? '44 44 52 84' : '44 44 52 44'), x, y, w, hh)];
+      if (ad) R.push(spr('g/ui_btn_ad_glint_4f', 4, 8, x, y, w, hh, x * 7));
+      const lx = x + (ad ? (sm ? 48 : 70) : 8), lw = w - (ad ? (sm ? 58 : 82) : 16), fs = o.fs || (sm ? 28 : 38), th = hh - (sm ? 10 : 16);
+      if (o.icon) { const iz = sm ? 40 : 56, tw = fs * label.length * .58, gx = lx + (lw - iz - 8 - tw) / 2; R.push(img(o.icon, gx, y + (th - iz) / 2 + 2, iz, iz), txt(label, gx + iz + 8, y + 2, tw + 16, th, fs, 'hud', 'flex-start')); }
+      else R.push(txt(label, lx, y + 2, lw, th, fs));
+      return R; };
+    const bar = (x, y, w, f, full) => [nine('g/ui_progress_frame', '0 24 0 24', '0 24', x, y, w, 48), nine('g/ui_progress_fill', '0 16 0 16', '0 16', x + 8, y + 8, Math.max(32, (w - 16) * f), 32)];
+    // ---------- галерея ----------
+    const cell = (name, note, W, H, sc, bg, items, n, fps, loop) => { const layers = items.flat(Infinity), f = n > 1 ? fi(n, fps, loop) + 1 + '/' + n : '';
+      return { name, note, w: px(W), h: px(H), ow: px(W * sc), oh: px(H * sc), tf: `scale(${sc})`, layers, bgc: bg || '#4CAF50', fr: f }; };
+    const HS = (cx, cy, w) => shadow(cx, cy, w);
+    const C = { wheat: 'Грядка пшеницы', apple: 'Яблоня', pumpkin: 'Тыквенная грядка', apiary: 'Пасека' };
+    const CD = { wheat: 'огород · открыта сразу · продукт — золотые зёрна', apple: 'огород · после ур. 1 · продукт — яблоко', pumpkin: 'поле · после ур. 4 · продукт — тыква', apiary: 'у озера · после ур. 8 · продукт — мёд' };
+    const PROD = { wheat: 'g/ui_icon_grain', apple: 'k/ui_icon_apple_128', pumpkin: 'k/ui_icon_pumpkin_128', apiary: 'k/ui_icon_honey_128' };
+    const Sh = () => img('k/harvest_shadow', 0, 0, 192, 192);
+    const farmRows = Object.keys(C).map(id => ({ name: C[id], desc: CD[id], cells: [
+      ...[0, 1, 2].map(i => cell(['ростки', 'половина', 'почти готово'][i], `grow_3f · кадр ${i + 1} · статичный`, 192, 192, .8, '', [Sh(), frame(`k/harvest_${id}_grow_3f`, 3, i, 0, 0, 192, 192)])),
+      cell('созрело', 'ripe_4f · 6 FPS · loop', 192, 192, .8, '', [Sh(), spr(`k/harvest_${id}_ripe_4f`, 4, 6, 0, 0, 192, 192)], 4, 6, true),
+      cell('сбор', 'collect_5f · 12 FPS · once', 192, 192, .8, '', [Sh(), spr(`k/harvest_${id}_collect_5f`, 5, 12, 0, 0, 192, 192, 0, false)], 5, 12, false),
+      cell('ур. 2', 'ripe_lv2 · больше плодов, ограда аккуратнее', 192, 192, .8, '', [Sh(), img(`k/harvest_${id}_ripe_lv2`, 0, 0, 192, 192)]),
+      cell('ур. 3', 'ripe_lv3 · белый штакетник, золото', 192, 192, .8, '', [Sh(), img(`k/harvest_${id}_ripe_lv3`, 0, 0, 192, 192)]),
+      cell('закрыто', 'harvest_locked · номер уровня — шрифтом', 192, 192, .8, '', [img('k/harvest_locked', 0, 0, 192, 192), txt(id === 'wheat' ? '' : { apple: '1', pumpkin: '4', apiary: '8' }[id], 100, 80, 38, 32, 26, 'dark')]),
+      cell('продукт', id === 'wheat' ? 'ui_icon_grain (уже есть)' : `ui_icon_${{ apple: 'apple', pumpkin: 'pumpkin', apiary: 'honey' }[id]} 64 + _128`, 192, 192, .8, '#FFF4DC', [img(PROD[id], 32, 32, 128, 128)])] }));
+    const BN = { apple: ['battle_apple_tree', 'Яблоня', 'огород · ур. 1–5 · плод яблоко', 'apple'], pumpkin: ['battle_pumpkin', 'Тыквенная грядка', 'поле · ур. 6–9 · плод тыква', 'pumpkin'], rasp: ['battle_raspberry', 'Малиновый куст', 'пасека · ур. 10–12 · плод малина', 'raspberry'] };
+    const BSh = () => img('k/battle_shadow', 0, 0, 160, 160);
+    const battleRows = Object.values(BN).map(([n, nm, d, fr]) => ({ name: nm, desc: d, cells: [
+      cell('спелый', 'ripe_3f · 6 FPS · loop', 160, 160, 1, '', [BSh(), spr(`k/${n}_ripe_3f`, 3, 6, 0, 0, 160, 160)], 3, 6, true),
+      cell('тряска', 'shake_4f · 12 FPS · once', 160, 160, 1, '', [BSh(), spr(`k/${n}_shake_4f`, 4, 12, 0, 0, 160, 160, 0, false)], 4, 12, false),
+      cell('пустой', 'empty · отрастает ~40 с', 160, 160, 1, '', [BSh(), img(`k/${n}_empty`, 0, 0, 160, 160)]),
+      cell('завязь', 'regrow_2f · кадр 1', 160, 160, 1, '', [BSh(), frame(`k/${n}_regrow_2f`, 2, 0, 0, 0, 160, 160)]),
+      cell('почти спелый', 'regrow_2f · кадр 2', 160, 160, 1, '', [BSh(), frame(`k/${n}_regrow_2f`, 2, 1, 0, 0, 160, 160)]),
+      cell('можно собрать', 'highlight_3f · 6 FPS · loop · контур поверх спелого', 160, 160, 1, '', [BSh(), spr(`k/${n}_ripe_3f`, 3, 6, 0, 0, 160, 160), spr(`k/${n}_highlight_3f`, 3, 6, 0, 0, 160, 160)], 3, 6, true),
+      cell('плод падает', `battle_fruit_${fr}_fall_3f · 48 · 12 FPS · once`, 48, 48, 3, '', [spr(`k/battle_fruit_${fr}_fall_3f`, 3, 12, 0, 0, 48, 48, 0, false)], 3, 12, false)] }));
+    const sections = [
+      { name: '1. Урожай фермы', note: 'кадр 192×192 · основание на нижней трети · превью ×0.8', rows: farmRows },
+      { name: '2. Урожай в бою', note: 'кадр 160×160 · 1:1 · плоды крупнее, чем на ферме', rows: battleRows }
+    ];
+    // ---------- кадр боя ----------
+    const SL = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 5; i++) SL.push([50 + i * 39, 80 + j * 36]);
+    const bugz = (k, x, y, off) => spr(k === 'c' ? 'c/enemy_caterpillar_walk_4f' : 'c/enemy_beetle_walk_4f', 4, 8, x, y, k === 'c' ? 64 : 48, k === 'c' ? 64 : 48, off);
+    const pad = (x, y) => img('e/pad_normal', x, y, 128, 96);
+    const def = (x, y, id, lv, s) => [pad(x, y), spr(`d/def_${id}_${lv}_idle_4f`, 4, 6, x - 16, y - 100, 160, 160, x * 3), img(`e/ui_def_stars_${s}`, x + 28, y - 112, 72, 24)];
+    const cyc = t % 3200, sh = Math.min(3, Math.floor(cyc * 12 / 1000)), shaking = cyc < 1600;
+    const fallF = (x, y0, y1, d) => { const lt = cyc - 250 - d; if (lt < 0 || lt > 1100) return []; const q = Math.min(1, lt / 350), y = y0 + (y1 - y0) * q * q, f = lt < 350 ? 0 : lt < 480 ? 1 : 2; return lt > 800 ? [] : [frame('k/battle_fruit_apple_fall_3f', 3, f, x, y, 48, 48)]; };
+    const drops = [[1000, 250, 318, 0], [1060, 232, 330, 80], [1110, 270, 312, 160], [1040, 280, 340, 240], [1130, 240, 326, 320]];
+    const coinsOut = cyc > 700 ? drops.map(([x, , y1], i) => spr('f/fx_coin_spin_6f', 6, 12, x + 8, y1 + 8, 32, 32, i * 90)) : [];
+    const plus = cyc > 800 && cyc < 1700 ? [txt('+7', 1020, 170 - (cyc - 800) / 20, 120, 60, 44, 'gold')] : [];
+    const battle = [tile('e/tile_farm_grass_1', 0, 0, 1920, 1080), tile('e/tile_farm_road_straight_rl', 64, 384, 1280, 64), img('e/tile_farm_road_corner_bl', 1344, 384, 64, 64), tile('e/tile_farm_road_straight_tb', 1344, 448, 64, 384),
+      spr('e/spawn_burrow_exit_3f', 3, 6, 0, 360, 96, 96), img('e/base_bed', 1248, 800, 256, 256), ...SL.map(([x, y], i) => spr('e/base_carrot_idle_2f', 2, 3, 1248 + x - 16, 800 + y - 26, 32, 32, i * 170)),
+      shadow(1700, 306, 70), spr('e/env_tree_pine_sway_3f', 3, 3, 1640, 180, 128, 128), img('e/env_bush', 820, 700, 96, 96), img('e/env_rocks', 560, 760, 64, 64), spr('e/env_sunflower_sway_3f', 3, 4, 1180, 640, 64, 96, 200),
+      ...def(330, 560, 'goose', 'l2', 2), ...def(700, 580, 'frog', 'l1', 1), img('e/pad_locked', 180, 200, 128, 96),
+      img('k/battle_shadow', 980, 180, 160, 160), shaking ? frame('k/battle_apple_tree_shake_4f', 4, sh, 980, 180, 160, 160) : img('k/battle_apple_tree_empty', 980, 180, 160, 160),
+      img('k/battle_shadow', 1480, 520, 160, 160), spr('k/battle_apple_tree_ripe_3f', 3, 6, 1480, 520, 160, 160), spr('k/battle_apple_tree_highlight_3f', 3, 6, 1480, 520, 160, 160),
+      ...drops.flatMap(([x, y0, y1, d]) => fallF(x, y0, y1, d)), ...coinsOut,
+      ...[['b', 150, 376, 0], ['b', 222, 370, 130], ['c', 292, 366, 60], ['b', 372, 378, 210], ['b', 444, 372, 80], ['c', 520, 366, 150], ['b', 604, 378, 30], ['b', 676, 370, 170], ['b', 760, 376, 90], ['c', 830, 366, 20]].map(a => bugz(...a)),
+      shadow(1210, 340, 64), spr('b/hero_raccoon_build_4f', 4, 10, 1146, 226, 128, 128), ...plus,
+      ...nine('g/ui_counter_plate', '0 32 0 32', '0 32', 44, 28, 240, 64), img('g/ui_icon_coin', 30, 28, 64, 64), txt('1 257', 100, 28, 174, 58, 34, 'hud', 'flex-start'),
+      ...nine('g/ui_counter_plate', '0 32 0 32', '0 32', 316, 28, 200, 64), img('g/ui_icon_carrot', 302, 28, 64, 64), txt('18/20', 372, 28, 134, 58, 34, 'hud', 'flex-start'), txt('Волна 3/7', 740, 16, 440, 44, 38),
+      img('g/ui_btn_round_normal', 1796, 24, 96, 96), img('g/ui_icon_pause', 1816, 40, 56, 56), img('h/ui_joystick_base', 96, 752, 256, 256), img('h/ui_joystick_stick', 200, 816, 128, 128)].flat(Infinity);
+    // ---------- окно ----------
+    const ws = this.state.ws;
+    const ROWS = {
+      all: [['wheat', 2, 1, 0, 40, 120], ['apple', 1, 1, 0, 60, 200], ['pumpkin', 1, 1, 0, 90, 300], ['apiary', 1, 1, 0, 150, 450]],
+      part: [['wheat', 2, 1, 0, 40, 120], ['apple', 1, .6, '2 ч', 60, 200], ['pumpkin', 1, 1, 0, 90, 300], ['apiary', 1, .2, '5 ч', 150, 450]],
+      locked: [['wheat', 2, 1, 0, 40, 120], ['apple', 1, 1, 0, 60, 200], ['pumpkin', 1, .35, '3 ч', 90, 300], ['apiary', 0, 0, 0, 0, 0]] };
+    const NM = { wheat: 'Пшеница', apple: 'Яблоня', pumpkin: 'Тыквы', apiary: 'Пасека' };
+    const row = (x, y, w, h, [id, lv, f, left, gain, price]) => { const lock = !lv, R = [nine(f >= 1 ? 'i/ui_card_highlight' : 'g/ui_card', '32 32 40 32', '32 32 40 32', x, y, w, h), img(lock ? 'h/ui_radial_slot_locked' : 'h/ui_radial_slot', x + 22, y + (h - 150) / 2 - 4, 150, 150)];
+      if (lock) R.push(img(PROD[id], x + 46, y + (h - 150) / 2 + 14, 102, 102, { op: '.35' }), img('g/ui_lock', x + 70, y + (h - 150) / 2 + 40, 56, 56), txt(NM[id], x + 196, y + 34, 400, 50, 38, 'dark', 'flex-start'), txt('Откроется после уровня 8', x + 196, y + 92, w - 230, 44, 28, 'soft', 'flex-start'));
+      else { const rx = x + w - 250; R.push(img(PROD[id], x + 46, y + (h - 150) / 2 + 14, 102, 102), txt(NM[id], x + 196, y + 26, 260, 50, 38, 'dark', 'flex-start'), txt(`Ур. ${lv}`, x + 196 + NM[id].length * 22 + 20, y + 30, 120, 46, 28, 'soft', 'flex-start'),
+        ...bar(x + 196, y + 88, rx - x - 216, f), txt(f >= 1 ? 'Созрело!' : `Созреет через ${left}`, x + 196, y + 142, rx - x - 216, 44, 28, f >= 1 ? 'green' : 'soft', 'flex-start'),
+        img('g/ui_icon_grain', rx + 20, y + 20, 56, 56), txt(`+${gain}`, rx + 80, y + 20, 150, 56, 40, 'gold', 'flex-start'), ...btn('green', rx, y + h - 104, 230, String(price), { sm: 1, icon: 'g/ui_icon_grain' }), txt('Улучшить', rx, y + h - 138, 230, 36, 24, 'soft')); }
+      return R; };
+    const win = (W, H, P) => { const w = P ? 980 : 1780, h = P ? 1560 : 940, x = (W - w) / 2, y = (H - h) / 2 + (P ? 40 : 30), R = [img('g/ui_dim', 0, 0, W, H), ...nine('g/ui_panel_main', '56', '56', x, y, w, h), ...nine('g/ui_ribbon', '0 104 0 104', '0 104', W / 2 - 280, y - 58, 560, 112), txt('Урожай', W / 2 - 210, y - 58, 420, 80, 50, 'title'), img('g/ui_btn_close_normal', x + w - 66, y - 26, 80, 80)];
+      const rows = ROWS[ws], rw = P ? w - 100 : (w - 130) / 2, rh = P ? 262 : 262;
+      rows.forEach((r, i) => { const rx = P ? x + 50 : x + 50 + (i % 2) * (rw + 30), ry = P ? y + 70 + i * (rh + 20) : y + 80 + Math.floor(i / 2) * (rh + 26); R.push(...row(rx, ry, rw, rh, r)); });
+      const tot = rows.filter(r => r[2] >= 1).reduce((s, r) => s + r[4], 0), by = y + h - 150;
+      R.push(txt('Всего:', W / 2 - 250, by - 70, 200, 56, 34, 'dark', 'flex-end'), img('g/ui_icon_grain', W / 2 - 36, by - 72, 60, 60), txt(`+${tot}`, W / 2 + 28, by - 72, 200, 60, 44, 'gold', 'flex-start'),
+        ...btn('green', W / 2 - 420, by, 400, 'Собрать всё'), ...btn('ad', W / 2 + 20, by, 400, 'Собрать ×3'));
+      return R; };
+    const bg = (W, H, P) => [tile('e/tile_farm_grass_1', 0, 0, W, H), ...(P ? [img('k/harvest_wheat_ripe_4f', 120, 1500, 192, 192, { size: '400% 100%' }), img('k/harvest_apple_ripe_4f', 700, 1440, 192, 192, { size: '400% 100%' }), img('e/env_farm_barn', 380, 1560, 300, 300)] : [img('k/harvest_wheat_ripe_4f', 60, 820, 192, 192, { size: '400% 100%' }), img('k/harvest_apple_ripe_4f', 1680, 800, 192, 192, { size: '400% 100%' }), img('e/env_farm_barn', 1560, 40, 300, 300)])];
+    const WT = [['all', 'Всё созрело'], ['part', 'Часть растёт'], ['locked', 'Культура закрыта']];
+    return {
+      playLabel: this.state.playing ? 'Пауза' : 'Играть', toggle: () => this.setState(s => ({ playing: !s.playing })),
+      sections, battle,
+      wtabs: WT.map(([id, name]) => ({ name, on: ws === id, off: ws !== id, pick: () => this.setState({ ws: id }) })),
+      boards: [{ name: 'Портрет 1080×1920', label: 'K Окно Урожай · портрет', w: '1080px', h: '1920px', layers: [...bg(1080, 1920, 1), ...win(1080, 1920, 1)].flat(Infinity) }, { name: 'Ландшафт 1920×1080', label: 'K Окно Урожай · ландшафт', w: '1920px', h: '1080px', layers: [...bg(1920, 1080, 0), ...win(1920, 1080, 0)].flat(Infinity) }]
+    };
+  }
+}
+</script>
+</body>
+</html>

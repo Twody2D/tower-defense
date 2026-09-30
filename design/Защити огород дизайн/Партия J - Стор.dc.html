@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E3D6;font-family:Nunito,sans-serif}a{color:#E0662A}a:hover{color:#2B2B3A}</style></helmet>
+<div data-screen-label="J Стор" style="width:1920px;box-sizing:border-box;padding:40px 28px 56px;background:#F4EEE2;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font:700 14px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#6B6878">ЗАЩИТИ ОГОРОД! · ПАРТИЯ J · КАТАЛОГ ЯНДЕКС ИГР</div>
+<div style="font:900 54px/1 Nunito;color:#2B2B3A">Иконка и обложка</div>
+<div style="font:600 19px/1.4 Nunito;color:#4A4858;max-width:1400px;text-wrap:pretty">По 3 варианта, собраны из спрайтов игры. PNG без C2PA-метаданных (проверено) лежат в export/j/. Пунктир на полноразмерных макетах — безопасные зоны: 40 px у иконки, центральные 700×400 у обложки.</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="font:900 38px/1 Nunito;color:#2B2B3A">Иконка 512×512</div>
+<div style="display:grid;grid-template-columns:repeat(3,auto);gap:36px;justify-content:start">
+<sc-for list="{{ icons }}" as="i" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:44px;height:44px;border-radius:12px;background:#2B2B3A;color:#fff;display:flex;align-items:center;justify-content:center;font:900 20px Nunito">{{ i.id }}</div><div style="font:900 24px Nunito;color:#2B2B3A">{{ i.name }}</div></div>
+<div style="position:relative;width:512px;height:512px;border-radius:96px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A;background-image:{{ i.src }};background-size:100% 100%"><div style="position:absolute;inset:40px;border:3px dashed rgba(255,255,255,.75);border-radius:60px"></div></div>
+<div style="display:flex;gap:22px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:128px;height:128px;border-radius:26px;box-shadow:0 0 0 2px #2B2B3A;background-image:{{ i.src }};background-size:100% 100%"></div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">каталог 128</div></div>
+<div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:64px;height:64px;border-radius:14px;box-shadow:0 0 0 2px #2B2B3A;background-image:{{ i.src }};background-size:100% 100%"></div><div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">64</div></div>
+<div style="font:600 15px/1.4 Nunito;color:#4A4858;max-width:260px;text-wrap:pretty">{{ i.note }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="font:900 38px/1 Nunito;color:#2B2B3A">Обложка 800×470</div>
+<sc-for list="{{ covers }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;gap:28px;align-items:flex-start;padding:22px;border-radius:24px;background:#FBF8F1;box-shadow:inset 0 0 0 2px rgba(43,43,58,.1)">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:44px;height:44px;border-radius:12px;background:#2B2B3A;color:#fff;display:flex;align-items:center;justify-content:center;font:900 20px Nunito">{{ c.id }}</div><div style="font:900 24px Nunito;color:#2B2B3A">{{ c.name }}</div></div>
+<div style="position:relative;width:800px;height:470px;border-radius:16px;overflow:hidden;box-shadow:0 0 0 4px #2B2B3A;background-image:{{ c.src }};background-size:100% 100%"><div style="position:absolute;left:50px;top:35px;width:700px;height:400px;border:3px dashed rgba(255,255,255,.8);box-sizing:border-box"></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding-top:54px">
+<div style="width:400px;height:235px;border-radius:12px;box-shadow:0 0 0 2px #2B2B3A;background-image:{{ c.src }};background-size:100% 100%"></div>
+<div style="font:700 12px 'JetBrains Mono',monospace;color:#6B6878">размер каталога 400×235</div>
+<div style="font:600 15px/1.4 Nunito;color:#4A4858;max-width:400px;text-wrap:pretty">{{ c.note }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="font:600 17px/1.5 Nunito;color:#4A4858;max-width:1300px;text-wrap:pretty">Выберите по одному варианту — например «иконка 1, обложка 3» — и я доведу его: крупнее героя, другой вредитель, другой фон.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const I = (n, name, note) => ({ id: String(n), name, note, src: `url('export/j/store_icon_v${n}_512.png')` });
+    const C = (n, name, note) => ({ id: String(n), name, note, src: `url('export/j/store_cover_v${n}_800x470.png')` });
+    return {
+      icons: [I(1, 'С морковкой', 'Портрет Енота крупно, морковка в лапе, жук отлетает от удара. Лучше всех читается в 64.'), I(2, 'Радость', 'Енот в полный рост прыгает, по бокам жук и гусеница, сверху монеты. Больше сюжета, в 64 мельче.'), I(3, 'Страж грядки', 'Портрет над грядкой с морковками, оглушённый жук справа.')],
+      covers: [C(1, 'Бой на дороге', 'Орда идёт к грядке, Енот бросает яблоко, Гусь на вышке, справа Лис, сверху монеты.'), C(2, 'Крупный план', 'Герои крупнее: Енот бросает морковку, Лис дразнится справа. Лучше читается в 400×235.'), C(3, 'С логотипом', 'Логотип «Защити огород!» в левом верхнем углу, Енот бежит с яйцом, Лис справа.')]
+    };
+  }
+}
+</script>
+</body>
+</html>
