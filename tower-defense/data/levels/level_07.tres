@@ -1,0 +1,509 @@
+[gd_resource type="Resource" script_class="LevelData" format=3]
+
+[ext_resource type="Script" path="res://data/types/level_data.gd" id="1_level"]
+[ext_resource type="Script" path="res://data/types/wave_data.gd" id="2_wave"]
+[ext_resource type="Script" path="res://data/types/wave_group.gd" id="3_group"]
+[ext_resource type="Script" path="res://data/types/defender_data.gd" id="4_def"]
+[ext_resource type="Resource" path="res://data/enemies/beetle.tres" id="e_beetle"]
+[ext_resource type="Resource" path="res://data/enemies/caterpillar.tres" id="e_caterpillar"]
+[ext_resource type="Resource" path="res://data/enemies/mole.tres" id="e_mole"]
+[ext_resource type="Resource" path="res://data/enemies/crow.tres" id="e_crow"]
+[ext_resource type="Resource" path="res://data/enemies/fox.tres" id="e_fox"]
+[ext_resource type="Resource" path="res://data/defenders/goose.tres" id="d_goose"]
+[ext_resource type="Resource" path="res://data/defenders/frog.tres" id="d_frog"]
+[ext_resource type="Resource" path="res://data/defenders/beaver.tres" id="d_beaver"]
+
+[sub_resource type="Resource" id="G_1_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 1
+interval = 1.20
+road = 0
+delay = 0.5
+
+[sub_resource type="Resource" id="G_1_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 1
+interval = 1.20
+road = 1
+delay = 0.2
+
+[sub_resource type="Resource" id="G_1_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 1
+interval = 1.20
+road = 0
+delay = 4.0
+
+[sub_resource type="Resource" id="G_1_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 1
+interval = 1.20
+road = 1
+delay = 3.1
+
+[sub_resource type="Resource" id="G_1_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 2
+interval = 1.20
+road = 0
+delay = 6.8
+
+[sub_resource type="Resource" id="G_1_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 1
+interval = 1.20
+road = 1
+delay = 6.5
+
+[sub_resource type="Resource" id="G_1_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 4
+interval = 1.20
+road = 0
+delay = 9.1
+
+[sub_resource type="Resource" id="G_1_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 3
+interval = 1.20
+road = 1
+delay = 9.8
+
+[sub_resource type="Resource" id="W_1"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_1_1"), SubResource("G_1_2"), SubResource("G_1_3"), SubResource("G_1_4"), SubResource("G_1_5"), SubResource("G_1_6"), SubResource("G_1_7"), SubResource("G_1_8")])
+
+[sub_resource type="Resource" id="G_2_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 1
+interval = 1.20
+road = 0
+delay = 0.1
+
+[sub_resource type="Resource" id="G_2_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 1
+interval = 1.20
+road = 1
+delay = 0.7
+
+[sub_resource type="Resource" id="G_2_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 2
+interval = 1.20
+road = 0
+delay = 3.1
+
+[sub_resource type="Resource" id="G_2_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 1
+interval = 1.20
+road = 1
+delay = 3.1
+
+[sub_resource type="Resource" id="G_2_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 2
+interval = 1.20
+road = 0
+delay = 6.6
+
+[sub_resource type="Resource" id="G_2_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 2
+interval = 1.20
+road = 1
+delay = 7.2
+
+[sub_resource type="Resource" id="G_2_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 5
+interval = 1.20
+road = 0
+delay = 9.2
+
+[sub_resource type="Resource" id="G_2_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 4
+interval = 1.20
+road = 1
+delay = 9.3
+
+[sub_resource type="Resource" id="W_2"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_2_1"), SubResource("G_2_2"), SubResource("G_2_3"), SubResource("G_2_4"), SubResource("G_2_5"), SubResource("G_2_6"), SubResource("G_2_7"), SubResource("G_2_8")])
+
+[sub_resource type="Resource" id="G_3_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 2
+interval = 1.20
+road = 0
+delay = 0.9
+
+[sub_resource type="Resource" id="G_3_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 1
+interval = 1.20
+road = 1
+delay = 1.4
+
+[sub_resource type="Resource" id="G_3_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 2
+interval = 1.20
+road = 0
+delay = 3.9
+
+[sub_resource type="Resource" id="G_3_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 2
+interval = 1.20
+road = 1
+delay = 3.6
+
+[sub_resource type="Resource" id="G_3_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 3
+interval = 1.20
+road = 0
+delay = 7.5
+
+[sub_resource type="Resource" id="G_3_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 2
+interval = 1.20
+road = 1
+delay = 6.1
+
+[sub_resource type="Resource" id="G_3_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 6
+interval = 1.20
+road = 0
+delay = 10.3
+
+[sub_resource type="Resource" id="G_3_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 5
+interval = 1.20
+road = 1
+delay = 9.4
+
+[sub_resource type="Resource" id="W_3"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_3_1"), SubResource("G_3_2"), SubResource("G_3_3"), SubResource("G_3_4"), SubResource("G_3_5"), SubResource("G_3_6"), SubResource("G_3_7"), SubResource("G_3_8")])
+
+[sub_resource type="Resource" id="G_4_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 2
+interval = 1.20
+road = 0
+delay = 0.2
+
+[sub_resource type="Resource" id="G_4_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 2
+interval = 1.20
+road = 1
+delay = 0.2
+
+[sub_resource type="Resource" id="G_4_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 3
+interval = 1.20
+road = 0
+delay = 3.5
+
+[sub_resource type="Resource" id="G_4_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 2
+interval = 1.20
+road = 1
+delay = 4.2
+
+[sub_resource type="Resource" id="G_4_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 4
+interval = 1.20
+road = 0
+delay = 6.3
+
+[sub_resource type="Resource" id="G_4_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 3
+interval = 1.20
+road = 1
+delay = 6.9
+
+[sub_resource type="Resource" id="G_4_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 7
+interval = 1.20
+road = 0
+delay = 10.0
+
+[sub_resource type="Resource" id="G_4_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 7
+interval = 1.20
+road = 1
+delay = 9.6
+
+[sub_resource type="Resource" id="W_4"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_4_1"), SubResource("G_4_2"), SubResource("G_4_3"), SubResource("G_4_4"), SubResource("G_4_5"), SubResource("G_4_6"), SubResource("G_4_7"), SubResource("G_4_8")])
+
+[sub_resource type="Resource" id="G_5_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 3
+interval = 1.20
+road = 0
+delay = 0.8
+
+[sub_resource type="Resource" id="G_5_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 2
+interval = 1.20
+road = 1
+delay = 0.1
+
+[sub_resource type="Resource" id="G_5_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 3
+interval = 1.20
+road = 0
+delay = 3.1
+
+[sub_resource type="Resource" id="G_5_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 3
+interval = 1.20
+road = 1
+delay = 3.3
+
+[sub_resource type="Resource" id="G_5_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 5
+interval = 1.20
+road = 0
+delay = 7.0
+
+[sub_resource type="Resource" id="G_5_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 4
+interval = 1.20
+road = 1
+delay = 6.6
+
+[sub_resource type="Resource" id="G_5_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 9
+interval = 1.20
+road = 0
+delay = 9.5
+
+[sub_resource type="Resource" id="G_5_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 9
+interval = 1.20
+road = 1
+delay = 9.9
+
+[sub_resource type="Resource" id="W_5"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_5_1"), SubResource("G_5_2"), SubResource("G_5_3"), SubResource("G_5_4"), SubResource("G_5_5"), SubResource("G_5_6"), SubResource("G_5_7"), SubResource("G_5_8")])
+
+[sub_resource type="Resource" id="G_6_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 3
+interval = 1.20
+road = 0
+delay = 0.7
+
+[sub_resource type="Resource" id="G_6_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 3
+interval = 1.20
+road = 1
+delay = 0.4
+
+[sub_resource type="Resource" id="G_6_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 4
+interval = 1.20
+road = 0
+delay = 4.2
+
+[sub_resource type="Resource" id="G_6_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 4
+interval = 1.20
+road = 1
+delay = 4.0
+
+[sub_resource type="Resource" id="G_6_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 6
+interval = 1.20
+road = 0
+delay = 6.4
+
+[sub_resource type="Resource" id="G_6_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 5
+interval = 1.20
+road = 1
+delay = 6.9
+
+[sub_resource type="Resource" id="G_6_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 12
+interval = 1.20
+road = 0
+delay = 9.8
+
+[sub_resource type="Resource" id="G_6_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 12
+interval = 1.20
+road = 1
+delay = 10.3
+
+[sub_resource type="Resource" id="W_6"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_6_1"), SubResource("G_6_2"), SubResource("G_6_3"), SubResource("G_6_4"), SubResource("G_6_5"), SubResource("G_6_6"), SubResource("G_6_7"), SubResource("G_6_8")])
+
+[sub_resource type="Resource" id="G_7_1"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 4
+interval = 1.20
+road = 0
+delay = 1.1
+
+[sub_resource type="Resource" id="G_7_2"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_caterpillar")
+count = 4
+interval = 1.20
+road = 1
+delay = 0.4
+
+[sub_resource type="Resource" id="G_7_3"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 5
+interval = 1.20
+road = 0
+delay = 4.5
+
+[sub_resource type="Resource" id="G_7_4"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_mole")
+count = 5
+interval = 1.20
+road = 1
+delay = 3.2
+
+[sub_resource type="Resource" id="G_7_5"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 8
+interval = 1.20
+road = 0
+delay = 6.6
+
+[sub_resource type="Resource" id="G_7_6"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_crow")
+count = 7
+interval = 1.20
+road = 1
+delay = 7.1
+
+[sub_resource type="Resource" id="G_7_7"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 15
+interval = 1.20
+road = 0
+delay = 9.2
+
+[sub_resource type="Resource" id="G_7_8"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_beetle")
+count = 15
+interval = 1.20
+road = 1
+delay = 9.7
+
+[sub_resource type="Resource" id="G_7_boss"]
+script = ExtResource("3_group")
+enemy = ExtResource("e_fox")
+count = 1
+interval = 1.0
+road = 0
+delay = 30.0
+hp_scale = 0.55
+
+[sub_resource type="Resource" id="W_7"]
+script = ExtResource("2_wave")
+groups = Array[ExtResource("3_group")]([SubResource("G_7_1"), SubResource("G_7_2"), SubResource("G_7_3"), SubResource("G_7_4"), SubResource("G_7_5"), SubResource("G_7_6"), SubResource("G_7_7"), SubResource("G_7_8"), SubResource("G_7_boss")])
+
+[resource]
+script = ExtResource("1_level")
+number = 7
+start_coins = 15
+carrots = 20
+defenders = Array[ExtResource("4_def")]([ExtResource("d_goose"), ExtResource("d_frog"), ExtResource("d_beaver")])
+waves = Array[ExtResource("2_wave")]([SubResource("W_1"), SubResource("W_2"), SubResource("W_3"), SubResource("W_4"), SubResource("W_5"), SubResource("W_6"), SubResource("W_7")])
+wave_pause = 20.0
+first_pause = 10.0
