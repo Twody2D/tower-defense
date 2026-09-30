@@ -580,8 +580,16 @@ def make_hi() -> dict[str, dict]:
     return sets
 
 
+def make_harvest_icon() -> None:
+    """The "Harvest" button's still icon (nothing ripe): frame 0 of the ripe
+    sheet — the design has only the animated one."""
+    sheet = Image.open(DST / "ui" / "ui_icon_harvest_ripe_3f.png")
+    sheet.crop((0, 0, sheet.width // 3, sheet.height)).save(DST / "ui" / "ui_icon_harvest.png")
+
+
 def main() -> int:
     n = copy_files()
+    make_harvest_icon()
     trim_portraits()
     make_tractor_wheels()
     make_shadow()

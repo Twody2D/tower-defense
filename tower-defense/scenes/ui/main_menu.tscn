@@ -33,9 +33,10 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="31_u"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_shop.png" id="32_u"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_gift.png" id="33_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="34_u"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_howto.png" id="35_u"]
-[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="36_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_harvest.png" id="34_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_settings.png" id="35_u"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_howto.png" id="36_u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/counter.tscn" id="37_u"]
 
 [node name="MainMenu" type="Control"]
 script = ExtResource("1_u")
@@ -1457,7 +1458,7 @@ offset_top = 620
 offset_right = 476
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("33_u")
+icon = ExtResource("34_u")
 label_key = "BTN_HARVEST"
 metadata/portrait = Rect2(460, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
@@ -1471,7 +1472,7 @@ offset_top = 620
 offset_right = 628
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("34_u")
+icon = ExtResource("35_u")
 label_key = "BTN_SETTINGS"
 metadata/portrait = Rect2(670, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
@@ -1484,12 +1485,12 @@ offset_top = 620
 offset_right = 780
 offset_bottom = 732
 scale = Vector2(0.9286, 0.9286)
-icon = ExtResource("35_u")
+icon = ExtResource("36_u")
 label_key = "BTN_HOW_TO"
 metadata/portrait = Rect2(880, 1640, 112, 112)
 metadata/portrait_scale = Vector2(1, 1)
 
-[node name="Grains" parent="Stage" instance=ExtResource("36_u")]
+[node name="Grains" parent="Stage" instance=ExtResource("37_u")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1620

@@ -39,7 +39,7 @@ PINE_BASE = 251
 LOGO = {"Landscape": (60, 40, 700), "Portrait": (90, 130, 900)}
 PLAY = {"Landscape": (150, 400, 520), "Portrait": (300, 1430, 480)}
 BUTTONS = [("Shop", "ui_icon_shop", "BTN_SHOP", ""), ("Gift", "ui_icon_gift", "BTN_GIFT", "icon_gift_shake"),
-           ("Harvest", "ui_icon_gift", "BTN_HARVEST", "icon_harvest_ripe"),
+           ("Harvest", "ui_icon_harvest", "BTN_HARVEST", "icon_harvest_ripe"),
            ("Settings", "ui_icon_settings", "BTN_SETTINGS", ""), ("HowTo", "ui_icon_howto", "BTN_HOW_TO", "")]
 BUTTON_X = {"Landscape": [60, 212, 364, 516, 668], "Portrait": [40, 250, 460, 670, 880]}
 BUTTON_Y = {"Landscape": 620, "Portrait": 1640}
