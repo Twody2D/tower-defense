@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://j05awyjdca2q"]
 
+[ext_resource type="Script" path="res://scenes/ui/framed_bar.gd" id="90_fbar"]
 [ext_resource type="Script" uid="uid://dfe2jex34vc73" path="res://scenes/boot/boot.gd" id="1_r"]
 [ext_resource type="Texture2D" uid="uid://8fxuwpyop267" path="res://art/env/tile_farm_grass_1.png" id="2_r"]
 [ext_resource type="Script" uid="uid://duiwsukn5y72w" path="res://scenes/ui/stage.gd" id="3_r"]
@@ -653,9 +654,27 @@ nine_patch_stretch = true
 stretch_margin_left = 24
 stretch_margin_right = 24
 texture_under = ExtResource("20_r")
-texture_progress = ExtResource("21_r")
-texture_progress_offset = Vector2(8, 8)
 metadata/portrait = Rect2(140, 1640, 800, 48)
+script = ExtResource("90_fbar")
+
+[node name="Fill" type="TextureProgressBar" parent="Stage/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+nine_patch_stretch = true
+stretch_margin_left = 16
+stretch_margin_right = 16
+texture_progress = ExtResource("21_r")
 
 [node name="Tip" type="Label" parent="Stage" unique_id=1238001289]
 unique_name_in_owner = true
