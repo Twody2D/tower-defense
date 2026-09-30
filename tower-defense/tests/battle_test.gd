@@ -144,3 +144,27 @@ func test_fence_plot_build_and_repair() -> void:
 	assert_float(plot.fence.block.hp).is_equal_approx(max_hp, 0.5)
 	assert_int(battle.state.coins).is_greater_equal(0)
 	assert_int(full_repair - battle.state.coins).is_less_equal(full_repair)
+
+
+## Twody: standing on a fence plot inside a tower's reach raised both. The
+## hero builds at one plot only: the one it is clearly deeper in.
+func test_hero_builds_one_plot_at_a_time() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://dev/battle_sandbox.tscn")
+	var battle: Battle = runner.scene() as Battle
+	var tower: BuildPlot = null
+	var fence: BuildPlot = null
+	for p: BuildPlot in battle.level.plots():
+		if p.fence_plot and fence == null:
+			fence = p
+		elif not p.fence_plot and not p.locked and tower == null:
+			tower = p
+	tower.prebuild(_goose(battle), 1)
+	fence.global_position = tower.global_position + Vector2(110, 0)
+	assert_bool(tower.contains(fence.global_position)).is_true()
+	battle.state.coins = 1000
+	battle.hero.global_position = fence.global_position
+	await runner.simulate_frames(60, 16)
+	assert_int(fence.level).is_greater(0)
+	assert_int(tower.level).is_equal(1)
+	assert_int(tower.paid).is_equal(0)
+	assert_object(battle.hero.plot).is_same(fence)

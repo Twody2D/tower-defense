@@ -32,6 +32,9 @@ signal coin_paid(plot: BuildPlot)
 ## upgrades it from next to it: the plot area becomes an ellipse with these
 ## half-axes, px (the solid part is only the tower's legs).
 @export var built_reach: Vector2 = Vector2(150, 115)
+## Where two plot areas overlap, the hero moves to the other plot only when
+## it is this much deeper in it (reach: 0 centre, 1 edge).
+@export var switch_margin: float = 0.3
 @export var pad_normal: Texture2D
 @export var pad_max: Texture2D
 @export var pad_locked: Texture2D
@@ -90,11 +93,16 @@ func next_price() -> int:
 
 
 func contains(world_pos: Vector2) -> bool:
+	return reach(world_pos) <= 1.0
+
+
+## How deep in the plot area a point is: 0 at the centre, 1 on the edge.
+func reach(world_pos: Vector2) -> float:
 	var d: Vector2 = (world_pos - global_position).abs()
 	if level > 0 and not fence_plot:
 		# Built: the tower stands in the way, so anywhere around it counts.
-		return (d / built_reach).length_squared() <= 1.0
-	return d.x / half_size.x + d.y / half_size.y <= 1.0
+		return (d / built_reach).length()
+	return d.x / half_size.x + d.y / half_size.y
 
 
 ## Level start boost: a defender already standing at `at_level`.
@@ -133,10 +141,30 @@ func choose(data: DefenderData) -> void:
 	_refresh()
 
 
+## The hero builds at one plot at a time (Twody: standing on a fence next to
+## a tower raised both). A plot takes the hero from another one only when the
+## hero is clearly deeper in it (`switch_margin`), else the first one keeps it.
+func _takes_hero() -> bool:
+	if hero == null or hero.is_stunned():
+		return false
+	var mine: float = reach(hero.global_position)
+	if mine > 1.0:
+		return false
+	var other: BuildPlot = hero.plot
+	if other == null or other == self or not is_instance_valid(other):
+		return true
+	var theirs: float = other.reach(hero.global_position)
+	return theirs > 1.0 or mine < theirs - switch_margin
+
+
 func _process(delta: float) -> void:
 	if locked:
 		return
-	var on: bool = hero != null and contains(hero.global_position) and not hero.is_stunned()
+	var on: bool = _takes_hero()
+	if on:
+		hero.plot = self
+	elif hero != null and hero.plot == self:
+		hero.plot = null
 	if on != _hero_on:
 		_hero_on = on
 		_highlight.visible = on

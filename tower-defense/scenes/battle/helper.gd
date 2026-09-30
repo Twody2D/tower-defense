@@ -4,12 +4,24 @@ extends Node2D
 ## throws at the nearest pest with the hero's stats. Made with the battle
 ## scene and only shown for the bonus time (no instantiate() in battle).
 
-## Place next to the hero, behind its back (x is mirrored by the facing), px.
-@export var side_offset: Vector2 = Vector2(-90, 16)
-## Runs this much faster than the hero, so it keeps up.
-@export var speed_mult: float = 1.15
-## Closer than this to its place it stands still, px.
-@export var stand_distance: float = 24.0
+## Place next to the hero: x on the side the helper already is (it never
+## runs across the hero), y below it, px.
+@export var side_offset: Vector2 = Vector2(90, 16)
+## Follows its place softly (Twody: not every move of the hero): speed =
+## `hero_share` of the hero's own + distance × `follow_gain`, up to
+## `max_speed_mult` × the hero speed (so it lags a little, never overlaps).
+@export var hero_share: float = 0.6
+@export var follow_gain: float = 3.0
+@export var max_speed_mult: float = 1.6
+## Speeds up and slows down softly: this much of the way to the wanted
+## speed per second (exponential).
+@export var accel: float = 8.0
+## Changes side only when the hero is this far past it, px.
+@export var side_switch: float = 60.0
+## Run animation above this speed, idle below `idle_speed` (a gap, so the
+## animation does not flicker), px/s.
+@export var run_speed: float = 90.0
+@export var idle_speed: float = 40.0
 @export var throw_offset: Vector2 = Vector2(0, -60)
 @export var projectile_frames: int = 4
 @export var hit_fx: StringName = &"proj_splat"
@@ -21,6 +33,9 @@ var fx: FxPool
 var stats: HeroStats
 
 var _cooldown: float = 0.0
+var _side: float = -1.0
+var _velocity: Vector2 = Vector2.ZERO
+var _running: bool = false
 var _shot: Projectiles.Shot = Projectiles.Shot.new()
 
 @onready var _sprite: AnimatedSprite2D = $Sprite
@@ -38,7 +53,11 @@ func _ready() -> void:
 func appear(skin: SkinData) -> void:
 	_sprite.sprite_frames = skin.frames
 	_shot.texture = skin.projectile
-	global_position = _place()
+	# Behind the hero's back.
+	_side = 1.0 if hero.velocity.x < -1.0 else -1.0
+	_velocity = Vector2.ZERO
+	_running = false
+	global_position = hero.global_position + Vector2(side_offset.x * _side, side_offset.y)
 	visible = true
 	set_process(true)
 	_sprite.play(&"idle")
@@ -56,21 +75,25 @@ func vanish() -> void:
 
 
 func _place() -> Vector2:
-	var facing_left: bool = hero.velocity.x < -1.0
-	var o: Vector2 = side_offset
-	if facing_left:
-		o.x = -o.x
-	return hero.global_position + o
+	var dx: float = global_position.x - hero.global_position.x
+	if absf(dx) > side_switch and signf(dx) != _side:
+		_side = signf(dx)
+	return hero.global_position + Vector2(side_offset.x * _side, side_offset.y)
 
 
 func _process(delta: float) -> void:
 	var to: Vector2 = _place() - global_position
-	var moving: bool = to.length() > stand_distance
-	if moving:
-		var step: float = stats.speed * speed_mult * delta
-		global_position += to.limit_length(step)
-		if absf(to.x) > 2.0:
-			_sprite.flip_h = to.x < 0.0
+	var top: float = maxf(stats.speed, hero.velocity.length()) * max_speed_mult
+	var want: Vector2 = (hero.velocity * hero_share + to * follow_gain).limit_length(top)
+	_velocity = _velocity.lerp(want, 1.0 - exp(-accel * delta))
+	global_position += _velocity * delta
+	var speed: float = _velocity.length()
+	if _running and speed < idle_speed:
+		_running = false
+	elif not _running and speed > run_speed:
+		_running = true
+	if _running and absf(_velocity.x) > idle_speed:
+		_sprite.flip_h = _velocity.x < 0.0
 	_cooldown -= delta
 	if _cooldown <= 0.0:
 		var target: int = enemies.find_nearest(global_position, stats.attack_radius)
@@ -79,11 +102,11 @@ func _process(delta: float) -> void:
 			_shot.damage = stats.damage
 			_shot.speed = stats.projectile_speed
 			projectiles.fire(global_position + throw_offset, target, _shot)
-			if not moving:
+			if not _running:
 				_sprite.play(&"throw")
 				_sprite.flip_h = enemies.position_at(target).x < global_position.x
 	var throwing: bool = _sprite.animation == &"throw" and _sprite.is_playing()
-	if moving:
+	if _running:
 		_sprite.play(&"run")
 	elif not throwing:
 		_sprite.play(&"idle")

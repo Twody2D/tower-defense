@@ -32,9 +32,12 @@ var joystick: Vector2 = Vector2.ZERO
 var enemies: EnemyManager
 var projectiles: Projectiles
 var fx: FxPool
-## Damage and attack speed multipliers (meta upgrades, "Rage" bonus).
 ## Tells if a world point is on the road (the level sets it; null: never).
 var road_check: Callable
+## The plot the hero is building at: one at a time, even where the reach of
+## a tower overlaps a fence plot (BuildPlot decides).
+var plot: BuildPlot
+## Damage and attack speed multipliers (meta upgrades, "Rage" bonus).
 var damage_mult: float = 1.0
 var attack_speed_mult: float = 1.0
 
