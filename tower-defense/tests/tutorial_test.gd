@@ -1,6 +1,6 @@
 extends GdUnitTestSuite
 ## Level 1 tutorial: the first wave waits; move → plot → pick → build →
-## coins, then it is done for good.
+## coins → shake the apple tree, then it is done for good.
 
 
 func before_test() -> void:
@@ -32,8 +32,15 @@ func test_level_1_tutorial_flow() -> void:
 	assert_int(tut.step).is_equal(Tutorial.Step.COINS)
 	battle.coins.drop(battle.hero.global_position + Vector2(40, 0), 5)
 	await runner.simulate_frames(90, 16)
-	assert_int(tut.step).is_equal(Tutorial.Step.OFF)
 	assert_bool(Game.tutorial_done).is_true()
+	# Then "shake the apple tree": over when it is shaken.
+	assert_int(tut.step).is_equal(Tutorial.Step.CROP)
+	var crop: BattleCrop = tut._crop
+	crop.regrow_time = 100.0
+	battle.hero.global_position = crop.global_position + Vector2(40, 0)
+	await runner.simulate_frames(90, 16)
+	assert_bool(crop.is_ripe()).is_false()
+	assert_int(tut.step).is_equal(Tutorial.Step.OFF)
 
 
 func test_no_tutorial_after_it_is_done() -> void:

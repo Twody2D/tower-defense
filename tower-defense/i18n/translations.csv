@@ -154,6 +154,7 @@ TUT_PLOT,"Встань на площадку, чтобы построить",Sta
 TUT_PICK,Выбери гуся-стрелка,Pick the Goose Archer
 TUT_BUILD,Постой на площадке — монеты уйдут в постройку,Stay on the plot — your coins build it
 TUT_COINS,Собирай монеты — на них строят защитников,Collect coins — they pay for defenders
+TUT_CROP,"Постой у яблони — потряси её, и выпадут монеты!",Stand by the apple tree to shake it — coins will drop!
 TUT_FENCE,Забор задерживает вредителей — встань на его площадку,A fence holds pests back — stand on its plot
 TUT_UPGRADE,Встань к защитнику ещё раз — он станет сильнее,Stand by a defender again to make it stronger
 TUT_SHOP,Загляни в магазин — там прокачка героя!,Visit the shop to upgrade your hero!

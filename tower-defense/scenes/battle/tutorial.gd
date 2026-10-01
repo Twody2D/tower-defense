@@ -1,23 +1,26 @@
 class_name Tutorial
 extends Node
-## Level 1 tutorial (CODE_PROMPT: swipe, plot, defender pick, coins; design I
-## screen 18) and level 2 tips (fence, upgrade). Level 1 holds the first
+## Level 1 tutorial (CODE_PROMPT: swipe, plot, defender pick, coins, then
+## "shake the apple tree" (Twody); design I screen 18) and level 2 tips (fence, upgrade). Level 1 holds the first
 ## wave until the first defender stands. Steps follow what the player really
 ## does: running onto a plot early skips "move", leaving the plot before the
 ## pick goes back to "stand on a plot".
 
-enum Step { OFF, MOVE, PLOT, PICK, BUILD, COINS, FENCE, UPGRADE }
+enum Step { OFF, MOVE, PLOT, PICK, BUILD, COINS, CROP, FENCE, UPGRADE }
 
 ## Hole radii around targets, screen px.
 @export var hero_radius: float = 120.0
 @export var plot_radius: float = 110.0
 @export var slot_radius: float = 80.0
 @export var coin_radius: float = 110.0
+@export var crop_radius: float = 120.0
 ## "Move" is done after running this far, px.
 @export var move_distance: float = 220.0
 ## The coins hint lasts until this many coins are picked or this long, s.
 @export var coins_to_pick: int = 3
 @export var coins_time: float = 8.0
+## The apple tree hint goes away after this long if the tree is not shaken, s.
+@export var crop_time: float = 20.0
 ## Level 2 tips go away by themselves after this long, s.
 @export var tip_time: float = 12.0
 
@@ -25,6 +28,7 @@ var battle: Battle
 var step: Step = Step.OFF
 
 var _plot: BuildPlot
+var _crop: BattleCrop
 var _moved: float = 0.0
 var _last_hero: Vector2 = Vector2.ZERO
 var _coins_at: int = 0
@@ -120,9 +124,18 @@ func _process(delta: float) -> void:
 			if battle.state.coins - _coins_at >= coins_to_pick or _left <= 0.0:
 				Game.tutorial_done = true
 				Save.save()
-				_go(Step.OFF)
+				_crop = _ripe_crop()
+				_left = crop_time
+				_go(Step.CROP if _crop != null else Step.OFF)
 				return
 			layer.point(tr("TUT_COINS"), to_screen * battle.coins.position_of(0), coin_radius, true, &"arrow")
+		Step.CROP:
+			_left -= delta
+			if not _crop.is_ripe() or _left <= 0.0:
+				_go(Step.OFF)
+				return
+			layer.point(tr("TUT_CROP"), to_screen * (_crop.global_position + Vector2(0, -60)), crop_radius, false,
+					&"arrow", true)
 		Step.FENCE:
 			var fence: BuildPlot = _fence_plot()
 			_left -= delta
@@ -158,6 +171,25 @@ func _free_plot() -> BuildPlot:
 		if d < best_d:
 			best_d = d
 			best = p
+	return best
+
+
+## The ripe crop nearest to the hero, one on screen first (a narrow portrait
+## screen may hide the nearest); null if none is ripe.
+func _ripe_crop() -> BattleCrop:
+	var to_screen: Transform2D = battle.get_viewport().get_canvas_transform()
+	var screen: Rect2 = battle.get_viewport().get_visible_rect().grow(-60.0)
+	var best: BattleCrop = null
+	var best_score: float = INF
+	for c: BattleCrop in battle.level.crops():
+		if not c.is_ripe():
+			continue
+		var score: float = c.global_position.distance_to(battle.hero.global_position)
+		if not screen.has_point(to_screen * c.global_position):
+			score += 100000.0
+		if score < best_score:
+			best_score = score
+			best = c
 	return best
 
 

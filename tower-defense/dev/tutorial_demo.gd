@@ -1,9 +1,13 @@
 extends SceneTree
 ## Level 1 tutorial steps for screenshots (a fresh save).
 ## "$G" --path . --resolution 540x960 -s res://dev/tutorial_demo.gd -- <out_prefix>
-## Shots: move, plot, pick, build, coins.
+## Shots: move, plot, pick, build, coins, crop. The real save file is put back at the end.
+
+const SAVE_PATH := "user://save.json"
 
 var _out: String = "user://tut"
+var _backup: PackedByteArray = PackedByteArray()
+var _had_save: bool = false
 var _frame: int = 0
 var _plot: Node2D
 
@@ -14,6 +18,9 @@ func _initialize() -> void:
 		_out = args[0]
 	if OS.get_environment("DEMO_LOCALE") != "":
 		TranslationServer.set_locale(OS.get_environment("DEMO_LOCALE"))
+	_had_save = FileAccess.file_exists(SAVE_PATH)
+	if _had_save:
+		_backup = FileAccess.get_file_as_bytes(SAVE_PATH)
 	change_scene_to_file("res://scenes/battle/battle.tscn")
 
 
@@ -61,4 +68,18 @@ func _process(_delta: float) -> bool:
 		coins.call("drop", hero.global_position + Vector2(260, 120), 5)
 	if _frame == 660:
 		_shot("5_coins")
-	return _frame >= 660
+		hero.global_position += Vector2(260, 120)
+	if _frame == 760:
+		_shot("6_crop")
+		_restore()
+		return true
+	return false
+
+
+func _restore() -> void:
+	if _had_save:
+		var f: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+		f.store_buffer(_backup)
+		f.close()
+	elif FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
