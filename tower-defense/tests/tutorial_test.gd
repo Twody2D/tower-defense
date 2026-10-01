@@ -43,3 +43,16 @@ func test_no_tutorial_after_it_is_done() -> void:
 	assert_bool(battle.waves.hold).is_false()
 	battle.tutorial.start(1)
 	assert_int(battle.tutorial.step).is_equal(Tutorial.Step.OFF)
+
+
+func test_hint_hides_under_the_pause() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
+	var battle: Battle = runner.scene() as Battle
+	battle.tutorial.start(1)
+	await runner.simulate_frames(3, 16)
+	assert_bool(battle.tutorial.layer.visible).is_true()
+	battle._toggle_pause()
+	assert_bool(battle.pause_window.visible).is_true()
+	assert_bool(battle.tutorial.layer.visible).is_false()
+	battle._toggle_pause()
+	assert_bool(battle.tutorial.layer.visible).is_true()

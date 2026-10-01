@@ -57,6 +57,8 @@ var level_number: int = 1
 
 var _over: bool = false
 var _chance_used: bool = false
+## The tutorial hint was on screen when the pause opened (it comes back after).
+var _hint_hidden: bool = false
 ## Newcomers waiting for their window (DefenderData / EnemyData).
 var _intros: Array[Resource] = []
 var _spawns_shown: bool = false
@@ -660,8 +662,12 @@ func _on_sdk_paused() -> void:
 	_open_pause()
 
 
+## The pause shows the battle under a dim: a tutorial hint would show through
+## it, so it hides until the game goes on.
 func _open_pause() -> void:
 	pause_window.setup(level_number, waves.wave, waves.total(), Game.battle_skin())
+	_hint_hidden = tutorial.layer.visible
+	tutorial.layer.visible = false
 	pause_window.open()
 
 
@@ -675,6 +681,9 @@ func _resume() -> void:
 	if _over:
 		return
 	get_tree().paused = false
+	if _hint_hidden:
+		_hint_hidden = false
+		tutorial.layer.visible = true
 	YandexSdk.gameplay_start()
 
 
