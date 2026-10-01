@@ -110,7 +110,7 @@ FILES: dict[str, list[str]] = {
     "harvest": [
         f"k/harvest_{c}_ripe_lv{lv}.png" for c in CROPS for lv in (2, 3)
     ] + ["k/harvest_locked.png", "k/harvest_shadow.png", "k/battle_shadow.png"]
-      + [f"k/battle_{c}_empty.png" for c in BATTLE_CROPS],
+      + [f"k/battle_{c}_empty.png" for c in BATTLE_CROPS] + ["o/battle_hive_empty.png"],
     # New farm map (batch L): level signs, path, bridge, biome strips.
     "map": [f"l/{n}.png" for n in (
         "map_bridge", "map_level_done", "map_level_locked", "map_level_open",
@@ -146,6 +146,7 @@ FILES: dict[str, list[str]] = {
         "k/ui_icon_apple.png", "k/ui_icon_apple_128.png", "k/ui_icon_pumpkin.png", "k/ui_icon_pumpkin_128.png",
         "k/ui_icon_honey.png", "k/ui_icon_honey_128.png",
         "l/ui_harvest_ready.png", "l/ui_icon_howto.png",
+        "o/ui_icon_off_slash.png",
     ],
 }
 
@@ -157,6 +158,8 @@ HERO_ANIMS = [
     ("hit", 2, 12, False), ("stun", 4, 8, True), ("joy", 6, 10, True), ("sad", 4, 6, True),
 ]
 SKINS = ["raccoon", "corgi", "pig", "rabbit", "chicken"]
+# Batch O: the hero at a battle crop (tree / bush, pumpkin, hive).
+HERO_WORK_ANIMS = [("shake", 4, 12, True), ("pick", 4, 10, True), ("honey", 4, 10, True)]
 
 PEST_ANIMS = [("walk", 4, 8, True), ("chew", 3, 8, True), ("grab", 3, 10, False), ("defeat", 5, 10, False)]
 ENEMIES: dict[str, tuple[str, list[tuple[str, int, int, bool]]]] = {
@@ -256,6 +259,8 @@ def build_frames() -> dict[str, dict]:
         sets[f"hero_{skin}"] = {
             a: entry(copy(f"b/hero_{skin}_{a}_{n}f.png", "hero"), n, fps, loop) for a, n, fps, loop in HERO_ANIMS
         }
+        for a, n, fps, loop in HERO_WORK_ANIMS:
+            sets[f"hero_{skin}"][a] = entry(copy(f"o/hero_{skin}_{a}_{n}f.png", "hero"), n, fps, loop)
     sets["projectiles"] = {}
     for rel, (fps, loop) in PROJ_ANIMS.items():
         base = rel.split("/")[1]
@@ -295,6 +300,11 @@ def build_frames() -> dict[str, dict]:
             sets["crops"][f"{c}_{a}"] = entry(copy(f"k/battle_{c}_{a}_{n}f.png", "harvest"), n, fps, loop)
     for f in BATTLE_FRUITS:
         sets["crops"][f"fruit_{f}"] = entry(copy(f"k/battle_fruit_{f}_fall_3f.png", "harvest"), 3, 12, False)
+    # The hive (batch O) under the same names: full = ripe, collect = shake.
+    for a, src, n, fps, loop in (("ripe", "full", 3, 6, True), ("shake", "collect", 4, 10, False),
+                                 ("regrow", "regrow", 2, 0, False), ("highlight", "highlight", 3, 6, True)):
+        sets["crops"][f"hive_{a}"] = entry(copy(f"o/battle_hive_{src}_{n}f.png", "harvest"), n, fps, loop)
+    sets["crops"]["fruit_honeycomb"] = entry(copy("o/battle_fruit_honeycomb_fall_3f.png", "harvest"), 3, 12, False)
     # Map and menu life: clouds over closed zones, the current level sign, smoke, butterflies.
     sets["map"] = {
         "cloud_1_sway": entry(copy("l/map_cloud_1_sway_3f.png", "map"), 3, 3, True),
@@ -580,6 +590,12 @@ def make_hi() -> dict[str, dict]:
     return sets
 
 
+def make_shop_icon() -> None:
+    """Batch O: the market stall replaces the bag (it looked like a lock)."""
+    shutil.copyfile(SRC / "o" / "ui_icon_shop_v2.png", DST / "ui" / "ui_icon_shop.png")
+    shutil.copyfile(SRC / "o" / "ui_icon_shop_v2_128.png", DST / "ui" / "ui_icon_shop_128.png")
+
+
 def make_harvest_icon() -> None:
     """The "Harvest" button's still icon (nothing ripe): frame 0 of the ripe
     sheet — the design has only the animated one."""
@@ -590,6 +606,7 @@ def make_harvest_icon() -> None:
 def main() -> int:
     n = copy_files()
     make_harvest_icon()
+    make_shop_icon()
     trim_portraits()
     make_tractor_wheels()
     make_shadow()

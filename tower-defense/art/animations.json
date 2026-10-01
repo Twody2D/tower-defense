@@ -48,6 +48,24 @@
     "frames": 4,
     "fps": 6,
     "loop": true
+   },
+   "shake": {
+    "file": "res://art/hero/hero_raccoon_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "pick": {
+    "file": "res://art/hero/hero_raccoon_pick_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "honey": {
+    "file": "res://art/hero/hero_raccoon_honey_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
    }
   },
   "hero_corgi": {
@@ -97,6 +115,24 @@
     "file": "res://art/hero/hero_corgi_sad_4f.png",
     "frames": 4,
     "fps": 6,
+    "loop": true
+   },
+   "shake": {
+    "file": "res://art/hero/hero_corgi_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "pick": {
+    "file": "res://art/hero/hero_corgi_pick_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "honey": {
+    "file": "res://art/hero/hero_corgi_honey_4f.png",
+    "frames": 4,
+    "fps": 10,
     "loop": true
    }
   },
@@ -148,6 +184,24 @@
     "frames": 4,
     "fps": 6,
     "loop": true
+   },
+   "shake": {
+    "file": "res://art/hero/hero_pig_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "pick": {
+    "file": "res://art/hero/hero_pig_pick_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "honey": {
+    "file": "res://art/hero/hero_pig_honey_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
    }
   },
   "hero_rabbit": {
@@ -198,6 +252,24 @@
     "frames": 4,
     "fps": 6,
     "loop": true
+   },
+   "shake": {
+    "file": "res://art/hero/hero_rabbit_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "pick": {
+    "file": "res://art/hero/hero_rabbit_pick_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "honey": {
+    "file": "res://art/hero/hero_rabbit_honey_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
    }
   },
   "hero_chicken": {
@@ -247,6 +319,24 @@
     "file": "res://art/hero/hero_chicken_sad_4f.png",
     "frames": 4,
     "fps": 6,
+    "loop": true
+   },
+   "shake": {
+    "file": "res://art/hero/hero_chicken_shake_4f.png",
+    "frames": 4,
+    "fps": 12,
+    "loop": true
+   },
+   "pick": {
+    "file": "res://art/hero/hero_chicken_pick_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": true
+   },
+   "honey": {
+    "file": "res://art/hero/hero_chicken_honey_4f.png",
+    "frames": 4,
+    "fps": 10,
     "loop": true
    }
   },
@@ -1081,6 +1171,36 @@
    },
    "fruit_raspberry": {
     "file": "res://art/harvest/battle_fruit_raspberry_fall_3f.png",
+    "frames": 3,
+    "fps": 12,
+    "loop": false
+   },
+   "hive_ripe": {
+    "file": "res://art/harvest/battle_hive_full_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "hive_shake": {
+    "file": "res://art/harvest/battle_hive_collect_4f.png",
+    "frames": 4,
+    "fps": 10,
+    "loop": false
+   },
+   "hive_regrow": {
+    "file": "res://art/harvest/battle_hive_regrow_2f.png",
+    "frames": 2,
+    "fps": 0,
+    "loop": false
+   },
+   "hive_highlight": {
+    "file": "res://art/harvest/battle_hive_highlight_3f.png",
+    "frames": 3,
+    "fps": 6,
+    "loop": true
+   },
+   "fruit_honeycomb": {
+    "file": "res://art/harvest/battle_fruit_honeycomb_fall_3f.png",
     "frames": 3,
     "fps": 12,
     "loop": false
