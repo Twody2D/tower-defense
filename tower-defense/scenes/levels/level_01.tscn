@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" path="res://art/env/env_farm_haystack.png" id="12_r"]
 [ext_resource type="Texture2D" path="res://art/env/env_stump.png" id="13_r"]
 [ext_resource type="Texture2D" path="res://art/env/env_farm_wheelbarrow.png" id="14_r"]
-[ext_resource type="Texture2D" path="res://art/env/env_fence_decor.png" id="15_r"]
 
 [sub_resource type="Curve2D" id="Curve2D_road1"]
 _data = {
@@ -197,12 +196,12 @@ position = Vector2(1760, 1912)
 texture = ExtResource("14_r")
 offset = Vector2(0, -44)
 
-[node name="FenceDecor1" type="Sprite2D" parent="Decor"]
-position = Vector2(896, 1272)
-texture = ExtResource("15_r")
-offset = Vector2(0, -30)
-
 [node name="Bush4" type="Sprite2D" parent="Decor"]
+position = Vector2(864, 1272)
+texture = ExtResource("10_r")
+offset = Vector2(0, -38)
+
+[node name="Bush5" type="Sprite2D" parent="Decor"]
 position = Vector2(160, 696)
 texture = ExtResource("10_r")
 offset = Vector2(0, -38)

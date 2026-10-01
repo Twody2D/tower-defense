@@ -92,7 +92,7 @@ DECOR = {
 }
 BIOME_DECOR = {
     "farm": ["pine", "bush", "pine", "pine", "bush", "bush", "rocks", "haystack", "scarecrow", "sunflower",
-             "sunflower", "stump", "barrow", "fence_decor", "bush", "rocks"],
+             "sunflower", "stump", "barrow", "bush", "bush", "rocks"],
     "wheat": ["ears", "ears", "ears", "ears", "ears", "sheaf", "sheaf", "cart", "scarecrow", "pine", "bush",
               "rocks", "stump", "sunflower", "sunflower", "ears"],
     "lake": ["reeds", "reeds", "reeds", "pine", "pine", "pine", "bush", "bush", "rocks", "stump", "sunflower",
@@ -314,8 +314,10 @@ def landmark(s: Scene, biome: str, cell: tuple) -> None:
                                                   f'texture = ExtResource("{s.res("Texture2D", "res://art/env/env_lake_boat.png")}")'])
 
 
-# Crops by the road (CODE_PROMPT "Урожай фермы"): biome → (kind, fruit).
-CROP_KIND = {"farm": ("apple_tree", "apple"), "wheat": ("pumpkin", "pumpkin"), "lake": ("raspberry", "raspberry")}
+# Crops (CODE_PROMPT "Урожай фермы"): biome → (kind, fruit) by crop number, in turn
+# (Twody: the hive by the lake together with the raspberries).
+CROP_KIND = {"farm": [("apple_tree", "apple")], "wheat": [("pumpkin", "pumpkin")],
+             "lake": [("raspberry", "raspberry"), ("hive", "honeycomb")]}
 # The hero's pose at a crop (batch O).
 CROP_HERO_ANIM = {"apple_tree": "shake", "raspberry": "shake", "pumpkin": "pick", "hive": "honey"}
 
@@ -337,9 +339,7 @@ def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
     farthest from those already placed (different sides of the map). Marks
     their cells busy for the decor."""
     rng = random.Random(500 + level)
-    kind, fruit = CROP_KIND[biome]
     scene = s.res("PackedScene", "res://scenes/battle/battle_crop.tscn")
-    empty = s.res("Texture2D", f"res://art/harvest/battle_{kind}_empty.png")
     s.node("Crops", "Node2D", ".", ["y_sort_enabled = true"])
     busy = occ["busy"]
     hx, hy = occ["hero"]
@@ -364,6 +364,8 @@ def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
             free.sort(key=lambda c: -min((c[0] - a) ** 2 + (c[1] - b) ** 2 for a, b in placed))
             c = rng.choice(free[:max(1, len(free) // 6)])
         placed.append(c)
+        kind, fruit = CROP_KIND[biome][i % len(CROP_KIND[biome])]
+        empty = s.res("Texture2D", f"res://art/harvest/battle_{kind}_empty.png")
         cover = {(c[0] + dx, c[1] + dy) for dx in (-1, 0) for dy in (-1, 0)}
         s.node(f"Crop{i + 1}", None, "Crops", [f"position = {v((c[0] * CELL, c[1] * CELL + 20))}",
                                                f'kind = &"{kind}"', f'fruit = &"{fruit}"',
@@ -384,18 +386,7 @@ def place_decor(s: Scene, level: int, biome: str, occ: dict) -> None:
             break
     else:
         raise AssertionError(f"L{level}: no room for the {name}")
-    if biome == "lake":
-        # Bee skeps: the lake biome's own decor, a pair.
-        for i in range(2):
-            for _ in range(200):
-                c = (rng.randrange(1, N - 1), rng.randrange(2, N - 1))
-                if c not in busy:
-                    sprite(s, f"Skep{i + 1}", "Decor", "tex", "env_lake_skep", px(c), -40)
-                    s.node("Bees", "AnimatedSprite2D", f"Decor/Skep{i + 1}", [
-                        f'sprite_frames = ExtResource("{s.res("SpriteFrames", "res://art/frames/env.tres")}")',
-                        'animation = &"env_lake_skep_bees"', 'autoplay = "env_lake_skep_bees"', "offset = Vector2(0, -40)"])
-                    busy |= {(c[0] + dx, c[1] + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
-                    break
+    # No bee skeps by the lake (Twody: what looks collectible is collectible — the hive is a crop).
     counts: dict[str, int] = {}
     for key in BIOME_DECOR[biome]:
         kind, what, off, w, h = DECOR[key]
