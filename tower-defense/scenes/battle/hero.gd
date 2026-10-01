@@ -46,6 +46,9 @@ var _stun_left: float = 0.0
 var _invulnerable_left: float = 0.0
 ## Build pose lasts this long after the last coin paid, s.
 var _build_left: float = 0.0
+## Working at a crop: its animation (shake / pick / honey) while > 0.
+var _work_left: float = 0.0
+var _work_anim: StringName = &"shake"
 var _dust_left: float = 0.0
 var _dust_next: int = 0
 ## Battle over: joy / sad only.
@@ -165,6 +168,15 @@ func mark_building() -> void:
 	_build_left = 0.15
 
 
+## Harvesting a crop (the crop calls this every frame): `anim` of the skin
+## (shake / pick / honey), a standing hero turned to the crop.
+func mark_working(at: Vector2, anim: StringName) -> void:
+	_work_left = 0.15
+	_work_anim = anim
+	if not is_moving():
+		_sprite.flip_h = at.x < global_position.x
+
+
 ## End of the battle: jumps for joy or hangs its ears; nothing else runs.
 ## The tree is paused then, so the sprite keeps animating on its own.
 func finish(won: bool) -> void:
@@ -210,7 +222,7 @@ func _attack(delta: float) -> void:
 	_shot.speed = stats.projectile_speed
 	projectiles.fire(global_position + throw_offset, target, _shot)
 	Audio.sfx(&"throw")
-	if not is_moving() and _build_left <= 0.0:
+	if not is_moving() and _build_left <= 0.0 and _work_left <= 0.0:
 		_sprite.play(&"throw")
 		_sprite.flip_h = enemies.position_at(target).x < global_position.x
 
@@ -228,6 +240,7 @@ func _puff() -> void:
 ## Picks the animation for the state; once animations (hit, throw) finish first.
 func _animate(delta: float) -> void:
 	_build_left = maxf(_build_left - delta, 0.0)
+	_work_left = maxf(_work_left - delta, 0.0)
 	_dust_left -= delta
 	if is_moving() and _dust_left <= 0.0:
 		_dust_left = dust_every
@@ -240,6 +253,8 @@ func _animate(delta: float) -> void:
 		want = &"run"
 	elif _build_left > 0.0:
 		want = &"build"
+	elif _work_left > 0.0:
+		want = _work_anim
 	var once_playing: bool = (current == &"hit" or current == &"throw") and _sprite.is_playing()
 	if once_playing and not (current == &"throw" and want != &"idle"):
 		return

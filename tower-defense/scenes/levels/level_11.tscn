@@ -141,24 +141,28 @@ y_sort_enabled = true
 position = Vector2(1216, 1236)
 kind = &"raspberry"
 fruit = &"raspberry"
+hero_anim = &"shake"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
 position = Vector2(320, 468)
 kind = &"raspberry"
 fruit = &"raspberry"
+hero_anim = &"shake"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
 position = Vector2(192, 1428)
 kind = &"raspberry"
 fruit = &"raspberry"
+hero_anim = &"shake"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop4" parent="Crops" instance=ExtResource("7_r")]
 position = Vector2(1728, 468)
 kind = &"raspberry"
 fruit = &"raspberry"
+hero_anim = &"shake"
 empty_texture = ExtResource("8_r")
 
 [node name="Decor" type="Node2D" parent="."]

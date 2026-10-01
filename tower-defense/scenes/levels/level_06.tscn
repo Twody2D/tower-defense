@@ -116,18 +116,21 @@ y_sort_enabled = true
 position = Vector2(640, 1236)
 kind = &"pumpkin"
 fruit = &"pumpkin"
+hero_anim = &"pick"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop2" parent="Crops" instance=ExtResource("7_r")]
 position = Vector2(1728, 980)
 kind = &"pumpkin"
 fruit = &"pumpkin"
+hero_anim = &"pick"
 empty_texture = ExtResource("8_r")
 
 [node name="Crop3" parent="Crops" instance=ExtResource("7_r")]
 position = Vector2(1216, 212)
 kind = &"pumpkin"
 fruit = &"pumpkin"
+hero_anim = &"pick"
 empty_texture = ExtResource("8_r")
 
 [node name="Decor" type="Node2D" parent="."]

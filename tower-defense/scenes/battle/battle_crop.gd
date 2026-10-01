@@ -2,9 +2,10 @@ class_name BattleCrop
 extends Node2D
 ## A crop by the road (CODE_PROMPT "Урожай фермы", design K): apple tree on
 ## the farm, pumpkins in the field, raspberries by the lake. The hero stands
-## next to a ripe one for `shake_after` s (a ring fills) → it shakes, the
-## fruits fall and turn into `coins_min`..`coins_max` coins → it is empty and
-## grows back over `regrow_time` s (empty, then the two regrow frames).
+## next to a ripe one for `shake_after` s (a ring fills, the hero plays
+## `hero_anim`) → it shakes, the fruits fall and turn into
+## `coins_min`..`coins_max` coins → it is empty and grows back over
+## `regrow_time` s (empty, then the two regrow frames).
 ## Fruits are made with the scene (no instantiate() in battle).
 
 signal harvested(crop: BattleCrop, coins: int)
@@ -17,6 +18,8 @@ enum State { RIPE, SHAKING, GROWING }
 @export var kind: StringName = &"apple_tree"
 ## Fruit animation "fruit_<fruit>".
 @export var fruit: StringName = &"apple"
+## The hero's animation while next to it (batch O): shake, pick, honey.
+@export var hero_anim: StringName = &"shake"
 @export var empty_texture: Texture2D
 ## The hero this close (to the base point) shakes it, px.
 @export var reach: float = 120.0
@@ -65,8 +68,14 @@ func _process(delta: float) -> void:
 			_stand = _stand + delta if near else 0.0
 			_ring.visible = near and _stand > 0.05
 			_ring.value = _stand / shake_after
+			if near:
+				hero.mark_working(global_position, hero_anim)
 			if _stand >= shake_after:
 				_shake()
+		State.SHAKING:
+			# The hero goes on working while it shakes.
+			if hero != null and not hero.is_stunned() and hero.global_position.distance_to(global_position) <= reach:
+				hero.mark_working(global_position, hero_anim)
 		State.GROWING:
 			_grow += delta
 			var k: float = _grow / regrow_time

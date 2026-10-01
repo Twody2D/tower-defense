@@ -316,6 +316,8 @@ def landmark(s: Scene, biome: str, cell: tuple) -> None:
 
 # Crops by the road (CODE_PROMPT "Урожай фермы"): biome → (kind, fruit).
 CROP_KIND = {"farm": ("apple_tree", "apple"), "wheat": ("pumpkin", "pumpkin"), "lake": ("raspberry", "raspberry")}
+# The hero's pose at a crop (batch O).
+CROP_HERO_ANIM = {"apple_tree": "shake", "raspberry": "shake", "pumpkin": "pick", "hive": "honey"}
 
 
 # Crop distance from the nearest road cell, cells: min, max.
@@ -365,6 +367,7 @@ def place_crops(s: Scene, level: int, biome: str, occ: dict) -> None:
         cover = {(c[0] + dx, c[1] + dy) for dx in (-1, 0) for dy in (-1, 0)}
         s.node(f"Crop{i + 1}", None, "Crops", [f"position = {v((c[0] * CELL, c[1] * CELL + 20))}",
                                                f'kind = &"{kind}"', f'fruit = &"{fruit}"',
+                                               f'hero_anim = &"{CROP_HERO_ANIM[kind]}"',
                                                f'empty_texture = ExtResource("{empty}")'], instance=scene)
         busy |= {(x + dx, y + dy) for x, y in cover for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
 
