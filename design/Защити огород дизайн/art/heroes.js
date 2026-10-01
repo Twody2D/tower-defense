@@ -102,7 +102,7 @@ function hero(S,sk,P={}){
  const lw=sk.wing?5:9;
  I.push(...tailIt(sk,TB+` rotate(${P.tail||0} 47 96)`));
  I.push({limb:curve([[56,100+by],[54+bdx*.7,107+bdy]]),w:lw,fill:sh(sk.leg)},{ds:[E(50.5+bdx,111.5+bdy,7,4.3)],fill:sh(sk.foot),sh:false});
- const sB=[53,87],eB=rot(sB,[-6,7],aB),pB=rot(sB,[-7,13],aB),qB=rot(sB,[-7.2,13.5],aB);
+ const rc=P.reach||1,sB=[53,87],eB=rot(sB,[-6*rc,7*rc],aB),pB=rot(sB,[-7*rc,13*rc],aB),qB=rot(sB,[-7.2*rc,13.5*rc],aB);
  I.push({tf:TB,limb:curve([sB,eB,pB]),w:sk.wing?9:7.5,fill:sh(F)},{tf:TB,ds:[E(qB[0],qB[1],4.8,4.5)],fill:sh(sk.hand),sh:false});
  if(sk.sleeve)I.push({tf:TB,ds:[E(54,87,6,5.5)],fill:sh(sk.sleeve),sh:false});
  I.push({tf:TB,ds:[E(63,93,19.5,16)],fill:sk.torso,r:16,hl:[50,88,4,2.4,-30],mark:sk.belly?[`<path d="${E(70,99,11.5,10)}" fill="${sk.belly}"/>`]:undefined});
@@ -110,14 +110,17 @@ function hero(S,sk,P={}){
  if(sk.bib){I.push({tf:TB,ds:[RR(62,81,17,14,5)],fill:sk.torso,line:2.5,sh:false});
   if(sk.pocket)I.push({tf:TB,ds:[ER(68.5,82,1.8,3.6,-20),ER(72,81.5,1.8,3.6,20)],fill:K.sprout,line:1.3,sh:false},{tf:TB,ds:[RP([[65.5,87],[74.5,86.5],[70,96]],1.5)],fill:K.ui,line:1.5,sh:false},{tf:TB,ds:[RR(63.5,89.5,12,6.5,2)],fill:sk.torso,line:1.5,sh:false});
   else I.push({tf:TB,ds:[E(65.5,84.5,2.1)],fill:sk.btn,line:1.2,sh:false},{tf:TB,ds:[E(75.5,84,2.1)],fill:sk.btn,line:1.2,sh:false});}
- const sF=[73,86],eF=rot(sF,[6,7],aF),pF=rot(sF,[8.5,13.5],aF),qF=rot(sF,[9,14.5],aF);
+ const sF=[73,86],eF=rot(sF,[6*rc,7*rc],aF),pF=rot(sF,[8.5*rc,13.5*rc],aF),qF=rot(sF,[9*rc,14.5*rc],aF);
  const arm=[{tf:TB,limb:curve([sF,eF,pF]),w:sk.wing?9:8,fill:F},{tf:TB,ds:[E(qF[0],qF[1],5,4.7)],fill:sk.hand,sh:false}];
  if(sk.sleeve)arm.push({tf:TB,ds:[E(72,86,6.5,6)],fill:sk.sleeve,r:6});
  for(const pr of P.props||[]){const hand=pr.at==='hand',[px,py]=hand?qF:pr.at,ptf=hand?TB:'';
-  if(pr.coin)arm.push(coinIt(px,py,ptf));else if(pr.spark)arm.push({tf:ptf,ds:[spark(px,py)],fill:'#FFF0B0',line:1.6,sh:false});else arm.push(...projItems(sk.proj,px,py,pr.a||0,.55,ptf));}
+  if(pr.ladle){const [lx,ly]=[px+13,py-7];arm.push({tf:ptf,limb:`M${f(px-2)} ${f(py+1)}L${f(lx)} ${f(ly)}`,w:3.2,fill:K.wood},{tf:ptf,ds:[E(lx+4,ly+1,6,4.2)],fill:K.stone,line:2,sh:false,mark:[`<path d="${E(lx+4,ly-.6,4.6,1.8)}" fill="#FFB23F"/>`]},...(pr.drip!=null?[{tf:ptf,ds:[`M${f(lx+6)} ${f(ly+5+pr.drip)}Q${f(lx+8.4)} ${f(ly+9+pr.drip)} ${f(lx+6)} ${f(ly+11+pr.drip)}Q${f(lx+3.6)} ${f(ly+9+pr.drip)} ${f(lx+6)} ${f(ly+5+pr.drip)}Z`],fill:'#FFB23F',line:1.5,sh:false}]:[]))}
+  else if(pr.coin)arm.push(coinIt(px,py,ptf));else if(pr.spark)arm.push({tf:ptf,ds:[spark(px,py)],fill:'#FFF0B0',line:1.6,sh:false});else arm.push(...projItems(sk.proj,px,py,pr.a||0,.55,ptf));}
  if(!P.armFront)I.push(...arm);
  I.push(...headIt(S,sk,P,HT,HAT));
+ if(P.veil!=null)I.push({raw:`<g transform="${HAT}"><path d="M37 ${40+P.veil}Q34 62 42 76L84 76Q92 62 88 ${40+P.veil}Z" fill="#FFFFFF" fill-opacity=".38" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/><path d="M44 44V75M53 42V76M62 42V76M71 42V76M80 44V75M38 54H87M38 65H88" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.2"/></g>`});
  if(P.armFront)I.push(...arm);
+ if(P.bees)P.bees.forEach(([x,y,w])=>I.push(...beeSmall(x,y,w)));
  if(P.stars!=null)for(let k=0;k<3;k++){const a=P.stars*Math.PI/2+k*Math.PI*2/3;I.push({tf:HT,ds:[starD(60+Math.cos(a)*27,11+Math.sin(a)*6,5.2,2.4)],fill:K.coin,line:2,sh:false})}
  if(P.tear!=null){const x=71,y=64+P.tear;I.push({tf:HT,ds:[`M${x} ${f(y-4)}Q${x+3.6} ${f(y+1.2)} ${x} ${f(y+3.6)}Q${x-3.6} ${f(y+1.2)} ${x} ${f(y-4)}Z`],fill:K.sky,line:1.8,sh:false})}
  render(D,I);return D.svg();
@@ -160,6 +163,26 @@ const ANIMS=[
   {by:3,hy:4,ht:7,droop:26,armF:-5,armB:5,tail:-16,eyes:'sad',mouth:'frown',hat:1.2,tear:4},
   {by:2.5,hy:3.5,ht:6.5,droop:24,armF:-4,armB:4,tail:-15,eyes:'blink',mouth:'frown',hat:1,tear:8}]]
 ];
+const ANIMS2=[
+ ['shake',12,1,[
+  {lean:16,by:1,reach:1.7,armF:-72,armB:-108,armFront:1,footF:[9,0],footB:[-9,0],hat:-4,mouth:'open',tail:6,ear:-6},
+  {lean:9,by:2.5,hy:1,reach:1.6,armF:-64,armB:-100,armFront:1,footF:[8,0],footB:[-8,0],hat:1,eyes:'hurt',mouth:'wavy',tail:-2,ear:3},
+  {lean:2,by:1,reach:1.8,armF:-80,armB:-114,armFront:1,footF:[9,0],footB:[-9,0],hat:-6,mouth:'open',tail:-8,ear:-8},
+  {lean:10,by:2.5,hy:1,reach:1.6,armF:-66,armB:-102,armFront:1,footF:[8,0],footB:[-8,0],hat:1,eyes:'hurt',mouth:'wavy',tail:2,ear:4}]],
+ ['pick',10,1,[
+  {lean:14,by:6,hy:1,reach:1.5,armF:-18,armB:-50,armFront:1,footF:[4,0],footB:[-8,0],tail:4},
+  {lean:8,by:6,hy:1,reach:1.5,armF:-28,armB:-60,armFront:1,footF:[8,0],footB:[-8,0],eyes:'blink',tail:0},
+  {lean:-12,by:4,reach:1.5,armF:-52,armB:-84,armFront:1,footF:[11,0],footB:[-9,0],eyes:'hurt',mouth:'o',hat:-2,tail:-10,ear:-6},
+  {lean:-8,by:5,reach:1.5,armF:-44,armB:-76,armFront:1,footF:[10,0],footB:[-9,0],eyes:'hurt',mouth:'wavy',hat:-1,tail:-6,ear:-3}]],
+ ['honey',10,1,[
+  {lean:6,by:1,veil:0,reach:1.3,armF:-40,armB:-20,armFront:1,props:[{at:'hand',ladle:1}],bees:[[104,34,0],[24,52,1]]},
+  {lean:8,by:2,veil:0,reach:1.3,armF:-20,armB:-24,armFront:1,props:[{at:'hand',ladle:1}],bees:[[108,40,1],[20,46,0]]},
+  {lean:2,by:1,veil:0,reach:1.3,armF:-78,armB:-18,armFront:1,eyes:'happy',props:[{at:'hand',ladle:1,drip:0}],bees:[[100,30,0],[26,40,1]]},
+  {lean:3,by:1,veil:0,reach:1.3,armF:-66,armB:-18,armFront:1,eyes:'happy',props:[{at:'hand',ladle:1,drip:5}],bees:[[96,38,1],[30,48,0]]}]]
+];
+function heroSheets2(){const out={},S=STY.a,p='assets/o/';
+ for(const [id,sk] of Object.entries(SKINS))for(const [an,fps,loop,Ps] of ANIMS2)out[p+`hero_${id}_${an}_4f.svg`]=sheet(Ps.map(P=>hero(S,sk,P)),128,128);
+ return out}
 function splat(S,i){const D=Doc(32,32,S),C='#FFF4DC',ring=(n,R,r)=>{const p=[];for(let k=0;k<n;k++){const a=k/n*Math.PI*2,q=k%2?r:R;p.push([16+Math.cos(a)*q,16+Math.sin(a)*q])}return p},dots=(n,R,rr,o)=>Array.from({length:n},(_,k)=>{const a=k/n*Math.PI*2+o;return E(16+Math.cos(a)*R,16+Math.sin(a)*R,rr)});
  render(D,i===0?[{ds:[RP(ring(12,9,4.5),1.2)],fill:C,sh:false}]:i===1?[{ds:[blob(ring(16,11,7))],fill:C,sh:false},{ds:dots(5,12,1.9,.4),fill:C,line:1.6,sh:false}]:[{ds:dots(6,12,1.8,.9).concat(dots(3,7,1.2,.2)),fill:C,line:1.4,sh:false}]);return D.svg()}
 function aura(S,fi){const D=Doc(160,160,S),cx=80,cy=132,rx=58,ry=15,N=14,T=[];
