@@ -87,6 +87,24 @@ func test_pause_key_toggles() -> void:
 	assert_bool(battle.get_tree().paused).is_false()
 
 
+## Hidden tab / minimised browser: the battle opens the pause window and
+## stays paused after the tab comes back.
+func test_hidden_tab_opens_pause() -> void:
+	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
+	var battle: Battle = runner.scene() as Battle
+	await runner.simulate_frames(2, 16)
+	YandexSdk._on_hidden_changed(true)
+	assert_bool(battle.get_tree().paused).is_true()
+	assert_bool(battle.pause_window.visible).is_true()
+	YandexSdk._on_hidden_changed(false)
+	await runner.simulate_frames(2, 16)
+	assert_bool(battle.get_tree().paused).is_true()
+	assert_bool(battle.pause_window.visible).is_true()
+	assert_bool(AudioServer.is_bus_mute(0)).is_false()
+	battle.pause_window._on_continue()
+	assert_bool(battle.get_tree().paused).is_false()
+
+
 func test_hero_kills_pests_and_collects_coins() -> void:
 	var runner: GdUnitSceneRunner = scene_runner("res://scenes/battle/battle.tscn")
 	var battle: Battle = runner.scene() as Battle
