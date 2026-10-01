@@ -21,6 +21,11 @@ extends TextureButton
 	set(value):
 		badge = value
 		_refresh()
+## Switched off (music, sound): the icon is crossed out (design O).
+@export var off: bool = false:
+	set(value):
+		off = value
+		_refresh()
 
 
 func _ready() -> void:
@@ -46,6 +51,10 @@ func _refresh() -> void:
 		anim.play(icon_anim)
 		anim.position = Vector2(z * 0.5, z * 0.14 + iz * 0.5)
 		anim.scale = Vector2.ONE * (iz / 64.0)
+	var slash: TextureRect = $Off
+	slash.visible = off
+	slash.position = still.position
+	slash.size = still.size
 	var dot: TextureRect = $Badge
 	dot.visible = badge
 	dot.position = Vector2(z - 30.0, -4.0)

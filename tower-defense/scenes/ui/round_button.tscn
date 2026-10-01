@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_btn_round_disabled.png" id="4_disabled"]
 [ext_resource type="SpriteFrames" path="res://art/frames/ui.tres" id="5_ui"]
 [ext_resource type="Texture2D" path="res://art/ui/ui_badge_dot.png" id="6_dot"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_off_slash.png" id="7_off"]
 
 [node name="RoundButton" type="TextureButton"]
 offset_right = 112.0
@@ -26,6 +27,18 @@ offset_right = 88.5
 offset_bottom = 80.7
 mouse_filter = 2
 expand_mode = 1
+
+[node name="Off" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 23.5
+offset_top = 15.7
+offset_right = 88.5
+offset_bottom = 80.7
+mouse_filter = 2
+texture = ExtResource("7_off")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="IconAnim" type="AnimatedSprite2D" parent="."]
 visible = false

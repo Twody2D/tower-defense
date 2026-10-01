@@ -648,7 +648,7 @@ func _toggle_pause() -> void:
 		_resume()
 	else:
 		_pause_game()
-		pause_window.open()
+		_open_pause()
 
 
 ## Ad, SDK pause, hidden tab or lost focus in the middle of the fight: the
@@ -657,6 +657,11 @@ func _on_sdk_paused() -> void:
 	if _over or get_tree().paused:
 		return
 	_pause_game()
+	_open_pause()
+
+
+func _open_pause() -> void:
+	pause_window.setup(level_number, waves.wave, waves.total(), Game.battle_skin())
 	pause_window.open()
 
 

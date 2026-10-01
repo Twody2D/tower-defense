@@ -1,178 +1,816 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
-[ext_resource type="Script" path="res://scenes/ui/windows/pause_window.gd" id="2_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_play.png" id="3_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_restart.png" id="4_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_home.png" id="5_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_music.png" id="6_r"]
-[ext_resource type="PackedScene" path="res://scenes/ui/toggle_switch.tscn" id="7_r"]
-[ext_resource type="Texture2D" path="res://art/ui/ui_icon_sound.png" id="8_r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_p"]
+[ext_resource type="Script" path="res://scenes/ui/windows/pause_window.gd" id="2_p"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="3_p"]
+[ext_resource type="Texture2D" path="res://art/env/base_bed.png" id="4_p"]
+[ext_resource type="Texture2D" path="res://art/env/base_carrot_idle_2f.png" id="5_p"]
+[ext_resource type="Texture2D" path="res://art/hi/fence_l1_damage_3f.png" id="6_p"]
+[ext_resource type="Texture2D" path="res://art/hi/enemy_caterpillar_chew_3f.png" id="7_p"]
+[ext_resource type="Texture2D" path="res://art/hi/enemy_beetle_chew_3f.png" id="8_p"]
+[ext_resource type="Texture2D" path="res://art/hi/enemy_beetle_grab_3f.png" id="9_p"]
+[ext_resource type="Texture2D" path="res://art/hi/enemy_crow_fly_4f.png" id="10_p"]
+[ext_resource type="Texture2D" path="res://art/ui/shadow.png" id="11_p"]
+[ext_resource type="SpriteFrames" path="res://art/frames/hero_raccoon_ui.tres" id="12_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_ribbon.png" id="13_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_check.png" id="14_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_panel_main.png" id="15_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_play.png" id="16_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_restart.png" id="17_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_home.png" id="18_p"]
+[ext_resource type="PackedScene" path="res://scenes/ui/round_button.tscn" id="19_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_music.png" id="20_p"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_icon_sound.png" id="21_p"]
 
-[node name="PauseWindow" instance=ExtResource("1_r")]
-script = ExtResource("2_r")
-title_key = "TITLE_PAUSE"
+[sub_resource type="StyleBoxFlat" id="clip"]
+bg_color = Color(0.36, 0.66, 0.29, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+
+[sub_resource type="StyleBoxFlat" id="dot_done"]
+bg_color = Color(0.447, 0.784, 0.243, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.169, 0.169, 0.227, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="dot_now"]
+bg_color = Color(1, 0.541, 0.239, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.169, 0.169, 0.227, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="dot_next"]
+bg_color = Color(0.851, 0.776, 0.647, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.169, 0.169, 0.227, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="PauseWindow" instance=ExtResource("1_p")]
+script = ExtResource("2_p")
+title_key = ""
 closable = false
-portrait_width = 820.0
-landscape_width = 1100.0
+dot_done = SubResource("dot_done")
+dot_now = SubResource("dot_now")
+dot_next = SubResource("dot_next")
 
-[node name="Columns" type="BoxContainer" parent="Panel/Content"]
-layout_mode = 2
-theme_override_constants/separation = 60
-alignment = 1
-metadata/portrait_vertical = true
+[node name="Panel" parent="."]
+visible = false
 
-[node name="Buttons" type="VBoxContainer" parent="Panel/Content/Columns"]
-layout_mode = 2
-theme_override_constants/separation = 28
-alignment = 1
+[node name="Ribbon" parent="."]
+visible = false
 
-[node name="Continue" type="Button" parent="Panel/Content/Columns/Buttons"]
+[node name="Body" type="Control" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Diorama" type="Control" parent="Body"]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 460.0
+mouse_filter = 2
+
+[node name="Clip" type="Panel" parent="Body/Diorama"]
+clip_children = 2
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 460.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("clip")
+
+[node name="GrassScale" type="Control" parent="Body/Diorama/Clip"]
+layout_mode = 0
+scale = Vector2(1.5, 1.5)
+mouse_filter = 2
+
+[node name="Grass" type="TextureRect" parent="Body/Diorama/Clip/GrassScale"]
+layout_mode = 0
+offset_right = 534.0
+offset_bottom = 307.0
+mouse_filter = 2
+texture = ExtResource("3_p")
+stretch_mode = 1
+
+[node name="Path" type="ColorRect" parent="Body/Diorama/Clip"]
+layout_mode = 0
+offset_top = 330.0
+offset_right = 800.0
+offset_bottom = 406.0
+mouse_filter = 2
+color = Color(0.878, 0.718, 0.478, 1)
+
+[node name="PathEdge" type="ColorRect" parent="Body/Diorama/Clip"]
+layout_mode = 0
+offset_top = 330.0
+offset_right = 800.0
+offset_bottom = 336.0
+mouse_filter = 2
+color = Color(0.776, 0.604, 0.373, 1)
+
+[node name="Bed" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("4_p")
+centered = false
+position = Vector2(520, 40)
+scale = Vector2(1.0547, 1.0547)
+
+[node name="Carrot1" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(555.9, 97)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot2" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(597, 97)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot3" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(638.1, 97)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot4" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(679.3, 97)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot5" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(555.9, 134.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot6" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(597, 134.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot7" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(638.1, 134.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot8" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(679.3, 134.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot9" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(720.4, 134.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot10" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(597, 172.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot11" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(638.1, 172.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot12" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(679.3, 172.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot13" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(720.4, 172.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot14" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(555.9, 210.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot15" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(638.1, 210.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot16" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(679.3, 210.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Carrot17" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("5_p")
+centered = false
+position = Vector2(720.4, 210.9)
+scale = Vector2(1.0547, 1.0547)
+hframes = 2
+frame = 0
+
+[node name="Fence" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("6_p")
+centered = false
+position = Vector2(330, 200)
+scale = Vector2(0.7812, 0.7812)
+hframes = 3
+frame = 2
+
+[node name="Caterpillar" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("7_p")
+centered = false
+position = Vector2(170, 250)
+scale = Vector2(0.8594, 0.8594)
+hframes = 3
+frame = 1
+
+[node name="Beetle1" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("8_p")
+centered = false
+position = Vector2(250, 250)
+scale = Vector2(0.9375, 0.9375)
+hframes = 3
+frame = 1
+
+[node name="Beetle2" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("8_p")
+centered = false
+position = Vector2(270, 300)
+scale = Vector2(0.8333, 0.8333)
+hframes = 3
+frame = 0
+
+[node name="Beetle3" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("9_p")
+centered = false
+position = Vector2(610, 250)
+scale = Vector2(0.875, 0.875)
+hframes = 3
+frame = 2
+
+[node name="Crow" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("10_p")
+centered = false
+position = Vector2(440, 40)
+scale = Vector2(0.3571, 0.3571)
+hframes = 4
+frame = 1
+
+[node name="Shadow" type="Sprite2D" parent="Body/Diorama"]
+texture = ExtResource("11_p")
+position = Vector2(150, 392)
+scale = Vector2(1.0156, 0.975)
+
+[node name="Hero" type="AnimatedSprite2D" parent="Body/Diorama"]
 unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(560, 112)
-size_flags_horizontal = 4
-focus_mode = 0
-text = ""
+position = Vector2(150, 260)
+scale = Vector2(0.7812, 0.7812)
+sprite_frames = ExtResource("12_p")
+animation = &"sad"
+autoplay = "sad"
 
-[node name="Row" type="HBoxContainer" parent="Panel/Content/Columns/Buttons/Continue"]
+[node name="Caption" type="Label" parent="Body/Diorama"]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 800.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 42
+text = "PAUSE_PESTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Banner" type="NinePatchRect" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 112.0
+mouse_filter = 2
+texture = ExtResource("13_p")
+patch_margin_left = 104
+patch_margin_right = 104
+
+[node name="Title" type="Label" parent="Body/Banner"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -12.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 12
-alignment = 1
+theme_type_variation = &"LabelTitle"
+text = "TITLE_PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/Buttons/Continue/Row"]
-custom_minimum_size = Vector2(56, 56)
+[node name="LevelText" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 38
+text = "PAUSE_LEVEL_WAVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dots" type="HBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 284.0
+offset_bottom = 44.0
+theme_override_constants/separation = 16
+
+[node name="Dot1" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
 layout_mode = 2
-size_flags_vertical = 4
 mouse_filter = 2
-texture = ExtResource("3_r")
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot1"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Text" type="Label" parent="Panel/Content/Columns/Buttons/Continue/Row"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 38
-text = "BTN_CONTINUE"
+[node name="Num" type="Label" parent="Body/Dots/Dot1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Restart" type="Button" parent="Panel/Content/Columns/Buttons"]
-unique_name_in_owner = true
+[node name="Dot2" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
 layout_mode = 2
-custom_minimum_size = Vector2(560, 112)
-size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot2"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot3" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot3"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot4" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot4"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot5" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot5"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot6" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot6"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot7" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot7"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot8" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot8"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot9" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot9"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dot10" type="Panel" parent="Body/Dots"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("dot_next")
+
+[node name="Check" type="TextureRect" parent="Body/Dots/Dot10"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("14_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Num" type="Label" parent="Body/Dots/Dot10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 6
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonPanel" type="NinePatchRect" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 830.0
+mouse_filter = 2
+texture = ExtResource("15_p")
+patch_margin_left = 56
+patch_margin_top = 56
+patch_margin_right = 56
+patch_margin_bottom = 56
+
+[node name="Continue" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 730.0
+offset_bottom = 300.0
 focus_mode = 0
-text = ""
+
+[node name="Row" type="HBoxContainer" parent="Body/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Body/Continue/Row"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("16_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Body/Continue/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 66
+text = "BTN_CONTINUE"
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 270.0
+focus_mode = 0
 theme_type_variation = &"ButtonBlue"
 
-[node name="Row" type="HBoxContainer" parent="Panel/Content/Columns/Buttons/Restart"]
+[node name="Box" type="VBoxContainer" parent="Body/Restart"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -12.0
+offset_top = 22.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/Buttons/Restart/Row"]
-custom_minimum_size = Vector2(56, 56)
+[node name="Icon" type="TextureRect" parent="Body/Restart/Box"]
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 4
 mouse_filter = 2
-texture = ExtResource("4_r")
+texture = ExtResource("17_p")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Text" type="Label" parent="Panel/Content/Columns/Buttons/Restart/Row"]
+[node name="Text" type="Label" parent="Body/Restart/Box"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
 text = "BTN_RESTART"
+horizontal_alignment = 1
 
-[node name="ToMap" type="Button" parent="Panel/Content/Columns/Buttons"]
+[node name="ToMap" type="Button" parent="Body"]
 unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(560, 112)
-size_flags_horizontal = 4
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 270.0
 focus_mode = 0
-text = ""
 theme_type_variation = &"ButtonBlue"
 
-[node name="Row" type="HBoxContainer" parent="Panel/Content/Columns/Buttons/ToMap"]
+[node name="Box" type="VBoxContainer" parent="Body/ToMap"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -12.0
+offset_top = 22.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/Buttons/ToMap/Row"]
-custom_minimum_size = Vector2(56, 56)
+[node name="Icon" type="TextureRect" parent="Body/ToMap/Box"]
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 4
 mouse_filter = 2
-texture = ExtResource("5_r")
+texture = ExtResource("18_p")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Text" type="Label" parent="Panel/Content/Columns/Buttons/ToMap/Row"]
+[node name="Text" type="Label" parent="Body/ToMap/Box"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
 text = "BTN_TO_MAP"
+horizontal_alignment = 1
 
-[node name="Toggles" type="BoxContainer" parent="Panel/Content/Columns"]
-layout_mode = 2
-theme_override_constants/separation = 60
-alignment = 1
-metadata/portrait_vertical = false
-
-[node name="MusicPair" type="HBoxContainer" parent="Panel/Content/Columns/Toggles"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/Toggles/MusicPair"]
-layout_mode = 2
-custom_minimum_size = Vector2(64, 64)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("6_r")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Music" parent="Panel/Content/Columns/Toggles/MusicPair" instance=ExtResource("7_r")]
+[node name="Music" parent="Body" instance=ExtResource("19_p")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 130.0
+icon = ExtResource("20_p")
+label_key = "LBL_MUSIC"
 
-[node name="SoundPair" type="HBoxContainer" parent="Panel/Content/Columns/Toggles"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/Toggles/SoundPair"]
-layout_mode = 2
-custom_minimum_size = Vector2(64, 64)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("8_r")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Sound" parent="Panel/Content/Columns/Toggles/SoundPair" instance=ExtResource("7_r")]
+[node name="Sound" parent="Body" instance=ExtResource("19_p")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 130.0
+icon = ExtResource("21_p")
+label_key = "LBL_SOUND"

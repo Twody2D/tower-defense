@@ -422,6 +422,9 @@ HI_ICON_SCALE = 2.0
 # bigger than their 128 / 96 px sheets.
 HI_ENV = {"pine_sway": ("env_tree_pine_sway_3f", 3, 3, 2.0)}  # name in ui_hi: (svg base in e/, frames, fps, scale)
 HI_ENV_PICTURES = ["env_fence_decor"]
+# Pause window scene (design O, "pests eat the carrots"): sheets drawn ~2x.
+HI_PAUSE = [("c", "enemy_caterpillar_chew_3f"), ("c", "enemy_beetle_chew_3f"), ("c", "enemy_beetle_grab_3f"),
+            ("d", "fence_l1_damage_3f")]
 
 
 def flat_svg(text: str) -> str:
@@ -572,6 +575,8 @@ def make_hi() -> dict[str, dict]:
         job("g", base, HI_ICON_SCALE)
     for base in HI_ENV_PICTURES:
         job("e", base, 2.0)
+    for folder, base in HI_PAUSE:
+        job(folder, base, 2.0)
     # The logo carrot's leaves stick out above the plate's box (the PNG cuts
     # them): the plate is rendered with 40 px more on top, 960×480.
     logo = re.sub(r"<metadata>.*?</metadata>", "", (SVG / "i" / "logo_plate.svg").read_text(encoding="utf-8"), flags=re.S)

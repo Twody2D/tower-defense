@@ -104,6 +104,11 @@ func _show(step: int) -> void:
 	match name:
 		"pause":
 			_shown = _battle.get_node("Windows/PauseWindow")
+			_shown.call("setup", 3, 2, 5, null)
+			# DEMO_SOUND_OFF=1: the crossed-out sound button (not saved).
+			if OS.get_environment("DEMO_SOUND_OFF") != "":
+				root.get_node("Game").set("sound_on", false)
+				_shown.call("_show_sound")
 			_shown.call("open")
 		"win":
 			_shown = _battle.get_node("Windows/WinWindow")

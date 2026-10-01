@@ -60,6 +60,10 @@ BOOST_DEFENDER,Стартовый защитник,Starting defender
 LBL_REWARD,Награда,Reward
 LBL_MUSIC,Музыка,Music
 LBL_SOUND,Звук,Sound
+LBL_MUSIC_OFF,Музыка выкл.,Music off
+LBL_SOUND_OFF,Звук выкл.,Sound off
+PAUSE_LEVEL_WAVE,Уровень %d · волна %d/%d,Level %d · wave %d/%d
+PAUSE_PESTS,Вредители жрут морковку!,Pests are eating the carrots!
 LBL_VOLUME,Громкость,Volume
 LOSE_TEXT,Вредители унесли все морковки,The pests took all the carrots
 SECOND_CHANCE_TEXT,+%d морковок — бой продолжается,+%d carrots — the fight goes on
