@@ -3,18 +3,25 @@ extends Node
 ## YandexSdk. At boot the cloud save wins if it has more progress.
 
 const PATH := "user://save.json"
+## Tests (gdUnit4) reset and save the game a lot: their own file, so the
+## progress of the game played on this PC stays.
+const TEST_PATH := "user://save_test.json"
 ## Bump when the save layout changes; migrate() upgrades older saves.
 const SCHEMA_VERSION := 1
 ## Cloud writes are spaced at least this far apart (the last change always
 ## goes out when the wait ends), s.
 const CLOUD_EVERY := 3.0
 
+var path: String = PATH
 var _cloud_timer: Timer
 var _cloud_pending: bool = false
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	for arg: String in OS.get_cmdline_args():
+		if arg.contains("gdUnit4"):
+			path = TEST_PATH
 	_cloud_timer = Timer.new()
 	_cloud_timer.one_shot = true
 	_cloud_timer.wait_time = CLOUD_EVERY
@@ -26,7 +33,7 @@ func _ready() -> void:
 
 
 func load_local() -> void:
-	var d: Dictionary = read_file(PATH)
+	var d: Dictionary = read_file(path)
 	if not d.is_empty():
 		Game.from_dict(migrate(d))
 
@@ -46,7 +53,7 @@ func merge_cloud(cloud: Dictionary) -> void:
 func save() -> void:
 	var d: Dictionary = Game.to_dict()
 	d["version"] = SCHEMA_VERSION
-	write_file(PATH, d)
+	write_file(path, d)
 	if _cloud_timer.is_stopped():
 		YandexSdk.save_cloud(d)
 		_cloud_timer.start()
@@ -71,19 +78,19 @@ static func migrate(d: Dictionary) -> Dictionary:
 	return out
 
 
-static func read_file(path: String) -> Dictionary:
-	if not FileAccess.file_exists(path):
+static func read_file(file: String) -> Dictionary:
+	if not FileAccess.file_exists(file):
 		return {}
-	var text: String = FileAccess.get_file_as_string(path)
+	var text: String = FileAccess.get_file_as_string(file)
 	var parsed: Variant = JSON.parse_string(text)
 	if parsed is Dictionary:
 		return parsed
 	return {}
 
 
-static func write_file(path: String, d: Dictionary) -> void:
-	var f: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+static func write_file(file: String, d: Dictionary) -> void:
+	var f: FileAccess = FileAccess.open(file, FileAccess.WRITE)
 	if f == null:
-		push_warning("save: cannot write %s" % path)
+		push_warning("save: cannot write %s" % file)
 		return
 	f.store_string(JSON.stringify(d))

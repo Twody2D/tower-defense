@@ -59,6 +59,9 @@ var _over: bool = false
 var _chance_used: bool = false
 ## The tutorial hint was on screen when the pause opened (it comes back after).
 var _hint_hidden: bool = false
+## The fps line (debug builds only), updated 4 times a second.
+var _debug_shown: bool = OS.is_debug_build()
+var _debug_left: float = 0.0
 ## Newcomers waiting for their window (DefenderData / EnemyData).
 var _intros: Array[Resource] = []
 var _spawns_shown: bool = false
@@ -490,7 +493,11 @@ func _process(_delta: float) -> void:
 		return
 	hud.show_break(waves.break_left if waves.in_break() else 0.0)
 	level.set_spawning(not waves.in_break() and not waves.is_done())
-	hud.set_debug("%d fps · %d pests · %d coins" % [Engine.get_frames_per_second(), enemies.count, coins.count])
+	if _debug_shown:
+		_debug_left -= _delta
+		if _debug_left <= 0.0:
+			_debug_left = 0.25
+			hud.set_debug("%d fps · %d pests · %d coins" % [Engine.get_frames_per_second(), enemies.count, coins.count])
 	_update_boss()
 	_edge_left -= _delta
 	if _edge_left <= 0.0:

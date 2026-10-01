@@ -33,6 +33,7 @@ signal call_pressed
 @onready var _call_text: Label = %Text
 @onready var _bonus: Label = %Bonus
 @onready var _debug: Label = %DebugLabel
+
 @onready var _pause: TextureButton = %PauseButton
 @onready var _message: Label = %MessageLabel
 @onready var _top_center: Control = $TopCenter
@@ -43,6 +44,9 @@ signal call_pressed
 @onready var _edge_parcel: EdgeArrow = $EdgeParcel
 @onready var _rings: BoxContainer = $Rings
 @onready var _popups: Control = $Popups
+
+## Seconds on the break timer now (it is rewritten only when they change).
+var _break_shown: int = -1
 
 var _next_popup: int = 0
 
@@ -126,6 +130,9 @@ func show_break(seconds_left: float) -> void:
 		return
 	_timer_row.visible = true
 	var s: int = int(ceilf(seconds_left))
+	if s == _break_shown:
+		return
+	_break_shown = s
 	_timer.text = "%d:%02d" % [floori(s / 60.0), s % 60]
 	_bonus.text = "+%d" % s
 

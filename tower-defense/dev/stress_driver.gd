@@ -30,6 +30,15 @@ func _ready() -> void:
 		if search.begins_with("?n="):
 			target = search.substr(3).to_int()
 	await get_tree().process_frame
+	# No newcomer windows: they pause the fight (a fresh save meets everyone).
+	for d: DefenderData in _battle.defender_catalog:
+		Game.first_meet(d.id)
+	for e: EnemyData in types:
+		Game.first_meet(e.id)
+	_battle._intros.clear()
+	_battle.defender_intro.visible = false
+	_battle.enemy_intro.visible = false
+	_battle._resume()
 	var args: PackedStringArray = OS.get_cmdline_user_args()
 	var em0: EnemyManager = _battle.enemies
 	for n: Node in em0.get_children():
