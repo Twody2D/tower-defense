@@ -185,10 +185,15 @@ func test_upgrade_pauses_between_levels() -> void:
 		if tower.level == 2:
 			break
 	assert_int(tower.level).is_equal(2)
-	# Level 2 done: no coins go into level 3 for a moment (time to step off).
-	await runner.simulate_frames(45, 16)
+	# Level 2 done: the start gate is back, next_level_delay long (frames run
+	# with a longer delta than 16 ms here, so the gate is checked, not frames).
+	assert_float(tower._on_time).is_less_equal(tower.start_delay - tower.next_level_delay + 0.1)
+	await runner.simulate_frames(3, 16)
 	assert_int(tower.level).is_equal(2)
 	assert_int(tower.paid).is_equal(0)
 	# Still standing: the next level starts.
-	await runner.simulate_frames(40, 16)
+	for i: int in 300:
+		await runner.simulate_frames(1, 16)
+		if tower.paid > 0 or tower.level == 3:
+			break
 	assert_bool(tower.paid > 0 or tower.level == 3).is_true()
