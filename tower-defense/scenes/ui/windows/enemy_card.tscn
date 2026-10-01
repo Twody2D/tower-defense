@@ -4,8 +4,8 @@
 
 [node name="EnemyCard" type="PanelContainer"]
 script = ExtResource("1_r")
-custom_minimum_size = Vector2(220, 250)
-theme_type_variation = &"Card"
+custom_minimum_size = Vector2(220, 240)
+theme_type_variation = &"CardHighlight"
 
 [node name="Box" type="VBoxContainer" parent="."]
 layout_mode = 2

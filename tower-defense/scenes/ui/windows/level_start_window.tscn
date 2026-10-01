@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/ui/window.tscn" id="1_r"]
 [ext_resource type="Script" path="res://scenes/ui/windows/level_start_window.gd" id="2_r"]
@@ -6,135 +6,289 @@
 [ext_resource type="Texture2D" path="res://art/ui/ui_icon_coin.png" id="4_r"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ad_button.tscn" id="5_r"]
 [ext_resource type="Texture2D" path="res://art/defenders/ui_def_portrait_goose.png" id="6_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_farm_grass_1.png" id="7_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_wheat_grass_1.png" id="8_r"]
+[ext_resource type="Texture2D" path="res://art/env/tile_lake_grass_1.png" id="9_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_star_full_64.png" id="10_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_star_empty_64.png" id="11_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_ribbon_boss.png" id="12_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_radial_slot.png" id="13_r"]
+[ext_resource type="Texture2D" path="res://art/ui/ui_check.png" id="14_r"]
 
 [node name="LevelStartWindow" instance=ExtResource("1_r")]
 script = ExtResource("2_r")
 portrait_width = 940.0
-landscape_width = 1500.0
+landscape_width = 1300.0
 enemy_card = ExtResource("3_r")
+zone_icons = Array[Texture2D]([ExtResource("7_r"), ExtResource("8_r"), ExtResource("9_r")])
+star_full = ExtResource("10_r")
+star_empty = ExtResource("11_r")
+ribbon_boss = ExtResource("12_r")
 
-[node name="Columns" type="BoxContainer" parent="Panel/Content"]
+[node name="ZoneRow" type="HBoxContainer" parent="Panel/Content"]
 layout_mode = 2
-theme_override_constants/separation = 40
-alignment = 1
 size_flags_horizontal = 4
-metadata/portrait_vertical = true
+theme_override_constants/separation = 12
 
-[node name="EnemiesBlock" type="VBoxContainer" parent="Panel/Content/Columns"]
+[node name="ZoneIcon" type="TextureRect" parent="Panel/Content/ZoneRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ZoneName" type="Label" parent="Panel/Content/ZoneRow"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 34
+text = "ZONE_FARM"
+vertical_alignment = 1
 
-[node name="Title" type="Label" parent="Panel/Content/Columns/EnemiesBlock"]
+[node name="Stars" type="HBoxContainer" parent="Panel/Content/ZoneRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Star1" type="TextureRect" parent="Panel/Content/ZoneRow/Stars"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("11_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="Panel/Content/ZoneRow/Stars"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("11_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="Panel/Content/ZoneRow/Stars"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("11_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnemiesBlock" type="VBoxContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/Content/EnemiesBlock"]
 layout_mode = 2
 theme_type_variation = &"LabelDark"
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 text = "LBL_NEW_ENEMIES"
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyCards" type="HBoxContainer" parent="Panel/Content/Columns/EnemiesBlock"]
-layout_mode = 2
-theme_override_constants/separation = 40
-alignment = 1
+[node name="EnemyCards" type="HBoxContainer" parent="Panel/Content/EnemiesBlock"]
 unique_name_in_owner = true
-
-[node name="BoostsBlock" type="VBoxContainer" parent="Panel/Content/Columns"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Title" type="Label" parent="Panel/Content/Columns/BoostsBlock"]
-layout_mode = 2
-theme_type_variation = &"LabelDark"
-theme_override_font_sizes/font_size = 36
-text = "LBL_BOOSTS"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Boosts" type="HBoxContainer" parent="Panel/Content/Columns/BoostsBlock"]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="CoinsCard" type="PanelContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts"]
+[node name="BossCard" type="PanelContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-custom_minimum_size = Vector2(380, 380)
-size_flags_horizontal = 4
 theme_type_variation = &"Card"
 
-[node name="Box" type="VBoxContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard"]
+[node name="Row" type="HBoxContainer" parent="Panel/Content/BossCard"]
 layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
+theme_override_constants/separation = 28
 
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box"]
+[node name="Slot" type="TextureRect" parent="Panel/Content/BossCard/Row"]
+custom_minimum_size = Vector2(210, 210)
 layout_mode = 2
-custom_minimum_size = Vector2(128, 128)
-size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("13_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BossPortrait" type="TextureRect" parent="Panel/Content/BossCard/Row/Slot"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 180.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Panel/Content/BossCard/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+
+[node name="Badge" type="NinePatchRect" parent="Panel/Content/BossCard/Row/Info"]
+custom_minimum_size = Vector2(260, 66)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("12_r")
+patch_margin_left = 104
+patch_margin_right = 104
+
+[node name="Text" type="Label" parent="Panel/Content/BossCard/Row/Info/Badge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 38
+text = "LBL_BOSS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BossName" type="Label" parent="Panel/Content/BossCard/Row/Info"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelDark"
+theme_override_font_sizes/font_size = 46
+text = "ENEMY_FOX"
+
+[node name="BossHint" type="Label" parent="Panel/Content/BossCard/Row/Info"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 28
+text = "HINT_FOX"
+autowrap_mode = 3
+
+[node name="NoEnemies" type="PanelContainer" parent="Panel/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_type_variation = &"Card"
+
+[node name="Row" type="HBoxContainer" parent="Panel/Content/NoEnemies"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Check" type="TextureRect" parent="Panel/Content/NoEnemies/Row"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("14_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Panel/Content/NoEnemies/Row"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 32
+text = "LBL_NO_NEW_ENEMIES"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BoostsTitle" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_type_variation = &"LabelSmall"
+theme_override_font_sizes/font_size = 28
+text = "LBL_BOOSTS"
+vertical_alignment = 1
+
+[node name="Boosts" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="CoinsCard" type="PanelContainer" parent="Panel/Content/Boosts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"CardTight"
+
+[node name="Row" type="HBoxContainer" parent="Panel/Content/Boosts/CoinsCard"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Icon" type="TextureRect" parent="Panel/Content/Boosts/CoinsCard/Row"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("4_r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CoinsLabel" type="Label" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box"]
+[node name="CoinsLabel" type="Label" parent="Panel/Content/Boosts/CoinsCard/Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"LabelDark"
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
 text = "+30"
-horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="CoinsAd" parent="Panel/Content/Columns/BoostsBlock/Boosts/CoinsCard/Box" instance=ExtResource("5_r")]
+[node name="CoinsAd" parent="Panel/Content/Boosts/CoinsCard/Row" instance=ExtResource("5_r")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 80)
 layout_mode = 2
-custom_minimum_size = Vector2(280, 112)
-size_flags_horizontal = 4
-text = "BTN_TAKE"
+size_flags_vertical = 4
+small = true
+text = ""
 
-[node name="DefenderCard" type="PanelContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts"]
+[node name="DefenderCard" type="PanelContainer" parent="Panel/Content/Boosts"]
 layout_mode = 2
-custom_minimum_size = Vector2(380, 380)
-size_flags_horizontal = 4
-theme_type_variation = &"Card"
+size_flags_horizontal = 3
+theme_type_variation = &"CardTight"
 
-[node name="Box" type="VBoxContainer" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard"]
+[node name="Row" type="HBoxContainer" parent="Panel/Content/Boosts/DefenderCard"]
 layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
+theme_override_constants/separation = 12
 
-[node name="Icon" type="TextureRect" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box"]
+[node name="Icon" type="TextureRect" parent="Panel/Content/Boosts/DefenderCard/Row"]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-custom_minimum_size = Vector2(128, 128)
-size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6_r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box"]
+[node name="Label" type="Label" parent="Panel/Content/Boosts/DefenderCard/Row"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"LabelDark"
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
 text = "BOOST_DEFENDER"
-horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
-[node name="DefenderAd" parent="Panel/Content/Columns/BoostsBlock/Boosts/DefenderCard/Box" instance=ExtResource("5_r")]
+[node name="DefenderAd" parent="Panel/Content/Boosts/DefenderCard/Row" instance=ExtResource("5_r")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 80)
 layout_mode = 2
-custom_minimum_size = Vector2(280, 112)
-size_flags_horizontal = 4
-text = "BTN_TAKE"
+size_flags_vertical = 4
+small = true
+text = ""
 
 [node name="Fight" type="Button" parent="Panel/Content"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(760, 190)
 layout_mode = 2
-custom_minimum_size = Vector2(520, 112)
 size_flags_horizontal = 4
 focus_mode = 0
+theme_override_font_sizes/font_size = 88
 text = "BTN_FIGHT"
-theme_override_font_sizes/font_size = 50

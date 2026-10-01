@@ -1,7 +1,8 @@
 extends SceneTree
 ## Screenshots of every window over the battle, for a visual check.
 ## "$G" --path . --resolution 1280x720 -s res://dev/windows_demo.gd -- <out_dir> [names]
-## `names`: comma-separated subset of NAMES (default: all). DEMO_LOCALE=en for English.
+## `names`: comma-separated subset of NAMES (default: all). DEMO_LOCALE=en for English,
+## DEMO_LEVEL=5 for the level start window of level 5.
 ## Class names that touch autoloads are not used here (see godot-web-game):
 ## windows are driven through call().
 
@@ -76,6 +77,9 @@ func _show(step: int) -> void:
 		# Shop like the mockup: grains, some upgrades, a bought skin, ad views.
 		var game: Node = root.get_node("Game")
 		game.set("grains", 1240)
+		# DEMO_LEVEL=5: the level start window of that level (the battle is level 1).
+		if OS.get_environment("DEMO_LEVEL") != "":
+			game.set("current_level", OS.get_environment("DEMO_LEVEL").to_int())
 		var levels: Dictionary = game.get("stat_levels")
 		levels[&"damage"] = 4
 		levels[&"attack_speed"] = 2

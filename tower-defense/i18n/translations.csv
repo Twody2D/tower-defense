@@ -50,6 +50,11 @@ CONFIRM_TO_MAP,Выйти на карту? Прогресс уровня про�
 CONFIRM_RESTART,Начать уровень заново?,Start the level over?
 LBL_NEW_ENEMIES,Новые враги,New pests
 LBL_BOOSTS,Усиления за рекламу,Boosts for an ad
+LBL_NO_NEW_ENEMIES,Новых врагов нет — только знакомые!,No new pests — only old friends!
+LBL_BOSS,Босс!,Boss!
+ZONE_FARM,Огород,Garden
+ZONE_WHEAT,Поле,Field
+ZONE_LAKE,Озеро,Lake
 BOOST_COINS,+%d монет,+%d coins
 BOOST_DEFENDER,Стартовый защитник,Starting defender
 LBL_REWARD,Награда,Reward
